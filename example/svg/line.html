@@ -5,6 +5,13 @@
     <script src="http://g.alicdn.com/kissy/k/5.0.1/seed-debug.js"></script>
 </head>
 <body>
-<script  src="line.js"></script>
+<script>
+    require.config('packages',{
+       svg:{
+           base:'./'
+       }
+    });
+    require(['svg/init']);
+</script>
 </body>
 </html>
