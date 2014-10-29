@@ -42,12 +42,12 @@ module.exports = React.createClass({
         var end;
         if (this.state.pos > 0.99) {
             end = <circle cx={this.props.end.x} cy={this.props.end.y} r="10" stroke="black"
-            stroke-width="5" fill="red"/>;
+            strokeWidth="5" fill="red"/>;
         }
         return (
             <svg width="400" height="400">
                 <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
-                strokeWidth="2" fill="red"/>
+                strokeWidth="5" fill="red"/>
                 {end}
                 <path d={this.state.path}
                 stroke="red"
