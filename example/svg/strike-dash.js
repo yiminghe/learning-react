@@ -28,7 +28,6 @@ module.exports = React.createClass({
             style: style
         });
         setTimeout(function () {
-            self.refs.path.getDOMNode().getBoundingClientRect();
             // Define our transition
             // ie11 not working...
             style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'stroke-dashoffset ' + duration + 's ease-in-out';
@@ -63,7 +62,7 @@ module.exports = React.createClass({
         // https://github.com/facebook/react/issues/2187
         return (
             <div>
-                <div dangerouslySetInnerHTML={{__html: x}}></div>
+                <h2 dangerouslySetInnerHTML={{__html: x}}></h2>
                 <svg width="400" height="400">
                     <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
                     strokeWidth="5" fill="red"/>
