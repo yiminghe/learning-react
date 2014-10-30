@@ -22,7 +22,7 @@ module.exports = React.createClass({
             y: end.y
         }, {
             easing: "swing",
-            duration: 5,
+            duration: this.props.duration,
             frame: function (anim, fx) {
                 current[fx.prop] = fx.val;
                 var path = 'M' + start.x + ' ' + start.y + ' L' + current.x + ' ' + current.y;
@@ -44,7 +44,10 @@ module.exports = React.createClass({
             end = <circle cx={this.props.end.x} cy={this.props.end.y} r="10" stroke="black"
             strokeWidth="5" fill="red"/>;
         }
+        var x = 'js anim';
         return (
+            <div>
+                <div dangerouslySetInnerHTML={{__html: x}}></div>
             <svg width="400" height="400">
                 <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
                 strokeWidth="5" fill="red"/>
@@ -54,6 +57,7 @@ module.exports = React.createClass({
                 strokeWidth="2"
                 ></path>
             </svg>
+                </div>
             );
     }
 
