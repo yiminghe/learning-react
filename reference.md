@@ -4,6 +4,8 @@ https://github.com/yiminghe/learning-react
 
 * official site: http://facebook.github.io/react/
 
+* A collection of awesome React libraries, resources and shiny things: https://github.com/enaqx/awesome-react
+
 * share react component on browser and server:  https://github.com/mhart/react-server-example
 
 * diff algorithm: http://calendar.perfplanet.com/2013/diff/
