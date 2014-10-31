@@ -41,6 +41,7 @@ Create package.json at the root of your project directory
     "koa-serve-index": "^1.0.1",
     "koa-static": "^1.4.7",
     "react": "^0.12.0",
+    "kissy": "~5.0.1",
     "react-tools": "^0.12.0"
   },
   "scripts": {
@@ -96,7 +97,7 @@ For example: example/test.html
 <html>
 <head>
     <script src="/node_modules/react/dist/react.js"></script>
-    <script src="http://g.alicdn.com/kissy/k/5.0.1/modulex-debug.js"></script>
+    <script src="/node_modules/kissy/build/modulex-debug.js"></script>
 </head>
 <body>
 <script>

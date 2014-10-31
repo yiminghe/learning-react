@@ -2,14 +2,14 @@
 <html>
 <head>
     <script src="/node_modules/react/dist/react.js"></script>
-    <script src="http://g.alicdn.com/kissy/k/5.0.1/seed-debug.js"></script>
+    <script src="/node_modules/kissy/build/seed-debug.js"></script>
 </head>
 <body>
 <script>
-    require.config('packages',{
-       svg:{
-           base:'./'
-       }
+    require.config('packages', {
+        svg: {
+            base: './'
+        }
     });
     require(['svg/init']);
 </script>
