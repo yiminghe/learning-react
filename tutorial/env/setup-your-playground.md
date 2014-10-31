@@ -112,17 +112,26 @@ For example: example/test.html
 ```
 
 ### js file
+For example: example/hello.js
+
+```javascript
+/** @jsx React.DOM */
+
+module.exports = React.createClass({
+    render:function(){
+        return (<div>Hello React</div>);
+    }
+});
+```
+
 For example: example/init.js
 
 ```javascript
 /** @jsx React.DOM */
 
-// var dep = require('./dep'); // require other modules
-module.exports = React.createClass({
-    render:function(){
-        return <div>Hello React</div>;
-    }
-});
+var Hello = require('./hello');
+
+React.render(<Hello />,document.body);
 ```
 
 Note: the first line must start with ``/** @jsx React.DOM */``
