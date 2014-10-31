@@ -34,7 +34,7 @@ module.exports = React.createClass({
         }).run();
     },
 
-    componentUnMount: function () {
+    componentWillUnmount: function () {
         this.anim.stop();
     },
 
