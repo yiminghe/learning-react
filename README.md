@@ -13,11 +13,11 @@ open  http://localhost:8000/example/index.html
 
 ## examples
 
-https://github.com/yiminghe/learning-react/blob/master/example/
+https://github.com/yiminghe/learning-react/blob/master/example/index.html
 
 ## tutorials
 
-https://github.com/yiminghe/learning-react/blob/master/tutorial/
+https://github.com/yiminghe/learning-react/blob/master/tutorial/index.md
 
 ## reference
 
