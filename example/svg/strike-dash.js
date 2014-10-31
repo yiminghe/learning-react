@@ -26,8 +26,9 @@ module.exports = React.createClass({
         style.strokeDashoffset = length;
         this.setState({
             style: style
-        });
-        setTimeout(function () {
+        },function () {
+            // force repaint
+            self.refs.path.getDOMNode().getBoundingClientRect();
             // Define our transition
             // ie11 not working...
             style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'stroke-dashoffset ' + duration + 's ease-in-out';
@@ -36,7 +37,7 @@ module.exports = React.createClass({
             self.setState({
                 style: style
             });
-        }, 0);
+        });
 
         setTimeout(function () {
             self.setState({
