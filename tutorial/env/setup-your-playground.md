@@ -4,6 +4,7 @@ In this article, i will introduce a playground environment where you can test fo
 
 ## dependent tools
 
+* [nodejs](http://nodejs.org/) - server side javascript runtime
 * [koa](https://github.com/koajs/koa) - a nodejs web framework
 * [koa-jsx](https://www.npmjs.org/package/koa-jsx) - koa middleware for transforming jsx of react
 * [koa-modularize](https://www.npmjs.org/package/koa-modularize) - koa middleware for transforming commonjs file into browser module format
@@ -52,6 +53,8 @@ Then run ``npm install`` at the root of your project directory.
 
 ## author your server.js
 
+Create server.js at the root of your project directory
+
 ```javascript
 var koa = require('koa');
 var serve = require('koa-static');
@@ -82,7 +85,7 @@ console.log('server start at ' + 8000);
 
 ## author your demo
 
-Place your demo html and javascript files into ``example`` folder.
+Place your demo html and commonjs javascript module files into ``example`` folder.
 
 
 ### html file
@@ -112,6 +115,9 @@ For example: example/test.html
 For example: example/init.js
 
 ```javascript
+/** @jsx React.DOM */
+
+// var dep = require('./dep'); // require other modules
 module.exports = React.createClass({
     render:function(){
         return <div>Hello React</div>;
@@ -119,8 +125,11 @@ module.exports = React.createClass({
 });
 ```
 
+Note: the first line must start with ``/** @jsx React.DOM */``
+
 ## run demo
 
-First run ``npm start`` at the root of your project folder, then open http://localhost:8000/example/test.html with your browser.
+First run ``npm start`` at the root of your project folder,
+then open [http://localhost:8000/example/test.html](http://localhost:8000/example/test.html) with your browser.
 
-Well done! You will see ``Hello React`` on the browser, you can make fun of react now!
+Well done! You will see ``Hello React`` on the browser, finally you can modify ``init.js`` and make fun of react now!
