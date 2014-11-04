@@ -9,6 +9,7 @@ The demo is at https://github.com/yiminghe/learning-react/tree/master/example/re
 ## dependent tools
 
 * [nodejs](http://nodejs.org/) - server side javascript runtime
+* [modulex](https://github.com/kissyteam/modulex) - browser side loader library
 * [koa](https://github.com/koajs/koa) - a nodejs web framework
 * [koa-jsx](https://www.npmjs.org/package/koa-jsx) - koa middleware for transforming jsx of react
 * [koa-modularize](https://www.npmjs.org/package/koa-modularize) - koa middleware for transforming commonjs file into browser module format
@@ -17,6 +18,7 @@ The demo is at https://github.com/yiminghe/learning-react/tree/master/example/re
 * [gulp](https://github.com/gulpjs/gulp) - The streaming build system
 * [react](https://www.npmjs.org/package/react) - ui library from facebook
 * [react-tools](https://www.npmjs.org/package/react-tools) - provide api to transform JSX into vanilla JS
+* [modulex-npm](https://github.com/yiminghe/modulex-npm) - generate config file to use npm modules with modulex
 
 ## using modulex
 
