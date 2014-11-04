@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/node_modules/react/dist/react-with-addons.js"></script>
-    <script src="/node_modules/kissy/build/seed-debug.js"></script>
+    <script src="/bower_components/modulex/build/modulex-debug.js"></script>
     <style>
         .example-enter {
             opacity: 0.01;
@@ -25,12 +24,26 @@
 </head>
 <body>
 <script>
+    window.process = {
+        env: {
+
+        }
+    };
+    require.config('alias', {
+        react: 'react/addons'
+    });
     require.config('packages', {
+        react: {
+            base: '/node_modules/react/'
+        },
         test: {
             base: './'
         }
     });
-    require(['test/init']);
+    require(['test/init'], {success: function () {
+    }, error: function () {
+        console.log(arguments);
+    }});
 </script>
 </body>
 </html>

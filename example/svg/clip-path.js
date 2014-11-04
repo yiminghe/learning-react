@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 module.exports = React.createClass({
     getInitialState: function () {
         var start = this.props.start;

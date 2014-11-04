@@ -18,6 +18,7 @@ app.use(jsx(cwd, {
 var modularize = require('koa-modularize');
 var mount=require('koa-mount');
 app.use(mount('/example',modularize(path.resolve(cwd,'example'))));
+app.use(mount('/node_modules',modularize(path.resolve(cwd,'node_modules'))));
 app.use(serve(cwd, {
     hidden: true
 }));

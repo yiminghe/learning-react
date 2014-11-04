@@ -6,6 +6,8 @@ materials about learning react
 
 ```
 npm install
+bower install
+node build
 npm start
 ```
 

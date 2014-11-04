@@ -14,6 +14,10 @@ https://github.com/yiminghe/learning-react
 
 * react core author: http://www.petehunt.net/
 
+## web app
+
+* router solution: https://github.com/rackt/react-router/
+
 ## data visualization
 
 * react and vector graphics: https://github.com/reactjs/react-art

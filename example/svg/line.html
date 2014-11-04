@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/node_modules/react/dist/react.js"></script>
-    <script src="/node_modules/kissy/build/seed-debug.js"></script>
+    <script src="/mx_modules/seed-debug.js"></script>
 </head>
 <body>
 <script>
+    window.process = {
+        env: {
+
+        }
+    };
+    require.config('alias', {
+        react: 'react/react'
+    });
     require.config('packages', {
+        react: {
+            base: '/node_modules/react'
+        },
         svg: {
             base: './'
         }
