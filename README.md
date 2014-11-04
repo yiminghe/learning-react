@@ -24,3 +24,8 @@ https://github.com/yiminghe/learning-react/blob/master/tutorial/index.md
 ## reference
 
 https://github.com/yiminghe/learning-react/blob/master/reference.md
+
+
+## License
+
+Sample codes and articles is released under the MIT license.
