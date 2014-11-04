@@ -15,6 +15,7 @@
         "koa"
     ],
     "devDependencies": {
-        "modulex": "*"
+        "modulex": "*",
+        "modulex-anim": "*"
     }
 }
