@@ -158,7 +158,7 @@ For example example/demo.html:
 ```
 
 pay attention to ``<script src="/config.js"></script>``,
-we need this statement to transform npm modules for modulex to load in browser.
+we need this statement to load npm modules into browser by modulex.
 
 And example/init.js
 
