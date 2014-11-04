@@ -7,7 +7,7 @@ materials about learning react
 ```
 npm install
 bower install
-node build
+gulp build
 npm start
 ```
 

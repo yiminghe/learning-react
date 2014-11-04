@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/mx_modules/seed-debug.js"></script>
+    <script src="/bower_components/modulex/build/modulex-debug.js"></script>
 </head>
 <body>
 <script src="/config.js"></script>
@@ -12,11 +12,11 @@
         }
     };
     require.config('packages', {
-        svg: {
+        test: {
             base: './'
         }
     });
-    require(['svg/init']);
+    require(['test/init']);
 </script>
 </body>
 </html>

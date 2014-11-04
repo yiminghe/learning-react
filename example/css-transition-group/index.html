@@ -23,6 +23,7 @@
     </style>
 </head>
 <body>
+<script src="/config.js"></script>
 <script>
     window.process = {
         env: {
@@ -33,9 +34,6 @@
         react: 'react/addons'
     });
     require.config('packages', {
-        react: {
-            base: '/node_modules/react/'
-        },
         test: {
             base: './'
         }

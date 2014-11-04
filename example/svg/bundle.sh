@@ -1,1 +1,0 @@
-browserify -t reactify init-bundle.js > ../../example-bundle/svg/init-bundle.js
