@@ -100,7 +100,7 @@ app.listen(8000);
 console.log('server start at ' + 8000);
 ```
 
-pay attention to ```app.use(mount('/node_modules',modularize(path.resolve(cwd,'node_modules'))));``,
+pay attention to ```app.use(mount('/node_modules', modularize(path.resolve(cwd,'node_modules'))));``,
 we need this statement to transform npm modules for modulex to load in browser.
 
 
@@ -156,6 +156,9 @@ For example example/demo.html:
 </body>
 </html>
 ```
+
+pay attention to ``<script src="/config.js"></script>``,
+we need this statement to transform npm modules for modulex to load in browser.
 
 And example/init.js
 
@@ -266,4 +269,4 @@ Run ``gulp bundle`` first and then open [http://localhost:8000/example/demo-bund
 
 ### The End
 
-This is it! Finally you can use browser loader library for quick development and use browserify on production.
+This is it! Congratulation, you can use browser loader library for quick development and use browserify on production.

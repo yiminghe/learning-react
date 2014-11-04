@@ -158,6 +158,8 @@ For example example/demo.html:
 </html>
 ```
 
+注意通过 ``<script src="/config.js"></script>``，我们将引入生成的配置文件.
+
 And example/init.js
 
 ```javascript
@@ -224,6 +226,8 @@ React.renderComponent(
     document.body
 );
 ```
+
+注意源码为 ``commonjs`` 格式
 
 ## run
 
