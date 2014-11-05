@@ -247,8 +247,17 @@ npm start # start local server
 添加 bundle 任务
 
 ```javascript
+var gulp = require('gulp');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 gulp.task('bundle', function () {
-    require('child_process').exec('browserify -t reactify example/init.js > example-bundle/init.js');
+    return browserify(['./init.js'])
+        .transform(require('reactify'))
+        .bundle()
+        //Pass desired output filename to vinyl-source-stream
+        .pipe(source('init.js'))
+        // Start piping stream to tasks!
+        .pipe(gulp.dest('../../example-bundle/react-router/'));
 });
 ```
 

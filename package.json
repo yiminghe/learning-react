@@ -1,36 +1,40 @@
 {
-  "name": "learning-react",
-  "version": "1.0.0",
-  "author": "yiminghe <yiminghe@gmail.com>",
-  "engines": {
-    "node": ">=0.11"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/yiminghe/learning-react.git"
-  },
-  "keywords": [
-    "react",
-    "jsx",
-    "koa"
-  ],
-  "devDependencies": {
-    "aggregate-bower": "~1.0.10",
-    "gulp": "^3.8.10",
-    "koa": "^0.13.0",
-    "koa-jsx": "^1.0.0",
-    "koa-modularize": "^1.0.0",
-    "koa-mount": "^1.3.0",
-    "koa-serve-index": "^1.0.1",
-    "koa-static": "^1.4.7",
-    "modulex-npm": "^1.0.4",
-    "react": "^0.12.0",
-    "react-router": "^0.10.2",
-    "react-tools": "^0.12.0",
-    "reactify": "~0.15.2"
-  },
-  "scripts": {
-    "start": "node --harmony server"
-  }
+    "name": "learning-react",
+    "version": "1.0.0",
+    "author": "yiminghe <yiminghe@gmail.com>",
+    "engines": {
+        "node": ">=0.11"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/yiminghe/learning-react.git"
+    },
+    "keywords": [
+        "react",
+        "jsx",
+        "koa"
+    ],
+    "devDependencies": {
+        "aggregate-bower": "~1.0.10",
+        "browserify": "^6.2.0",
+        "gulp": "^3.8.10",
+        "koa": "^0.13.0",
+        "koa-jsx": "^1.0.0",
+        "koa-modularize": "^1.0.0",
+        "koa-mount": "^1.3.0",
+        "koa-serve-index": "^1.0.1",
+        "koa-static": "^1.4.7",
+        "modulex-npm": "^1.0.4",
+        "react-tools": "^0.12.0",
+        "reactify": "~0.15.2",
+        "vinyl-source-stream": "^1.0.0"
+    },
+    "dependencies": {
+        "react": "^0.12.0",
+        "react-router": "^0.10.2"
+    },
+    "scripts": {
+        "start": "node --harmony server"
+    }
 }
