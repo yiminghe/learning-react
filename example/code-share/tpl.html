@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/bower_components/modulex/build/modulex-debug.js"></script>
+</head>
+<body>
+{content}
+<script src="/config.js"></script>
+<script>
+    window.process = {
+        env: {
+
+        }
+    };
+    require.config('packages', {
+        test: {
+            base: './'
+        }
+    });
+    require(['test/init'],function(init){
+        init({count})
+    });
+</script>
+</body>
+</html>
