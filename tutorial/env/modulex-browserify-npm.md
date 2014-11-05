@@ -270,3 +270,4 @@ Run ``gulp bundle`` first and then open [http://localhost:8000/example/demo-bund
 ### The End
 
 This is it! Congratulation, you can use browser loader library for quick development and use browserify on production.
+The last and most important thing: you can also share code between server and client easily.
