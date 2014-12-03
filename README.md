@@ -25,7 +25,7 @@ https://github.com/yiminghe/learning-react/blob/master/reference.md
 
 ## Our components based on React
 
-* [https://github.com/react-component](https://github.com/react-component)
+[https://github.com/react-component](https://github.com/react-component)
 
 ## License
 
