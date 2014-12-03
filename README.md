@@ -5,7 +5,9 @@ materials about learning react
 ## Run
 
 ```
+npm install gulp -g
 npm install
+gulp config
 npm start
 ```
 
