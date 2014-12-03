@@ -40,6 +40,7 @@
   },
   "browserify-shim": {
     "react-router": "global:ReactRouter",
+    "jquery": "global:jQuery",
     "react": "global:React"
   },
   "scripts": {
