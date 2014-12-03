@@ -18,6 +18,8 @@
   "devDependencies": {
     "aggregate-bower": "~1.0.10",
     "browserify": "^6.2.0",
+    "browserify-jsx": "^1.0.0",
+    "browserify-shim": "^3.8.0",
     "gulp": "^3.8.10",
     "koa": "^0.13.0",
     "koa-jsx": "^1.0.0",
@@ -29,12 +31,15 @@
     "modulex-npm": "^1.0.4",
     "node-jsx": "^0.12.0",
     "react-tools": "^0.12.0",
-    "reactify": "~0.15.2",
     "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {
     "react": "^0.12.0",
     "react-router": "^0.10.2"
+  },
+  "browserify-shim": {
+    "react-router": "global:ReactRouter",
+    "react": "global:React"
   },
   "scripts": {
     "start": "node --harmony server"
