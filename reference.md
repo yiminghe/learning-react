@@ -23,3 +23,7 @@ https://github.com/yiminghe/learning-react
 * react and vector graphics: https://github.com/reactjs/react-art
 
 * react and d3: http://nicolashery.com/integrating-d3js-visualizations-in-a-react-app/
+
+## Our components based on React
+
+* [https://github.com/react-component](https://github.com/react-component)

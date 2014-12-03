@@ -16,7 +16,6 @@
     "koa"
   ],
   "devDependencies": {
-    "aggregate-bower": "~1.0.10",
     "browserify": "^6.2.0",
     "browserify-jsx": "^1.0.0",
     "browserify-shim": "^3.8.0",
@@ -34,6 +33,8 @@
     "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {
+    "jquery": "^2.1.1",
+    "modulex": "^1.7.0",
     "react": "^0.12.0",
     "react-router": "^0.10.2"
   },
