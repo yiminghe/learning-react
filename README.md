@@ -2,7 +2,7 @@
 
 materials about learning react
 
-## run
+## Run
 
 ```
 npm install
@@ -11,15 +11,15 @@ npm start
 
 open  [http://localhost:8000/example/index.html](http://localhost:8000/example/index.html)
 
-## examples
+## Examples
 
 https://github.com/yiminghe/learning-react/blob/master/example/index.html
 
-## tutorials
+## Tutorials
 
 https://github.com/yiminghe/learning-react/blob/master/tutorial/index.md
 
-## reference
+## Reference
 
 https://github.com/yiminghe/learning-react/blob/master/reference.md
 
