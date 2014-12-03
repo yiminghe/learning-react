@@ -14,5 +14,5 @@ gulp.task('build', function () {
 gulp.task('config', function () {
     var modulexNpm = require('modulex-npm');
     var config = modulexNpm.generateConfig(['react', 'react-router','jquery']);
-    fs.writeFileSync(path.join(cwd, 'config.js'), 'require.config(' + JSON.stringify(config) + ');');
+    fs.writeFileSync(path.join(cwd, 'config.js'), 'require.config(' + JSON.stringify(config,null,4) + ');');
 });
