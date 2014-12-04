@@ -5,19 +5,13 @@
     <script src="/node_modules/modulex/build/modulex-debug.js?nowrap"></script>
 </head>
 <body>
-<script src="/config.js"></script>
 <script>
     window.process = {
         env: {
 
         }
     };
-    require.config('packages', {
-        svg: {
-            base: './'
-        }
-    });
-    require(['svg/init']);
+    require(['./init']);
 </script>
 </body>
 </html>

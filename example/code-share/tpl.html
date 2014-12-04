@@ -6,19 +6,13 @@
 </head>
 <body>
 {content}
-<script src="/config.js"></script>
 <script>
     window.process = {
         env: {
 
         }
     };
-    require.config('packages', {
-        test: {
-            base: './'
-        }
-    });
-    require(['test/init'],function(init){
+    require(['./init'],function(init){
         init({count})
     });
 </script>

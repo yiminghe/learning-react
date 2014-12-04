@@ -24,19 +24,13 @@
     </style>
 </head>
 <body>
-<script src="/config.js"></script>
 <script>
     window.process = {
         env: {
 
         }
     };
-    require.config('packages', {
-        test: {
-            base: './'
-        }
-    });
-    require(['test/init'], {success: function () {
+    require(['./init'], {success: function () {
     }, error: function () {
         console.log(arguments);
     }});
