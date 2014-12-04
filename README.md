@@ -7,7 +7,6 @@ materials about learning react
 ```
 npm install gulp -g
 npm install
-gulp config
 npm start
 ```
 

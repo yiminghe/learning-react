@@ -45,6 +45,8 @@
     "react": "global:React"
   },
   "scripts": {
-    "start": "node --harmony server"
+    "start": "node --harmony server",
+    "install": "gulp config",
+    "update": "gulp config"
   }
 }
