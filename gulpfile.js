@@ -9,6 +9,6 @@ gulp.task('config', function () {
     fs.writeFileSync(qsIndex, "/*modified*/module.exports = require('./lib/');");
   }
   var modulexNpm = require('modulex-npm');
-  var config = modulexNpm.generateConfig(['react', 'react-router', 'jquery']);
+  var config = modulexNpm.generateConfig(['react', 'react-router', 'jquery', 'flux', 'events','object.assign']);
   fs.writeFileSync(path.join(cwd, 'config.js'), 'require.config(' + JSON.stringify(config, null, 4) + ');');
 });
