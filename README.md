@@ -5,7 +5,6 @@ materials about learning react
 ## Run
 
 ```
-npm install gulp -g
 npm install
 npm start
 ```
@@ -30,4 +29,4 @@ https://github.com/yiminghe/learning-react/blob/master/reference.md
 
 ## License
 
-Sample codes and articles is released under the MIT license.
+Sample codes and articles are released under the MIT license.
