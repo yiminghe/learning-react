@@ -18,7 +18,6 @@ The demo is at https://github.com/yiminghe/learning-react/tree/master/example/re
 * [gulp](https://github.com/gulpjs/gulp) - The streaming build system
 * [react](https://www.npmjs.org/package/react) - ui library from facebook
 * [react-tools](https://www.npmjs.org/package/react-tools) - provide api to transform JSX into vanilla JS
-* [modulex-npm](https://github.com/yiminghe/modulex-npm) - generate config file to use npm modules with modulex
 
 ## using modulex
 
@@ -54,7 +53,6 @@ For example:
     "koa-mount": "^1.3.0",
     "koa-serve-index": "^1.0.1",
     "koa-static": "^1.4.7",
-    "modulex-npm": "^1.0.4",
     "react": "^0.12.0",
     "react-router": "^0.10.2",
     "react-tools": "^0.12.0",
@@ -92,7 +90,7 @@ app.use(jsx(cwd, {
 var modularize = require('koa-modularize');
 var mount=require('koa-mount');
 app.use(mount('/example',modularize(path.resolve(cwd,'example'))));
-app.use(mount('/node_modules',modularize(path.resolve(cwd,'node_modules'))));
+app.use(modularize());
 app.use(serve(cwd, {
     hidden: true
 }));
@@ -100,33 +98,9 @@ app.listen(8000);
 console.log('server start at ' + 8000);
 ```
 
-pay attention to ```app.use(mount('/node_modules', modularize(path.resolve(cwd,'node_modules'))));``,
+pay attention to ```app.use(modularize());``,
 we need this statement to transform npm modules for modulex to load in browser.
 
-
-### create gulpfile.js
-
-We will use gulp as our build system.
-
-```javascript
-var gulp = require('gulp');
-var fs = require('fs');
-var path = require('path');
-var cwd = process.cwd();
-gulp.task('config', function () {
-    // https://github.com/hapijs/qs/pull/58
-    var qsIndex = path.resolve(cwd, 'node_modules/react-router/node_modules/qs/index.js');
-    if (fs.existsSync(qsIndex)) {
-        fs.writeFileSync(qsIndex, "/*modified*/module.exports = require('./lib/');");
-    }
-    var modulexNpm = require('modulex-npm');
-    var config = modulexNpm.generateConfig(['react', 'react-router']);
-    fs.writeFileSync(path.join(cwd, 'config.js'), 'require.config(' + JSON.stringify(config) + ');');
-});
-```
-
-pay attention to ``var config = modulexNpm.generateConfig(['react', 'react-router']);``,
-we will generate config file for modulex to load npm packages in browser.
 
 ### create application demo
 
@@ -139,26 +113,17 @@ For example example/demo.html:
     <script src="/bower_components/modulex/build/modulex-debug.js"></script>
 </head>
 <body>
-<script src="/config.js"></script>
 <script>
     window.process = {
         env: {
 
         }
     };
-    require.config('packages', {
-        test: {
-            base: './'
-        }
-    });
-    require(['test/init']);
+    require(['./init']);
 </script>
 </body>
 </html>
 ```
-
-pay attention to ``<script src="/config.js"></script>``,
-we need this statement to load npm modules into browser by modulex.
 
 And example/init.js
 
@@ -233,7 +198,6 @@ Run the following command first
 ```
 bower install modulex  # install a browser loader library
 npm install # install npm modules
-gulp config
 npm start # start local server
 ```
 

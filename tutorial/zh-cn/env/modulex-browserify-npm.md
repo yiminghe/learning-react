@@ -19,7 +19,6 @@ demo 在 https://github.com/yiminghe/learning-react/tree/master/example/react-ro
 * [gulp](https://github.com/gulpjs/gulp) - The streaming build system
 * [react](https://www.npmjs.org/package/react) - ui library from facebook
 * [react-tools](https://www.npmjs.org/package/react-tools) - provide api to transform JSX into vanilla JS
-* [modulex-npm](https://github.com/yiminghe/modulex-npm) - generate config file to use npm modules with modulex
 
 ## using modulex
 
@@ -55,7 +54,6 @@ For example:
     "koa-mount": "^1.3.0",
     "koa-serve-index": "^1.0.1",
     "koa-static": "^1.4.7",
-    "modulex-npm": "^1.0.4",
     "react": "^0.12.0",
     "react-router": "^0.10.2",
     "react-tools": "^0.12.0",
@@ -93,7 +91,7 @@ app.use(jsx(cwd, {
 var modularize = require('koa-modularize');
 var mount=require('koa-mount');
 app.use(mount('/example',modularize(path.resolve(cwd,'example'))));
-app.use(mount('/node_modules',modularize(path.resolve(cwd,'node_modules'))));
+app.use(modularize());
 app.use(serve(cwd, {
     hidden: true
 }));
@@ -101,33 +99,9 @@ app.listen(8000);
 console.log('server start at ' + 8000);
 ```
 
-注意 ```app.use(mount('/node_modules',modularize(path.resolve(cwd,'node_modules'))));``,
-这句话将转化 node_modules 下的 commonjs 模块的代码为 modulex 可以在浏览器端加载的格式。
+注意 ```app.use(modularize());``,
+这句话将转化 commonjs 模块的代码为 modulex 可以在浏览器端加载的格式。
 
-
-### 创建 gulpfile.js
-
-我们使用 gulp 作为构建系统
-
-```javascript
-var gulp = require('gulp');
-var fs = require('fs');
-var path = require('path');
-var cwd = process.cwd();
-gulp.task('config', function () {
-    // https://github.com/hapijs/qs/pull/58
-    var qsIndex = path.resolve(cwd, 'node_modules/react-router/node_modules/qs/index.js');
-    if (fs.existsSync(qsIndex)) {
-        fs.writeFileSync(qsIndex, "/*modified*/module.exports = require('./lib/');");
-    }
-    var modulexNpm = require('modulex-npm');
-    var config = modulexNpm.generateConfig(['react', 'react-router']);
-    fs.writeFileSync(path.join(cwd, 'config.js'), 'require.config(' + JSON.stringify(config) + ');');
-});
-```
-
-注意 ``var config = modulexNpm.generateConfig(['react', 'react-router']);``,
-这句话将产生一个配置文件，通过该配置文件，modulex 可以加载指定的 npm 包。
 
 ### 创建 application demo
 
@@ -147,18 +121,11 @@ For example example/demo.html:
 
         }
     };
-    require.config('packages', {
-        test: {
-            base: './'
-        }
-    });
-    require(['test/init']);
+    require(['./init']);
 </script>
 </body>
 </html>
 ```
-
-注意通过 ``<script src="/config.js"></script>``，我们将引入生成的配置文件.
 
 And example/init.js
 
@@ -235,7 +202,6 @@ React.renderComponent(
 ```
 bower install modulex  # install a browser loader library
 npm install # install npm modules
-gulp config
 npm start # start local server
 ```
 
