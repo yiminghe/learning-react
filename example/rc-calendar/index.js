@@ -1,4 +1,7 @@
 /** @jsx React.DOM */
+
+require('rc-calendar/assets/bootstrap.css');
+
 var React = require('react');
 var Calendar = require('rc-calendar');
 var DatePicker = Calendar.Picker;
@@ -14,8 +17,8 @@ var Test = React.createClass({
     });
   },
 
-  handleChange:function(value){
-    console.log('DatePicker change: '+(this.props.formatter.format(value)));
+  handleChange: function (value) {
+    console.log('DatePicker change: ' + (this.props.formatter.format(value)));
   },
 
   handleCalendarSelect: function (v) {
@@ -36,30 +39,32 @@ var Test = React.createClass({
     var value = new GregorianCalendar(zhCn);
     value.setTime(Date.now());
     return {
-      showTime:true,
+      showTime: true,
       value: value
     };
   },
 
-  handleShowTimeChange:function(e){
+  handleShowTimeChange: function (e) {
     this.setState({
-      showTime:e.target.checked
+      showTime: e.target.checked
     });
   },
 
   render: function () {
     var state = this.state;
     var calendar = <Calendar locale={CalendarLocale}
-      orient={['bottom','left']}
+      orient={['bottom', 'left']}
       showTime={this.state.showTime} onSelect={this.handleCalendarSelect}/>;
-    return  <div className="form-group">
+    return <div className="form-group">
       <div className="input-group">
-        <span><input type='checkbox' checked={this.state.showTime} onChange={this.handleShowTimeChange} /> showTime</span>
+        <span>
+          <input type='checkbox' checked={this.state.showTime} onChange={this.handleShowTimeChange} />
+          showTime</span>
       </div>
       <div className="input-group">
         <DatePicker ref='picker' formatter={this.props.formatter} calendar={calendar}
           value={state.value} onChange={this.handleChange}>
-          <input type="text" className="form-control" style={{background:'white',cursor:'pointer'}}/>
+          <input type="text" className="form-control" style={{background: 'white', cursor: 'pointer'}}/>
         </DatePicker>
         <span className="input-group-addon" onClick={this.open}>
           <span className="glyphicon glyphicon-calendar"></span>

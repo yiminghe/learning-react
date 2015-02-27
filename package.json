@@ -16,13 +16,15 @@
     "koa"
   ],
   "devDependencies": {
-    "browserify": "^6.2.0",
-    "browserify-jsx": "^1.0.0",
-    "browserify-shim": "^3.8.0",
-    "gulp": "^3.8.10",
+    "css-loader": "^0.9.1",
+    "extract-text-webpack-plugin": "^0.3.8",
+    "file-loader": "^0.8.1",
+    "jsx-loader": "^0.12.2",
     "node-jsx": "^0.12.0",
-    "rc-server": "^1.5.10",
-    "vinyl-source-stream": "^1.0.0"
+    "rc-server": "^2.0.1",
+    "style-loader": "^0.8.3",
+    "url-loader": "^0.5.5",
+    "webpack": "^1.6.0"
   },
   "dependencies": {
     "bootstrap": "~3.3.2",
@@ -39,12 +41,8 @@
     "react": "^0.12.0",
     "react-router": "^0.10.2"
   },
-  "browserify-shim": {
-    "react-router": "global:ReactRouter",
-    "jquery": "global:jQuery",
-    "react": "global:React"
-  },
   "scripts": {
-    "start": "node --harmony server"
+    "start": "node --harmony server",
+    "build": "webpack -d"
   }
 }

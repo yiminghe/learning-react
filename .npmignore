@@ -20,3 +20,4 @@ Thumbs.db
 .svn/
 *.swp
 out/
+build/

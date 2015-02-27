@@ -6,6 +6,7 @@ materials about learning react
 
 ```
 npm install
+npm run build
 npm start
 ```
 
