@@ -38,11 +38,12 @@
     "modulex": "^1.7.1",
     "object.assign": "^1.0.3",
     "rc-calendar": "^1.5.5",
+    "rc-dialog": "^2.0.2",
     "react": "^0.12.0",
     "react-router": "^0.10.2"
   },
   "scripts": {
     "start": "node --harmony server",
-    "build": "webpack -d"
+    "build": "rm -rf build && webpack -d"
   }
 }

@@ -4,12 +4,14 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: {
     'rc-calendar/index': ['./example/rc-calendar/index.js'],
-    'react-router/index': ['./example/react-router/index.js']
+    'react-router/index': ['./example/react-router/index.js'],
+    'load-on-demand/index': ['./example/load-on-demand/index.js']
   },
 
   output: {
     path: path.join(__dirname, 'build/example'),
     filename: "[name].js",
+    publicPath: "/build/example/",
     chunkFilename: "[name].js"
   },
 
@@ -36,7 +38,7 @@ module.exports = {
 
   externals: {
     jquery: "jQuery",
-    "react-router":"window.ReactRouter",
+    "react-router": "window.ReactRouter",
     react: "React"
   },
 
