@@ -1,11 +1,11 @@
 require('node-jsx').install();
-var app = require('rc-server')(null, {
-  modularize: {
-    nowrap: function () {
-      return this.url.indexOf('nowrap') != -1 || this.url.indexOf('/build/') === 0;
-    }
-  }
-});
+var router = require('koa-router');
+var webpack = require('webpack');
+var app = require('koa')();
+app.use(router(app));
+app.use(require('koa-webpack-dev-middleware')(webpack(require('./webpack.dev.config'))));
+app.use(require('koa-serve-index')(process.cwd()));
+app.use(require('koa-static')(process.cwd()));
 var port = 8000;
 require('./example/code-share/server')(app);
 app.listen(port);

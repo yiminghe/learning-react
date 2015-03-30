@@ -22,10 +22,15 @@
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
     "jsx-loader": "^0.12.2",
+    "koa": "^0.18.1",
+    "koa-router": "^4.2.0",
+    "koa-serve-index": "^1.0.1",
+    "koa-static": "^1.4.9",
+    "koa-webpack-dev-middleware": "^1.0.0",
+    "less": "^2.4.0",
+    "less-loader": "^2.2.0",
     "node-dev": "~2.6.0",
     "node-jsx": "^0.12.0",
-    "rc-server": "^2.0.1",
-    "style-loader": "^0.8.3",
     "url-loader": "^0.5.5",
     "webpack": "^1.6.0"
   },
@@ -38,7 +43,6 @@
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
     "jquery": "^2.1.1",
-    "modulex": "^1.7.1",
     "object.assign": "^1.0.3",
     "rc-calendar": "2.x",
     "rc-dialog": "^2.0.2",
@@ -47,6 +51,6 @@
   },
   "scripts": {
     "start": "node-dev --harmony server",
-    "build": "rm -rf build && webpack -d"
+    "build": "rm -rf build && webpack -p"
   }
 }

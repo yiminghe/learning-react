@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/node_modules/es5-shim/es5-shim.js?nowrap"></script>
-    <script src="/node_modules/es5-shim/es5-sham.js?nowrap"></script>
-    <script src="/node_modules/console-polyfill/index.js?nowrap"></script>
-    <script src="/node_modules/modulex/build/modulex-debug.js?nowrap"></script>
+    <script src="/node_modules/es5-shim/es5-shim.js"></script>
+    <script src="/node_modules/es5-shim/es5-sham.js"></script>
+    <script src="/node_modules/console-polyfill/index.js"></script>
+    <script src="/node_modules/react/dist/react.js"></script>
     <style>
         .example-enter {
             opacity: 0.01;
@@ -26,16 +26,6 @@
     </style>
 </head>
 <body>
-<script>
-    window.process = {
-        env: {
-
-        }
-    };
-    require(['./init'], {success: function () {
-    }, error: function () {
-        console.log(arguments);
-    }});
-</script>
+<script src="./index.js"></script>
 </body>
 </html>

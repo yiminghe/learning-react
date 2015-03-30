@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/node_modules/es5-shim/es5-shim.js?nowrap"></script>
-    <script src="/node_modules/es5-shim/es5-sham.js?nowrap"></script>
-    <script src="/node_modules/console-polyfill/index.js?nowrap"></script>
-    <script src="/node_modules/modulex/build/modulex-debug.js?nowrap"></script>
+    <script src="/node_modules/es5-shim/es5-shim.js"></script>
+    <script src="/node_modules/es5-shim/es5-sham.js"></script>
+    <script src="/node_modules/console-polyfill/index.js"></script>
+    <script src="/node_modules/react/dist/react.js"></script>
 </head>
 <body>
 {content}
-<script>
-    window.process = {
-        env: {
-
-        }
-    };
-    require(['./init'],function(init){
-        init({count})
-    });
-</script>
+<script src="./index.js"></script>
 </body>
 </html>
