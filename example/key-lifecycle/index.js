@@ -39,7 +39,7 @@ var Component = React.createClass({
 
   render: function () {
     console.log(this.props.id + ' render');
-    return <div {...this.props}></div>
+    return <div {...this.props}></div>;
   }
 });
 
@@ -51,13 +51,13 @@ var Test = React.createClass({
       <Component key={props.key2} id={props.id2}/>
     </div>;
   }
-})
+});
 var div = document.createElement('div');
 document.body.appendChild(div);
 var test = React.render(<Test id1="id1" id2="id2" key1="key1" key2="key2" />, div);
 
 setTimeout(function () {
-  console.log('*******************************')
+  console.log('*******************************');
   test.setProps({
     id1: "id11",
     id2: "id2",

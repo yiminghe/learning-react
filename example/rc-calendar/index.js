@@ -32,7 +32,7 @@ var Test = React.createClass({
   getDefaultProps: function () {
     return {
       formatter: new DateTimeFormat('yyyy-MM-dd HH:mm:ss')
-    }
+    };
   },
 
   getInitialState: function () {

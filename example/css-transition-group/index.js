@@ -9,7 +9,7 @@ var TodoList = React.createClass({
     },
     handleAdd: function () {
         var newItems =
-            this.state.items.concat([prompt('Enter some text')]);
+            this.state.items.concat([window.prompt('Enter some text')]);
         this.setState({items: newItems});
     },
     handleRemove: function (i) {

@@ -6,7 +6,7 @@ module.exports = React.createClass({
     getDefaultProps: function () {
         return {
             count: 0
-        }
+        };
     },
     getInitialState: function () {
         return {

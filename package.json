@@ -21,6 +21,11 @@
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.9.4",
+    "gulp-reactify": "^2.0.0",
+    "jshint": "^2.6.3",
+    "jshint-stylish": "^1.0.1",
     "jsx-loader": "^0.12.2",
     "koa": "^0.18.1",
     "koa-router": "^4.2.0",
@@ -31,6 +36,8 @@
     "less-loader": "^2.2.0",
     "node-dev": "~2.6.0",
     "node-jsx": "^0.12.0",
+    "precommit-hook": "^1.0.7",
+    "react-tools": "^0.13.1",
     "url-loader": "^0.5.5",
     "webpack": "^1.6.0"
   },
@@ -51,6 +58,10 @@
   },
   "scripts": {
     "start": "node-dev --harmony server",
+    "lint": "gulp lint",
     "build": "rm -rf build && webpack -p"
-  }
+  },
+  "precommit": [
+    "lint"
+  ]
 }
