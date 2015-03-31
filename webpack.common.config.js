@@ -6,6 +6,7 @@ module.exports = {
 
   entry: {
     'example/code-share/index': ['./example/code-share/index.js'],
+    'example/react-art/index': ['./example/react-art/index.js'],
     'example/svg/index': ['./example/svg/index.js'],
     'example/key-lifecycle/index': ['./example/key-lifecycle/index.js'],
     'example/css-transition-group/index': ['./example/css-transition-group/index.js'],
@@ -50,7 +51,6 @@ module.exports = {
   },
 
   externals: {
-    jquery: "jQuery",
-    react: "React"
+    jquery: "jQuery"
   }
 };

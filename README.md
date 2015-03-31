@@ -16,6 +16,8 @@ open  [http://localhost:8000/example/index.html](http://localhost:8000/example/i
 
 https://github.com/yiminghe/learning-react/blob/master/example/index.html
 
+online: http://yiminghe.me/learning-react/example/build.html
+
 ## Tutorials
 
 https://github.com/yiminghe/learning-react/blob/master/tutorial/index.md
