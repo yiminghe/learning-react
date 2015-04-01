@@ -8,7 +8,8 @@ var Shape = ReactART.Shape;
 var Surface = ReactART.Surface;
 var Rectangle = require('react-art/lib/Rectangle.art');
 var d3 = require('d3');
-
+var monthText=['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+  'Oct', 'Nov', 'Dec'];
 var monthScale = d3.scale.linear().domain([0, 12]).range([0, 400 - 20]);
 var valueScale = d3.scale.linear().domain([0, 10]).range([{
   color: '#add8e6',
@@ -28,7 +29,7 @@ class Component extends React.Component {
   handleMouseMove(d, e) {
     this.setState({
       tip: {
-        content: d.month + ' : ' + d.value,
+        content: monthText[d.month] + ' : ' + d.value,
         x: e.pageX,
         y: e.pageY
       }
@@ -54,29 +55,33 @@ class Component extends React.Component {
     });
   }
 
-  getMonths() {
+  getXAxis() {
     var months = [];
     for (var i = 1; i <= 12; i++) {
-      var value = monthScale(i) + 20;
+      var value = monthScale(i)-5;
       months.push(<Group x={value} y={400}>
-        <ARTText stroke="#000" font={{fontSize: 20}}>{i + ''}</ARTText>
+        <ARTText stroke="#000" font={{fontSize: 10}}>{monthText[i]}</ARTText>
       </Group>);
     }
-    return months;
+    return <Group x={20}>
+      <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>{months}
+    </Group>;
   }
 
-  getMarkers() {
-    var texts = [];
+  getYAxis() {
+    var values = [];
     for (var i = 1; i <= 10; i++) {
       var value = valueScale(i);
       var height = value.height;
       var y = 400 - height;
-      texts.push(<Group x={0} y={y}>
+      values.push(<Group y={y}>
         <ARTText stroke="#000" font={{fontSize: 20}}>{i + ''}</ARTText>
         <Shape d="M0,0 L20,0 Z M20,0" stroke="#000"/>
       </Group>);
     }
-    return texts;
+    return <Group>
+      <Shape d="M20,0 L20,400 Z M20,400" stroke="#000" strokeWidth={2}/>{values}
+    </Group>;
   }
 
   componentDidMount() {
@@ -96,7 +101,7 @@ class Component extends React.Component {
     return <div style={{
       position: 'absolute',
       border: '1px solid red',
-      left: tip.x - this.rootOffset.left+10,
+      left: tip.x - this.rootOffset.left + 10,
       top: tip.y - this.rootOffset.top
     }}>{tip.content}</div>;
   }
@@ -107,11 +112,9 @@ class Component extends React.Component {
     return <div style={{width: 500, height: 420, position: 'relative'}}>
     {tip}
       <Surface width={500} height={420}>
-      {this.getMarkers()}
-      {this.getMonths()}
+      {this.getYAxis()}
+      {this.getXAxis()}
         <Group x={20} y={0} width={400} height={400}>
-          <Shape d="M0,0 L0,400 Z M0,400" stroke="#000" strokeWidth={2}/>
-          <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>
     {this.getRects()}
         </Group>
       </Surface>
