@@ -20,8 +20,26 @@ var valueScale = d3.scale.linear().domain([0, 10]).range([{
 
 
 class Component extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   handleMouseMove(d, e) {
+    this.setState({
+      tip: {
+        content: d.month + ' : ' + d.value,
+        x: e.pageX,
+        y: e.pageY
+      }
+    });
     console.log('mousemove ', d, e.pageX, e.pageY);
+  }
+
+  handleMouseOut() {
+    this.setState({
+      tip: null
+    });
   }
 
   getRects() {
@@ -30,7 +48,9 @@ class Component extends React.Component {
       var height = value.height;
       var y = 400 - height;
       var x = monthScale(d.month);
-      return <Rectangle width={10} height={height} x={x} y={y} onMouseMove={this.handleMouseMove.bind(this, d)} fill={value.color} key={d.month + ''}/>;
+      return <Rectangle width={10} height={height} x={x} y={y}
+        onMouseOut={this.handleMouseOut.bind(this)}
+        onMouseMove={this.handleMouseMove.bind(this, d)} fill={value.color} key={d.month + ''}/>;
     });
   }
 
@@ -59,16 +79,43 @@ class Component extends React.Component {
     return texts;
   }
 
+  componentDidMount() {
+    var rootNode = React.findDOMNode(this);
+    this.rootOffset = rootNode.getBoundingClientRect();
+  }
+
+  componentDidUpdate() {
+    this.componentDidMount();
+  }
+
+  getTip() {
+    var tip = this.state.tip;
+    if (!tip) {
+      return;
+    }
+    return <div style={{
+      position: 'absolute',
+      border: '1px solid red',
+      left: tip.x - this.rootOffset.left+10,
+      top: tip.y - this.rootOffset.top
+    }}>{tip.content}</div>;
+  }
+
   render() {
-    return <Surface width={440} height={420}>
+    var tip = this.getTip();
+
+    return <div style={{width: 500, height: 420, position: 'relative'}}>
+    {tip}
+      <Surface width={500} height={420}>
       {this.getMarkers()}
       {this.getMonths()}
-      <Group x={20} y={0} width={400} height={400}>
-        <Shape d="M0,0 L0,400 Z M0,400" stroke="#000" strokeWidth={2}/>
-        <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>
+        <Group x={20} y={0} width={400} height={400}>
+          <Shape d="M0,0 L0,400 Z M0,400" stroke="#000" strokeWidth={2}/>
+          <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>
     {this.getRects()}
-      </Group>
-    </Surface>;
+        </Group>
+      </Surface>
+    </div>;
   }
 }
 
