@@ -51,7 +51,8 @@ class Component extends React.Component {
       var x = monthScale(d.month);
       return <Rectangle width={10} height={height} x={x} y={y}
         onMouseOut={this.handleMouseOut.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this, d)} fill={value.color} key={d.month + ''}/>;
+        onMouseMove={this.handleMouseMove.bind(this, d)}
+        fill={value.color} key={d.month + ''}/>;
     });
   }
 

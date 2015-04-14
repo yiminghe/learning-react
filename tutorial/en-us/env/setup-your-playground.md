@@ -1,5 +1,7 @@
 # set up your playground
 
+author: yiminghe@gmail.com
+
 In this article, i will introduce a playground environment where you can test for react demos quickly.
 
 ## dependent tools

@@ -1,5 +1,7 @@
 # npm-based front-end development using browserify and browser loader library
 
+author: yiminghe@gmail.com
+
 On browser side front end development, we can also use npm as our source of modules.
 In this article i will introduce a way of using a browser loader library(modulex) to load npm module in browser on development and using browserify to package modules on production.
 You may need to see this article first: https://github.com/yiminghe/learning-react/blob/master/tutorial/env/setup-your-playground.md
