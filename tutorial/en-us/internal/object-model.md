@@ -1,6 +1,8 @@
-# Object Model Of React
+# React Object Model
 
 author: yiminghe@gmail.com
+
+http://blog.yiminghe.me/2015/04/14/react-object-model/
 
 <img src='./object-model.png'/>
 
