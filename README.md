@@ -20,7 +20,7 @@ online: http://yiminghe.me/learning-react/example/build.html
 
 ## Tutorials
 
-https://github.com/yiminghe/learning-react/blob/master/tutorial/index.md
+https://github.com/yiminghe/learning-react/blob/master/tutorial/en-us/index.md
 
 ## Reference
 
