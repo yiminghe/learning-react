@@ -8,7 +8,7 @@ react-tools@0.13.x
 
 ```js
 {
-  let a = 1;
+  let a = 1;  // do not transform
 }
 console.log(a);
 ```
@@ -17,7 +17,7 @@ console.log(a);
 
 `partly`
 
-support simple destructure
+support simple destructuring
 
 ```js
 var obj={x:1,y:2};
@@ -29,7 +29,7 @@ does not support default parameter:
 
 ```js
 var obj={x:1,y:2};
-var {x=1,y=2}=obj;
+var {x=1,y=2}=obj; // parse error
 ```
 
 ### Default Function Parameter
@@ -37,7 +37,7 @@ var {x=1,y=2}=obj;
 `no`
 
 ```js
-function f(x, y=12) {
+function f(x, y=12) {  // parse error
   // y is 12 if not passed (or passed as undefined)
   return x + y;
 }
@@ -73,9 +73,19 @@ function f(x, y, z) {
 f(...[1,2,3]) == 6
 ```
 
+### Generator
+
+`no`
+
+```js
+function *g(){   // do not transform
+  yield 1;
+}
+```
+
 ### Class
 
-`yes`
+`partly`
 
 ```js
 class X extends React.Component {
@@ -86,12 +96,29 @@ class X extends React.Component {
 }
 ```
 
+does not support static method inheritance
+
+```js
+class x {
+  static y(){
+    console.log('y');
+  }
+}
+
+class z extends x {
+
+}
+
+console.log(x.y());
+console.log(z.y()); // runtime error
+```
+
 ### Module
 
 `no`
 
 ```js
-import x from "x"
+import x from "x"  // parse error
 export default x;
 ```
 
@@ -125,7 +152,7 @@ x`;
 `no`
 
 ```js
-for(s of [1,2,3,4]){
+for(s of [1,2,3,4]){  // do not transform
   console.log(s);
 }
 ```
@@ -136,7 +163,7 @@ for(s of [1,2,3,4]){
 
 ```js
 var a1 = [1, 2, 3, 4];
-var a2 = [for (i of a1) i * 2];
+var a2 = [for (i of a1) i * 2]; // do not transform
 console.log(a2);
 ```
 
@@ -164,7 +191,7 @@ does not support Computed (dynamic) property names:
 
 ```js
 var obj = {
-    // Computed (dynamic) property names
+    // do not transform
     [ 'prop_' + (() => 42)() ]: 42
 };
 ```
