@@ -1,5 +1,8 @@
 # npm-based front-end development using browserify and browser loader library
 
+
+`本文档已过时，请参考 [rc-server](http://github.com/react-component/rc-server) 以及本项目 [server](../../../server.js)`
+
 原文： https://github.com/yiminghe/learning-react/blob/master/tutorial/env/modulex-browserify-npm.md
 
 在基于浏览器的前端开发中，我们同样可以使用 npm 作为模块源.在这篇文章中我将介绍一种方法，通过该方法可以开发时在浏览器中通过一个浏览器端模块加载器（modulex）加载来自 npm 的模块，然后使用 browserify 打包后发布到线上使用.

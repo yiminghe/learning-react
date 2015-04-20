@@ -2,6 +2,8 @@
 
 author: yiminghe@gmail.com
 
+`this document is outdated，please refer [rc-server](http://github.com/react-component/rc-server) and [server](../../../server.js)`
+
 On browser side front end development, we can also use npm as our source of modules.
 In this article i will introduce a way of using a browser loader library(modulex) to load npm module in browser on development and using browserify to package modules on production.
 You may need to see this article first: https://github.com/yiminghe/learning-react/blob/master/tutorial/env/setup-your-playground.md
