@@ -114,7 +114,7 @@ For example example/demo.html:
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="/bower_components/modulex/build/modulex-debug.js"></script>
+    <script src="/bower_components/modulex/build/modulex-debug.js?nowrap"></script>
 </head>
 <body>
 <script src="/config.js"></script>
