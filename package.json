@@ -38,13 +38,8 @@
     "jsx-loader": "^0.12.2",
     "koa": "^0.18.1",
     "koa-router": "^4.2.0",
-    "koa-serve-index": "^1.0.1",
-    "koa-static": "^1.4.9",
-    "koa-webpack-dev-middleware": "^1.0.0",
-    "less": "^2.4.0",
     "less-loader": "^2.2.0",
     "node-jsx": "^0.12.0",
-    "object.assign": "^1.0.3",
     "precommit-hook": "^1.0.7",
     "rc-calendar": "2.x",
     "rc-dialog": "^2.0.2",
@@ -54,10 +49,17 @@
     "react-tools": "^0.13.1",
     "shelljs": "^0.4.0",
     "url-loader": "^0.5.5",
-    "webpack": "^1.7.3"
+    "webpack": "^1.7.3",
+    "expect.js": "^0.3.1",
+    "koa-webpack-dev-test-server": "^1.0.0",
+    "mocha": "~2.2.4",
+    "node-jscover": "~0.6.10",
+    "node-jscover-webpack-loader": "^1.0.0",
+    "object-assign": "^2.0.0"
   },
   "scripts": {
     "start": "node --harmony server",
+    "test-cover": "NODE_ENV=test node --harmony server",
     "lint": "gulp lint",
     "build": "rm -rf build && webpack -p"
   },

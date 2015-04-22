@@ -2,7 +2,7 @@
 
 materials about learning react
 
-## Run
+## Run example
 
 ```
 npm install
@@ -11,6 +11,18 @@ npm start
 ```
 
 open  [http://localhost:8000/example/index.html](http://localhost:8000/example/index.html)
+
+## Run coverage test
+
+```
+npm run test-cover
+```
+
+open [http://localhost:8000/test/react-router/runner.html](http://localhost:8000/test/react-router/runner.html) see console
+
+or
+
+open [http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html](http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html) to see coverage details
 
 ## Examples
 

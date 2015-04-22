@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/node_modules/mocha/mocha.css">
+<script src="/node_modules/mocha/mocha.js"></script>
+<script src="/node_modules/node-jscover/lib/front-end/header.js"></script>
+<script src="/node_modules/node-jscover/lib/front-end/jscoverage-branch.js"></script>
+<script src='/node_modules/node-jscover/lib/reporters/mocha/console.js'></script>
+<div id="mocha"></div>
+<div id="__react-content"></div>
+<script>
+    mocha.setup('bdd');
+</script>
+<script src="./index-spec.js"></script>
+<script>
+    mocha.run();
+</script>

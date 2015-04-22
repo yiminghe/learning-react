@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var assign = require('object.assign');
+var assign = require('object-assign');
 module.exports = assign({}, require('./webpack.common.config'), {
   plugins: [
     new webpack.DefinePlugin({
