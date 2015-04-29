@@ -18,11 +18,19 @@ open  [http://localhost:8000/example/index.html](http://localhost:8000/example/i
 npm run test-cover
 ```
 
+### Brief test result in browser
+
 open [http://localhost:8000/test/react-router/runner.html](http://localhost:8000/test/react-router/runner.html) see console
 
-or
+### Detail test result in browser
 
 open [http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html](http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html) to see coverage details
+
+### Brief test result in phantomjs
+
+```
+npm run phantomjs
+```
 
 ## Examples
 

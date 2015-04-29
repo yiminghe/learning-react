@@ -4,7 +4,7 @@
   "author": "yiminghe <yiminghe@gmail.com>",
   "description": "learning materials and examples for react and webpack using koa",
   "engines": {
-    "node": ">=0.11"
+    "node": ">=0.12"
   },
   "license": "MIT",
   "repository": {
@@ -20,22 +20,13 @@
   "dependencies": {
     "bootstrap": "~3.3.2",
     "console-polyfill": "~0.1.2",
-    "css-loader": "^0.9.1",
     "d3": "^3.5.5",
     "es5-shim": "^4.0.5",
     "events": "^1.0.2",
-    "extract-text-webpack-plugin": "^0.3.8",
-    "file-loader": "^0.8.1",
     "flux": "^2.0.1",
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
-    "gulp": "^3.8.11",
-    "gulp-jshint": "^1.9.4",
-    "gulp-reactify": "^2.0.0",
     "jquery": "^2.1.1",
-    "jshint": "^2.6.3",
-    "jshint-stylish": "^1.0.1",
-    "jsx-loader": "^0.12.2",
     "koa": "^0.18.1",
     "koa-router": "^4.2.0",
     "less-loader": "^2.2.0",
@@ -46,6 +37,28 @@
     "react": "^0.13.0",
     "react-art": "^0.13.0",
     "react-router": "^0.13.2",
+    "object-assign": "^2.0.0"
+  },
+  "scripts": {
+    "start": "node --harmony server",
+    "test-cover": "NODE_ENV=test node --harmony server",
+    "phantomjs": "mocha-phantomjs http://localhost:8000/test/react-router/runner.html",
+    "lint": "gulp lint",
+    "build": "rm -rf build && webpack -p"
+  },
+  "precommit": [
+    "lint"
+  ],
+  "devDependencies": {
+    "css-loader": "^0.9.1",
+    "extract-text-webpack-plugin": "^0.3.8",
+    "file-loader": "^0.8.1",
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.9.4",
+    "gulp-reactify": "^2.0.0",
+    "jshint": "^2.6.3",
+    "jshint-stylish": "^1.0.1",
+    "jsx-loader": "^0.12.2",
     "react-tools": "^0.13.1",
     "shelljs": "^0.4.0",
     "url-loader": "^0.5.5",
@@ -55,15 +68,7 @@
     "mocha": "~2.2.4",
     "node-jscover": "~0.6.10",
     "node-jscover-webpack-loader": "^1.0.0",
-    "object-assign": "^2.0.0"
-  },
-  "scripts": {
-    "start": "node --harmony server",
-    "test-cover": "NODE_ENV=test node --harmony server",
-    "lint": "gulp lint",
-    "build": "rm -rf build && webpack -p"
-  },
-  "precommit": [
-    "lint"
-  ]
+    "mocha-phantomjs": "~3.5.3",
+    "phantomjs": "~1.9.16"
+  }
 }

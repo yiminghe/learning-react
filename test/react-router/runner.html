@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="/node_modules/mocha/mocha.css">
+<script src="/node_modules/es5-shim/es5-shim.js"></script>
+<script src="/node_modules/es5-shim/es5-sham.js"></script>
 <script src="/node_modules/mocha/mocha.js"></script>
 <script src="/node_modules/node-jscover/lib/front-end/header.js"></script>
 <script src="/node_modules/node-jscover/lib/front-end/jscoverage-branch.js"></script>
@@ -10,5 +12,5 @@
 </script>
 <script src="./index-spec.js"></script>
 <script>
-    mocha.run();
+    (window.mochaPhantomJS || mocha).run();
 </script>

@@ -6,13 +6,18 @@ var Simulate = TestUtils.Simulate;
 describe('react-router', function () {
   var app = require('../../example/react-router/index');
 
+  beforeEach(function (done) {
+    window.location.hash = '';
+    setTimeout(done, 100);
+  });
+
   it('works', function (done) {
     var instance = app.getInstance();
     var img = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'state-image')[0];
     expect(img).not.to.be.ok();
     var master = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'Master')[0];
     var Alaska = TestUtils.scryRenderedDOMComponentsWithTag(master, 'a')[1];
-    Alaska.getDOMNode().click();
+    location.hash=Alaska.getDOMNode().getAttribute('href');
     setTimeout(function () {
       img = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'state-image')[0];
       expect(img).to.be.ok();
