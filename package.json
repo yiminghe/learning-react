@@ -30,14 +30,15 @@
     "koa": "^0.18.1",
     "koa-router": "^4.2.0",
     "less-loader": "^2.2.0",
+    "lodash": "~3.8.0",
     "node-jsx": "^0.12.0",
+    "object-assign": "^2.0.0",
     "precommit-hook": "^1.0.7",
     "rc-calendar": "2.x",
     "rc-dialog": "^2.0.2",
     "react": "^0.13.0",
     "react-art": "^0.13.0",
-    "react-router": "^0.13.2",
-    "object-assign": "^2.0.0"
+    "react-router": "^0.13.2"
   },
   "scripts": {
     "start": "node --harmony server",

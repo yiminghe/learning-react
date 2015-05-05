@@ -51,6 +51,7 @@ module.exports = {
   },
 
   externals: {
-    jquery: "jQuery"
+    jquery: "window.jQuery",
+    appData:"window.appData"
   }
 };

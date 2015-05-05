@@ -1,4 +1,6 @@
-require('node-jsx').install();
+require('node-jsx').install({
+  harmony:true
+});
 var router = require('koa-router');
 var webpack = require('webpack');
 var app = require('koa')();

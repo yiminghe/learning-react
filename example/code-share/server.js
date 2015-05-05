@@ -1,16 +1,21 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Component = require('./component');
-var tpl = require('fs').readFileSync(require('path').join(__dirname, 'tpl.html'), {
+var Component = require('./Component');
+var _ = require('lodash');
+var tpl = _.template(require('fs').readFileSync(require('path').join(__dirname, 'tpl.html'), {
   encoding: 'utf-8'
-});
+}));
 module.exports = function (app) {
   app.get('/example/code-share/demo.html', function *(next) {
     var count = 10;
-    this.body = tpl.replace(/\{content\}/, React.renderToString(<Component count={count}/>))
-      .replace(/\{count\}/, count);
-    if (false) {
+    var content = React.renderToString(<Component count={count}/>);
+    var appData = JSON.stringify({count: count});
+    this.body = tpl({
+      content: content,
+      script: `window.appData=${appData};`
+    });
+    if(0){
       yield next;
     }
   });
