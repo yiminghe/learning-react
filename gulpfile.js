@@ -9,7 +9,8 @@ var path=require('path');
 
 gulp.task('lint', function () {
   return gulp.src([
-    'example/**/*.js'
+    'example/**/*.js',
+    'example/**/*.jsx'
   ])
     .pipe(require('gulp-reactify')())
     .pipe(jshint())

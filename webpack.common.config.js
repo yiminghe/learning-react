@@ -4,6 +4,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   devtool: "#source-map",
 
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+
   entry: {
     'example/code-share/index': ['./example/code-share/index.js'],
     'example/react-art/index': ['./example/react-art/index.js'],
@@ -18,7 +22,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath:'/build/',
+    publicPath: '/build/',
     filename: "[name].js",
     chunkFilename: "[name].js"
   },
@@ -27,6 +31,10 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
+        loader: 'jsx-loader?harmony'
+      },
+      {
+        test: /\.jsx$/,
         loader: 'jsx-loader?harmony'
       },
       {
@@ -52,6 +60,6 @@ module.exports = {
 
   externals: {
     jquery: "window.jQuery",
-    appData:"window.appData"
+    appData: "window.appData"
   }
 };
