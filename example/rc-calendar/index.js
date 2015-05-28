@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 require('rc-calendar/assets/bootstrap.css');
 

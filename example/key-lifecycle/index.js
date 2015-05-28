@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 var React = require('react');
 
@@ -54,14 +54,14 @@ var Test = React.createClass({
 });
 var div = document.createElement('div');
 document.body.appendChild(div);
-var test = React.render(<Test id1="id1" id2="id2" key1="key1" key2="key2" />, div);
+var test = React.render(<Test id1='id1' id2='id2' key1='key1' key2='key2' />, div);
 
 setTimeout(function () {
   console.log('*******************************');
   test.setProps({
-    id1: "id11",
-    id2: "id2",
-    key1: "key11",
-    key2: "key2"
+    id1: 'id11',
+    id2: 'id2',
+    key1: 'key11',
+    key2: 'key2'
   });
 }, 1000);

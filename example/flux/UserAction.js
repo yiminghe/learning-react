@@ -1,3 +1,5 @@
+'use strict';
+
 var AppDispatcher = require('./AppDispatcher');
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
         user: {
           name: 'changed ' + Date.now()
         },
-        actionType:'update_user'
+        actionType: 'update_user'
       });
     }, 1000);
   }

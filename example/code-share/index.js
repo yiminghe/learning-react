@@ -1,7 +1,6 @@
-/** @jsx React.DOM */
+'use strict';
 
-var Component = require('./component');
+var Component = require('./Component');
 var React = require('react');
-module.exports = function (count) {
-    React.render(<Component count={count}/>, document.body);
-};
+var appData = require('appData');
+React.render(<Component {...appData}/>, document.body);

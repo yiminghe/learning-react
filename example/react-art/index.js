@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 var React = require('react');
 var ReactART = require('react-art');
@@ -8,7 +8,7 @@ var Shape = ReactART.Shape;
 var Surface = ReactART.Surface;
 var Rectangle = require('react-art/lib/Rectangle.art');
 var d3 = require('d3');
-var monthText=['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+var monthText = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
   'Oct', 'Nov', 'Dec'];
 var monthScale = d3.scale.linear().domain([0, 12]).range([0, 400 - 20]);
 var valueScale = d3.scale.linear().domain([0, 10]).range([{
@@ -51,14 +51,15 @@ class Component extends React.Component {
       var x = monthScale(d.month);
       return <Rectangle width={10} height={height} x={x} y={y}
         onMouseOut={this.handleMouseOut.bind(this)}
-        onMouseMove={this.handleMouseMove.bind(this, d)} fill={value.color} key={d.month + ''}/>;
+        onMouseMove={this.handleMouseMove.bind(this, d)}
+        fill={value.color} key={d.month + ''}/>;
     });
   }
 
   getXAxis() {
     var months = [];
     for (var i = 1; i <= 12; i++) {
-      var value = monthScale(i)-5;
+      var value = monthScale(i) - 5;
       months.push(<Group x={value} y={400}>
         <ARTText stroke="#000" font={{fontSize: 10}}>{monthText[i]}</ARTText>
       </Group>);
@@ -96,7 +97,7 @@ class Component extends React.Component {
   getTip() {
     var tip = this.state.tip;
     if (!tip) {
-      return;
+      return null;
     }
     return <div style={{
       position: 'absolute',
@@ -123,12 +124,15 @@ class Component extends React.Component {
 }
 
 var data = [];
-for (var i = 1; i < 13; i++) {
-  data.push({
-    month: i,
-    value: Math.floor(Math.random() * 10) + 1
-  });
-}
+(function () {
+  for (var i = 1; i < 13; i++) {
+    data.push({
+      month: i,
+      value: Math.floor(Math.random() * 10) + 1
+    });
+  }
+}());
+
 console.log('data', data);
 React.render(<div style={{width: 500, margin: 'auto'}}>
   <Component data={data}/>
