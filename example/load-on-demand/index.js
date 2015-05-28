@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 require('./index.css');
 // dynamic set __webpack_public_path__

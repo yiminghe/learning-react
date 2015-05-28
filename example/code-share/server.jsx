@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 var React = require('react');
 var Component = require('./Component');
@@ -15,8 +15,5 @@ module.exports = function (app) {
       content: content,
       script: `window.appData=${appData};`
     });
-    if(0){
-      yield next;
-    }
   });
 };

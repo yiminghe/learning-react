@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 var container;
 require('./async.css');
 var Dialog = require('rc-dialog');

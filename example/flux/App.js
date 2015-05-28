@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 var React = require('react');
 var User = require('./User');

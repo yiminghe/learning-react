@@ -1,22 +1,9 @@
 'use strict';
 
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
 var shelljs = require('shelljs');
 var cwd=process.cwd();
 var path=require('path');
-
-gulp.task('lint', function () {
-  return gulp.src([
-    'example/**/*.js',
-    'example/**/*.jsx'
-  ])
-    .pipe(require('gulp-reactify')())
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(jshint.reporter('fail'));
-});
 
 gulp.task('gh-pages',function(){
   shelljs.cd(path.join(cwd, '../' + path.basename(cwd) + '-gh-pages'));

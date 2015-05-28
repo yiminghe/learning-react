@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 
 var Component = require('./Component');
 var React = require('react');

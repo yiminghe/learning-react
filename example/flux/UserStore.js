@@ -1,3 +1,5 @@
+'use strict';
+
 var assign = require('object-assign');
 var user = {
   name: 'init'
@@ -19,4 +21,3 @@ AppDispatcher.register(function (payload) {
   }
 });
 module.exports = UserStore;
-
