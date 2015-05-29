@@ -11,6 +11,10 @@ common.module.postLoaders = [{ // << add subject as webpack's postloader
 
 common.entry['test/react-router/index-spec'] = ['./test/react-router/index-spec.js'];
 
+common.module.loaders[0].query = {
+  retainLines: true
+};
+
 module.exports = assign({}, common, {
   output: {
     path: path.join(__dirname, 'build'),
