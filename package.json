@@ -27,14 +27,8 @@
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
     "jquery": "^2.1.1",
-    "koa": "^0.18.1",
-    "koa-router": "^4.2.0",
-    "less-loader": "^2.2.0",
     "lodash": "~3.8.0",
-    "mocha": "~2.2.4",
-    "mocha-phantomjs": "~3.5.3",
     "object-assign": "^2.0.0",
-    "precommit-hook": "^1.0.7",
     "rc-calendar": "~3.6.0",
     "rc-dialog": "~4.0.7",
     "react": "^0.13.0",
@@ -48,15 +42,19 @@
     "phantomjs": "mocha-phantomjs http://localhost:8000/test/react-router/runner.html",
     "phantomjs-cover": "mocha-phantomjs -R node_modules/node-jscover/lib/reporters/mocha/parent http://localhost:8000/test/react-router/runner.html",
     "lint": "eslint --ext .js,.jsx example",
-    "build": "rm -rf build && webpack"
+    "build": "sh ./build.sh"
   },
   "precommit": [
     "lint"
   ],
   "devDependencies": {
+    "precommit-hook": "^1.0.7",
+    "koa": "^0.18.1",
+    "koa-router": "^4.2.0",
     "babel": "~5.4.7",
     "babel-core": "~5.4.7",
     "babel-loader": "~5.1.3",
+    "less-loader": "^2.2.0",
     "css-loader": "^0.9.1",
     "eslint": "~0.21.2",
     "eslint-plugin-react": "~2.3.0",

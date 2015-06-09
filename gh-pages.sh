@@ -1,5 +1,4 @@
-rm -rf build
-webpack
+sh ./build.sh
 rm -rf dist
 mkdir dist
 cp -r build dist/build
