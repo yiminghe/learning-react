@@ -42,13 +42,13 @@
     "react-router": "^0.13.2"
   },
   "scripts": {
-    "gh-pages": "gulp gh-pages",
+    "gh-pages": "sh ./gh-pages.sh",
     "start": "node --harmony server",
     "test-cover": "NODE_ENV=test node --harmony server",
     "phantomjs": "mocha-phantomjs http://localhost:8000/test/react-router/runner.html",
     "phantomjs-cover": "mocha-phantomjs -R node_modules/node-jscover/lib/reporters/mocha/parent http://localhost:8000/test/react-router/runner.html",
     "lint": "eslint --ext .js,.jsx example",
-    "build": "rm -rf build && webpack -p"
+    "build": "rm -rf build && webpack"
   },
   "precommit": [
     "lint"
@@ -63,14 +63,12 @@
     "expect.js": "^0.3.1",
     "extract-text-webpack-plugin": "^0.3.8",
     "file-loader": "^0.8.1",
-    "gulp": "^3.8.11",
+    "gh-pages": "^0.3.0",
     "koa-webpack-dev-test-server": "^1.0.0",
     "mocha": "~2.0.1",
     "mocha-phantomjs": "~3.5.3",
     "node-jscover": "~0.6.10",
     "node-jscover-webpack-loader": "^1.0.0",
-    "phantomjs": "~1.9.16",
-    "shelljs": "^0.4.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.3"
   }

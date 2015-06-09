@@ -22,3 +22,4 @@ Thumbs.db
 out/
 node_modules/
 build/
+dist/
