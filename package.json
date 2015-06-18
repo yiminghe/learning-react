@@ -27,7 +27,6 @@
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
     "jquery": "^2.1.1",
-    "lodash": "~3.8.0",
     "object-assign": "^2.0.0",
     "rc-calendar": "~3.6.0",
     "rc-dialog": "~4.0.7",
