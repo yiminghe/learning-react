@@ -26,12 +26,14 @@
     "flux": "^2.0.1",
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
+    "intl": "~1.0.0-rc-4",
     "jquery": "^2.1.1",
     "object-assign": "^2.0.0",
     "rc-calendar": "~3.6.0",
     "rc-dialog": "~4.0.7",
     "react": "^0.13.0",
     "react-art": "^0.13.0",
+    "react-intl": "~1.2.0",
     "react-router": "^0.13.2"
   },
   "scripts": {

@@ -9,6 +9,7 @@ module.exports = {
   },
 
   entry: {
+    'example/react-intl/index': ['./example/react-intl/index.js'],
     'example/code-share/index': ['./example/code-share/index.js'],
     'example/react-art/index': ['./example/react-art/index.js'],
     'example/svg/index': ['./example/svg/index.js'],
