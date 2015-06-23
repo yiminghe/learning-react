@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(153);
+	module.exports = __webpack_require__(156);
 
 
 /***/ },
@@ -19725,15 +19725,18 @@
 
 
 /***/ },
-/* 153 */
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var Line = __webpack_require__(154);
-	var Dash = __webpack_require__(156);
-	var Clip = __webpack_require__(157);
+	var Line = __webpack_require__(157);
+	var Dash = __webpack_require__(159);
+	var Clip = __webpack_require__(160);
 	React.render(React.createElement(
 	  'div',
 	  null,
@@ -19743,13 +19746,13 @@
 	), document.body);
 
 /***/ },
-/* 154 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var $ = __webpack_require__(155);
+	var $ = __webpack_require__(158);
 	var Line = React.createClass({
 	  displayName: 'Line',
 	
@@ -19819,13 +19822,13 @@
 	module.exports = Line;
 
 /***/ },
-/* 155 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = window.jQuery;
 
 /***/ },
-/* 156 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19920,7 +19923,7 @@
 	module.exports = StrikeDash;
 
 /***/ },
-/* 157 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

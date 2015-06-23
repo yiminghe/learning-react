@@ -2,18 +2,13 @@
 
 var React = require('react');
 var Component = require('./Component');
-var _ = require('lodash');
-var tpl = _.template(require('fs').readFileSync(require('path').join(__dirname, 'tpl.html'), {
-  encoding: 'utf-8'
-}));
+var Page = require('./Page');
+
 module.exports = function (app) {
-  app.get('/example/code-share/demo.html', function *(next) {
+  app.get('/example/code-share/demo.html', function *() {
     var count = 10;
     var content = React.renderToString(<Component count={count}/>);
     var appData = JSON.stringify({count: count});
-    this.body = tpl({
-      content: content,
-      script: `window.appData=${appData};`
-    });
+    this.body = React.renderToStaticMarkup(<Page content={content} script={`window.appData=${appData};`}/>);
   });
 };

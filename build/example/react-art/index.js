@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(223);
+	module.exports = __webpack_require__(226);
 
 
 /***/ },
@@ -19795,7 +19795,10 @@
 /* 220 */,
 /* 221 */,
 /* 222 */,
-/* 223 */
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19809,13 +19812,13 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var ReactART = __webpack_require__(224);
+	var ReactART = __webpack_require__(227);
 	var Group = ReactART.Group;
 	var ARTText = ReactART.Text;
 	var Shape = ReactART.Shape;
 	var Surface = ReactART.Surface;
-	var Rectangle = __webpack_require__(254);
-	var d3 = __webpack_require__(255);
+	var Rectangle = __webpack_require__(257);
+	var d3 = __webpack_require__(258);
 	var monthText = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	var monthScale = d3.scale.linear().domain([0, 12]).range([0, 400 - 20]);
 	var valueScale = d3.scale.linear().domain([0, 10]).range([{
@@ -19994,7 +19997,7 @@
 	), document.getElementById('__react-content'));
 
 /***/ },
-/* 224 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20010,10 +20013,10 @@
 	
 	"use strict";
 	
-	__webpack_require__(225); // Flip this to DOM mode for debugging
+	__webpack_require__(228); // Flip this to DOM mode for debugging
 	
-	var Transform = __webpack_require__(229);
-	var Mode = __webpack_require__(244);
+	var Transform = __webpack_require__(232);
+	var Mode = __webpack_require__(247);
 	
 	var React = __webpack_require__(2);
 	var ReactMultiChild = __webpack_require__(88);
@@ -20612,11 +20615,11 @@
 
 
 /***/ },
-/* 225 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var VML = __webpack_require__(226);
-	var Canvas = __webpack_require__(245);
+	var VML = __webpack_require__(229);
+	var Canvas = __webpack_require__(248);
 	//var Flash = require('./flash');
 	
 	var hasCanvas = function(){
@@ -20649,34 +20652,34 @@
 	exports.ClippingRectangle = MODE.ClippingRectangle;
 	exports.Text = MODE.Text;
 	
-	__webpack_require__(244).setCurrent(exports);
+	__webpack_require__(247).setCurrent(exports);
 
 
 /***/ },
-/* 226 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Surface = __webpack_require__(236);
-	exports.Path = __webpack_require__(237);
-	exports.Shape = __webpack_require__(239);
-	exports.Group = __webpack_require__(242);
-	exports.ClippingRectangle = __webpack_require__(227);
-	exports.Text = __webpack_require__(243);
+	exports.Surface = __webpack_require__(239);
+	exports.Path = __webpack_require__(240);
+	exports.Shape = __webpack_require__(242);
+	exports.Group = __webpack_require__(245);
+	exports.ClippingRectangle = __webpack_require__(230);
+	exports.Text = __webpack_require__(246);
 	
-	var DOM = __webpack_require__(235);
+	var DOM = __webpack_require__(238);
 	if (typeof document !== 'undefined') DOM.init(document);
 	
-	__webpack_require__(244).setCurrent(exports);
+	__webpack_require__(247).setCurrent(exports);
 
 
 /***/ },
-/* 227 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Transform = __webpack_require__(229);
-	var Container = __webpack_require__(230);
-	var Node = __webpack_require__(231);
+	var Class = __webpack_require__(231);
+	var Transform = __webpack_require__(232);
+	var Container = __webpack_require__(233);
+	var Node = __webpack_require__(234);
 	
 	module.exports = Class(Node, Container, {
 	
@@ -20717,7 +20720,7 @@
 
 
 /***/ },
-/* 228 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(mixins){
@@ -20737,10 +20740,10 @@
 
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
+	var Class = __webpack_require__(231);
 	
 	function Transform(xx, yx, xy, yy, x, y){
 		if (xx && typeof xx == 'object'){
@@ -20892,10 +20895,10 @@
 
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
+	var Class = __webpack_require__(231);
 	
 	module.exports = Class({
 	
@@ -20913,13 +20916,13 @@
 	});
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Transform = __webpack_require__(229);
-	var Element = __webpack_require__(232);
-	var DOM = __webpack_require__(235);
+	var Class = __webpack_require__(231);
+	var Transform = __webpack_require__(232);
+	var Element = __webpack_require__(235);
+	var DOM = __webpack_require__(238);
 	
 	module.exports = Class(Element, Transform, {
 	
@@ -20959,12 +20962,12 @@
 
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Dummy = __webpack_require__(233);
-	var Native = __webpack_require__(234);
+	var Class = __webpack_require__(231);
+	var Dummy = __webpack_require__(236);
+	var Native = __webpack_require__(237);
 	
 	module.exports = Class(Dummy, Native, {
 	
@@ -20997,10 +21000,10 @@
 
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
+	var Class = __webpack_require__(231);
 	
 	module.exports = Class({
 	
@@ -21119,10 +21122,10 @@
 
 
 /***/ },
-/* 234 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
+	var Class = __webpack_require__(231);
 	
 	function elementFrom(node){
 		if (node.toElement) return node.toElement();
@@ -21208,7 +21211,7 @@
 
 
 /***/ },
-/* 235 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var VMLCSS = 'behavior:url(#default#VML);display:inline-block;position:absolute;left:0px;top:0px;';
@@ -21251,13 +21254,13 @@
 
 
 /***/ },
-/* 236 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Container = __webpack_require__(230);
-	var Element = __webpack_require__(234);
-	var DOM = __webpack_require__(235);
+	var Class = __webpack_require__(231);
+	var Container = __webpack_require__(233);
+	var Element = __webpack_require__(237);
+	var DOM = __webpack_require__(238);
 	
 	var precision = 100;
 	
@@ -21297,11 +21300,11 @@
 	module.exports = VMLSurface;
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Path = __webpack_require__(238);
+	var Class = __webpack_require__(231);
+	var Path = __webpack_require__(241);
 	
 	var precision = 100;
 	
@@ -21371,10 +21374,10 @@
 	module.exports = VMLPath;
 
 /***/ },
-/* 238 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
+	var Class = __webpack_require__(231);
 	
 	module.exports = Class({
 		
@@ -21658,13 +21661,13 @@
 	});
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Base = __webpack_require__(240);
-	var Path = __webpack_require__(237);
-	var DOM = __webpack_require__(235);
+	var Class = __webpack_require__(231);
+	var Base = __webpack_require__(243);
+	var Path = __webpack_require__(240);
+	var DOM = __webpack_require__(238);
 	
 	var precision = 100;
 	
@@ -21765,14 +21768,14 @@
 	});
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Transform = __webpack_require__(229);
-	var Color = __webpack_require__(241);
-	var Node = __webpack_require__(231);
-	var DOM = __webpack_require__(235);
+	var Class = __webpack_require__(231);
+	var Transform = __webpack_require__(232);
+	var Color = __webpack_require__(244);
+	var Node = __webpack_require__(234);
+	var DOM = __webpack_require__(238);
 	
 	var precision = 100;
 	
@@ -22086,7 +22089,7 @@
 	});
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var colors = {
@@ -22312,13 +22315,13 @@
 	module.exports = Color;
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Transform = __webpack_require__(229);
-	var Container = __webpack_require__(230);
-	var Node = __webpack_require__(231);
+	var Class = __webpack_require__(231);
+	var Transform = __webpack_require__(232);
+	var Container = __webpack_require__(233);
+	var Node = __webpack_require__(234);
 	
 	module.exports = Class(Node, Container, {
 		
@@ -22352,15 +22355,15 @@
 	});
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Base = __webpack_require__(240);
-	var Path = __webpack_require__(237);
-	var Surface = __webpack_require__(236);
-	var Group = __webpack_require__(242);
-	var DOM = __webpack_require__(235);
+	var Class = __webpack_require__(231);
+	var Base = __webpack_require__(243);
+	var Path = __webpack_require__(240);
+	var Surface = __webpack_require__(239);
+	var Group = __webpack_require__(245);
+	var DOM = __webpack_require__(238);
 	
 	var fontAnchors = { start: 'left', middle: 'center', end: 'right' };
 	
@@ -22466,7 +22469,7 @@
 
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function warning(){
@@ -22488,24 +22491,24 @@
 
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Surface = __webpack_require__(248);
-	exports.Path = __webpack_require__(249);
-	exports.Shape = __webpack_require__(250);
-	exports.Group = __webpack_require__(246);
-	exports.ClippingRectangle = __webpack_require__(252);
-	exports.Text = __webpack_require__(253);
+	exports.Surface = __webpack_require__(251);
+	exports.Path = __webpack_require__(252);
+	exports.Shape = __webpack_require__(253);
+	exports.Group = __webpack_require__(249);
+	exports.ClippingRectangle = __webpack_require__(255);
+	exports.Text = __webpack_require__(256);
 
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Container = __webpack_require__(230);
-	var Node = __webpack_require__(247);
+	var Class = __webpack_require__(231);
+	var Container = __webpack_require__(233);
+	var Node = __webpack_require__(250);
 	
 	module.exports = Class(Node, Container, {
 		
@@ -22548,12 +22551,12 @@
 
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Transform = __webpack_require__(229);
-	var Element = __webpack_require__(233);
+	var Class = __webpack_require__(231);
+	var Transform = __webpack_require__(232);
+	var Element = __webpack_require__(236);
 	
 	var CanvasNode = Class(Transform, Element, {
 		
@@ -22668,12 +22671,12 @@
 	module.exports = CanvasNode;
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Container = __webpack_require__(230);
-	var Element = __webpack_require__(234);
+	var Class = __webpack_require__(231);
+	var Container = __webpack_require__(233);
+	var Element = __webpack_require__(237);
 	
 	var fps = 1000 / 60, invalids = [], renderTimer, renderInvalids = function(){
 		clearTimeout(renderTimer);
@@ -22815,11 +22818,11 @@
 	module.exports = CanvasSurface;
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Path = __webpack_require__(238);
+	var Class = __webpack_require__(231);
+	var Path = __webpack_require__(241);
 	
 	var CanvasPath = Class(Path, {
 	
@@ -22881,12 +22884,12 @@
 	module.exports = CanvasPath;
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Base = __webpack_require__(251);
-	var Path = __webpack_require__(249);
+	var Class = __webpack_require__(231);
+	var Base = __webpack_require__(254);
+	var Path = __webpack_require__(252);
 	
 	module.exports = Class(Base, {
 	
@@ -22981,13 +22984,13 @@
 
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Color = __webpack_require__(241);
-	var Transform = __webpack_require__(229);
-	var Node = __webpack_require__(247);
+	var Class = __webpack_require__(231);
+	var Color = __webpack_require__(244);
+	var Transform = __webpack_require__(232);
+	var Node = __webpack_require__(250);
 	
 	var genericCanvas = typeof document !== 'undefined' && document.createElement('canvas'),
 	    genericContext = genericCanvas && genericCanvas.getContext && genericCanvas.getContext('2d');
@@ -23173,12 +23176,12 @@
 
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Container = __webpack_require__(230);
-	var Node = __webpack_require__(247);
+	var Class = __webpack_require__(231);
+	var Container = __webpack_require__(233);
+	var Node = __webpack_require__(250);
 	
 	module.exports = Class(Node, Container, {
 	
@@ -23216,11 +23219,11 @@
 
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(228);
-	var Base = __webpack_require__(251);
+	var Class = __webpack_require__(231);
+	var Base = __webpack_require__(254);
 	
 	var fontAnchors = { middle: 'center' };
 	
@@ -23338,7 +23341,7 @@
 
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23370,7 +23373,7 @@
 	 */
 	
 	var React = __webpack_require__(2);
-	var ReactART = __webpack_require__(224);
+	var ReactART = __webpack_require__(227);
 	
 	var Props = React.PropTypes;
 	var Shape = ReactART.Shape;
@@ -23452,7 +23455,7 @@
 
 
 /***/ },
-/* 255 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {

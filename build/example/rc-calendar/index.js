@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(176);
+	module.exports = __webpack_require__(179);
 
 
 /***/ },
@@ -19748,20 +19748,23 @@
 /* 173 */,
 /* 174 */,
 /* 175 */,
-/* 176 */
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(177);
+	__webpack_require__(180);
 	
 	var React = __webpack_require__(2);
-	var Calendar = __webpack_require__(178);
+	var Calendar = __webpack_require__(181);
 	var DatePicker = Calendar.Picker;
-	var zhCn = __webpack_require__(209); // spm error
-	var DateTimeFormat = __webpack_require__(181);
-	var GregorianCalendar = __webpack_require__(183);
-	var CalendarLocale = __webpack_require__(210);
+	var zhCn = __webpack_require__(212); // spm error
+	var DateTimeFormat = __webpack_require__(184);
+	var GregorianCalendar = __webpack_require__(186);
+	var CalendarLocale = __webpack_require__(213);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
@@ -19845,22 +19848,22 @@
 	React.render(React.createElement(Test, null), document.getElementById('react-content-input'));
 
 /***/ },
-/* 177 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(179);
-	module.exports.Picker = __webpack_require__(206);
+	module.exports = __webpack_require__(182);
+	module.exports.Picker = __webpack_require__(209);
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19876,12 +19879,12 @@
 	var React = __webpack_require__(2);
 	var DATE_ROW_COUNT = 6;
 	var DATE_COL_COUNT = 7;
-	var DateTimeFormat = __webpack_require__(181);
-	var GregorianCalendar = __webpack_require__(183);
-	var rcUtil = __webpack_require__(189);
+	var DateTimeFormat = __webpack_require__(184);
+	var GregorianCalendar = __webpack_require__(186);
+	var rcUtil = __webpack_require__(192);
 	var KeyCode = rcUtil.KeyCode;
-	var MonthPanel = __webpack_require__(180);
-	var Time = __webpack_require__(203);
+	var MonthPanel = __webpack_require__(183);
+	var Time = __webpack_require__(206);
 	
 	function noop() {}
 	
@@ -20074,7 +20077,7 @@
 	    // bind methods
 	    this.onBlur = onBlur.bind(this);
 	    this.onFocus = onFocus.bind(this);
-	    this.prefixClsFn = __webpack_require__(202).bind(this);
+	    this.prefixClsFn = __webpack_require__(205).bind(this);
 	    this.nextMonth = goMonth.bind(this, 1);
 	    this.previousMonth = goMonth.bind(this, -1);
 	    this.nextYear = goYear.bind(this, 1);
@@ -20449,7 +20452,7 @@
 	};
 	
 	Calendar.defaultProps = {
-	  locale: __webpack_require__(205),
+	  locale: __webpack_require__(208),
 	  style: {},
 	  onKeyDown: noop,
 	  className: '',
@@ -20463,7 +20466,7 @@
 	module.exports = Calendar;
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20477,11 +20480,11 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var DateTimeFormat = __webpack_require__(181);
+	var DateTimeFormat = __webpack_require__(184);
 	var ROW = 3;
 	var COL = 4;
-	var cx = __webpack_require__(189).classSet;
-	var YearPanel = __webpack_require__(200);
+	var cx = __webpack_require__(192).classSet;
+	var YearPanel = __webpack_require__(203);
 	
 	function goYear(direction) {
 	  var next = this.state.value.clone();
@@ -20525,7 +20528,7 @@
 	    this.previousYear = goYear.bind(this, -1);
 	    this.showYearPanel = showYearPanel.bind(this);
 	    this.onYearPanelSelect = onYearPanelSelect.bind(this);
-	    this.prefixClsFn = __webpack_require__(202).bind(this);
+	    this.prefixClsFn = __webpack_require__(205).bind(this);
 	  }
 	
 	  _inherits(MonthPanel, _React$Component);
@@ -20673,13 +20676,13 @@
 	module.exports = MonthPanel;
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(182);
+	module.exports = __webpack_require__(185);
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20689,8 +20692,8 @@
 	 * @author yiminghe@gmail.com
 	 */
 	
-	var GregorianCalendar = __webpack_require__(183);
-	var enUsLocale = __webpack_require__(188);
+	var GregorianCalendar = __webpack_require__(186);
+	var enUsLocale = __webpack_require__(191);
 	var MAX_VALUE = Number.MAX_VALUE;
 	/**
 	 * date or time style enum
@@ -21482,13 +21485,13 @@
 	// gc_format@163.com
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(184);
+	module.exports = __webpack_require__(187);
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21497,9 +21500,9 @@
 	 * @author yiminghe@gmail.com
 	 */
 	var toInt = parseInt;
-	var Utils = __webpack_require__(185);
-	var defaultLocale = __webpack_require__(187);
-	var Const = __webpack_require__(186);
+	var Utils = __webpack_require__(188);
+	var defaultLocale = __webpack_require__(190);
+	var Const = __webpack_require__(189);
 	
 	/**
 	 * GregorianCalendar class.
@@ -22818,7 +22821,7 @@
 
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -22827,7 +22830,7 @@
 	 * @author yiminghe@gmail.com
 	 */
 	
-	var Const = __webpack_require__(186);
+	var Const = __webpack_require__(189);
 	var floor = Math.floor;
 	var ACCUMULATED_DAYS_IN_MONTH
 	        //   1/1 2/1 3/1 4/1 5/1 6/1 7/1 8/1 9/1 10/1 11/1 12/1
@@ -22949,7 +22952,7 @@
 	};
 
 /***/ },
-/* 186 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23076,7 +23079,7 @@
 	};
 
 /***/ },
-/* 187 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23093,7 +23096,7 @@
 
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23119,29 +23122,29 @@
 
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  guid: __webpack_require__(191),
-	  classSet: __webpack_require__(192),
-	  joinClasses: __webpack_require__(193),
-	  KeyCode: __webpack_require__(194),
-	  PureRenderMixin: __webpack_require__(195),
-	  shallowEqual: __webpack_require__(190),
-	  createChainedFunction: __webpack_require__(196),
+	  guid: __webpack_require__(194),
+	  classSet: __webpack_require__(195),
+	  joinClasses: __webpack_require__(196),
+	  KeyCode: __webpack_require__(197),
+	  PureRenderMixin: __webpack_require__(198),
+	  shallowEqual: __webpack_require__(193),
+	  createChainedFunction: __webpack_require__(199),
 	  Dom: {
-	    addEventListener: __webpack_require__(197),
-	    contains: __webpack_require__(198)
+	    addEventListener: __webpack_require__(200),
+	    contains: __webpack_require__(201)
 	  },
 	  Children: {
-	    toArray: __webpack_require__(199)
+	    toArray: __webpack_require__(202)
 	  }
 	};
 
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23189,7 +23192,7 @@
 
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var seed = 0;
@@ -23199,7 +23202,7 @@
 
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23244,7 +23247,7 @@
 
 
 /***/ },
-/* 193 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23291,7 +23294,7 @@
 
 
 /***/ },
-/* 194 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23818,7 +23821,7 @@
 
 
 /***/ },
-/* 195 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23834,7 +23837,7 @@
 	
 	"use strict";
 	
-	var shallowEqual = __webpack_require__(190);
+	var shallowEqual = __webpack_require__(193);
 	
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -23871,7 +23874,7 @@
 
 
 /***/ },
-/* 196 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23898,7 +23901,7 @@
 
 
 /***/ },
-/* 197 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function (target, eventType, callback) {
@@ -23921,7 +23924,7 @@
 
 
 /***/ },
-/* 198 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function (root, node) {
@@ -23937,7 +23940,7 @@
 
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2);
@@ -23952,7 +23955,7 @@
 
 
 /***/ },
-/* 200 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23966,11 +23969,11 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var DateTimeFormat = __webpack_require__(181);
+	var DateTimeFormat = __webpack_require__(184);
 	var ROW = 3;
 	var COL = 4;
-	var cx = __webpack_require__(189).classSet;
-	var DecadePanel = __webpack_require__(201);
+	var cx = __webpack_require__(192).classSet;
+	var DecadePanel = __webpack_require__(204);
 	
 	function goYear(direction) {
 	  var next = this.state.value.clone();
@@ -23991,7 +23994,7 @@
 	    _classCallCheck(this, YearPanel);
 	
 	    _get(Object.getPrototypeOf(YearPanel.prototype), 'constructor', this).call(this, props);
-	    this.prefixClsFn = __webpack_require__(202).bind(this);
+	    this.prefixClsFn = __webpack_require__(205).bind(this);
 	    this.state = {
 	      value: props.value,
 	      prefixCls: props.rootPrefixCls + '-year-panel'
@@ -24169,7 +24172,7 @@
 	module.exports = YearPanel;
 
 /***/ },
-/* 201 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24185,7 +24188,7 @@
 	var React = __webpack_require__(2);
 	var ROW = 4;
 	var COL = 3;
-	var cx = __webpack_require__(189).classSet;
+	var cx = __webpack_require__(192).classSet;
 	
 	function goYear(direction) {
 	  var next = this.state.value.clone();
@@ -24213,7 +24216,7 @@
 	    };
 	
 	    // bind methods
-	    this.prefixClsFn = __webpack_require__(202).bind(this);
+	    this.prefixClsFn = __webpack_require__(205).bind(this);
 	    this.nextCentury = goYear.bind(this, 100);
 	    this.previousCentury = goYear.bind(this, -100);
 	  }
@@ -24337,7 +24340,7 @@
 	module.exports = DecadePanel;
 
 /***/ },
-/* 202 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24351,7 +24354,7 @@
 	};
 
 /***/ },
-/* 203 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24367,9 +24370,9 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var rcUtil = __webpack_require__(189);
+	var rcUtil = __webpack_require__(192);
 	var KeyCode = rcUtil.KeyCode;
-	var TimePanel = __webpack_require__(204);
+	var TimePanel = __webpack_require__(207);
 	var setHourOfDay = 'setHourOfDay';
 	var setMinutes = 'setMinutes';
 	var setSeconds = 'setSeconds';
@@ -24556,7 +24559,7 @@
 	module.exports = Time;
 
 /***/ },
-/* 204 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24570,7 +24573,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var cx = __webpack_require__(189).classSet;
+	var cx = __webpack_require__(192).classSet;
 	
 	function choose(hour, e) {
 	  var next = this.state.value.clone();
@@ -24589,7 +24592,7 @@
 	      value: props.value,
 	      prefixCls: props.rootPrefixCls + '-time-panel'
 	    };
-	    this.prefixClsFn = __webpack_require__(202).bind(this);
+	    this.prefixClsFn = __webpack_require__(205).bind(this);
 	  }
 	
 	  _inherits(TimePanel, _React$Component);
@@ -24681,7 +24684,7 @@
 	module.exports = TimePanel;
 
 /***/ },
-/* 205 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24709,11 +24712,11 @@
 	  nextDecade: 'Next decade',
 	  previousCentury: 'Last century',
 	  nextCentury: 'Next century',
-	  format: __webpack_require__(188)
+	  format: __webpack_require__(191)
 	};
 
 /***/ },
-/* 206 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24727,10 +24730,10 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(2);
-	var DateTimeFormat = __webpack_require__(181);
-	var rcUtil = __webpack_require__(189);
-	var KeyCode = __webpack_require__(189).KeyCode;
-	var domAlign = __webpack_require__(207);
+	var DateTimeFormat = __webpack_require__(184);
+	var rcUtil = __webpack_require__(192);
+	var KeyCode = __webpack_require__(192).KeyCode;
+	var domAlign = __webpack_require__(210);
 	var orientMap = {
 	  tl: ['top', 'left'],
 	  tr: ['top', 'right'],
@@ -25070,7 +25073,7 @@
 	module.exports = Picker;
 
 /***/ },
-/* 207 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25080,7 +25083,7 @@
 	
 	'use strict';
 	
-	var utils = __webpack_require__(208);
+	var utils = __webpack_require__(211);
 	
 	// http://yiminghe.iteye.com/blog/1124720
 	
@@ -25435,7 +25438,7 @@
 	// document.documentElement, so check for that too.
 
 /***/ },
-/* 208 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25852,7 +25855,7 @@
 	mix(utils, domUtils);
 
 /***/ },
-/* 209 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25869,7 +25872,7 @@
 
 
 /***/ },
-/* 210 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25897,11 +25900,11 @@
 	  nextDecade: '下一年代',
 	  previousCentury: '上一世纪',
 	  nextCentury: '下一世纪',
-	  format: __webpack_require__(211)
+	  format: __webpack_require__(214)
 	};
 
 /***/ },
-/* 211 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

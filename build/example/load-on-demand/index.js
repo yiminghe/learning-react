@@ -27,7 +27,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		6:0
+/******/ 		7:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -95,7 +95,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(256);
+	module.exports = __webpack_require__(259);
 
 
 /***/ },
@@ -19879,17 +19879,20 @@
 /* 253 */,
 /* 254 */,
 /* 255 */,
-/* 256 */
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	__webpack_require__(257);
+	__webpack_require__(260);
 	// dynamic set __webpack_public_path__
 	//__webpack_public_path__ = '/build/example/';
 	var React = __webpack_require__(2);
 	function load() {
-	  __webpack_require__.e/* require */(7, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(258)]; (function (Async) {
+	  __webpack_require__.e/* require */(8, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(261)]; (function (Async) {
 	    Async.show();
 	  }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
 	}
@@ -19900,7 +19903,7 @@
 	), document.getElementById('react-content-input'));
 
 /***/ },
-/* 257 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
