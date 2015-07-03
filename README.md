@@ -44,7 +44,7 @@ https://github.com/yiminghe/learning-react/blob/master/tutorial/en-us/index.md
 
 ### online
 
-[react 入门](yiminghe.me/learning-react/tutorial/zh-cn/intro.html)
+[react 入门](http://yiminghe.me/learning-react/tutorial/zh-cn/intro.html)
 
 ## Reference
 
