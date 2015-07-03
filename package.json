@@ -68,6 +68,7 @@
     "node-jscover": "~0.6.10",
     "node-jscover-webpack-loader": "^1.0.0",
     "precommit-hook": "^1.0.7",
+    "replace": "~0.3.0",
     "reveal.js": "~3.1.0",
     "url-loader": "^0.5.5",
     "webpack": "^1.7.3"
