@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>react 入门</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/reveal.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/pdf.css' : '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .align-left {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>React 入门</h1>
+
+            <p>
+                <small>yiminghe@gmail.com</small>
+            </p>
+        </section>
+
+        <section>
+            <h2>入门</h2>
+
+            <div class="fragment">
+                <p>包含</p>
+                <ul>
+                    <li>
+                        是什么
+                    </li>
+                    <li>
+                        为什么
+                    </li>
+                    <li>
+                        怎么用
+                    </li>
+                    <li>
+                        搭建示例应用
+                    </li>
+                </ul>
+            </div>
+
+            <div class="fragment">
+                <p>不包含</p>
+                <ul>
+                    <li>
+                        生态圈/公用组件
+                    </li>
+                    <li>
+                        应用框架
+                    </li>
+                    <li>
+                        编译/合并代码
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>如何运行以下 demo</h2>
+            <pre><code data-trim>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"
+></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"
+></script>
+
+<div id="container"></div>
+<script type="text/jsx">
+    // Your code here
+</script>
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>是什么</h2>
+
+            <p>react 是一个做 UI 的库，具体来说是做 UI 组件的库，专注于做 mvc 中的 v.</p>
+        </section>
+
+        <section>
+            <h2>最简单的 react 组件</h2>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/2vzgz2od/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <h2>用状态控制组件变化</h2>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/6nmwxd7z/1/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <aside>
+                为什么
+            </aside>
+        </section>
+
+        <section>
+            <h2>基础知识</h2>
+
+            <p class="fragment">jsx</p>
+
+            <p class="fragment">event</p>
+
+            <p class="fragment">composition</p>
+
+            <p class="fragment">props/state</p>
+
+            <p class="fragment">mixin</p>
+
+            <p class="fragment">form</p>
+
+            <p class="fragment">refs</p>
+
+            <p class="fragment">component api</p>
+
+            <p class="fragment">top api</p>
+        </section>
+
+        <section>
+            <h2>jsx</h2>
+
+            <p>类似 xml 的语法，用来描述组件树</p>
+
+            <pre><code>
+                <div className="x">
+                    <a href="#">#</a>
+                    <Component x="y">1</Component>
+                </div>
+            </code></pre>
+
+            <pre><code>
+                React.createElement('div',{
+                className:'x'
+                },[
+                React.createElement('a',{href:'#'},'#'),
+                React.createElement(Component,{x:'y'},1);
+                ]);
+            </code></pre>
+
+            <p>注意和 html 语法不太一样，比如必须是驼峰命名，
+                以及属性名不能和 js 关键字冲突，例如：className,readOnly
+            </p>
+        </section>
+
+        <section>
+            <h2>jsx 嵌入变量</h2>
+
+            <p>可以通过 {变量名} 来将变量的值作为属性值</p>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/1gofL4ra/2/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <h2>jsx spread</h2>
+
+            <p>可以用通过 {...obj} 来批量设置一个对象的键值对到组件的属性，注意顺序</p>
+
+            <iframe width="100%" height="300"
+                    data-src="//jsfiddle.net/yiminghe/gb8uy7rk/1/embedded/" allowfullscreen="allowfullscreen"
+                    frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <h2>event</h2>
+
+            <p>可以通过设置原生 dom 组件的 onEventType 属性来监听 dom 事件，例如 onClick, onMouseDown</p>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/76dozccr/1/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+            <p>注意：事件回调函数参数为标准化的事件对象，可以不用考虑 ie</p>
+
+            <aside>
+                和 event level 2 区别
+            </aside>
+        </section>
+
+        <section>
+            <section>
+                <h2>组合</h2>
+
+                <p>我们可以像使用原生 dom 组件一样使用自定义的组件</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/p3p1ebde/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>组合 children</h2>
+
+                <p>自定义组件中我们可以通过 this.props.children 访问自定义组件的子节点</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/du1ou19g/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>props</h2>
+
+                <p>通过 this.props 我们可以获取传递给该组件的属性值，还可以通过定义 getDefaultProps 来指定默认属性值</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+                <p>注意：默认值为所有组件实例共享的</p>
+            </section>
+
+            <section>
+                <h2>prop validation</h2>
+
+                <p>通过指定 propTypes 可以校验属性值的类型</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/2/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+                <p>注意：校验仅为提升开发者体验</p>
+            </section>
+
+            <section>
+                <h2>state</h2>
+                <p>组件内部的状态，可以使用 state</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/6nmwxd7z/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+        </section>
+
+        <section>
+            <h2>mixin</h2>
+
+            <p>mixin 是一个普通对象，通过 mixin 我们可以在不同组件间共享代码</p>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/t5gpdj7g/1/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </section>
+
+        <section>
+            <section>
+                <h2>form</h2>
+
+                <p>和 html 的不同点：</p>
+                <ul>
+                    <li>value/checked 属性设置后，用户输入无效</li>
+                    <li>textarea 的值要设置在 value 属性</li>
+                    <li>select 的 value 属性可以是数组，不建议使用 option 的 selected 属性</li>
+                    <li>input/textarea 的 onChange 用户每次输入都会触发（即使不失去焦点）</li>
+                    <li>radio/checkbox 点击后触发 onChange</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>controlled components</h2>
+
+                <p>如果设置了 value 属性，那么改组件变为受控组件，用户无法输入，除非程序改变 value 属性</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/3jwjLkrk/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>controlled components</h2>
+
+                <p>可以通过监听 onChange 事件结合 state 来改变 input 的值</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/3jwjLkrk/2/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>uncontrolled components</h2>
+
+                <p>设置 defaultValue 为设置 input 的初始值，之后 input 的值由用户输入</p>
+
+                <iframe width="100%" height="300"
+                        data-src="//jsfiddle.net/yiminghe/ex46s6n2/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+                <p>类似还有 defaultChecked</p>
+            </section>
+        </section>
+
+        <section>
+            <h2>ref</h2>
+
+            <p>该功能是为了结合现有非 react 类库，通过 ref/refs 可以取得组件实例，进而取得原生节点</p>
+
+            <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/ey56o3md/1/embedded/"
+                    allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+            <p>注意：尽量通过 state/props 更新组件，不要使用该功能</p>
+        </section>
+
+        <section>
+            <section>
+                <h2>component api</h2>
+
+                <p>React.createClass 定义组件时允许传入的配置</p>
+
+                <ul>
+                    <li>getDefaultProps 得到默认属性对象</li>
+                    <li>propTypes 属性检验规则</li>
+                    <li>mixins 组件间公用方法</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>component lifecycle</h2>
+
+                <p>React.createClass 定义时允许传入的函数，会在特定生命周期内调用</p>
+
+                <p>初次创建组件时调用</p>
+
+                <ul>
+                    <li>getInitialState 得到初始状态对象</li>
+                    <li>render 返回组件树. 必须设置</li>
+                    <li>componentDidMount 渲染到 dom 树中是调用，只在客户端调用，可用于获取原生节点</li>
+                </ul>
+            </section>
+
+
+            <section>
+                <h2>component lifecycle</h2>
+
+                <p>组件的属性值改变时调用</p>
+
+                <ul>
+                    <li>componentWillReceiveProps 属性改变调用</li>
+                    <li>shouldComponentUpdate 判断是否需要重新渲染</li>
+                    <li>render 返回组件树. 必须设置</li>
+                    <li>componentDidUpdate 渲染到 dom 树中是调用, 可用于获取原生节点</li>
+                </ul>
+
+                <p>最后是 componentWillUnmount 组件从 dom 销毁前调用</p>
+            </section>
+        </section>
+
+        <section>
+            <h2>top api</h2>
+
+            <ul>
+                <li>React.createClass 创建组件类</li>
+                <li>React.findDOMNode 从组件实例获取 dom 根节点</li>
+                <li>React.render 渲染组件到 dom</li>
+                <li>React.Children.* 操作 map/forEach children 工具类</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>一步步搭建一个评论应用</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/" allowfullscreen="allowfullscreen"
+                        frameborder="0"></iframe>
+
+                <ul>
+                    <li>
+                        评论的列表
+                    </li>
+                    <li>
+                        提交表单
+                    </li>
+                    <li>
+                        后端结合
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>组件分解</h2>
+                <ul>
+                    <li>
+                        顶层 CommentBox
+                        <ul>
+                            <li>
+                                评论列表 CommentList
+                                <ul>
+                                    <li>单条评论 Comment</li>
+                                </ul>
+                            </li>
+                            <li>
+                                评论表单 CommentForm
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>最简单的 CommentBox</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>组合组件</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/2/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>属性传递</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/3/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>使用 dom 库 marked</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/4/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>数据分离</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/5/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>从服务器取得数据</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/6/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>评论表单</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/7/embedded/" allowfullscreen="allowfullscreen"
+                frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>最后：通知重新渲染</h2>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/" allowfullscreen="allowfullscreen"
+                frameborder="0"></iframe>
+            </section>
+
+            <aside>
+                手写代码，逐步展示，后续示例作业
+            </aside>
+        </section>
+
+        <section>
+            <h2>Next: 如何使用 ant-design</h2>
+        </section>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/head.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/js/reveal.js"></script>
+<script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/zoom-js/zoom.js', async: true},
+            {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/notes/notes.js', async: true}
+        ]
+    });
+</script>
+
+</body>
+</html>
