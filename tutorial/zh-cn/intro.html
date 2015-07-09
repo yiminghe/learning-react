@@ -94,12 +94,7 @@
         <section>
             <h2>如何运行以下 demo</h2>
             <pre><code data-trim>
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"
-></script>
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"
-></script>
+                <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js,react/0.13.3/react.js,react/0.13.3/JSXTransformer.js"></script>
 
 <div id="container"></div>
 <script type="text/jsx">
@@ -124,14 +119,22 @@ src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"
         <section>
             <h2>用状态控制组件变化</h2>
 
+            <p>可以把一个组件看做一个状态机, 每一次状态对应于组件的一个 ui</p>
+
             <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/6nmwxd7z/1/embedded/"
                     allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         </section>
 
         <section>
-            <aside>
-                为什么
-            </aside>
+            <h2>为什么</h2>
+
+            <ul>
+                <li>api 少，类库易学</li>
+                <li>组件内聚，易于组合</li>
+                <li>原生组件和自定义组件融合渲染</li>
+                <li>状态/属性驱动全局更新，不用关注细节更新</li>
+                <li>commonjs 生态圈/工具链完善</li>
+            </ul>
         </section>
 
         <section>
@@ -204,16 +207,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"
         <section>
             <h2>event</h2>
 
-            <p>可以通过设置原生 dom 组件的 onEventType 属性来监听 dom 事件，例如 onClick, onMouseDown</p>
+            <p>可以通过设置原生 dom 组件的 onEventType 属性来监听 dom 事件，例如 onClick, onMouseDown，在加强组件内聚性的同时，避免了传统 html 的全局变量污染</p>
 
             <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/76dozccr/1/embedded/"
                     allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
             <p>注意：事件回调函数参数为标准化的事件对象，可以不用考虑 ie</p>
-
-            <aside>
-                和 event level 2 区别
-            </aside>
         </section>
 
         <section>
@@ -483,10 +482,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"
                 <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/" allowfullscreen="allowfullscreen"
                 frameborder="0"></iframe>
             </section>
-
-            <aside>
-                手写代码，逐步展示，后续示例作业
-            </aside>
         </section>
 
         <section>
