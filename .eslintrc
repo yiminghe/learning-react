@@ -6,7 +6,8 @@
     "mocha": true
   },
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
+    "modules": true
   },
   "plugins": [
     "react"
@@ -109,7 +110,10 @@
       }
     ],
     "newline-after-var": [0],
-    "generator-star-spacing": [2, "before"],
+    "generator-star-spacing": [
+      2,
+      "before"
+    ],
     "no-alert": [0],
     "no-array-constructor": [2],
     "no-bitwise": [0],
