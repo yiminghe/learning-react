@@ -1,2 +1,2 @@
 rm -rf build
-webpack
+./node_modules/.bin/webpack
