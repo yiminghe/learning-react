@@ -2,10 +2,11 @@
 
 // https://github.com/rackt/react-router/tree/master/examples/simple-master-detail
 
-require('./index.css');
-var React = require('react');
-var Router = require('react-router');
-var { Route, DefaultRoute, RouteHandler, Link } = Router;
+import './index.css';
+
+import React from 'react';
+import { Router, Link } from 'react-router';
+import HashHistory from 'react-router/lib/HashHistory';
 
 /*****************************************************************************/
 // data stuff
@@ -88,8 +89,7 @@ var App = React.createClass({
       return (
         <li key={state.abbr}>
           <Link
-            to='state'
-            params={{abbr: state.abbr}}
+            to={`state/${state.abbr}`}
           >{state.name}</Link>
         </li>
       );
@@ -100,7 +100,7 @@ var App = React.createClass({
           {links}
         </ul>
         <div className='Detail'>
-          <RouteHandler/>
+        {this.props.children}
         </div>
       </div>
     );
@@ -114,32 +114,40 @@ var Index = React.createClass({
 });
 
 var State = React.createClass({
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
   imageUrl: function (name) {
     return 'http://www.50states.com/maps/' + underscore(name) + '.gif';
   },
 
   render: function () {
-    var unitedState = findState(this.context.router.getCurrentParams().abbr);
-    return (
+    var unitedState = findState(this.props.params.abbr);
+    return unitedState ? (
       <div className='State'>
         <h1>{unitedState.name}</h1>
         <img className='state-image' src={this.imageUrl(unitedState.name)}/>
       </div>
-    );
+    ) : <Index />;
   }
 });
 
-var routes = (
-  <Route handler={App}>
-    <DefaultRoute handler={Index}/>
-    <Route name='state' path='state/:abbr' handler={State}/>
-  </Route>
-);
+
+var rootRoute = {
+  component: App,
+  childRoutes: [
+    {
+      path: '/',
+
+      component: Index
+    },
+    {
+      path: 'state/:abbr',
+      component: State
+    },
+    {
+      path: '*',
+      component: Index
+    }
+  ]
+};
 
 var instance;
 
@@ -147,7 +155,5 @@ exports.getInstance = function () {
   return instance;
 };
 
-Router.run(routes, function (Handler) {
-  instance = React.render(<Handler/>, document.getElementById('__react-content'));
-});
-
+instance = React.render(<Router history={new HashHistory()}>{rootRoute}</Router>,
+  document.getElementById('__react-content'));
