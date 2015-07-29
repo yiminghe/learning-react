@@ -14,8 +14,16 @@ open  [http://localhost:8000/example/index.html](http://localhost:8000/example/i
 
 ## Run coverage test
 
+*nix
+
 ```
 npm run test-cover
+```
+
+git bash on window
+
+```
+NODE_ENV=test node --harmony server
 ```
 
 ### Brief test result in browser
