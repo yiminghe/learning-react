@@ -147,11 +147,7 @@ query NestedQuery {
             name
         }
     }
-}
-                </pre>
-                </code>
-
-                <p>得到符合格式的数据</p>
+}</code></pre>
 
                 <pre><code>
 hero: {
@@ -160,8 +156,7 @@ hero: {
         name: 'f'
     }]
 }
-                </pre>
-                </code>
+                </code></pre>
             </section>
         </section>
 
@@ -172,9 +167,10 @@ hero: {
 
             <p>基于 webpack 热加载特性，对组件类的原型方法(render)进行修改</p>
 
-            <p>所以不能热加载 store （有数据）</p>
-
-            <p>所以作者开发了个 redux 无数据的 store，可动态加载</p>
+            <ul>
+                <li>不能热加载 store （有数据）</li>
+                <li>redux: 无数据的 store, 可热加载</li>
+            </ul>
         </section>
 
         <section>
@@ -186,12 +182,11 @@ hero: {
                 <pre><code>
 export default function counter(state=0, action){
     switch(action.type) {
-        // ...
-        // return state + 1;
+    // ...
+    // return state + 1;
     }
 }
-            </pre>
-                </code>
+                </code></pre>
             </section>
 
             <section>
@@ -201,16 +196,17 @@ export default function counter(state=0, action){
 
                 <pre><code>
 render(){
-    &lt;Connector select={function(state){return {counter:state.counter}}}>
-        {
-        function({counter,dispatch}){
-            return &lt;Counter counter={counter}/>
-        }
-        }
+    return &lt;Connector select={
+                    (state) => {return {counter:state.counter}}
+                    }>
+    {
+    function({counter,dispatch}){
+        return &lt;Counter counter={counter}/>
+    }
+    }
     &lt;/Connector>
 }
-                </pre>
-                </code>
+                </code></pre>
             </section>
         </section>
 
@@ -220,8 +216,10 @@ render(){
             <ul>
                 <li>整合 html/css/js 为一个可交互的完整组件，适合 webapp 类型</li>
                 <li>减少复杂度，无继承，优先级等问题</li>
-                <li>问题： 伪类，media query 等： https://github.com/FormidableLabs/radium</li>
+                <li>问题： 伪类，media query 等</li>
             </ul>
+
+            <p>https://github.com/FormidableLabs/radium</p>
         </section>
 
         <section>
@@ -241,7 +239,7 @@ render(){
             <section>
                 <h1>思考问题</h1>
 
-                <img src="http://gtms04.alicdn.com/tps/i4/TB1hKNsIVXXXXcpXXXXUb1A2VXX-1184-676.png" />
+                <img src="http://gtms04.alicdn.com/tps/i4/TB1hKNsIVXXXXcpXXXXUb1A2VXX-1184-676.png"/>
             </section>
 
             <section>
@@ -259,66 +257,259 @@ render(){
 
                 <pre><code>
 class Story extends React.Component {
-  render() {
-    var story = this.props.story;
-    return (
-      &lt;View>
-          &lt;Image uri={story.author.profile_picture.uri} />
-          &lt;Text>{story.author.name}&lt;/Text>
-                    &lt;Text>{story.text}&lt;/Text>
-      &lt;/View>
-    );
-  }
+    render() {
+        var story = this.props.story;
+        return (
+            &lt;View>
+            &lt;Image uri={story.author.profile_picture.uri} />
+            &lt;Text>{story.author.name}&lt;/Text>
+            &lt;Text>{story.text}&lt;/Text>
+            &lt;/View>
+        );
+    }
 }
 module.exports = Relay.createContainer(Story, {
-  queries: {
-    story: graphql`
-      Story {
-        author {
-          name,
-          profile_picture {
-            uri
-          }
-        },
-        text
-      }
-    `
-  }
+    queries: {
+        story: graphql`
+            Story {
+                author {
+                    name,
+                    profile_picture {
+                        uri
+                    }
+                },
+                text
+            }
+        `
+    }
 });
                 </code></pre>
             </section>
         </section>
 
         <section>
-        <section>
-            <h1>mutiple targets</h1>
+            <section>
+                <h1>multiple targets</h1>
 
-            <p>react 0.14-beta-1,react & react-dom, dom 只是实现细节，react 为组件规范，react-native/canvas 可共享 react 包</p>
+                <p>react 0.14-beta-1</p>
+
+                <ul>
+                    <li>react & react-dom, dom 只是实现细节</li>
+                    <li>react 为组件规范，react-native/canvas 可共享 react 包</li>
+                </ul>
 
             <pre><code>
 var React = require('react');
 var ReactDOM = require('react-dom');
 
 var MyComponent = React.createClass({
-  render: function() {
-    return &lt;div>Hello World&lt;/div>;
-  }
+    render: function() {
+        return &lt;div>Hello World&lt;/div>;
+    }
 });
 
 ReactDOM.render(&lt;MyComponent />, node);
-
             </code></pre>
+            </section>
+
+            <section>
+                <h1>multiple targets</h1>
+
+                <img src="http://gtms01.alicdn.com/tps/i1/TB1I2FjIVXXXXahXpXXwSuT9XXX-1016-652.png"/>
+            </section>
         </section>
 
         <section>
-            <h1>mutiple targets</h1>
+            <section>
+                <h1>code transformation</h1>
 
-            <img src="http://gtms01.alicdn.com/tps/i1/TB1I2FjIVXXXXahXpXXwSuT9XXX-1016-652.png" />
-        </section>
+                <ul>
+                    <li>parser</li>
+                    <li>transformer</li>
+                    <li>generator</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>parser</h1>
+
+                <p>acorn, espree, esprima</p>
+
+                <p>string => ast</p>
+
+                <ul>
+                    <li>lexical analysis</li>
+                    <li>syntactic analysis</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>transformer</h1>
+
+                <p>ast => ast</p>
+
+                <ul>
+                    <li>traverse using visitor</li>
+                    <li>static analysis</li>
+                    <li>paths-based replacement</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>generator</h1>
+
+                <p>将转换后的 ast 序列化为字符串</p>
+
+                <p>escodegen</p>
+            </section>
+
+            <section>
+                <h1>babel</h1>
+
+                <ul>
+                    <li>扩展性的插件</li>
+                    <li>可扩充语法</li>
+                </ul>
+            </section>
         </section>
 
         <section>
+            <section>
+                <h1>animation in react</h1>
 
+                <p>css transition 缺点</p>
+
+                <ul>
+                    <li>基于时间</li>
+                    <li>不容易控制</li>
+                    <li>依赖 DOM</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>react-motion</h1>
+
+                <pre><code>
+                    &lt;Spring endValue={this.state.value}>
+                    {(value)=>{
+                    return &lt;div style={{left:value}}>&lt;/div>;
+                    }}
+                    &lt;/Spring>
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-motion</h1>
+                <ul>
+                    <li>平台无关</li>
+                    <li>js 动画简单方便，不必关心时间</li>
+                    <li>适合于一般任务</li>
+                    <li>性能?</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>react-router</h1>
+
+
+                <p>将嵌套的 url 映射为 嵌套的组件</p>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>支持 js 对象定义路由</p>
+
+                <pre><code data-trim>
+var rootRoute = {
+    component: App,
+    childRoutes: [
+        {
+            path: '/',
+            component: Index
+        },
+        {
+            path: 'state/:abbr',
+            component: State
+        },
+        {
+            path: '*',
+            component: Index
+        }
+    ]
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>支持异步路由</p>
+
+                <pre><code data-trim>
+module.exports = {
+    path: 'course/:courseId',
+    getChildRoutes (state, cb) {
+        require.ensure([], (require) => {
+            cb(null, [
+                require('./routes/Announcements'),
+                require('./routes/Assignments'),
+                require('./routes/Grades'),
+            ])
+        })
+    },
+    getComponents (cb) {
+        require.ensure([], (require) => {
+            cb(null, require('./components/Course'))
+        })
+    }
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>参数，路由组件通过属性传递</p>
+
+                <pre><code>
+                    // components/App.js
+                    // state/ny
+                    render(){
+                    // this.props.children => state
+                    }
+                    // components/State.js
+                    render() {
+                    // this.props.params.abbr => ny
+                    }
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h1>going mobile with react</h1>
+
+            <p>https://github.com/touchstonejs/touchstonejs</p>
+
+            <ul>
+                <li>navigation</li>
+
+                <li>form</li>
+
+                <li>control</li>
+            </ul>
+        </section>
+
+        <section>
+            <img src="http://gtms02.alicdn.com/tps/i2/TB1szlzIVXXXXacXXXXoiqKKXXX-602-380.png"/>
         </section>
     </div>
 </div>
