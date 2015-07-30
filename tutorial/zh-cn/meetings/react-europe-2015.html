@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>react 入门</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/reveal.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/pdf.css' : '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .align-left {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>ReactEurope 2015</h1>
+
+            <p>
+                <small>yiminghe@gmail.com</small>
+            </p>
+        </section>
+
+        <section>
+            <h1>生态全景</h1>
+
+            <ul>
+                <li>数据</li>
+                <li>语言</li>
+                <li>打包</li>
+                <li>平台</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>数据</h1>
+
+            <ul>
+                <li>松约束的 flux 类库以及进一步的函数式 redux</li>
+                <li>整合数据获取 relay(graphql)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>语言</h1>
+
+            <ul>
+                <li>babel => jsx + es6</li>
+                <li>检测 eslint</li>
+                <li>类型系统 typescript/flow</li>
+                <li>底层编译 webassembly</li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>平台</h1>
+
+            <ul>
+                <li>浏览器： dom/svg/canvas</li>
+            </ul>
+            <ul>
+                <li>原生平台： react-native android ios</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h1>graphql</h1>
+
+                <p>restful api 问题</p>
+
+                <ul>
+                    <li>每个 api 格式不一致</li>
+                    <li>应用需求请求多次</li>
+                    <li>版本号泛滥</li>
+                </ul>
+            </section>
+            <section>
+                <h1>graphql 思路</h1>
+                <ul>
+                    <li>解耦服务器端与客户端</li>
+                    <li>本身不存储数据</li>
+                    <li>graphql 描述服务器提供的能力，客户端指定获取数据格式</li>
+                    <li>服务器批量请求</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>graphql 服务器端</h1>
+
+                <p>一个类型定义</p>
+
+                <img height='472' src="http://gtms04.alicdn.com/tps/i4/TB19ZXsIVXXXXbRXXXX7DeyRpXX-590-570.png"/>
+            </section>
+
+            <section>
+                <h1>graphql 服务器端</h1>
+
+                <p>如何数据获取</p>
+
+                <img src="http://gtms01.alicdn.com/tps/i1/TB1AHReIVXXXXauXpXXp1I_JpXX-571-409.png"/>
+            </section>
+
+            <section>
+                <h1>graphql 客户端</h1>
+
+                <p>构建请求格式</p>
+
+                <pre><code>
+query NestedQuery {
+    hero {
+        name
+        friends {
+            name
+        }
+    }
+}</code></pre>
+
+                <pre><code>
+hero: {
+    name: 'r2-d2',
+    friends: [{
+        name: 'f'
+    }]
+}
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h1>react-hot-loader</h1>
+
+            <p>https://github.com/gaearon/react-hot-loader</p>
+
+            <p>基于 webpack 热加载特性，对组件类的原型方法(render)进行修改</p>
+
+            <ul>
+                <li>不能热加载 store （有数据）</li>
+                <li>redux: 无数据的 store, 可热加载</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h1>redux</h1>
+
+                <p>将数据保存在类库内部，通过函数回传给 store 处理函数</p>
+
+                <pre><code>
+export default function counter(state=0, action){
+    switch(action.type) {
+    // ...
+    // return state + 1;
+    }
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>redux</h1>
+
+                <p>组件通过 connector 声明需要的数据</p>
+
+                <pre><code>
+render(){
+    return &lt;Connector select={
+                    (state) => {return {counter:state.counter}}
+                    }>
+    {
+    function({counter,dispatch}){
+        return &lt;Counter counter={counter}/>
+    }
+    }
+    &lt;/Connector>
+}
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h1>inline style</h1>
+
+            <ul>
+                <li>整合 html/css/js 为一个可交互的完整组件，适合 webapp 类型</li>
+                <li>减少复杂度，无继承，优先级等问题</li>
+                <li>问题： 伪类，media query 等</li>
+            </ul>
+
+            <p>https://github.com/FormidableLabs/radium</p>
+        </section>
+
+        <section>
+            <section>
+                <h1>relay</h1>
+
+                <p>传统数据获取导致的问题</p>
+
+                <ul>
+                    <li>通用接口导致客户端的多次获取，效率低</li>
+                    <li>特殊接口造成的维护难题</li>
+                    <li>需求变动导致 underfetching/overfetching</li>
+                    <li>最终导致客户端与服务器端耦合</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>思考问题</h1>
+
+                <img src="http://gtms04.alicdn.com/tps/i4/TB1hKNsIVXXXXcpXXXXUb1A2VXX-1184-676.png"/>
+            </section>
+
+            <section>
+                <h1>relay</h1>
+
+                <p>声明式的 api 消除逻辑错误，将数据获取和组件渲染放在一起</p>
+
+                <pre><code>
+                    ui = view(query(props))
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>relay code</h1>
+
+                <pre><code>
+class Story extends React.Component {
+    render() {
+        var story = this.props.story;
+        return (
+            &lt;View>
+            &lt;Image uri={story.author.profile_picture.uri} />
+            &lt;Text>{story.author.name}&lt;/Text>
+            &lt;Text>{story.text}&lt;/Text>
+            &lt;/View>
+        );
+    }
+}
+module.exports = Relay.createContainer(Story, {
+    queries: {
+        story: graphql`
+            Story {
+                author {
+                    name,
+                    profile_picture {
+                        uri
+                    }
+                },
+                text
+            }
+        `
+    }
+});
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>multiple targets</h1>
+
+                <p>react 0.14-beta-1</p>
+
+                <ul>
+                    <li>react & react-dom, dom 只是实现细节</li>
+                    <li>react 为组件规范，react-native/canvas 可共享 react 包</li>
+                </ul>
+
+            <pre><code>
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var MyComponent = React.createClass({
+    render: function() {
+        return &lt;div>Hello World&lt;/div>;
+    }
+});
+
+ReactDOM.render(&lt;MyComponent />, node);
+            </code></pre>
+            </section>
+
+            <section>
+                <h1>multiple targets</h1>
+
+                <img src="http://gtms01.alicdn.com/tps/i1/TB1I2FjIVXXXXahXpXXwSuT9XXX-1016-652.png"/>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>code transformation</h1>
+
+                <ul>
+                    <li>parser</li>
+                    <li>transformer</li>
+                    <li>generator</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>parser</h1>
+
+                <p>acorn, espree, esprima</p>
+
+                <p>string => ast</p>
+
+                <ul>
+                    <li>lexical analysis</li>
+                    <li>syntactic analysis</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>transformer</h1>
+
+                <p>ast => ast</p>
+
+                <ul>
+                    <li>traverse using visitor</li>
+                    <li>static analysis</li>
+                    <li>paths-based replacement</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>generator</h1>
+
+                <p>将转换后的 ast 序列化为字符串</p>
+
+                <p>escodegen</p>
+            </section>
+
+            <section>
+                <h1>babel</h1>
+
+                <ul>
+                    <li>扩展性的插件</li>
+                    <li>可扩充语法</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>animation in react</h1>
+
+                <p>css transition 缺点</p>
+
+                <ul>
+                    <li>基于时间</li>
+                    <li>不容易控制</li>
+                    <li>依赖 DOM</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>react-motion</h1>
+
+                <pre><code>
+                    &lt;Spring endValue={this.state.value}>
+                    {(value)=>{
+                    return &lt;div style={{left:value}}>&lt;/div>;
+                    }}
+                    &lt;/Spring>
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-motion</h1>
+                <ul>
+                    <li>平台无关</li>
+                    <li>js 动画简单方便，不必关心时间</li>
+                    <li>适合于一般任务</li>
+                    <li>性能?</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h1>react-router</h1>
+
+
+                <p>将嵌套的 url 映射为 嵌套的组件</p>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>支持 js 对象定义路由</p>
+
+                <pre><code data-trim>
+var rootRoute = {
+    component: App,
+    childRoutes: [
+        {
+            path: '/',
+            component: Index
+        },
+        {
+            path: 'state/:abbr',
+            component: State
+        },
+        {
+            path: '*',
+            component: Index
+        }
+    ]
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>支持异步路由</p>
+
+                <pre><code data-trim>
+module.exports = {
+    path: 'course/:courseId',
+    getChildRoutes (state, cb) {
+        require.ensure([], (require) => {
+            cb(null, [
+                require('./routes/Announcements'),
+                require('./routes/Assignments'),
+                require('./routes/Grades'),
+            ])
+        })
+    },
+    getComponents (cb) {
+        require.ensure([], (require) => {
+            cb(null, require('./components/Course'))
+        })
+    }
+};
+                </code></pre>
+            </section>
+
+            <section>
+                <h1>react-router</h1>
+
+                <p>1.0.0-beta</p>
+
+                <p>参数，路由组件通过属性传递</p>
+
+                <pre><code>
+                    // components/App.js
+                    // state/ny
+                    render(){
+                    // this.props.children => state
+                    }
+                    // components/State.js
+                    render() {
+                    // this.props.params.abbr => ny
+                    }
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h1>going mobile with react</h1>
+
+            <p>https://github.com/touchstonejs/touchstonejs</p>
+
+            <ul>
+                <li>navigation</li>
+
+                <li>form</li>
+
+                <li>control</li>
+            </ul>
+        </section>
+
+        <section>
+            <img src="http://gtms02.alicdn.com/tps/i2/TB1szlzIVXXXXacXXXXoiqKKXXX-602-380.png"/>
+        </section>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/head.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/js/reveal.js"></script>
+<script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/zoom-js/zoom.js', async: true},
+            {src: '//cdnjs.cloudflare.com/ajax/libs/reveal.js/3.1.0/plugin/notes/notes.js', async: true}
+        ]
+    });
+</script>
+
+</body>
+</html>

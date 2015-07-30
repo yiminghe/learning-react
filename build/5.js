@@ -1,14 +1,14 @@
-webpackJsonp([9],{
+webpackJsonp([5],{
 
-/***/ 293:
+/***/ 187:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var container;
-	__webpack_require__(294);
-	var Dialog = __webpack_require__(295);
-	__webpack_require__(312);
-	var React = __webpack_require__(2);
+	__webpack_require__(188);
+	var Dialog = __webpack_require__(189);
+	__webpack_require__(207);
+	var React = __webpack_require__(3);
 	exports.show = function () {
 	  if (!container) {
 	    container = document.createElement('div');
@@ -27,23 +27,23 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 294:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 188:
+/***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 295:
+/***/ 189:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(296);
+	module.exports = __webpack_require__(190);
 
 /***/ },
 
-/***/ 296:
+/***/ 190:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58,8 +58,8 @@ webpackJsonp([9],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
-	var React = __webpack_require__(2);
-	var Dialog = __webpack_require__(297);
+	var React = __webpack_require__(3);
+	var Dialog = __webpack_require__(191);
 	
 	function noop() {}
 	
@@ -210,18 +210,18 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 297:
+/***/ 191:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(2);
-	var domAlign = __webpack_require__(298);
-	var RcUtil = __webpack_require__(300);
+	var React = __webpack_require__(3);
+	var domAlign = __webpack_require__(192);
+	var RcUtil = __webpack_require__(194);
 	var Dom = RcUtil.Dom;
-	var assign = __webpack_require__(311);
+	var assign = __webpack_require__(206);
 	
 	function prefixClsFn(prefixCls) {
 	  var args = Array.prototype.slice.call(arguments, 1);
@@ -362,7 +362,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 298:
+/***/ 192:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -372,7 +372,7 @@ webpackJsonp([9],{
 	
 	'use strict';
 	
-	var utils = __webpack_require__(299);
+	var utils = __webpack_require__(193);
 	
 	// http://yiminghe.iteye.com/blog/1124720
 	
@@ -728,17 +728,14 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 299:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 193:
+/***/ function(module, exports) {
 
 	'use strict';
 	
 	var RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 	
 	var getComputedStyleX;
-	if (typeof window !== 'undefined') {
-	  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
-	}
 	
 	function css(el, name, value) {
 	  if (typeof name === 'object') {
@@ -885,21 +882,28 @@ webpackJsonp([9],{
 	  return ret === '' ? 'auto' : ret;
 	}
 	
+	if (typeof window !== 'undefined') {
+	  getComputedStyleX = window.getComputedStyle ? _getComputedStyle : _getComputedStyleIE;
+	}
+	
 	// 设置 elem 相对 elem.ownerDocument 的坐标
 	function setOffset(elem, offset) {
 	  // set position first, in-case top/left are set even on static elem
 	  if (css(elem, 'position') === 'static') {
 	    elem.style.position = 'relative';
 	  }
-	
-	  var old = getOffset(elem),
-	      ret = {},
-	      current,
-	      key;
-	
+	  var preset = -9999;
+	  if ('left' in offset) {
+	    elem.style.left = preset + 'px';
+	  }
+	  if ('top' in offset) {
+	    elem.style.top = preset + 'px';
+	  }
+	  var old = getOffset(elem);
+	  var ret = {};
+	  var key;
 	  for (key in offset) {
-	    current = parseFloat(css(elem, key)) || 0;
-	    ret[key] = current + offset[key] - old[key];
+	    ret[key] = preset + offset[key] - old[key];
 	  }
 	  css(elem, ret);
 	}
@@ -1146,80 +1150,32 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 300:
+/***/ 194:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  guid: __webpack_require__(302),
-	  classSet: __webpack_require__(303),
-	  joinClasses: __webpack_require__(304),
-	  KeyCode: __webpack_require__(305),
-	  PureRenderMixin: __webpack_require__(306),
-	  shallowEqual: __webpack_require__(301),
-	  createChainedFunction: __webpack_require__(307),
+	  guid: __webpack_require__(195),
+	  classSet: __webpack_require__(196),
+	  joinClasses: __webpack_require__(197),
+	  KeyCode: __webpack_require__(198),
+	  PureRenderMixin: __webpack_require__(199),
+	  shallowEqual: __webpack_require__(200),
+	  createChainedFunction: __webpack_require__(201),
 	  Dom: {
-	    addEventListener: __webpack_require__(308),
-	    contains: __webpack_require__(309)
+	    addEventListener: __webpack_require__(202),
+	    contains: __webpack_require__(203)
 	  },
 	  Children: {
-	    toArray: __webpack_require__(310)
+	    toArray: __webpack_require__(204),
+	    mapSelf: __webpack_require__(205)
 	  }
 	};
 
 
 /***/ },
 
-/***/ 301:
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-
-/***/ },
-
-/***/ 302:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 195:
+/***/ function(module, exports) {
 
 	var seed = 0;
 	module.exports = function () {
@@ -1229,8 +1185,8 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 303:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 196:
+/***/ function(module, exports) {
 
 	/**
 	 * Copyright 2013-2014, Facebook, Inc.
@@ -1275,8 +1231,8 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 304:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 197:
+/***/ function(module, exports) {
 
 	/**
 	 * Copyright 2013-2014, Facebook, Inc.
@@ -1323,8 +1279,8 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 305:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 198:
+/***/ function(module, exports) {
 
 	/**
 	 * @ignore
@@ -1851,7 +1807,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 306:
+/***/ 199:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1867,7 +1823,7 @@ webpackJsonp([9],{
 	
 	"use strict";
 	
-	var shallowEqual = __webpack_require__(301);
+	var shallowEqual = __webpack_require__(200);
 	
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -1905,8 +1861,57 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 307:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 200:
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
+
+/***/ 201:
+/***/ function(module, exports) {
 
 	/**
 	 * Safe chained function
@@ -1933,8 +1938,8 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 308:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 202:
+/***/ function(module, exports) {
 
 	module.exports = function (target, eventType, callback) {
 	  if (target.addEventListener) {
@@ -1957,8 +1962,8 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 309:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 203:
+/***/ function(module, exports) {
 
 	module.exports = function (root, node) {
 	  while (node) {
@@ -1974,10 +1979,10 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 310:
+/***/ 204:
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(2);
+	var React = __webpack_require__(3);
 	
 	module.exports = function (children) {
 	  var ret = [];
@@ -1990,8 +1995,25 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 311:
+/***/ 205:
 /***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(3);
+	
+	function mirror(o) {
+	  return o;
+	}
+	
+	module.exports = function (children) {
+	  // return ReactFragment
+	  return React.Children.map(children, mirror);
+	};
+
+
+/***/ },
+
+/***/ 206:
+/***/ function(module, exports) {
 
 	'use strict';
 	
@@ -2023,12 +2045,12 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 312:
-/***/ function(module, exports, __webpack_require__) {
+/***/ 207:
+/***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ }
 
 });
-//# sourceMappingURL=9.js.map
+//# sourceMappingURL=5.js.map
