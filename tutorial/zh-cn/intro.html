@@ -96,10 +96,10 @@
             <pre><code data-trim>
                 <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js,react/0.13.3/react.js,react/0.13.3/JSXTransformer.js"></script>
 
-<div id="container"></div>
-<script type="text/jsx">
-    // Your code here
-</script>
+                <div id="container"></div>
+                <script type="text/jsx">
+                    // Your code here
+                </script>
             </code></pre>
         </section>
 
@@ -205,6 +205,39 @@
         </section>
 
         <section>
+            <section>
+                <h2>props</h2>
+
+                <p>通过 this.props 我们可以获取传递给该组件的属性值，还可以通过定义 getDefaultProps 来指定默认属性值</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+                <p>注意：默认值为所有组件实例共享的</p>
+            </section>
+
+            <section>
+                <h2>prop validation</h2>
+
+                <p>通过指定 propTypes 可以校验属性值的类型</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/2/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+                <p>注意：校验仅为提升开发者体验</p>
+            </section>
+
+            <section>
+                <h2>state</h2>
+
+                <p>组件内部的状态，可以使用 state</p>
+
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/6nmwxd7z/1/embedded/"
+                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+        </section>
+
+        <section>
             <h2>event</h2>
 
             <p>可以通过设置原生 dom 组件的 onEventType 属性来监听 dom 事件，例如 onClick, onMouseDown，在加强组件内聚性的同时，避免了传统 html 的全局变量污染</p>
@@ -235,37 +268,6 @@
             </section>
         </section>
 
-        <section>
-            <section>
-                <h2>props</h2>
-
-                <p>通过 this.props 我们可以获取传递给该组件的属性值，还可以通过定义 getDefaultProps 来指定默认属性值</p>
-
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/1/embedded/"
-                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
-                <p>注意：默认值为所有组件实例共享的</p>
-            </section>
-
-            <section>
-                <h2>prop validation</h2>
-
-                <p>通过指定 propTypes 可以校验属性值的类型</p>
-
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/jooayz20/2/embedded/"
-                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-
-                <p>注意：校验仅为提升开发者体验</p>
-            </section>
-
-            <section>
-                <h2>state</h2>
-                <p>组件内部的状态，可以使用 state</p>
-
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/6nmwxd7z/1/embedded/"
-                        allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-            </section>
-        </section>
 
         <section>
             <h2>mixin</h2>
@@ -391,7 +393,8 @@
             <section>
                 <h2>一步步搭建一个评论应用</h2>
 
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/" allowfullscreen="allowfullscreen"
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/"
+                        allowfullscreen="allowfullscreen"
                         frameborder="0"></iframe>
 
                 <ul>
@@ -472,15 +475,55 @@
             <section>
                 <h2>评论表单</h2>
 
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/7/embedded/" allowfullscreen="allowfullscreen"
-                frameborder="0"></iframe>
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/7/embedded/"
+                        allowfullscreen="allowfullscreen"
+                        frameborder="0"></iframe>
             </section>
 
             <section>
                 <h2>最后：通知重新渲染</h2>
 
-                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/" allowfullscreen="allowfullscreen"
-                frameborder="0"></iframe>
+                <iframe width="100%" height="300" data-src="//jsfiddle.net/yiminghe/f2ykstmf/8/embedded/"
+                        allowfullscreen="allowfullscreen"
+                        frameborder="0"></iframe>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>现场作业</h2>
+
+                <a tabindex="0">实现一个 checkbox</a>
+
+                <p>
+                    <label>
+                    checkbox:
+                    <input type="checkbox"/>
+                    </label>
+                </p>
+            </section>
+
+            <section>
+                <h2>功能点</h2>
+                <ul>
+                    <li>
+                        新生成组件/更新组件
+                    </li>
+                    <li>
+                        checked/unchecked 交互处理
+                    </li>
+                    <li>
+                        键盘
+                    </li>
+                    <li>
+                        label?
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <p><a target="_blank"
+                        href="https://github.com/yiminghe/learning-react/blob/master/tutorial/zh-cn/practice/checkbox.md">点击查看教程</a></p>
             </section>
         </section>
 
