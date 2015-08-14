@@ -1,12 +1,10 @@
-'use strict';
-
 require('./index.css');
 // dynamic set __webpack_public_path__
-//__webpack_public_path__ = '/build/example/';
-var React = require('react');
+// __webpack_public_path__ = '/build/example/';
+const React = require('react');
 function load() {
-  require(['./async'], function (Async) {
+  require(['./async'], (Async) => {
     Async.show();
   });
 }
-React.render(<button onClick={load} className='my-button'>load</button>, document.getElementById('react-content-input'));
+React.render(<button onClick={load} className="my-button">load</button>, document.getElementById('react-content-input'));

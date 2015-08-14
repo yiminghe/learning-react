@@ -1,5 +1,3 @@
-'use strict';
-
 // https://github.com/rackt/react-router/tree/master/examples/simple-master-detail
 
 import './index.css';
@@ -7,9 +5,6 @@ import './index.css';
 import React from 'react';
 import { Router, Link } from 'react-router';
 import HashHistory from 'react-router/lib/HashHistory';
-
-/*****************************************************************************/
-// data stuff
 
 function underscore(str) {
   return str.toLowerCase().replace(/ /, '_');
@@ -66,92 +61,99 @@ function findStates() {
     {abbr: 'WA', name: 'Washington'},
     {abbr: 'WV', name: 'West Virginia'},
     {abbr: 'WI', name: 'Wisconsin'},
-    {abbr: 'WY', name: 'Wyoming'}
+    {abbr: 'WY', name: 'Wyoming'},
   ];
 }
 
 function findState(abbr) {
-  var states = findStates();
-  for (var i = 0, l = states.length; i < l; i++) {
+  const states = findStates();
+  for (let i = 0, l = states.length; i < l; i++) {
     if (states[i].abbr === abbr) {
       return states[i];
     }
   }
 }
 
-var App = React.createClass({
-  getInitialState: function () {
+const App = React.createClass({
+  propTypes: {
+    children: React.PropTypes.any,
+  },
+
+  getInitialState() {
     return {states: findStates()};
   },
 
-  render: function () {
-    var links = this.state.states.map(function (state) {
+  render() {
+    const links = this.state.states.map((state) => {
       return (
         <li key={state.abbr}>
           <Link
             to={`state/${state.abbr}`}
-          >{state.name}</Link>
+            >{state.name}</Link>
         </li>
       );
     });
     return (
-      <div className='App'>
-        <ul className='Master'>
+      <div className="App">
+        <ul className="Master">
           {links}
         </ul>
-        <div className='Detail'>
-        {this.props.children}
+        <div className="Detail">
+          {this.props.children}
         </div>
       </div>
     );
-  }
+  },
 });
 
-var Index = React.createClass({
-  render: function () {
+const Index = React.createClass({
+  render() {
     return <p>Select a state from the left</p>;
-  }
+  },
 });
 
-var State = React.createClass({
-  imageUrl: function (name) {
+const State = React.createClass({
+  propTypes: {
+    params: React.PropTypes.object,
+  },
+
+  imageUrl(name) {
     return 'http://www.50states.com/maps/' + underscore(name) + '.gif';
   },
 
-  render: function () {
-    var unitedState = findState(this.props.params.abbr);
+  render() {
+    const unitedState = findState(this.props.params.abbr);
     return unitedState ? (
-      <div className='State'>
+      <div className="State">
         <h1>{unitedState.name}</h1>
-        <img className='state-image' src={this.imageUrl(unitedState.name)}/>
+        <img className="state-image" src={this.imageUrl(unitedState.name)}/>
       </div>
     ) : <Index />;
-  }
+  },
 });
 
 
-var rootRoute = {
+const rootRoute = {
   component: App,
   childRoutes: [
     {
       path: '/',
-
-      component: Index
+      component: Index,
     },
     {
       path: 'state/:abbr',
-      component: State
+      component: State,
     },
     {
       path: '*',
-      component: Index
-    }
-  ]
+      component: Index,
+    },
+  ],
 };
 
-var instance;
+let instance;
 
-exports.getInstance = function () {
+exports.getInstance = () => {
   return instance;
 };
 

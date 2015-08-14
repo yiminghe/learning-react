@@ -1,60 +1,60 @@
-'use strict';
-
-var React = require('react');
-var ReactIntl = require('react-intl');
-var IntlMixin = ReactIntl.IntlMixin;
-var FormattedMessage = ReactIntl.FormattedMessage;
 
 
-var Component = React.createClass({
+const React = require('react');
+const ReactIntl = require('react-intl');
+const IntlMixin = ReactIntl.IntlMixin;
+const FormattedMessage = ReactIntl.FormattedMessage;
+
+
+const Component = React.createClass({
   mixins: [IntlMixin],
   render() {
-    return <FormattedMessage
+    return (<FormattedMessage
       message={this.getIntlMessage('user.info')}
       name="Test"
       count={10000}
       time = {new Date()}
-    />;
-  }
+    />);
+  },
 });
 
-var App = React.createClass({
+const App = React.createClass({
   mixins: [IntlMixin],
   render() {
-    return <p>
+    return (<p>
       <Component />
-    </p>;
-  }
+    </p>);
+  },
 });
 
-var locales = [
+const locales = [
   {
     locales: ['en-US'],
     messages: {
       user: {
-        info: 'your name: {name}，login count: {count, number}，current login time: {time, date,full}'
-      }
-    }
+        info: 'your name: {name}，login count: {count, number}，current login time: {time, date,full}',
+      },
+    },
   },
   {
     locales: ['zh-CN'],
     messages: {
       user: {
-        info: '你的名字是 {name}，登陆 {count, number} 次，当前登陆时间 {time, date,full}'
-      }
-    }
+        info: '你的名字是 {name}，登陆 {count, number} 次，当前登陆时间 {time, date,full}',
+      },
+    },
   },
   {
     locales: ['ja-JP'],
     messages: {
       user: {
-        info: 'xxxxx {name}，xx {count, number}，xxxx {time, date,full}'
-      }
-    }
-  }
+        info: 'xxxxx {name}，xx {count, number}，xxxx {time, date,full}',
+      },
+    },
+  },
 ];
 
-var apps = locales.map(function (locale) {
+const apps = locales.map((locale) => {
   return <App key={locale.locales.join(',')} {...locale}/>;
 });
 

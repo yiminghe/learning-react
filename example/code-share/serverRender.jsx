@@ -1,12 +1,12 @@
-var Component = require('./Component');
-var React = require('react');
-var Page = require('./Page');
+const Component = require('./Component');
+const React = require('react');
+const Page = require('./Page');
 module.exports = {
-  renderComponent: function (count) {
+  renderComponent(count) {
     return React.renderToString(<Component count={count}/>);
   },
 
-  renderPage: function (content, script) {
+  renderPage(content, script) {
     return React.renderToStaticMarkup(<Page content={content} script={script}/>);
-  }
+  },
 };

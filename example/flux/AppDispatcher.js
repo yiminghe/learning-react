@@ -1,17 +1,13 @@
-'use strict';
 
-var Dispatcher = require('flux').Dispatcher;
-function AppDispatcher() {
-  Dispatcher.apply(this, arguments);
+const Dispatcher = require('flux').Dispatcher;
+
+class AppDispatcher extends Dispatcher {
+  handleViewAction(action) {
+    this.dispatch({
+      type: 'view_action',
+      action: action,
+    });
+  }
 }
-
-AppDispatcher.prototype = Object.create(Dispatcher.prototype);
-
-AppDispatcher.prototype.handleViewAction = function (action) {
-  this.dispatch({
-    type: 'view_action',
-    action: action
-  });
-};
 
 module.exports = new AppDispatcher();

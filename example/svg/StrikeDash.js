@@ -1,86 +1,85 @@
-'use strict';
-
-var React = require('react');
-var StrikeDash = React.createClass({
-  getInitialState: function () {
-    var start = this.props.start;
-    var end = this.props.end;
-    var path = 'M' + start.x + ' ' + start.y + ' L' + end.x + ' ' + end.y;
-    return {
-      path: path
-    };
+const React = require('react');
+const StrikeDash = React.createClass({
+  propTypes: {
+    start: React.PropTypes.shape({
+      x: React.PropTypes.number,
+      y: React.PropTypes.number,
+    }),
+    end: React.PropTypes.shape({
+      x: React.PropTypes.number,
+      y: React.PropTypes.number,
+    }),
+    duration: React.PropTypes.number,
   },
 
-  componentDidMount: function () {
-    var self = this;
-    var startX = this.props.start.x;
-    var startY = this.props.start.y;
-    var duration = this.props.duration;
-    var endX = this.props.end.x;
-    var endY = this.props.end.y;
-    var length = Math.sqrt((startX - endX) * (startX - endX) + (startY - endY) * (startY - endY));
-    var style = {};
+  getInitialState() {
+    return {};
+  },
+
+  componentDidMount() {
+    // force repaint
+    this.refs.path.getDOMNode().getBoundingClientRect();
+    const style = this.refs.path.getDOMNode().style;
+    const duration = this.props.duration;
+    // Define our transition
+    // ie11 not working...
+    style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = `stroke-dashoffset ${duration}s ease-in-out`;
+    // Go!
+    style.strokeDashoffset = '0px';
+    setTimeout(this.onEnd, duration * 1000);
+  },
+
+  onEnd() {
+    this.setState({
+      end: 1,
+    });
+  },
+
+  render() {
+    let endCircle;
+    const startX = this.props.start.x;
+    const startY = this.props.start.y;
+    const endX = this.props.end.x;
+    const endY = this.props.end.y;
+    const length = Math.sqrt((startX - endX) * (startX - endX) + (startY - endY) * (startY - endY));
+    const style = {};
+    const start = this.props.start;
+    const end = this.props.end;
+    const path = `M${start.x} ${start.y} L${end.x} ${end.y}`;
     // Clear any previous transition
     style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
     // Set up the starting positions
     style.strokeDasharray = length;
     style.strokeDashoffset = length;
-    this.setState({
-      style: style
-    }, function () {
-      // force repaint
-      self.refs.path.getDOMNode().getBoundingClientRect();
-      // Define our transition
-      // ie11 not working...
-      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'stroke-dashoffset ' + duration + 's ease-in-out';
-      // Go!
-      style.strokeDashoffset = '0';
-      self.setState({
-        style: style
-      });
-    });
-
-    setTimeout(function () {
-      self.setState({
-        end: 1
-      });
-    }, duration * 1000);
-  },
-
-  onEnd: function () {
-    this.setState({
-      end: 1
-    });
-  },
-
-  render: function () {
-    var end;
     if (this.state.end) {
-      end = <circle cx={this.props.end.x} cy={this.props.end.y} r="10" stroke="black"
-        strokeWidth="5" fill="red"/>;
+      endCircle = (<circle cx={endX} cy={endY} r="10" stroke="black"
+                           strokeWidth="5" fill="red"/>);
+      style.strokeDashoffset = '0';
+      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
     }
-    var x = 'strike-dash anim';
+
+    const x = 'strike-dash anim';
     // onTransitionEnd not working...
     // https://github.com/facebook/react/issues/2187
     return (
       <div>
         <h2 dangerouslySetInnerHTML={{__html: x}}></h2>
         <svg width="400" height="400">
-          <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
-            strokeWidth="5" fill="red"/>
-                    {end}
-          <path d={this.state.path}
-            ref='path'
-            onTransitionEnd={this.onEnd}
-            onWebkitTransitionEnd={this.onEnd}
-            style={this.state.style}
-            stroke="red"
-            strokeWidth="2"
-          ></path>
+          <circle cx={startX} cy={startY} r="10" stroke="black"
+                  strokeWidth="5" fill="red"/>
+          {endCircle}
+          <path d={path}
+                ref="path"
+                onTransitionEnd={this.onEnd}
+                onWebkitTransitionEnd={this.onEnd}
+                style={style}
+                stroke="red"
+                strokeWidth="2"
+            ></path>
         </svg>
       </div>
     );
-  }
+  },
 });
 
 module.exports = StrikeDash;
