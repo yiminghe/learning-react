@@ -19815,7 +19815,7 @@
 	
 	__webpack_require__(186);
 	// dynamic set __webpack_public_path__
-	//__webpack_public_path__ = '/build/example/';
+	// __webpack_public_path__ = '/build/example/';
 	var React = __webpack_require__(3);
 	function load() {
 	  __webpack_require__.e/* require */(5, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(187)]; (function (Async) {

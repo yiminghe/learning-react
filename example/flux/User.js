@@ -1,29 +1,30 @@
-'use strict';
+const React = require('react');
+const UserAction = require('./UserAction');
 
-var React = require('react');
-var UserAction = require('./UserAction');
-
-var User = React.createClass({
-  getInitialState: function () {
+const User = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string,
+  },
+  getInitialState() {
     return {};
   },
-  componentWillReceiveProps: function () {
+  componentWillReceiveProps() {
     this.setState({
-      loading: 0
+      loading: 0,
     });
   },
-  onClick: function () {
+  onClick() {
     this.setState({
-      loading: 1
+      loading: 1,
     });
     UserAction.change();
   },
-  render: function () {
+  render() {
     return this.state.loading ? (<div>loading</div>) : (<div>
       <p>name: {this.props.name}</p>
       <button onClick={this.onClick}>change</button>
     </div>);
-  }
+  },
 });
 
 module.exports = User;

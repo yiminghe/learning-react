@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(344);
+	module.exports = __webpack_require__(358);
 
 
 /***/ },
@@ -19916,15 +19916,29 @@
 /* 341 */,
 /* 342 */,
 /* 343 */,
-/* 344 */
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(3);
-	var Line = __webpack_require__(345);
-	var Dash = __webpack_require__(347);
-	var Clip = __webpack_require__(348);
+	var Line = __webpack_require__(359);
+	var Dash = __webpack_require__(361);
+	var Clip = __webpack_require__(362);
 	React.render(React.createElement(
 	  'div',
 	  null,
@@ -19934,21 +19948,29 @@
 	), document.body);
 
 /***/ },
-/* 345 */
+/* 359 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(3);
-	var $ = __webpack_require__(346);
+	var $ = __webpack_require__(360);
 	var Line = React.createClass({
 	  displayName: 'Line',
+	
+	  propTypes: {
+	    start: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    end: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    duration: React.PropTypes.number },
 	
 	  getInitialState: function getInitialState() {
 	    return {
 	      path: '',
-	      pos: -1
-	    };
+	      pos: -1 };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -19957,13 +19979,11 @@
 	    var end = this.props.end;
 	    var current = {
 	      x: start.x,
-	      y: start.y
-	    };
+	      y: start.y };
 	    self.anim = $(current);
 	    self.anim.animate({
 	      x: end.x,
-	      y: end.y
-	    }, {
+	      y: end.y }, {
 	      easing: 'swing',
 	      duration: this.props.duration * 1000,
 	      step: function step(val, tw) {
@@ -19971,10 +19991,8 @@
 	        var path = 'M' + start.x + ' ' + start.y + ' L' + current.x + ' ' + current.y;
 	        self.setState({
 	          pos: (tw.now - tw.start) / (tw.end - tw.end),
-	          path: path
-	        });
-	      }
-	    });
+	          path: path });
+	      } });
 	  },
 	
 	  componentWillUnmount: function componentWillUnmount() {
@@ -19982,7 +20000,7 @@
 	  },
 	
 	  render: function render() {
-	    var end;
+	    var end = undefined;
 	    if (this.state.pos > 0.99) {
 	      end = React.createElement('circle', { cx: this.props.end.x, cy: this.props.end.y, r: '10', stroke: 'black',
 	        strokeWidth: '5', fill: 'red' });
@@ -20004,19 +20022,18 @@
 	        })
 	      )
 	    );
-	  }
-	});
+	  } });
 	
 	module.exports = Line;
 
 /***/ },
-/* 346 */
+/* 360 */
 /***/ function(module, exports) {
 
 	module.exports = window.jQuery;
 
 /***/ },
-/* 347 */
+/* 361 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20025,63 +20042,60 @@
 	var StrikeDash = React.createClass({
 	  displayName: 'StrikeDash',
 	
+	  propTypes: {
+	    start: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    end: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    duration: React.PropTypes.number },
+	
 	  getInitialState: function getInitialState() {
-	    var start = this.props.start;
-	    var end = this.props.end;
-	    var path = 'M' + start.x + ' ' + start.y + ' L' + end.x + ' ' + end.y;
-	    return {
-	      path: path
-	    };
+	    return {};
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    var self = this;
+	    // force repaint
+	    this.refs.path.getDOMNode().getBoundingClientRect();
+	    var style = this.refs.path.getDOMNode().style;
+	    var duration = this.props.duration;
+	    // Define our transition
+	    // ie11 not working...
+	    style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'stroke-dashoffset ' + duration + 's ease-in-out';
+	    // Go!
+	    style.strokeDashoffset = '0px';
+	    setTimeout(this.onEnd, duration * 1000);
+	  },
+	
+	  onEnd: function onEnd() {
+	    this.setState({
+	      end: 1 });
+	  },
+	
+	  render: function render() {
+	    var endCircle = undefined;
 	    var startX = this.props.start.x;
 	    var startY = this.props.start.y;
-	    var duration = this.props.duration;
 	    var endX = this.props.end.x;
 	    var endY = this.props.end.y;
 	    var length = Math.sqrt((startX - endX) * (startX - endX) + (startY - endY) * (startY - endY));
 	    var style = {};
+	    var start = this.props.start;
+	    var end = this.props.end;
+	    var path = 'M' + start.x + ' ' + start.y + ' L' + end.x + ' ' + end.y;
 	    // Clear any previous transition
 	    style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
 	    // Set up the starting positions
 	    style.strokeDasharray = length;
 	    style.strokeDashoffset = length;
-	    this.setState({
-	      style: style
-	    }, function () {
-	      // force repaint
-	      self.refs.path.getDOMNode().getBoundingClientRect();
-	      // Define our transition
-	      // ie11 not working...
-	      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'stroke-dashoffset ' + duration + 's ease-in-out';
-	      // Go!
-	      style.strokeDashoffset = '0';
-	      self.setState({
-	        style: style
-	      });
-	    });
-	
-	    setTimeout(function () {
-	      self.setState({
-	        end: 1
-	      });
-	    }, duration * 1000);
-	  },
-	
-	  onEnd: function onEnd() {
-	    this.setState({
-	      end: 1
-	    });
-	  },
-	
-	  render: function render() {
-	    var end;
 	    if (this.state.end) {
-	      end = React.createElement('circle', { cx: this.props.end.x, cy: this.props.end.y, r: '10', stroke: 'black',
+	      endCircle = React.createElement('circle', { cx: endX, cy: endY, r: '10', stroke: 'black',
 	        strokeWidth: '5', fill: 'red' });
+	      style.strokeDashoffset = '0';
+	      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
 	    }
+	
 	    var x = 'strike-dash anim';
 	    // onTransitionEnd not working...
 	    // https://github.com/facebook/react/issues/2187
@@ -20092,26 +20106,25 @@
 	      React.createElement(
 	        'svg',
 	        { width: '400', height: '400' },
-	        React.createElement('circle', { cx: this.props.start.x, cy: this.props.start.y, r: '10', stroke: 'black',
+	        React.createElement('circle', { cx: startX, cy: startY, r: '10', stroke: 'black',
 	          strokeWidth: '5', fill: 'red' }),
-	        end,
-	        React.createElement('path', { d: this.state.path,
+	        endCircle,
+	        React.createElement('path', { d: path,
 	          ref: 'path',
 	          onTransitionEnd: this.onEnd,
 	          onWebkitTransitionEnd: this.onEnd,
-	          style: this.state.style,
+	          style: style,
 	          stroke: 'red',
 	          strokeWidth: '2'
 	        })
 	      )
 	    );
-	  }
-	});
+	  } });
 	
 	module.exports = StrikeDash;
 
 /***/ },
-/* 348 */
+/* 362 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20120,39 +20133,48 @@
 	var ClipPath = React.createClass({
 	  displayName: 'ClipPath',
 	
+	  propTypes: {
+	    start: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    end: React.PropTypes.shape({
+	      x: React.PropTypes.number,
+	      y: React.PropTypes.number }),
+	    duration: React.PropTypes.number },
+	
 	  getInitialState: function getInitialState() {
 	    var start = this.props.start;
 	    var end = this.props.end;
 	    var path = 'M' + start.x + ' ' + start.y + ' L' + end.x + ' ' + end.y;
-	    return {
-	      path: path
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var self = this;
 	    var startX = this.props.start.x - 16;
 	    var startY = this.props.start.y - 16;
-	    var duration = this.props.duration;
-	    var endX = this.props.end.x + 16;
-	    var endY = this.props.end.y + 16;
 	    var style = {};
 	    // Clear any previous transition
 	    style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
 	    // Set up the starting positions
 	    style.WebkitClipPath = 'polygon(' + startX + 'px ' + startY + 'px,' + startX + 'px ' + startY + 'px, ' + startX + 'px ' + startY + 'px,' + startX + 'px ' + startY + 'px)';
-	    this.setState({
-	      style: style
-	    });
+	    return {
+	      style: style,
+	      path: path };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    var startX = this.props.start.x - 16;
+	    var startY = this.props.start.y - 16;
+	    var duration = this.props.duration;
+	    var endX = this.props.end.x + 16;
+	    var endY = this.props.end.y + 16;
 	    setTimeout(function () {
+	      var style = _this.state.style;
 	      // Define our transition
 	      // ie11 not working...
 	      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = '-webkit-clip-path ' + duration + 's ease-in-out';
 	      // Go!
 	      style.WebkitClipPath = 'polygon(' + startX + 'px ' + startY + 'px,' + endX + 'px ' + startY + 'px, ' + endX + 'px ' + endY + 'px,' + startX + 'px ' + endY + 'px)';
-	      self.setState({
-	        style: style
-	      });
+	      _this.setState({
+	        style: style });
 	    }, 0);
 	  },
 	
@@ -20181,8 +20203,7 @@
 	        })
 	      )
 	    );
-	  }
-	});
+	  } });
 	
 	module.exports = ClipPath;
 

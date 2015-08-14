@@ -1,67 +1,69 @@
-'use strict';
+const React = require('react');
 
-var React = require('react');
+const Component = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string,
+  },
 
-var Component = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     console.log(this.props.id + ' getInitialState');
     return {};
   },
 
-  componentDidMount: function () {
-    console.log(this.props.id + ' componentDidMount');
-  },
-
-  componentWillMount: function () {
+  componentWillMount() {
     console.log(this.props.id + ' componentWillMount');
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentDidMount() {
+    console.log(this.props.id + ' componentDidMount');
+  },
+
+  componentWillReceiveProps(nextProps) {
     console.log(this.props.id + ' componentWillReceiveProps ' + nextProps.id);
   },
 
-  shouldComponentUpdate: function () {
+  shouldComponentUpdate() {
     console.log(this.props.id + ' shouldComponentUpdate');
     return 1;
   },
 
-  componentWillUpdate: function () {
+  componentWillUpdate() {
     console.log(this.props.id + ' componentWillUpdate');
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     console.log(this.props.id + ' componentDidUpdate');
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     console.log(this.props.id + ' componentWillUnmount');
   },
 
-  render: function () {
+  render() {
     console.log(this.props.id + ' render');
     return <div {...this.props}></div>;
-  }
+  },
 });
 
-var Test = React.createClass({
-  render: function () {
-    var props = this.props;
-    return <div>
+const Test = React.createClass({
+  render() {
+    const props = this.props;
+    return (<div>
       <Component key={props.key1} id={props.id1}/>
       <Component key={props.key2} id={props.id2}/>
-    </div>;
-  }
+    </div>);
+  },
 });
-var div = document.createElement('div');
+const div = document.createElement('div');
 document.body.appendChild(div);
-var test = React.render(<Test id1='id1' id2='id2' key1='key1' key2='key2' />, div);
+const test = React.render(<Test id1="id1" id2="id2" key1="key1" key2="key2"/>, div);
 
-setTimeout(function () {
+setTimeout(() => {
   console.log('*******************************');
   test.setProps({
     id1: 'id11',
     id2: 'id2',
     key1: 'key11',
-    key2: 'key2'
+    key2: 'key2',
   });
 }, 1000);

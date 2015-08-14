@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(245);
+	module.exports = __webpack_require__(259);
 
 
 /***/ },
@@ -19817,7 +19817,21 @@
 /* 242 */,
 /* 243 */,
 /* 244 */,
-/* 245 */
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19831,22 +19845,20 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
 	var React = __webpack_require__(3);
-	var ReactART = __webpack_require__(246);
+	var ReactART = __webpack_require__(260);
 	var Group = ReactART.Group;
 	var ARTText = ReactART.Text;
 	var Shape = ReactART.Shape;
 	var Surface = ReactART.Surface;
-	var Rectangle = __webpack_require__(276);
-	var d3 = __webpack_require__(277);
+	var Rectangle = __webpack_require__(290);
+	var d3 = __webpack_require__(291);
 	var monthText = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	var monthScale = d3.scale.linear().domain([0, 12]).range([0, 400 - 20]);
 	var valueScale = d3.scale.linear().domain([0, 10]).range([{
 	  color: '#add8e6',
-	  height: 0
-	}, {
+	  height: 0 }, {
 	  color: '#4169e1',
-	  height: 400
-	}]);
+	  height: 400 }]);
 	
 	var Component = (function (_React$Component) {
 	  function Component(props) {
@@ -19859,23 +19871,31 @@
 	  _inherits(Component, _React$Component);
 	
 	  _createClass(Component, [{
-	    key: 'handleMouseMove',
-	    value: function handleMouseMove(d, e) {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var rootNode = React.findDOMNode(this);
+	      this.rootOffset = rootNode.getBoundingClientRect();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      this.componentDidMount();
+	    }
+	  }, {
+	    key: 'onMouseMove',
+	    value: function onMouseMove(d, e) {
 	      this.setState({
 	        tip: {
 	          content: monthText[d.month] + ' : ' + d.value,
 	          x: e.pageX,
-	          y: e.pageY
-	        }
-	      });
+	          y: e.pageY } });
 	      console.log('mousemove ', d, e.pageX, e.pageY);
 	    }
 	  }, {
-	    key: 'handleMouseOut',
-	    value: function handleMouseOut() {
+	    key: 'onMouseOut',
+	    value: function onMouseOut() {
 	      this.setState({
-	        tip: null
-	      });
+	        tip: null });
 	    }
 	  }, {
 	    key: 'getRects',
@@ -19888,10 +19908,27 @@
 	        var y = 400 - height;
 	        var x = monthScale(d.month);
 	        return React.createElement(Rectangle, { width: 10, height: height, x: x, y: y,
-	          onMouseOut: _this.handleMouseOut.bind(_this),
-	          onMouseMove: _this.handleMouseMove.bind(_this, d),
+	          onMouseOut: _this.onMouseOut.bind(_this),
+	          onMouseMove: _this.onMouseMove.bind(_this, d),
 	          fill: value.color, key: d.month + '' });
 	      });
+	    }
+	  }, {
+	    key: 'getTip',
+	    value: function getTip() {
+	      var tip = this.state.tip;
+	      if (!tip) {
+	        return null;
+	      }
+	      return React.createElement(
+	        'div',
+	        { style: {
+	            position: 'absolute',
+	            border: '1px solid red',
+	            left: tip.x - this.rootOffset.left + 10,
+	            top: tip.y - this.rootOffset.top } },
+	        tip.content
+	      );
 	    }
 	  }, {
 	    key: 'getXAxis',
@@ -19943,35 +19980,6 @@
 	      );
 	    }
 	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var rootNode = React.findDOMNode(this);
-	      this.rootOffset = rootNode.getBoundingClientRect();
-	    }
-	  }, {
-	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate() {
-	      this.componentDidMount();
-	    }
-	  }, {
-	    key: 'getTip',
-	    value: function getTip() {
-	      var tip = this.state.tip;
-	      if (!tip) {
-	        return null;
-	      }
-	      return React.createElement(
-	        'div',
-	        { style: {
-	            position: 'absolute',
-	            border: '1px solid red',
-	            left: tip.x - this.rootOffset.left + 10,
-	            top: tip.y - this.rootOffset.top
-	          } },
-	        tip.content
-	      );
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var tip = this.getTip();
@@ -19998,15 +20006,18 @@
 	  return Component;
 	})(React.Component);
 	
+	Component.propTypes = {
+	  data: React.PropTypes.arrayOf(React.PropTypes.shape({
+	    month: React.PropTypes.number,
+	    value: React.PropTypes.number })) };
+	
 	var data = [];
-	(function () {
-	  for (var i = 1; i < 13; i++) {
-	    data.push({
-	      month: i,
-	      value: Math.floor(Math.random() * 10) + 1
-	    });
-	  }
-	})();
+	
+	for (var i = 1; i < 13; i++) {
+	  data.push({
+	    month: i,
+	    value: Math.floor(Math.random() * 10) + 1 });
+	}
 	
 	console.log('data', data);
 	React.render(React.createElement(
@@ -20016,7 +20027,7 @@
 	), document.getElementById('__react-content'));
 
 /***/ },
-/* 246 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20032,10 +20043,10 @@
 	
 	"use strict";
 	
-	__webpack_require__(247); // Flip this to DOM mode for debugging
+	__webpack_require__(261); // Flip this to DOM mode for debugging
 	
-	var Transform = __webpack_require__(251);
-	var Mode = __webpack_require__(266);
+	var Transform = __webpack_require__(265);
+	var Mode = __webpack_require__(280);
 	
 	var React = __webpack_require__(3);
 	var ReactMultiChild = __webpack_require__(89);
@@ -20634,11 +20645,11 @@
 
 
 /***/ },
-/* 247 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var VML = __webpack_require__(248);
-	var Canvas = __webpack_require__(267);
+	var VML = __webpack_require__(262);
+	var Canvas = __webpack_require__(281);
 	//var Flash = require('./flash');
 	
 	var hasCanvas = function(){
@@ -20671,34 +20682,34 @@
 	exports.ClippingRectangle = MODE.ClippingRectangle;
 	exports.Text = MODE.Text;
 	
-	__webpack_require__(266).setCurrent(exports);
+	__webpack_require__(280).setCurrent(exports);
 
 
 /***/ },
-/* 248 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Surface = __webpack_require__(258);
-	exports.Path = __webpack_require__(259);
-	exports.Shape = __webpack_require__(261);
-	exports.Group = __webpack_require__(264);
-	exports.ClippingRectangle = __webpack_require__(249);
-	exports.Text = __webpack_require__(265);
+	exports.Surface = __webpack_require__(272);
+	exports.Path = __webpack_require__(273);
+	exports.Shape = __webpack_require__(275);
+	exports.Group = __webpack_require__(278);
+	exports.ClippingRectangle = __webpack_require__(263);
+	exports.Text = __webpack_require__(279);
 	
-	var DOM = __webpack_require__(257);
+	var DOM = __webpack_require__(271);
 	if (typeof document !== 'undefined') DOM.init(document);
 	
-	__webpack_require__(266).setCurrent(exports);
+	__webpack_require__(280).setCurrent(exports);
 
 
 /***/ },
-/* 249 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Transform = __webpack_require__(251);
-	var Container = __webpack_require__(252);
-	var Node = __webpack_require__(253);
+	var Class = __webpack_require__(264);
+	var Transform = __webpack_require__(265);
+	var Container = __webpack_require__(266);
+	var Node = __webpack_require__(267);
 	
 	module.exports = Class(Node, Container, {
 	
@@ -20739,7 +20750,7 @@
 
 
 /***/ },
-/* 250 */
+/* 264 */
 /***/ function(module, exports) {
 
 	module.exports = function(mixins){
@@ -20759,10 +20770,10 @@
 
 
 /***/ },
-/* 251 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
+	var Class = __webpack_require__(264);
 	
 	function Transform(xx, yx, xy, yy, x, y){
 		if (xx && typeof xx == 'object'){
@@ -20914,10 +20925,10 @@
 
 
 /***/ },
-/* 252 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
+	var Class = __webpack_require__(264);
 	
 	module.exports = Class({
 	
@@ -20935,13 +20946,13 @@
 	});
 
 /***/ },
-/* 253 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Transform = __webpack_require__(251);
-	var Element = __webpack_require__(254);
-	var DOM = __webpack_require__(257);
+	var Class = __webpack_require__(264);
+	var Transform = __webpack_require__(265);
+	var Element = __webpack_require__(268);
+	var DOM = __webpack_require__(271);
 	
 	module.exports = Class(Element, Transform, {
 	
@@ -20981,12 +20992,12 @@
 
 
 /***/ },
-/* 254 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Dummy = __webpack_require__(255);
-	var Native = __webpack_require__(256);
+	var Class = __webpack_require__(264);
+	var Dummy = __webpack_require__(269);
+	var Native = __webpack_require__(270);
 	
 	module.exports = Class(Dummy, Native, {
 	
@@ -21019,10 +21030,10 @@
 
 
 /***/ },
-/* 255 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
+	var Class = __webpack_require__(264);
 	
 	module.exports = Class({
 	
@@ -21141,10 +21152,10 @@
 
 
 /***/ },
-/* 256 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
+	var Class = __webpack_require__(264);
 	
 	function elementFrom(node){
 		if (node.toElement) return node.toElement();
@@ -21230,7 +21241,7 @@
 
 
 /***/ },
-/* 257 */
+/* 271 */
 /***/ function(module, exports) {
 
 	var VMLCSS = 'behavior:url(#default#VML);display:inline-block;position:absolute;left:0px;top:0px;';
@@ -21273,13 +21284,13 @@
 
 
 /***/ },
-/* 258 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Container = __webpack_require__(252);
-	var Element = __webpack_require__(256);
-	var DOM = __webpack_require__(257);
+	var Class = __webpack_require__(264);
+	var Container = __webpack_require__(266);
+	var Element = __webpack_require__(270);
+	var DOM = __webpack_require__(271);
 	
 	var precision = 100;
 	
@@ -21319,11 +21330,11 @@
 	module.exports = VMLSurface;
 
 /***/ },
-/* 259 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Path = __webpack_require__(260);
+	var Class = __webpack_require__(264);
+	var Path = __webpack_require__(274);
 	
 	var precision = 100;
 	
@@ -21393,10 +21404,10 @@
 	module.exports = VMLPath;
 
 /***/ },
-/* 260 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
+	var Class = __webpack_require__(264);
 	
 	module.exports = Class({
 		
@@ -21680,13 +21691,13 @@
 	});
 
 /***/ },
-/* 261 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Base = __webpack_require__(262);
-	var Path = __webpack_require__(259);
-	var DOM = __webpack_require__(257);
+	var Class = __webpack_require__(264);
+	var Base = __webpack_require__(276);
+	var Path = __webpack_require__(273);
+	var DOM = __webpack_require__(271);
 	
 	var precision = 100;
 	
@@ -21787,14 +21798,14 @@
 	});
 
 /***/ },
-/* 262 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Transform = __webpack_require__(251);
-	var Color = __webpack_require__(263);
-	var Node = __webpack_require__(253);
-	var DOM = __webpack_require__(257);
+	var Class = __webpack_require__(264);
+	var Transform = __webpack_require__(265);
+	var Color = __webpack_require__(277);
+	var Node = __webpack_require__(267);
+	var DOM = __webpack_require__(271);
 	
 	var precision = 100;
 	
@@ -22108,7 +22119,7 @@
 	});
 
 /***/ },
-/* 263 */
+/* 277 */
 /***/ function(module, exports) {
 
 	var colors = {
@@ -22334,13 +22345,13 @@
 	module.exports = Color;
 
 /***/ },
-/* 264 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Transform = __webpack_require__(251);
-	var Container = __webpack_require__(252);
-	var Node = __webpack_require__(253);
+	var Class = __webpack_require__(264);
+	var Transform = __webpack_require__(265);
+	var Container = __webpack_require__(266);
+	var Node = __webpack_require__(267);
 	
 	module.exports = Class(Node, Container, {
 		
@@ -22374,15 +22385,15 @@
 	});
 
 /***/ },
-/* 265 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Base = __webpack_require__(262);
-	var Path = __webpack_require__(259);
-	var Surface = __webpack_require__(258);
-	var Group = __webpack_require__(264);
-	var DOM = __webpack_require__(257);
+	var Class = __webpack_require__(264);
+	var Base = __webpack_require__(276);
+	var Path = __webpack_require__(273);
+	var Surface = __webpack_require__(272);
+	var Group = __webpack_require__(278);
+	var DOM = __webpack_require__(271);
 	
 	var fontAnchors = { start: 'left', middle: 'center', end: 'right' };
 	
@@ -22488,7 +22499,7 @@
 
 
 /***/ },
-/* 266 */
+/* 280 */
 /***/ function(module, exports) {
 
 	function warning(){
@@ -22510,24 +22521,24 @@
 
 
 /***/ },
-/* 267 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Surface = __webpack_require__(270);
-	exports.Path = __webpack_require__(271);
-	exports.Shape = __webpack_require__(272);
-	exports.Group = __webpack_require__(268);
-	exports.ClippingRectangle = __webpack_require__(274);
-	exports.Text = __webpack_require__(275);
+	exports.Surface = __webpack_require__(284);
+	exports.Path = __webpack_require__(285);
+	exports.Shape = __webpack_require__(286);
+	exports.Group = __webpack_require__(282);
+	exports.ClippingRectangle = __webpack_require__(288);
+	exports.Text = __webpack_require__(289);
 
 
 /***/ },
-/* 268 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Container = __webpack_require__(252);
-	var Node = __webpack_require__(269);
+	var Class = __webpack_require__(264);
+	var Container = __webpack_require__(266);
+	var Node = __webpack_require__(283);
 	
 	module.exports = Class(Node, Container, {
 		
@@ -22570,12 +22581,12 @@
 
 
 /***/ },
-/* 269 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Transform = __webpack_require__(251);
-	var Element = __webpack_require__(255);
+	var Class = __webpack_require__(264);
+	var Transform = __webpack_require__(265);
+	var Element = __webpack_require__(269);
 	
 	var CanvasNode = Class(Transform, Element, {
 		
@@ -22690,12 +22701,12 @@
 	module.exports = CanvasNode;
 
 /***/ },
-/* 270 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Container = __webpack_require__(252);
-	var Element = __webpack_require__(256);
+	var Class = __webpack_require__(264);
+	var Container = __webpack_require__(266);
+	var Element = __webpack_require__(270);
 	
 	var fps = 1000 / 60, invalids = [], renderTimer, renderInvalids = function(){
 		clearTimeout(renderTimer);
@@ -22837,11 +22848,11 @@
 	module.exports = CanvasSurface;
 
 /***/ },
-/* 271 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Path = __webpack_require__(260);
+	var Class = __webpack_require__(264);
+	var Path = __webpack_require__(274);
 	
 	var CanvasPath = Class(Path, {
 	
@@ -22903,12 +22914,12 @@
 	module.exports = CanvasPath;
 
 /***/ },
-/* 272 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Base = __webpack_require__(273);
-	var Path = __webpack_require__(271);
+	var Class = __webpack_require__(264);
+	var Base = __webpack_require__(287);
+	var Path = __webpack_require__(285);
 	
 	module.exports = Class(Base, {
 	
@@ -23003,13 +23014,13 @@
 
 
 /***/ },
-/* 273 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Color = __webpack_require__(263);
-	var Transform = __webpack_require__(251);
-	var Node = __webpack_require__(269);
+	var Class = __webpack_require__(264);
+	var Color = __webpack_require__(277);
+	var Transform = __webpack_require__(265);
+	var Node = __webpack_require__(283);
 	
 	var genericCanvas = typeof document !== 'undefined' && document.createElement('canvas'),
 	    genericContext = genericCanvas && genericCanvas.getContext && genericCanvas.getContext('2d');
@@ -23195,12 +23206,12 @@
 
 
 /***/ },
-/* 274 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Container = __webpack_require__(252);
-	var Node = __webpack_require__(269);
+	var Class = __webpack_require__(264);
+	var Container = __webpack_require__(266);
+	var Node = __webpack_require__(283);
 	
 	module.exports = Class(Node, Container, {
 	
@@ -23238,11 +23249,11 @@
 
 
 /***/ },
-/* 275 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Class = __webpack_require__(250);
-	var Base = __webpack_require__(273);
+	var Class = __webpack_require__(264);
+	var Base = __webpack_require__(287);
 	
 	var fontAnchors = { middle: 'center' };
 	
@@ -23360,7 +23371,7 @@
 
 
 /***/ },
-/* 276 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23392,7 +23403,7 @@
 	 */
 	
 	var React = __webpack_require__(3);
-	var ReactART = __webpack_require__(246);
+	var ReactART = __webpack_require__(260);
 	
 	var Props = React.PropTypes;
 	var Shape = ReactART.Shape;
@@ -23474,7 +23485,7 @@
 
 
 /***/ },
-/* 277 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {

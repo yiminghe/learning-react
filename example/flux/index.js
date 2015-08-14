@@ -1,5 +1,5 @@
-'use strict';
 
-var App = require('./App');
-var React = require('react');
+
+const App = require('./App');
+const React = require('react');
 React.render(<App/>, document.body);

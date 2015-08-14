@@ -1,77 +1,114 @@
-'use strict';
+require('rc-calendar/assets/index.css');
 
-require('rc-calendar/assets/bootstrap.css');
+const React = require('react');
+const Calendar = require('rc-calendar');
+const DatePicker = Calendar.Picker;
+const zhCn = require('gregorian-calendar/lib/locale/zh-cn'); // spm error
+const DateTimeFormat = require('gregorian-calendar-format');
+const GregorianCalendar = require('gregorian-calendar');
+const CalendarLocale = require('rc-calendar/lib/locale/zh-cn');
+const now = new GregorianCalendar(zhCn);
+now.setTime(Date.now());
 
-var React = require('react');
-var Calendar = require('rc-calendar');
-var DatePicker = Calendar.Picker;
-var zhCn = require('gregorian-calendar/lib/locale/zh-cn'); // spm error
-var DateTimeFormat = require('gregorian-calendar-format');
-var GregorianCalendar = require('gregorian-calendar');
-var CalendarLocale = require('rc-calendar/lib/locale/zh-cn');
+const defaultCalendarValue = new GregorianCalendar(zhCn);
+defaultCalendarValue.setTime(Date.now());
+defaultCalendarValue.addMonth(-1);
 
-var Test = React.createClass({
-  open: function () {
-    this.refs.picker.setState({
-      open: true
-    });
+const Test = React.createClass({
+  propTypes: {
+    formatter: React.PropTypes.object,
+    defaultValue: React.PropTypes.object,
   },
 
-  handleChange: function (value) {
-    console.log('DatePicker change: ' + (this.props.formatter.format(value)));
-  },
-
-  handleCalendarSelect: function (v) {
-    //console.log('outer knows: ' + this.props.formatter.format(v));
-    // sync status
-    this.setState({
-      value: v
-    });
-  },
-
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
-      formatter: new DateTimeFormat('yyyy-MM-dd HH:mm:ss')
+      formatter: new DateTimeFormat('yyyy-MM-dd HH:mm:ss'),
     };
   },
 
-  getInitialState: function () {
-    var value = new GregorianCalendar(zhCn);
-    value.setTime(Date.now());
+  getInitialState() {
     return {
+      time: Date.now(),
       showTime: true,
-      value: value
+      disabled: false,
+      value: this.props.defaultValue,
     };
   },
 
-  handleShowTimeChange: function (e) {
+  onShowTimeChange(e) {
     this.setState({
-      showTime: e.target.checked
+      showTime: e.target.checked,
     });
   },
 
-  render: function () {
-    var state = this.state;
-    var calendar = <Calendar locale={CalendarLocale}
-      orient={['bottom', 'left']}
-      showTime={this.state.showTime} onSelect={this.handleCalendarSelect}/>;
-    return <div className="form-group">
-      <div className="input-group">
+  onChange(value) {
+    console.log('DatePicker change: ' + (value && this.props.formatter.format(value)));
+  },
+
+  onCalendarSelect(value) {
+    console.log('calendar select: ' + (value && this.props.formatter.format(value)));
+    // controlled value
+    this.setState({
+      time: Date.now(),
+      value: value,
+    });
+  },
+
+  onCalendarOk(value) {
+    console.log('calendar ok: ' + (value && this.props.formatter.format(value)));
+    // controlled value
+    this.setState({
+      time: Date.now(),
+      value: value,
+    });
+  },
+
+
+  render() {
+    const state = this.state;
+    const calendar = (<Calendar locale={CalendarLocale}
+                               orient={['top', 'left']}
+                               defaultValue={defaultCalendarValue}
+                               showTime={this.state.showTime}
+                               showOk={true}
+                               onOk={this.onCalendarOk}
+                               onSelect={this.onCalendarSelect}
+                               onClear={this.onCalendarSelect.bind(this, null)} showClear={true}/>);
+    return (<div style={{width: 240, margin: 20}} data-time={this.state.time}>
+      <div style={{marginBottom: 10}}>
         <span>
-          <input type='checkbox' checked={this.state.showTime} onChange={this.handleShowTimeChange} />
-          showTime</span>
-      </div>
-      <div className="input-group">
-        <DatePicker ref='picker' formatter={this.props.formatter} calendar={calendar}
-          value={state.value} onChange={this.handleChange}>
-          <input type="text" className="form-control" style={{background: 'white', cursor: 'pointer'}}/>
-        </DatePicker>
-        <span className="input-group-addon" onClick={this.open}>
-          <span className="glyphicon glyphicon-calendar"></span>
+          <input type="checkbox" checked={this.state.showTime} onChange={this.onShowTimeChange}/>
+          showTime
         </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label><input checked={state.disabled} onChange={this.toggleDisabled} type="checkbox"/> disabled </label>
       </div>
-    </div>;
-  }
+      <div style={{
+        'boxSizing': 'border-box',
+        'position': 'relative',
+        'display': 'block',
+        'lineHeight': 1.5,
+        marginBottom: 22,
+      }}>
+        <DatePicker
+          adjustOrientOnCalendarOverflow={true}
+          animation="slide-up"
+          disabled={state.disabled}
+          trigger={<span className="rc-calendar-picker-icon" />}
+          formatter={this.props.formatter} calendar={calendar}
+          value={state.value} onChange={this.onChange}>
+          <input className="rc-calendar-picker-input" style={{width: 200}} disabled={state.disabled}
+                 placeholder="请选择日期"/>
+        </DatePicker>
+      </div>
+    </div>);
+  },
+
+  toggleDisabled() {
+    this.setState({
+      disabled: !this.state.disabled,
+    });
+  },
 });
 
 React.render(<Test />, document.getElementById('react-content-input'));

@@ -19735,29 +19735,31 @@
 	  getInitialState: function getInitialState() {
 	    return { items: ['hello', 'world', 'click', 'me'] };
 	  },
-	  handleAdd: function handleAdd() {
+	  onAdd: function onAdd() {
 	    var newItems = this.state.items.concat([window.prompt('Enter some text')]);
 	    this.setState({ items: newItems });
 	  },
-	  handleRemove: function handleRemove(i) {
+	  onRemove: function onRemove(i) {
 	    var newItems = this.state.items;
 	    newItems.splice(i, 1);
 	    this.setState({ items: newItems });
 	  },
 	  render: function render() {
-	    var items = this.state.items.map((function (item, i) {
+	    var _this = this;
+	
+	    var items = this.state.items.map(function (item, i) {
 	      return React.createElement(
 	        'div',
-	        { key: item, onClick: this.handleRemove.bind(this, i) },
+	        { key: item, onClick: _this.onRemove.bind(_this, i) },
 	        item
 	      );
-	    }).bind(this));
+	    });
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'button',
-	        { onClick: this.handleAdd },
+	        { onClick: this.onAdd },
 	        'Add Item'
 	      ),
 	      React.createElement(
@@ -19766,8 +19768,7 @@
 	        items
 	      )
 	    );
-	  }
-	});
+	  } });
 	
 	React.render(React.createElement(TodoList, null), document.body);
 

@@ -4,7 +4,8 @@ webpackJsonp([5],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var container;
+	
+	var container = undefined;
 	__webpack_require__(188);
 	var Dialog = __webpack_require__(189);
 	__webpack_require__(207);

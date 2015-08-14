@@ -69,26 +69,23 @@
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	
+	  propTypes: {
+	    count: React.PropTypes.number },
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      count: 0
-	    };
+	      count: 0,
+	      disabled: true };
 	  },
 	  getInitialState: function getInitialState() {
 	    return {
-	      count: this.props.count,
-	      disabled: true
-	    };
-	  },
-	  increase: function increase() {
-	    this.setState({
-	      count: this.state.count + 1
-	    });
+	      count: this.props.count };
 	  },
 	  componentDidMount: function componentDidMount() {
+	    this.turnOn();
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    this.setState({
-	      disabled: false
-	    });
+	      count: nextProps.count });
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -114,8 +111,15 @@
 	        )
 	      )
 	    );
-	  }
-	});
+	  },
+	  turnOn: function turnOn() {
+	    this.setState({
+	      disabled: false });
+	  },
+	  increase: function increase() {
+	    this.setState({
+	      count: this.state.count + 1 });
+	  } });
 
 /***/ },
 /* 3 */

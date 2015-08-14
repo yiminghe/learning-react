@@ -19768,21 +19768,18 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      user: UserStore.getUser()
-	    };
-	  },
-	  onUserChange: function onUserChange() {
-	    this.setState({
-	      user: UserStore.getUser()
-	    });
+	      user: UserStore.getUser() };
 	  },
 	  componentDidMount: function componentDidMount() {
 	    UserStore.addChangeListener(this.onUserChange);
 	  },
+	  onUserChange: function onUserChange() {
+	    this.setState({
+	      user: UserStore.getUser() });
+	  },
 	  render: function render() {
 	    return React.createElement(User, this.state.user);
-	  }
-	});
+	  } });
 
 /***/ },
 /* 175 */
@@ -19796,18 +19793,18 @@
 	var User = React.createClass({
 	  displayName: 'User',
 	
+	  propTypes: {
+	    name: React.PropTypes.string },
 	  getInitialState: function getInitialState() {
 	    return {};
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps() {
 	    this.setState({
-	      loading: 0
-	    });
+	      loading: 0 });
 	  },
 	  onClick: function onClick() {
 	    this.setState({
-	      loading: 1
-	    });
+	      loading: 1 });
 	    UserAction.change();
 	  },
 	  render: function render() {
@@ -19830,8 +19827,7 @@
 	        'change'
 	      )
 	    );
-	  }
-	});
+	  } });
 	
 	module.exports = User;
 
@@ -19848,13 +19844,10 @@
 	    setTimeout(function () {
 	      AppDispatcher.handleViewAction({
 	        user: {
-	          name: 'changed ' + Date.now()
-	        },
-	        actionType: 'update_user'
-	      });
+	          name: 'changed ' + Date.now() },
+	        actionType: 'update_user' });
 	    }, 1000);
-	  }
-	};
+	  } };
 
 /***/ },
 /* 177 */
@@ -19862,19 +19855,36 @@
 
 	'use strict';
 	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
 	var Dispatcher = __webpack_require__(178).Dispatcher;
-	function AppDispatcher() {
-	  Dispatcher.apply(this, arguments);
-	}
 	
-	AppDispatcher.prototype = Object.create(Dispatcher.prototype);
+	var AppDispatcher = (function (_Dispatcher) {
+	  function AppDispatcher() {
+	    _classCallCheck(this, AppDispatcher);
 	
-	AppDispatcher.prototype.handleViewAction = function (action) {
-	  this.dispatch({
-	    type: 'view_action',
-	    action: action
-	  });
-	};
+	    if (_Dispatcher != null) {
+	      _Dispatcher.apply(this, arguments);
+	    }
+	  }
+	
+	  _inherits(AppDispatcher, _Dispatcher);
+	
+	  _createClass(AppDispatcher, [{
+	    key: 'handleViewAction',
+	    value: function handleViewAction(action) {
+	      this.dispatch({
+	        type: 'view_action',
+	        action: action });
+	    }
+	  }]);
+	
+	  return AppDispatcher;
+	})(Dispatcher);
 	
 	module.exports = new AppDispatcher();
 
@@ -20217,8 +20227,7 @@
 	
 	var assign = __webpack_require__(182);
 	var user = {
-	  name: 'init'
-	};
+	  name: 'init' };
 	var AppDispatcher = __webpack_require__(177);
 	var UserStore = assign({}, __webpack_require__(183).EventEmitter.prototype, {
 	  getUser: function getUser() {
@@ -20226,8 +20235,7 @@
 	  },
 	  addChangeListener: function addChangeListener(callback) {
 	    this.on('change', callback);
-	  }
-	});
+	  } });
 	AppDispatcher.register(function (payload) {
 	  var action = payload.action;
 	  if (action.actionType === 'update_user') {

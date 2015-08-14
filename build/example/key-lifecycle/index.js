@@ -19766,17 +19766,20 @@
 	var Component = React.createClass({
 	  displayName: 'Component',
 	
+	  propTypes: {
+	    id: React.PropTypes.string },
+	
 	  getInitialState: function getInitialState() {
 	    console.log(this.props.id + ' getInitialState');
 	    return {};
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    console.log(this.props.id + ' componentDidMount');
-	  },
-	
 	  componentWillMount: function componentWillMount() {
 	    console.log(this.props.id + ' componentWillMount');
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log(this.props.id + ' componentDidMount');
 	  },
 	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -19803,8 +19806,7 @@
 	  render: function render() {
 	    console.log(this.props.id + ' render');
 	    return React.createElement('div', this.props);
-	  }
-	});
+	  } });
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
@@ -19817,8 +19819,7 @@
 	      React.createElement(Component, { key: props.key1, id: props.id1 }),
 	      React.createElement(Component, { key: props.key2, id: props.id2 })
 	    );
-	  }
-	});
+	  } });
 	var div = document.createElement('div');
 	document.body.appendChild(div);
 	var test = React.render(React.createElement(Test, { id1: 'id1', id2: 'id2', key1: 'key1', key2: 'key2' }), div);
@@ -19829,8 +19830,7 @@
 	    id1: 'id11',
 	    id2: 'id2',
 	    key1: 'key11',
-	    key2: 'key2'
-	  });
+	    key2: 'key2' });
 	}, 1000);
 
 /***/ }

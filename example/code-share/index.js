@@ -1,6 +1,6 @@
-'use strict';
 
-var Component = require('./Component');
-var React = require('react');
-var appData = require('appData');
+
+const Component = require('./Component');
+const React = require('react');
+const appData = require('appData');
 React.render(<Component {...appData}/>, document.getElementById('__react-content'));

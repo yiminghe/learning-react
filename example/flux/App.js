@@ -1,23 +1,23 @@
-'use strict';
 
-var React = require('react');
-var User = require('./User');
-var UserStore = require('./UserStore');
+
+const React = require('react');
+const User = require('./User');
+const UserStore = require('./UserStore');
 module.exports = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
-      user: UserStore.getUser()
+      user: UserStore.getUser(),
     };
   },
-  onUserChange: function () {
-    this.setState({
-      user: UserStore.getUser()
-    });
-  },
-  componentDidMount: function () {
+  componentDidMount() {
     UserStore.addChangeListener(this.onUserChange);
   },
-  render: function () {
+  onUserChange() {
+    this.setState({
+      user: UserStore.getUser(),
+    });
+  },
+  render() {
     return (<User {...this.state.user}/>);
-  }
+  },
 });

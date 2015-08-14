@@ -1,12 +1,12 @@
 'use strict';
 
-var serverRender = require('./serverRender');
+const serverRender = require('./serverRender');
 
-module.exports = function (app) {
+module.exports = function(app) {
   app.get('/example/code-share/demo.html', function *() {
-    var count = 10;
-    var content = serverRender.renderComponent(count);
-    var appData = JSON.stringify({count: count});
+    const count = 10;
+    const content = serverRender.renderComponent(count);
+    const appData = JSON.stringify({count: count});
     this.body = serverRender.renderPage(content, 'window.appData=' + appData + ';');
   });
 };

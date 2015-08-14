@@ -1,20 +1,20 @@
-'use strict';
 
-var assign = require('object-assign');
-var user = {
-  name: 'init'
+
+const assign = require('object-assign');
+let user = {
+  name: 'init',
 };
-var AppDispatcher = require('./AppDispatcher');
-var UserStore = assign({}, require('events').EventEmitter.prototype, {
-  getUser: function () {
+const AppDispatcher = require('./AppDispatcher');
+const UserStore = assign({}, require('events').EventEmitter.prototype, {
+  getUser() {
     return user;
   },
-  addChangeListener: function (callback) {
+  addChangeListener(callback) {
     this.on('change', callback);
-  }
+  },
 });
-AppDispatcher.register(function (payload) {
-  var action = payload.action;
+AppDispatcher.register((payload) => {
+  const action = payload.action;
   if (action.actionType === 'update_user') {
     user = action.user;
     UserStore.emit('change');

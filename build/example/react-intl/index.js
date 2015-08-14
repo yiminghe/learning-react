@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(278);
+	module.exports = __webpack_require__(292);
 
 
 /***/ },
@@ -19850,7 +19850,21 @@
 /* 275 */,
 /* 276 */,
 /* 277 */,
-/* 278 */
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19858,7 +19872,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var React = __webpack_require__(3);
-	var ReactIntl = __webpack_require__(279);
+	var ReactIntl = __webpack_require__(293);
 	var IntlMixin = ReactIntl.IntlMixin;
 	var FormattedMessage = ReactIntl.FormattedMessage;
 	
@@ -19873,8 +19887,7 @@
 	      count: 10000,
 	      time: new Date()
 	    });
-	  }
-	});
+	  } });
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -19886,31 +19899,21 @@
 	      null,
 	      React.createElement(Component, null)
 	    );
-	  }
-	});
+	  } });
 	
 	var locales = [{
 	  locales: ['en-US'],
 	  messages: {
 	    user: {
-	      info: 'your name: {name}，login count: {count, number}，current login time: {time, date,full}'
-	    }
-	  }
-	}, {
+	      info: 'your name: {name}，login count: {count, number}，current login time: {time, date,full}' } } }, {
 	  locales: ['zh-CN'],
 	  messages: {
 	    user: {
-	      info: '你的名字是 {name}，登陆 {count, number} 次，当前登陆时间 {time, date,full}'
-	    }
-	  }
-	}, {
+	      info: '你的名字是 {name}，登陆 {count, number} 次，当前登陆时间 {time, date,full}' } } }, {
 	  locales: ['ja-JP'],
 	  messages: {
 	    user: {
-	      info: 'xxxxx {name}，xx {count, number}，xxxx {time, date,full}'
-	    }
-	  }
-	}];
+	      info: 'xxxxx {name}，xx {count, number}，xxxx {time, date,full}' } } }];
 	
 	var apps = locales.map(function (locale) {
 	  return React.createElement(App, _extends({ key: locale.locales.join(',') }, locale));
@@ -19923,7 +19926,7 @@
 	), document.getElementById('__react-content'));
 
 /***/ },
-/* 279 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* jshint node:true */
@@ -19935,8 +19938,8 @@
 	
 	// Require the lib and add all locale data to `ReactIntl`. This module will be
 	// ignored when bundling for the browser with Browserify/Webpack.
-	var ReactIntl = __webpack_require__(280);
-	__webpack_require__(311);
+	var ReactIntl = __webpack_require__(294);
+	__webpack_require__(325);
 	
 	// Export the Mixin as the default export for back-compat with v1.0.0. This will
 	// be changed to simply re-exporting `ReactIntl` as the default export in v2.0.
@@ -19967,14 +19970,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 280 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext: true */
 	
 	"use strict";
 	exports.__addLocaleData = __addLocaleData;
-	var intl$messageformat$$ = __webpack_require__(284), intl$relativeformat$$ = __webpack_require__(294), src$en$$ = __webpack_require__(304), src$mixin$$ = __webpack_require__(283), src$components$date$$ = __webpack_require__(305), src$components$time$$ = __webpack_require__(281), src$components$relative$$ = __webpack_require__(306), src$components$number$$ = __webpack_require__(307), src$components$message$$ = __webpack_require__(308), src$components$html$message$$ = __webpack_require__(309);
+	var intl$messageformat$$ = __webpack_require__(298), intl$relativeformat$$ = __webpack_require__(308), src$en$$ = __webpack_require__(318), src$mixin$$ = __webpack_require__(297), src$components$date$$ = __webpack_require__(319), src$components$time$$ = __webpack_require__(295), src$components$relative$$ = __webpack_require__(320), src$components$number$$ = __webpack_require__(321), src$components$message$$ = __webpack_require__(322), src$components$html$message$$ = __webpack_require__(323);
 	function __addLocaleData(data) {
 	    intl$messageformat$$["default"].__addLocaleData(data);
 	    intl$relativeformat$$["default"].__addLocaleData(data);
@@ -19986,14 +19989,14 @@
 	//# sourceMappingURL=react-intl.js.map
 
 /***/ },
-/* 281 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedTime = src$react$$["default"].createClass({
 	    displayName: 'FormattedTime',
@@ -20028,7 +20031,7 @@
 	//# sourceMappingURL=time.js.map
 
 /***/ },
-/* 282 */
+/* 296 */
 /***/ function(module, exports) {
 
 	/* global React */
@@ -20043,14 +20046,14 @@
 	//# sourceMappingURL=react.js.map
 
 /***/ },
-/* 283 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), intl$messageformat$$ = __webpack_require__(284), intl$relativeformat$$ = __webpack_require__(294), intl$format$cache$$ = __webpack_require__(301);
+	var src$react$$ = __webpack_require__(296), intl$messageformat$$ = __webpack_require__(298), intl$relativeformat$$ = __webpack_require__(308), intl$format$cache$$ = __webpack_require__(315);
 	
 	// -----------------------------------------------------------------------------
 	
@@ -20209,18 +20212,18 @@
 	//# sourceMappingURL=mixin.js.map
 
 /***/ },
-/* 284 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 	
 	'use strict';
 	
-	var IntlMessageFormat = __webpack_require__(285)['default'];
+	var IntlMessageFormat = __webpack_require__(299)['default'];
 	
 	// Add all locale data to `IntlMessageFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(293);
+	__webpack_require__(307);
 	
 	// Re-export `IntlMessageFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -20230,13 +20233,13 @@
 
 
 /***/ },
-/* 285 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$core$$ = __webpack_require__(286), src$en$$ = __webpack_require__(292);
+	var src$core$$ = __webpack_require__(300), src$en$$ = __webpack_require__(306);
 	
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -20246,7 +20249,7 @@
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 286 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -20258,7 +20261,7 @@
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$utils$$ = __webpack_require__(287), src$es5$$ = __webpack_require__(288), src$compiler$$ = __webpack_require__(289), intl$messageformat$parser$$ = __webpack_require__(290);
+	var src$utils$$ = __webpack_require__(301), src$es5$$ = __webpack_require__(302), src$compiler$$ = __webpack_require__(303), intl$messageformat$parser$$ = __webpack_require__(304);
 	exports["default"] = MessageFormat;
 	
 	// -- MessageFormat --------------------------------------------------------
@@ -20515,7 +20518,7 @@
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 287 */
+/* 301 */
 /***/ function(module, exports) {
 
 	/*
@@ -20552,7 +20555,7 @@
 	//# sourceMappingURL=utils.js.map
 
 /***/ },
-/* 288 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -20564,7 +20567,7 @@
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$utils$$ = __webpack_require__(287);
+	var src$utils$$ = __webpack_require__(301);
 	
 	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
 	// Copyright 2013 Andy Earnshaw, MIT License
@@ -20606,7 +20609,7 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 289 */
+/* 303 */
 /***/ function(module, exports) {
 
 	/*
@@ -20820,17 +20823,17 @@
 	//# sourceMappingURL=compiler.js.map
 
 /***/ },
-/* 290 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports = module.exports = __webpack_require__(291)['default'];
+	exports = module.exports = __webpack_require__(305)['default'];
 	exports['default'] = exports;
 
 
 /***/ },
-/* 291 */
+/* 305 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22176,7 +22179,7 @@
 	//# sourceMappingURL=parser.js.map
 
 /***/ },
-/* 292 */
+/* 306 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -22186,24 +22189,24 @@
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 293 */
+/* 307 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 294 */
+/* 308 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 	
 	'use strict';
 	
-	var IntlRelativeFormat = __webpack_require__(295)['default'];
+	var IntlRelativeFormat = __webpack_require__(309)['default'];
 	
 	// Add all locale data to `IntlRelativeFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(300);
+	__webpack_require__(314);
 	
 	// Re-export `IntlRelativeFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -22213,13 +22216,13 @@
 
 
 /***/ },
-/* 295 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$core$$ = __webpack_require__(296), src$en$$ = __webpack_require__(299);
+	var src$core$$ = __webpack_require__(310), src$en$$ = __webpack_require__(313);
 	
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -22229,7 +22232,7 @@
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 296 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -22241,7 +22244,7 @@
 	/* jslint esnext: true */
 	
 	"use strict";
-	var intl$messageformat$$ = __webpack_require__(284), src$diff$$ = __webpack_require__(297), src$es5$$ = __webpack_require__(298);
+	var intl$messageformat$$ = __webpack_require__(298), src$diff$$ = __webpack_require__(311), src$es5$$ = __webpack_require__(312);
 	exports["default"] = RelativeFormat;
 	
 	// -----------------------------------------------------------------------------
@@ -22531,7 +22534,7 @@
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 297 */
+/* 311 */
 /***/ function(module, exports) {
 
 	/*
@@ -22582,7 +22585,7 @@
 	//# sourceMappingURL=diff.js.map
 
 /***/ },
-/* 298 */
+/* 312 */
 /***/ function(module, exports) {
 
 	/*
@@ -22662,7 +22665,7 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 299 */
+/* 313 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -22672,27 +22675,27 @@
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 300 */
+/* 314 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 301 */
+/* 315 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports = module.exports = __webpack_require__(302)['default'];
+	exports = module.exports = __webpack_require__(316)['default'];
 	exports['default'] = exports;
 
 
 /***/ },
-/* 302 */
+/* 316 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var src$es5$$ = __webpack_require__(303);
+	var src$es5$$ = __webpack_require__(317);
 	exports["default"] = createFormatCache;
 	
 	// -----------------------------------------------------------------------------
@@ -22769,7 +22772,7 @@
 	//# sourceMappingURL=memoizer.js.map
 
 /***/ },
-/* 303 */
+/* 317 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22816,7 +22819,7 @@
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 304 */
+/* 318 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -22826,14 +22829,14 @@
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 305 */
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedDate = src$react$$["default"].createClass({
 	    displayName: 'FormattedDate',
@@ -22868,14 +22871,14 @@
 	//# sourceMappingURL=date.js.map
 
 /***/ },
-/* 306 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedRelative = src$react$$["default"].createClass({
 	    displayName: 'FormattedRelative',
@@ -22913,14 +22916,14 @@
 	//# sourceMappingURL=relative.js.map
 
 /***/ },
-/* 307 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedNumber = src$react$$["default"].createClass({
 	    displayName: 'FormattedNumber',
@@ -22956,14 +22959,14 @@
 	//# sourceMappingURL=number.js.map
 
 /***/ },
-/* 308 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedMessage = src$react$$["default"].createClass({
 	    displayName: 'FormattedMessage',
@@ -23044,14 +23047,14 @@
 	//# sourceMappingURL=message.js.map
 
 /***/ },
-/* 309 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint esnext:true */
 	
 	// TODO: Use `import React from "react";` when external modules are supported.
 	"use strict";
-	var src$react$$ = __webpack_require__(282), src$escape$$ = __webpack_require__(310), src$mixin$$ = __webpack_require__(283);
+	var src$react$$ = __webpack_require__(296), src$escape$$ = __webpack_require__(324), src$mixin$$ = __webpack_require__(297);
 	
 	var FormattedHTMLMessage = src$react$$["default"].createClass({
 	    displayName: 'FormattedHTMLMessage',
@@ -23110,7 +23113,7 @@
 	//# sourceMappingURL=html-message.js.map
 
 /***/ },
-/* 310 */
+/* 324 */
 /***/ function(module, exports) {
 
 	/* jshint esnext:true */
@@ -23145,7 +23148,7 @@
 	//# sourceMappingURL=escape.js.map
 
 /***/ },
-/* 311 */
+/* 325 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
