@@ -4,7 +4,6 @@ import './index.css';
 
 import React from 'react';
 import { Router, Link } from 'react-router';
-import HashHistory from 'react-router/lib/HashHistory';
 
 function underscore(str) {
   return str.toLowerCase().replace(/ /, '_');
@@ -88,7 +87,7 @@ const App = React.createClass({
       return (
         <li key={state.abbr}>
           <Link
-            to={`state/${state.abbr}`}
+            to={`/state/${state.abbr}`}
             >{state.name}</Link>
         </li>
       );
@@ -133,13 +132,11 @@ const State = React.createClass({
 });
 
 
-const rootRoute = {
+const rootRoute = [{
+  path: '/',
   component: App,
+  indexRoute: {component: Index},
   childRoutes: [
-    {
-      path: '/',
-      component: Index,
-    },
     {
       path: 'state/:abbr',
       component: State,
@@ -149,7 +146,7 @@ const rootRoute = {
       component: Index,
     },
   ],
-};
+}];
 
 let instance;
 
@@ -157,5 +154,5 @@ exports.getInstance = () => {
   return instance;
 };
 
-instance = React.render(<Router history={new HashHistory()}>{rootRoute}</Router>,
+instance = React.render(<Router>{rootRoute}</Router>,
   document.getElementById('__react-content'));
