@@ -18,6 +18,7 @@ module.exports = {
     'example/flux/index': ['./example/flux/index.js'],
     'example/rc-calendar/index': ['./example/rc-calendar/index.js'],
     'example/react-router/index': ['./example/react-router/index.js'],
+    'example/tb-app/index': ['./example/tb-app/index.js'],
     'example/load-on-demand/index': ['./example/load-on-demand/index.js']
   },
 
