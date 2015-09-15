@@ -2,49 +2,37 @@
 
 materials about learning react
 
-## Run example
+## Development
 
 ```
 npm install
-npm run build
 npm start
 ```
 
-open  [http://localhost:8000/example/index.html](http://localhost:8000/example/index.html)
+## Example
 
-## Run coverage test
+http://localhost:9000/examples/
 
-*nix
+online example: http://yiminghe.github.io/learning-react/examples/
 
-```
-npm run test-cover
-```
+## Test Case
 
-git bash on window
+http://localhost:9000/tests/runner.html?coverage
 
 ```
-NODE_ENV=test node --harmony server
+npm run browser-test
+npm run karma
 ```
 
-### Brief test result in browser
+## Coverage
 
-open [http://localhost:8000/test/react-router/runner.html](http://localhost:8000/test/react-router/runner.html) see console
-
-### Detail test result in browser
-
-open [http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html](http://localhost:8000/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:8000/test/react-router/runner.html) to see coverage details
-
-### Brief test result in phantomjs
+http://localhost:9000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:9000/tests/runner.html?coverage
 
 ```
-npm run phantomjs
+npm run browser-test-cover
 ```
 
-## Examples
-
-https://github.com/yiminghe/learning-react/blob/master/example/index.html
-
-online: http://yiminghe.me/learning-react/example/build.html
+## License
 
 ## Tutorials
 

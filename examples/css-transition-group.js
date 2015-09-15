@@ -1,0 +1,1 @@
+import "../src/css-transition-group/index";

@@ -2,7 +2,7 @@
   "name": "learning-react",
   "version": "1.0.0",
   "author": "yiminghe <yiminghe@gmail.com>",
-  "description": "learning materials and examples for react and webpack using koa",
+  "description": "learning materials and examples for react",
   "engines": {
     "node": ">=0.12"
   },
@@ -11,6 +11,10 @@
     "type": "git",
     "url": "http://github.com/yiminghe/learning-react.git"
   },
+  "files": [
+    "examples",
+    "tutorial"
+  ],
   "keywords": [
     "react",
     "jsx",
@@ -18,64 +22,47 @@
     "webpack"
   ],
   "dependencies": {
-    "antd": "~0.9.0-beta8",
-    "bootstrap": "~3.3.2",
-    "console-polyfill": "~0.1.2",
+    "antd": "0.9.0",
     "d3": "^3.5.5",
-    "es5-shim": "^4.0.5",
     "events": "^1.0.2",
     "flux": "^2.0.1",
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
-    "intl": "~1.0.0-rc-4",
     "jquery": "^2.1.1",
-    "jsonp": "~0.2.0",
     "object-assign": "^2.0.0",
     "querystring": "~0.2.0",
     "rc-calendar": "~3.12.4",
     "rc-dialog": "~4.0.7",
-    "react": "^0.13.0",
     "react-art": "^0.13.0",
     "react-intl": "~1.2.0",
-    "react-router": "1.0.0-rc1"
+    "react-router": "1.0.0-rc1",
+    "jsonp": "^0.2.0",
+    "querystring": "^0.2.0",
+    "react": "~0.13.0"
+  },
+  "devDependencies": {
+    "precommit-hook": "^1.0.7",
+    "expect.js": "~0.3.1",
+    "reveal.js": "~3.1.0",
+    "rc-server": "3.x",
+    "rc-tools": "4.x"
   },
   "scripts": {
-    "gh-pages": "sh ./gh-pages.sh",
-    "start": "node --harmony server",
-    "test-cover": "NODE_ENV=test node --harmony server",
-    "phantomjs": "mocha-phantomjs http://localhost:8000/test/react-router/runner.html",
-    "phantomjs-cover": "mocha-phantomjs -R node_modules/node-jscover/lib/reporters/mocha/parent http://localhost:8000/test/react-router/runner.html",
-    "lint": "eslint --ext .js,.jsx example",
-    "build": "sh ./build.sh"
+    "build": "rc-tools run build",
+    "gh-pages": "rc-tools run gh-pages",
+    "pre-gh-pages": "sh ./scripts/pre-gh-pages.sh",
+    "start": "node --harmony node_modules/.bin/rc-server",
+    "pub": "rc-tools run pub",
+    "lint": "rc-tools run lint",
+    "karma": "rc-tools run karma",
+    "saucelabs": "node --harmony node_modules/.bin/rc-tools run saucelabs",
+    "browser-test": "node --harmony node_modules/.bin/rc-tools run browser-test",
+    "browser-test-cover": "node --harmony node_modules/.bin/rc-tools run browser-test-cover"
   },
   "precommit": [
     "lint"
   ],
-  "devDependencies": {
-    "babel": "~5.4.7",
-    "babel-core": "~5.4.7",
-    "babel-eslint": "~4.0.5",
-    "babel-loader": "~5.1.3",
-    "css-loader": "^0.9.1",
-    "eslint": "~1.1.0",
-    "eslint-config-airbnb": "0.0.7",
-    "eslint-plugin-react": "~3.2.2",
-    "expect.js": "^0.3.1",
-    "extract-text-webpack-plugin": "^0.3.8",
-    "file-loader": "^0.8.1",
-    "gh-pages": "^0.3.0",
-    "koa": "^0.18.1",
-    "koa-router": "^4.2.0",
-    "koa-webpack-dev-test-server": "^1.0.0",
-    "less-loader": "^2.2.0",
-    "mocha": "~2.0.1",
-    "mocha-phantomjs": "~3.5.3",
-    "node-jscover": "~0.6.10",
-    "node-jscover-webpack-loader": "^1.0.0",
-    "precommit-hook": "^1.0.7",
-    "replace": "~0.3.0",
-    "reveal.js": "~3.1.0",
-    "url-loader": "^0.5.5",
-    "webpack": "^1.7.3"
+  "config": {
+    "port": 9000
   }
 }
