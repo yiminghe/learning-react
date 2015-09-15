@@ -30,22 +30,22 @@
     "gregorian-calendar-format": "3.x",
     "jquery": "^2.1.1",
     "object-assign": "^2.0.0",
-    "querystring": "~0.2.0",
+    "querystring": "^0.2.0",
     "rc-calendar": "~3.12.4",
     "rc-dialog": "~4.0.7",
     "react-art": "^0.13.0",
     "react-intl": "~1.2.0",
     "react-router": "1.0.0-rc1",
     "jsonp": "^0.2.0",
-    "querystring": "^0.2.0",
     "react": "~0.13.0"
   },
   "devDependencies": {
-    "precommit-hook": "^1.0.7",
     "expect.js": "~0.3.1",
-    "reveal.js": "~3.1.0",
+    "precommit-hook": "^1.0.7",
     "rc-server": "3.x",
-    "rc-tools": "4.x"
+    "rc-tools": "4.x",
+    "replace": "~0.3.0",
+    "reveal.js": "~3.1.0"
   },
   "scripts": {
     "build": "rc-tools run build",
