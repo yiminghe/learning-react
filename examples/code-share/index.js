@@ -1,6 +1,4 @@
-
-
 const Component = require('./Component');
 const React = require('react');
-const appData = require('appData');
+const appData = window.appData;
 React.render(<Component {...appData}/>, document.body);
