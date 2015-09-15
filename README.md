@@ -32,8 +32,6 @@ http://localhost:9000/node_modules/rc-server/node_modules/node-jscover/lib/front
 npm run browser-test-cover
 ```
 
-## License
-
 ## Tutorials
 
 https://github.com/yiminghe/learning-react/blob/master/tutorial/en-us/index.md
