@@ -37,7 +37,7 @@
     "react": "^0.13.0",
     "react-art": "^0.13.0",
     "react-intl": "~1.2.0",
-    "react-router": "1.0.0-beta4"
+    "react-router": "1.0.0-rc1"
   },
   "scripts": {
     "gh-pages": "sh ./gh-pages.sh",
