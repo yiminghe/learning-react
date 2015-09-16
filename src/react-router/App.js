@@ -1,5 +1,5 @@
-require('../../assets/react-router/index.css');
-
+import '../../assets/react-router/index.css';
+import 'antd/lib/index.css';
 import React from 'react';
 import {Link} from 'react-router';
 import {findStates} from './util';
@@ -24,11 +24,11 @@ const App = React.createClass({
       );
     });
     return (
-      <div className="App">
-        <ul className="Master">
+      <div className="row App">
+        <ul className="col-5 Master">
           {links}
         </ul>
-        <div className="Detail">
+        <div className="col-18 Detail">
           {this.props.children}
         </div>
       </div>

@@ -16,32 +16,18 @@ a.active {
 }
 
 .App {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     width: 1000px;
-    height: 800px;
+    margin:0 auto;
 }
 
 .Master {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 200px;
     overflow: auto;
     padding: 10px 40px;
+    border-right: 1px solid #ccc;
+    text-align: center;
 }
 
 .Detail {
-    position: absolute;
-    left: 300px;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    border-left: 1px solid #ccc;
     overflow: auto;
     padding: 40px;
 }

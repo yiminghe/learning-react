@@ -36,4 +36,4 @@ const TodoList = React.createClass({
   },
 });
 
-React.render(<TodoList />, document.body);
+React.render(<TodoList />, document.getElementById('__react-content'));

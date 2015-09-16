@@ -1,4 +1,4 @@
-require('../../assets/react-router/index.css');
+import '../../assets/react-router/index.css';
 
 import React from 'react';
 import App from './App';

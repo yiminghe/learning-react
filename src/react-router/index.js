@@ -3,4 +3,4 @@
 import App from './Main';
 import React from 'react';
 
-React.render(<App />, document.body);
+React.render(<App />, document.getElementById('__react-content'));

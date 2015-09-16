@@ -35,4 +35,4 @@ const apps = locales.map((locale) => {
 });
 
 
-React.render(<div>{apps}</div>, document.body);
+React.render(<div>{apps}</div>, document.getElementById('__react-content'));

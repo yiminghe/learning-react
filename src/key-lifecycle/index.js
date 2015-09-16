@@ -11,7 +11,7 @@ const Test = React.createClass({
   },
 });
 
-const test = React.render(<Test id1="id1" id2="id2" key1="key1" key2="key2"/>, document.body);
+const test = React.render(<Test id1="id1" id2="id2" key1="key1" key2="key2"/>, document.getElementById('__react-content'));
 
 setTimeout(() => {
   console.log('*******************************');

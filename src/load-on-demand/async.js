@@ -7,7 +7,7 @@ const React = require('react');
 exports.show = () => {
   if (!container) {
     container = document.createElement('div');
-    document.body.appendChild(container);
+    document.getElementById('__react-content').appendChild(container);
   }
   React.render(<Dialog style={{width: 400}}>
     <div className="my-content">loaded</div>

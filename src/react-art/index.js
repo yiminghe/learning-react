@@ -140,4 +140,4 @@ for (let i = 1; i < 13; i++) {
 console.log('data', data);
 React.render(<div style={{width: 500, margin: 'auto'}}>
   <Component data={data}/>
-</div>, document.body);
+</div>, document.getElementById('__react-content'));

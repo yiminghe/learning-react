@@ -111,4 +111,4 @@ const Test = React.createClass({
   },
 });
 
-React.render(<Test />, document.body);
+React.render(<Test />, document.getElementById('__react-content'));

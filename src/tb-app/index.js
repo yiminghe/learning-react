@@ -19,4 +19,4 @@ const rootRoute = [{
 
 React.render((
   <Router>{rootRoute}</Router>
-), document.body);
+), document.getElementById('__react-content'));
