@@ -68,7 +68,7 @@ webpackJsonp([7],{
 	  'div',
 	  null,
 	  apps
-	), document.body);
+	), document.getElementById('__react-content'));
 
 /***/ },
 

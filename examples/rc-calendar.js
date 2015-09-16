@@ -370,7 +370,7 @@ webpackJsonp([5],[
 	  }
 	});
 	
-	React.render(React.createElement(Test, null), document.body);
+	React.render(React.createElement(Test, null), document.getElementById('__react-content'));
 
 /***/ },
 /* 219 */

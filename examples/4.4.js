@@ -13,7 +13,7 @@ webpackJsonp([4],{
 	exports.show = function () {
 	  if (!container) {
 	    container = document.createElement('div');
-	    document.body.appendChild(container);
+	    document.getElementById('__react-content').appendChild(container);
 	  }
 	  React.render(React.createElement(
 	    Dialog,

@@ -24,7 +24,7 @@ webpackJsonp([1],{
 	
 	var App = __webpack_require__(179);
 	var React = __webpack_require__(180);
-	React.render(React.createElement(App, null), document.body);
+	React.render(React.createElement(App, null), document.getElementById('__react-content'));
 
 /***/ },
 

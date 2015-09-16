@@ -47,7 +47,7 @@ webpackJsonp([2],{
 	  }
 	});
 	
-	var test = React.render(React.createElement(Test, { id1: 'id1', id2: 'id2', key1: 'key1', key2: 'key2' }), document.body);
+	var test = React.render(React.createElement(Test, { id1: 'id1', id2: 'id2', key1: 'key1', key2: 'key2' }), document.getElementById('__react-content'));
 	
 	setTimeout(function () {
 	  console.log('*******************************');

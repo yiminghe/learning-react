@@ -69,7 +69,7 @@ webpackJsonp([0],{
 	  }
 	});
 	
-	React.render(React.createElement(TodoList, null), document.body);
+	React.render(React.createElement(TodoList, null), document.getElementById('__react-content'));
 
 /***/ },
 

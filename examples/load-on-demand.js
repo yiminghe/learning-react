@@ -43,7 +43,7 @@ webpackJsonp([3],{
 	  'button',
 	  { onClick: load, className: 'my-button' },
 	  'load'
-	), document.body);
+	), document.getElementById('__react-content'));
 
 /***/ },
 

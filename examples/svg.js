@@ -3,7 +3,7 @@ webpackJsonp([9],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(392);
+	module.exports = __webpack_require__(393);
 
 
 /***/ },
@@ -16,31 +16,12 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 392:
+/***/ 393:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	__webpack_require__(393);
-
-/***/ },
-
-/***/ 393:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(180);
-	var Line = __webpack_require__(394);
-	var Dash = __webpack_require__(396);
-	var Clip = __webpack_require__(397);
-	React.render(React.createElement(
-	  'div',
-	  null,
-	  React.createElement(Clip, { start: { x: 200, y: 200 }, end: { x: 300, y: 300 }, duration: 2 }),
-	  React.createElement(Line, { start: { x: 20, y: 20 }, end: { x: 300, y: 300 }, duration: 2 }),
-	  React.createElement(Dash, { start: { x: 200, y: 200 }, end: { x: 300, y: 300 }, duration: 2 })
-	), document.body);
+	__webpack_require__(394);
 
 /***/ },
 
@@ -50,7 +31,26 @@ webpackJsonp([9],{
 	'use strict';
 	
 	var React = __webpack_require__(180);
-	var $ = __webpack_require__(395);
+	var Line = __webpack_require__(395);
+	var Dash = __webpack_require__(397);
+	var Clip = __webpack_require__(398);
+	React.render(React.createElement(
+	  'div',
+	  null,
+	  React.createElement(Clip, { start: { x: 200, y: 200 }, end: { x: 300, y: 300 }, duration: 2 }),
+	  React.createElement(Line, { start: { x: 20, y: 20 }, end: { x: 300, y: 300 }, duration: 2 }),
+	  React.createElement(Dash, { start: { x: 200, y: 200 }, end: { x: 300, y: 300 }, duration: 2 })
+	), document.getElementById('__react-content'));
+
+/***/ },
+
+/***/ 395:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(180);
+	var $ = __webpack_require__(396);
 	var Line = React.createClass({
 	  displayName: 'Line',
 	
@@ -133,7 +133,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 395:
+/***/ 396:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -9350,7 +9350,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 396:
+/***/ 397:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9447,7 +9447,7 @@ webpackJsonp([9],{
 
 /***/ },
 
-/***/ 397:
+/***/ 398:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

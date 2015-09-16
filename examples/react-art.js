@@ -227,7 +227,7 @@ webpackJsonp([6],{
 	  'div',
 	  { style: { width: 500, margin: 'auto' } },
 	  React.createElement(Component, { data: data })
-	), document.body);
+	), document.getElementById('__react-content'));
 
 /***/ },
 
