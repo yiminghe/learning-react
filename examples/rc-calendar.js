@@ -308,6 +308,12 @@ webpackJsonp([5],[
 	    });
 	  },
 	
+	  toggleDisabled: function toggleDisabled() {
+	    this.setState({
+	      disabled: !this.state.disabled
+	    });
+	  },
+	
 	  render: function render() {
 	    var state = this.state;
 	    var calendar = React.createElement(Calendar, { locale: CalendarLocale,
@@ -361,12 +367,6 @@ webpackJsonp([5],[
 	        )
 	      )
 	    );
-	  },
-	
-	  toggleDisabled: function toggleDisabled() {
-	    this.setState({
-	      disabled: !this.state.disabled
-	    });
 	  }
 	});
 	

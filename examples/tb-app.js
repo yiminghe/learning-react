@@ -4291,13 +4291,39 @@ webpackJsonp([10],[
 	    this.history.pushState(null, '/list/' + value);
 	  },
 	
+	  fetchData: function fetchData(value) {
+	    var _this = this;
+	
+	    var queryStr = _querystring2['default'].encode({
+	      code: 'utf-8',
+	      q: value
+	    });
+	    (0, _jsonp2['default'])('http://suggest.taobao.com/sug?' + queryStr, function (err, d) {
+	      var result = d.result;
+	      var data = [];
+	      result.forEach(function (singleResult) {
+	        data.push({
+	          value: singleResult[0],
+	          text: _react2['default'].createElement(
+	            'b',
+	            null,
+	            singleResult[0]
+	          )
+	        });
+	      });
+	      _this.setState({
+	        data: data
+	      });
+	    });
+	  },
+	
 	  render: function render() {
 	    var data = this.state.data;
-	    var options = data.map(function (d) {
+	    var options = data.map(function (od) {
 	      return _react2['default'].createElement(
 	        _antdLibSelect.Option,
-	        { key: d.value },
-	        d.text
+	        { key: od.value },
+	        od.text
 	      );
 	    });
 	    return _react2['default'].createElement(
@@ -4316,32 +4342,6 @@ webpackJsonp([10],[
 	        options
 	      )
 	    );
-	  },
-	
-	  fetchData: function fetchData(value) {
-	    var _this = this;
-	
-	    var q = _querystring2['default'].encode({
-	      code: 'utf-8',
-	      q: value
-	    });
-	    (0, _jsonp2['default'])('http://suggest.taobao.com/sug?' + q, function (err, d) {
-	      var result = d.result;
-	      var data = [];
-	      result.forEach(function (r) {
-	        data.push({
-	          value: r[0],
-	          text: _react2['default'].createElement(
-	            'b',
-	            null,
-	            r[0]
-	          )
-	        });
-	      });
-	      _this.setState({
-	        data: data
-	      });
-	    });
 	  }
 	});
 	
@@ -11159,8 +11159,8 @@ webpackJsonp([10],[
 	}, {
 	  title: '图片',
 	  dataIndex: 'pic_url',
-	  render: function render(d) {
-	    return _react2['default'].createElement('img', { src: d, width: '100', height: '100' });
+	  render: function render(data) {
+	    return _react2['default'].createElement('img', { src: data, width: '100', height: '100' });
 	  }
 	}];
 	
@@ -11180,12 +11180,12 @@ webpackJsonp([10],[
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
-	    var q = _querystring2['default'].encode({
+	    var queryStr = _querystring2['default'].encode({
 	      ajax: 'true',
 	      q: this.props.params.q
 	    });
-	    (0, _jsonp2['default'])('https://s.taobao.com/search?' + q, function (err, d) {
-	      var data = d.mods.itemlist.data.auctions;
+	    (0, _jsonp2['default'])('https://s.taobao.com/search?' + queryStr, function (err, ret) {
+	      var data = ret.mods.itemlist.data.auctions;
 	      data.forEach(function (d2, index) {
 	        d2.key = index;
 	      });

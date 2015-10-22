@@ -9417,13 +9417,13 @@ webpackJsonp([9],{
 	      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
 	    }
 	
-	    var x = 'strike-dash anim';
+	    var h2Title = 'strike-dash anim';
 	    // onTransitionEnd not working...
 	    // https://github.com/facebook/react/issues/2187
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('h2', { dangerouslySetInnerHTML: { __html: x } }),
+	      React.createElement('h2', { dangerouslySetInnerHTML: { __html: h2Title } }),
 	      React.createElement(
 	        'svg',
 	        { width: '400', height: '400' },
