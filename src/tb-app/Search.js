@@ -19,10 +19,30 @@ const Search = React.createClass({
     this.history.pushState(null, `/list/${value}`);
   },
 
+  fetchData(value) {
+    const queryStr = querystring.encode({
+      code: 'utf-8',
+      q: value,
+    });
+    jsonp('http://suggest.taobao.com/sug?' + queryStr, (err, d) => {
+      const result = d.result;
+      const data = [];
+      result.forEach((singleResult)=> {
+        data.push({
+          value: singleResult[0],
+          text: <b>{singleResult[0]}</b>,
+        });
+      });
+      this.setState({
+        data: data,
+      });
+    });
+  },
+
   render() {
     const data = this.state.data;
-    const options = data.map((d) => {
-      return <Option key={d.value}>{d.text}</Option>;
+    const options = data.map((od) => {
+      return <Option key={od.value}>{od.text}</Option>;
     });
     return (<div style={{textAlign: 'center'}}>
       <Select
@@ -36,26 +56,6 @@ const Search = React.createClass({
         {options}
       </Select>
     </div>);
-  },
-
-  fetchData(value) {
-    const q = querystring.encode({
-      code: 'utf-8',
-      q: value,
-    });
-    jsonp('http://suggest.taobao.com/sug?' + q, (err, d) => {
-      const result = d.result;
-      const data = [];
-      result.forEach((r)=> {
-        data.push({
-          value: r[0],
-          text: <b>{r[0]}</b>,
-        });
-      });
-      this.setState({
-        data: data,
-      });
-    });
   },
 });
 

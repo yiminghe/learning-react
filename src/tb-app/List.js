@@ -9,8 +9,8 @@ const columns = [{
 }, {
   title: '图片',
   dataIndex: 'pic_url',
-  render(d) {
-    return <img src={d} width="100" height="100"/>;
+  render(data) {
+    return <img src={data} width="100" height="100"/>;
   },
 }];
 
@@ -26,12 +26,12 @@ const List = React.createClass({
     };
   },
   componentDidMount() {
-    const q = querystring.encode({
+    const queryStr = querystring.encode({
       ajax: 'true',
       q: this.props.params.q,
     });
-    jsonp('https://s.taobao.com/search?' + q, (err, d) => {
-      const data = d.mods.itemlist.data.auctions;
+    jsonp('https://s.taobao.com/search?' + queryStr, (err, ret) => {
+      const data = ret.mods.itemlist.data.auctions;
       data.forEach((d2, index)=> {
         d2.key = index;
       });

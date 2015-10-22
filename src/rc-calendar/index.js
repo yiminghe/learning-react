@@ -63,6 +63,11 @@ const Test = React.createClass({
     });
   },
 
+  toggleDisabled() {
+    this.setState({
+      disabled: !this.state.disabled,
+    });
+  },
 
   render() {
     const state = this.state;
@@ -70,10 +75,10 @@ const Test = React.createClass({
                                orient={['top', 'left']}
                                defaultValue={defaultCalendarValue}
                                showTime={this.state.showTime}
-                               showOk={true}
+                               showOk
                                onOk={this.onCalendarOk}
                                onSelect={this.onCalendarSelect}
-                               onClear={this.onCalendarSelect.bind(this, null)} showClear={true}/>);
+                               onClear={this.onCalendarSelect.bind(this, null)} showClear/>);
     return (<div style={{width: 240, margin: 20}} data-time={this.state.time}>
       <div style={{marginBottom: 10}}>
         <span>
@@ -91,7 +96,7 @@ const Test = React.createClass({
         marginBottom: 22,
       }}>
         <DatePicker
-          adjustOrientOnCalendarOverflow={true}
+          adjustOrientOnCalendarOverflow
           animation="slide-up"
           disabled={state.disabled}
           trigger={<span className="rc-calendar-picker-icon" />}
@@ -102,12 +107,6 @@ const Test = React.createClass({
         </DatePicker>
       </div>
     </div>);
-  },
-
-  toggleDisabled() {
-    this.setState({
-      disabled: !this.state.disabled,
-    });
   },
 });
 

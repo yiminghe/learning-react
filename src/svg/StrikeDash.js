@@ -58,12 +58,12 @@ const StrikeDash = React.createClass({
       style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
     }
 
-    const x = 'strike-dash anim';
+    const h2Title = 'strike-dash anim';
     // onTransitionEnd not working...
     // https://github.com/facebook/react/issues/2187
     return (
       <div>
-        <h2 dangerouslySetInnerHTML={{__html: x}}></h2>
+        <h2 dangerouslySetInnerHTML={{__html: h2Title}}></h2>
         <svg width="400" height="400">
           <circle cx={startX} cy={startY} r="10" stroke="black"
                   strokeWidth="5" fill="red"/>

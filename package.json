@@ -42,7 +42,7 @@
   "devDependencies": {
     "babel-core": "~5.8.24",
     "expect.js": "~0.3.1",
-    "precommit-hook": "^1.0.7",
+    "precommit-hook-eslint": "~3.0.0",
     "rc-server": "3.x",
     "rc-tools": "4.x",
     "replace": "~0.3.0",
@@ -58,9 +58,10 @@
     "karma": "rc-tools run karma",
     "saucelabs": "node --harmony node_modules/.bin/rc-tools run saucelabs",
     "browser-test": "node --harmony node_modules/.bin/rc-tools run browser-test",
-    "browser-test-cover": "node --harmony node_modules/.bin/rc-tools run browser-test-cover"
+    "browser-test-cover": "node --harmony node_modules/.bin/rc-tools run browser-test-cover",
+    "validate": "npm ls"
   },
-  "precommit": [
+  "pre-commit": [
     "lint"
   ],
   "config": {
