@@ -28,16 +28,16 @@
     "flux": "^2.0.1",
     "gregorian-calendar": "3.x",
     "gregorian-calendar-format": "3.x",
-    "jquery": "^2.1.1",
+    "jquery": "^1.11.3",
+    "jsonp": "^0.2.0",
     "object-assign": "^2.0.0",
     "querystring": "^0.2.0",
     "rc-calendar": "~3.12.4",
     "rc-dialog": "~4.0.7",
+    "react": "~0.13.0",
     "react-art": "^0.13.0",
     "react-intl": "~1.2.0",
-    "react-router": "1.0.0-rc1",
-    "jsonp": "^0.2.0",
-    "react": "~0.13.0"
+    "react-router": "1.0.0-rc1"
   },
   "devDependencies": {
     "babel-core": "~5.8.24",
