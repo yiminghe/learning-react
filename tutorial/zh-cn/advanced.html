@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>react 进阶</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="/node_modules/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="/node_modules/reveal.js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '/node_modules/reveal.js/css/print/pdf.css' : '/node_modules/reveal.js/css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="/node_modules/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .align-left {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>React 进阶</h1>
+
+            <p>
+                <small>yiminghe@gmail.com</small>
+            </p>
+        </section>
+
+        <section>
+            <h2>进阶</h2>
+
+            <ul>
+                <li>生态圈</li>
+                <li>开发工具</li>
+                <li>如何开发一个组件</li>
+                <li>如何开发项目</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>生态圈</h2>
+
+                <p>
+                    安装 nodejs: <a href="https://github.com/creationix/nvm">请使用 nvm</a> 安装
+                    <a href="http://alexperry.io/javascript/2015/09/08/node-v4.html">4.0</a>
+                </p>
+
+                <p>
+                tnpm
+                </p>
+            </section>
+            <section>
+                <h2>安装生态圈模块</h2>
+
+                <pre><code>
+                    npm install xx
+                    tnpm install yy
+                    tnpm install @your-company/xx
+                </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h2>开发工具</h2>
+
+            <p>
+                组件开发：
+            </p>
+            <pre><code>
+                tnpm install yo generator-rc -g
+            </code></pre>
+            <p>
+                项目开发：
+            </p>
+            <pre><code>
+                tnpm install antd-bin -g
+            </code></pre>
+        </section>
+
+        <section>
+            <section>
+                <h2>如何开发一个组件</h2>
+
+                <p>初始化</p>
+
+                <p>开发调试</p>
+
+                <p>单元测试</p>
+
+                <p>发布</p>
+
+                <aside class="notes">
+                    Profile 示例，里面有 if else 示例单元测试覆盖率
+                </aside>
+            </section>
+
+            <section>
+                <h2>初始化</h2>
+
+                <pre><code>yo rc --author=chengyu@your-company.com
+                    --pkg_name=@your-company/xx --tnpm --port=8000 --repo_url='http://gitlab.com/xx'</code></pre>
+
+                <p>
+                    author: 作者邮箱
+                </p>
+
+                <p>
+                    pkg_name: 包名，默认为 rc- 加目录名
+                </p>
+
+                <p>
+                    tnpm: 是否发布到 tnpm
+                </p>
+
+                <p>
+                    port: 调试端口
+                </p>
+
+                <p>
+                    repo_url: 代码库地址
+                </p>
+            </section>
+
+            <section>
+                <h2>初始化目录结构</h2>
+
+                <div style="overflow: hidden">
+                    <div style="float: right;width:668px;text-align: left;padding-left: 20px;box-sizing: border-box;">
+                        <p>assets: 样式源码，less 语法</p>
+
+                        <p>examples: 示例代码，页面为空，纯 react 渲染</p>
+
+                        <p>src: 源码文件，es2015</p>
+
+                        <p>tests: 单元测试，纯 js</p>
+
+                        <p>package.json, README.md 按需修改</p>
+                    </div>
+                    <div style="float: left;width: 281px">
+                        <img src="http://gtms02.alicdn.com/tps/i2/TB1zsP8IFXXXXbbXVXXwbXqOXXX-370-810.png"
+                             height="600"/>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>源码 src</h2>
+
+                <p>
+                    es2015
+                </p>
+
+                <pre><code>
+                    import React from 'react';
+                    const Menu = React.createClass({
+                    render(){}
+                    });
+                    export default Menu;
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>examples</h2>
+
+                <p>纯 js，渲染示例到留空的 __react-content div</p>
+
+                <pre><code>
+                    import React from 'react';
+                    import Menu from '@your-company/biz-menu';
+                    import '@your-company/biz-menu/assets/index.less';
+                    React.render(&lt;Menu /&gt;,
+                    document.getElementById('__react-content'));
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>tests</h2>
+
+                <p>
+                    使用 mocha/expect.js 编写 spec js 文件，可使用 React.addons.TestUtils 套件
+                </p>
+
+                <pre><code>
+                    import React from 'react';
+                    import Menu from '@your-company/biz-menu';
+                    import '@your-company/biz-menu/assets/index.less';
+                    var TestUtils = React.addons.TestUtils;
+                    describe('@your-company/biz-menu', () => {
+                    it('works', () => {
+                    var instance = TestUtils.renderIntoDocument(React.createElement(Menu));
+                    expect(TestUtils.scryRenderedDOMComponentsWithClass('.rc-menu-item')).to.be.ok();
+                    });
+                    });
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>演示与测试</h2>
+
+                <pre><code>
+                    npm start // 启动调试服务器
+
+                    http://localhost:8000/examples/ // demo 查看
+
+                    http://localhost:8000/tests/runner.html // 测试用例
+
+                    http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?
+                    w=http://localhost:8000/tests/runner.html?coverage
+
+                    npm run browser-test // phantomjs 运行测试用例
+
+                    npm run browser-test-cover // phantomjs 运行测试覆盖率
+
+                    npm run karma // 多浏览器测试
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>发布</h2>
+
+                <p>npm run pub / npm run pub -- --tnpm</p>
+            </section>
+        </section>
+
+        <section>
+            <h2>如何开发一个项目</h2>
+            <ul>
+                <li>纯前端</li>
+                <li>chair</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>纯前端项目</h2>
+
+                <pre><code>
+                    antd init
+                </code></pre>
+            </section>
+            <section>
+                <h2>package.json</h2>
+                <pre><code>
+                    {
+                    "entry": {
+                    "index": "./index.js"
+                    },
+                    "dependencies": {
+                    "antd": "*"
+                    },
+                    "devDependencies": {
+                    "antd-bin": "0.x"
+                    },
+                    "scripts": {
+                    "dev": "antd server",
+                    "build": "antd build"
+                    }
+                    }
+                </code></pre>
+
+                <p>
+                    entry: 入口文件集合
+                </p>
+            </section>
+
+            <section>
+                <h2>一个应用页面 index.html</h2>
+
+                <iframe width="100%" height="400" src="//jsfiddle.net/yiminghe/0zvvk18c/1/embedded/html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+            </section>
+
+            <section>
+                <h2>安装依赖</h2>
+
+                <pre><code>
+                    tnpm install react antd --save
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>入口文件</h2>
+
+                <p>
+                    index.js: 引用依赖，渲染 react 组件到页面空位
+                </p>
+                <pre><code>
+                    import React from 'react';
+                    import 'antd/lib/index.css';
+                    import Datepicker from 'antd/lib/datepicker';
+
+                    class App {
+                    render(){
+                    return &lt;Datepicker /&gt;;
+                    }
+                    }
+
+                    React.render(&lt;App /&gt;, document.getElementById('react-content'));
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>按需加载</h2>
+
+                <p>通过 AMD 的语法格式进行动态加载</p>
+                <pre><code>
+                    require(['x','y'], function(X, Y){
+                    // x y 模块进行了动态加载
+                    });
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>调试开发</h2>
+                <pre><code>
+                    npm run dev
+                </code></pre>
+
+                <p>
+                    访问 http://localhost:8000/index.html
+                </p>
+            </section>
+
+            <section>
+                <h2>发布</h2>
+
+                <pre><code>
+                    npm run build
+                </code></pre>
+
+                <img src="http://gtms03.alicdn.com/tps/i3/TB1Z2EzIFXXXXa6XXXXfwFg_VXX-344-476.png"/>
+            </section>
+            <section>
+                <h2>版本号目录</h2>
+
+                <pre><code>
+                    {
+                    "build": "rm -rf dist && antd build && mkdir -p dist/${npm_package_name}/${npm_package_version} && mv dist/*.* dist/${npm_package_name}/${npm_package_version}/"
+                    }
+                </code></pre>
+
+                <p>
+                    TODO: hash vm 映射
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>chair</h2>
+
+                <pre><code>
+                    tnpm install chair-init -g
+
+                    chair init --type react test
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>入口文件约定</h2>
+
+                <p>app/assets/entry/index.jsx</p>
+                <pre><code data-trim>
+                    var React  = require('react');
+                    var appData = require('appData'); // 服务器端数据
+                    React.render(&lt;div&gt;
+                    react {appData.fromServer}
+                    &lt;/div&gt;,document.getElementById('react-content'));
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>app/controllers/home.js 启动渲染</h2>
+
+            <pre><code data-trim>
+                var render = require('../views/render');
+                this.body = render(this, {
+                entry: 'index',
+                appData: {fromServer: 'database'}
+                });
+            </code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>router</h2>
+
+                <p>客户端路由</p>
+
+                <p>
+                    demo: <a href="http://yiminghe.me/learning-react/example/react-router/index-build.html">
+                    http://yiminghe.me/learning-react/example/react-router/index-build.html
+                </a>
+                </p>
+            </section>
+
+            <section>
+                <p><a href="http://github.com/rackt/react-router">react-router</a></p>
+
+                <p>将 url 嵌套同组件嵌套关联起来</p>
+
+                <p>/ -> App/Index</p>
+
+                <p>/state/x -> App/State</p>
+
+                <p>/x -> App/Index</p>
+            </section>
+
+            <section>
+                <p>react-router api</p>
+
+                <ul>
+                    <li>this.props.children: 嵌套组件</li>
+                    <li>this.props.params: url 参数</li>
+                    <li>this.props.query: url 请求参数</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <h2>作业</h2>
+
+            <p>search - list</p>
+        </section>
+
+        <section>
+            <h2>Thanks</h2>
+        </section>
+    </div>
+</div>
+
+<script src="/node_modules/reveal.js/lib/js/head.min.js"></script>
+<script src="/node_modules/reveal.js/js/reveal.js"></script>
+<script>
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: '/node_modules/reveal.js/lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: '/node_modules/reveal.js/plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '/node_modules/reveal.js/plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: '/node_modules/reveal.js/plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: '/node_modules/reveal.js/plugin/zoom-js/zoom.js', async: true},
+            {src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true}
+        ]
+    });
+</script>
+
+</body>
+</html>
