@@ -20461,10 +20461,10 @@ webpackJsonp([6,12],[
 	var React = __webpack_require__(181);
 	var Calendar = __webpack_require__(221);
 	var DatePicker = Calendar.Picker;
-	var zhCn = __webpack_require__(268); // spm error
+	var zhCn = __webpack_require__(273); // spm error
 	var DateTimeFormat = __webpack_require__(223);
 	var GregorianCalendar = __webpack_require__(225);
-	var CalendarLocale = __webpack_require__(269);
+	var CalendarLocale = __webpack_require__(274);
 	var now = new GregorianCalendar(zhCn);
 	now.setTime(Date.now());
 	
@@ -20609,7 +20609,7 @@ webpackJsonp([6,12],[
 	
 	var _Calendar2 = _interopRequireDefault(_Calendar);
 	
-	var _Picker = __webpack_require__(255);
+	var _Picker = __webpack_require__(254);
 	
 	var _Picker2 = _interopRequireDefault(_Picker);
 	
@@ -20651,23 +20651,23 @@ webpackJsonp([6,12],[
 	
 	var _gregorianCalendar2 = _interopRequireDefault(_gregorianCalendar);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
-	var _dateDateTable = __webpack_require__(243);
+	var _dateDateTable = __webpack_require__(242);
 	
 	var _dateDateTable2 = _interopRequireDefault(_dateDateTable);
 	
-	var _calendarCalendarHeader = __webpack_require__(247);
+	var _calendarCalendarHeader = __webpack_require__(246);
 	
 	var _calendarCalendarHeader2 = _interopRequireDefault(_calendarCalendarHeader);
 	
-	var _calendarCalendarFooter = __webpack_require__(251);
+	var _calendarCalendarFooter = __webpack_require__(250);
 	
 	var _calendarCalendarFooter2 = _interopRequireDefault(_calendarCalendarFooter);
 	
-	var _localeEnUs = __webpack_require__(254);
+	var _localeEnUs = __webpack_require__(253);
 	
 	var _localeEnUs2 = _interopRequireDefault(_localeEnUs);
 	
@@ -21035,7 +21035,7 @@ webpackJsonp([6,12],[
 	 */
 	
 	var GregorianCalendar = __webpack_require__(225);
-	var enUsLocale = __webpack_require__(230);
+	var enUsLocale = __webpack_require__(229);
 	var MAX_VALUE = Number.MAX_VALUE;
 	/**
 	 * date or time style enum
@@ -21830,23 +21830,19 @@ webpackJsonp([6,12],[
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(226);
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
+	/*
 	 * GregorianCalendar class
 	 * @ignore
 	 * @author yiminghe@gmail.com
 	 */
-	var toInt = parseInt;
-	var Utils = __webpack_require__(227);
-	var defaultLocale = __webpack_require__(229);
-	var Const = __webpack_require__(228);
+	'use strict';
 	
-	/**
+	var toInt = parseInt;
+	var Utils = __webpack_require__(226);
+	var defaultLocale = __webpack_require__(228);
+	var Const = __webpack_require__(227);
+	
+	/*
 	 * GregorianCalendar class.
 	 *
 	 * - no arguments:
@@ -21858,20 +21854,20 @@ webpackJsonp([6,12],[
 	 *
 	 * @class Date.Gregorian
 	 */
-	function GregorianCalendar(locale) {
-	  locale = locale || defaultLocale;
+	function GregorianCalendar(loc) {
+	  var locale = loc || defaultLocale;
 	
 	  this.locale = locale;
 	
 	  this.fields = [];
 	
-	  /**
+	  /*
 	   * The currently set time for this date.
 	   * @protected
 	   * @type Number|undefined
 	   */
 	  this.time = undefined;
-	  /**
+	  /*
 	   * The timezoneOffset in minutes used by this date.
 	   * @type Number
 	   * @protected
@@ -21879,14 +21875,14 @@ webpackJsonp([6,12],[
 	
 	  this.timezoneOffset = locale.timezoneOffset;
 	
-	  /**
+	  /*
 	   * The first day of the week
 	   * @type Number
 	   * @protected
 	   */
 	  this.firstDayOfWeek = locale.firstDayOfWeek;
 	
-	  /**
+	  /*
 	   * The number of days required for the first week in a month or year,
 	   * with possible values from 1 to 7.
 	   * @@protected
@@ -21904,7 +21900,7 @@ webpackJsonp([6,12],[
 	
 	  defaultLocale: defaultLocale,
 	
-	  /**
+	  /*
 	   * Determines if the given year is a leap year.
 	   * Returns true if the given year is a leap year. To specify BC year numbers,
 	   * 1 - year number must be given. For example, year BC 4 is specified as -3.
@@ -21915,87 +21911,81 @@ webpackJsonp([6,12],[
 	   */
 	  isLeapYear: Utils.isLeapYear,
 	
-	  /**
+	  /*
 	   * Enum indicating year field of date
 	   * @type Number
 	   */
 	  YEAR: 1,
-	  /**
+	  /*
 	   * Enum indicating month field of date
 	   * @type Number
 	   */
 	  MONTH: 2,
-	  /**
+	  /*
 	   * Enum indicating the day of the month
 	   * @type Number
 	   */
 	  DAY_OF_MONTH: 3,
-	  /**
+	  /*
 	   * Enum indicating the hour (24).
 	   * @type Number
 	   */
 	  HOUR_OF_DAY: 4,
-	  /**
+	  /*
 	   * Enum indicating the minute of the day
 	   * @type Number
 	   */
 	  MINUTES: 5,
-	  /**
+	  /*
 	   * Enum indicating the second of the day
 	   * @type Number
 	   */
 	  SECONDS: 6,
-	  /**
+	  /*
 	   * Enum indicating the millisecond of the day
 	   * @type Number
 	   */
 	  MILLISECONDS: 7,
-	  /**
+	  /*
 	   * Enum indicating the week number within the current year
 	   * @type Number
 	   */
 	  WEEK_OF_YEAR: 8,
-	  /**
+	  /*
 	   * Enum indicating the week number within the current month
 	   * @type Number
 	   */
 	  WEEK_OF_MONTH: 9,
 	
-	  /**
+	  /*
 	   * Enum indicating the day of the day number within the current year
 	   * @type Number
 	   */
 	  DAY_OF_YEAR: 10,
-	  /**
+	  /*
 	   * Enum indicating the day of the week
 	   * @type Number
 	   */
 	  DAY_OF_WEEK: 11,
-	  /**
+	  /*
 	   * Enum indicating the day of the ordinal number of the day of the week
 	   * @type Number
 	   */
 	  DAY_OF_WEEK_IN_MONTH: 12,
 	
-	  /**
+	  /*
 	   * Enum indicating am
 	   * @type Number
 	   */
 	  AM: 0,
-	  /**
+	  /*
 	   * Enum indicating pm
 	   * @type Number
 	   */
 	  PM: 1
 	});
 	
-	var fields = ['',
-	  'Year', 'Month', 'DayOfMonth',
-	  'HourOfDay',
-	  'Minutes', 'Seconds', 'Milliseconds', 'WeekOfYear',
-	  'WeekOfMonth', 'DayOfYear', 'DayOfWeek',
-	  'DayOfWeekInMonth'
-	];
+	var FIELDS = ['', 'Year', 'Month', 'DayOfMonth', 'HourOfDay', 'Minutes', 'Seconds', 'Milliseconds', 'WeekOfYear', 'WeekOfMonth', 'DayOfYear', 'DayOfWeek', 'DayOfWeekInMonth'];
 	
 	var YEAR = GregorianCalendar.YEAR;
 	var MONTH = GregorianCalendar.MONTH;
@@ -22023,50 +22013,85 @@ webpackJsonp([6,12],[
 	
 	var EPOCH_OFFSET = 719163; // Fixed date of January 1, 1970 (Gregorian)
 	
-	var mod = Utils.mod,
-	  isLeapYear = Utils.isLeapYear,
-	  floorDivide = Math.floor;
+	var mod = Utils.mod;
+	var _isLeapYear = Utils.isLeapYear;
+	var floorDivide = Math.floor;
 	
-	var MIN_VALUES = [
-	  undefined,
-	  1,              // YEAR
-	  GregorianCalendar.JANUARY,        // MONTH
-	  1,              // DAY_OF_MONTH
-	  0,              // HOUR_OF_DAY
-	  0,              // MINUTE
-	  0,              // SECONDS
-	  0,              // MILLISECONDS
+	var MIN_VALUES = [undefined, 1, // YEAR
+	GregorianCalendar.JANUARY, // MONTH
+	1, // DAY_OF_MONTH
+	0, // HOUR_OF_DAY
+	0, // MINUTE
+	0, // SECONDS
+	0, // MILLISECONDS
 	
-	  1,              // WEEK_OF_YEAR
-	  undefined,              // WEEK_OF_MONTH
+	1, // WEEK_OF_YEAR
+	undefined, // WEEK_OF_MONTH
 	
-	  1,              // DAY_OF_YEAR
-	  GregorianCalendar.SUNDAY,         // DAY_OF_WEEK
-	  1             // DAY_OF_WEEK_IN_MONTH
-	];
+	1, // DAY_OF_YEAR
+	GregorianCalendar.SUNDAY, // DAY_OF_WEEK
+	1];
 	
-	var MAX_VALUES = [
-	  undefined,
-	  292278994,      // YEAR
-	  GregorianCalendar.DECEMBER,       // MONTH
-	  undefined, // DAY_OF_MONTH
-	  23,             // HOUR_OF_DAY
-	  59,             // MINUTE
-	  59,             // SECONDS
-	  999,            // MILLISECONDS
-	  undefined,             // WEEK_OF_YEAR
-	  undefined,              // WEEK_OF_MONTH
-	  undefined,            // DAY_OF_YEAR
-	  GregorianCalendar.SATURDAY,       // DAY_OF_WEEK
-	  undefined              // DAY_OF_WEEK_IN_MONTH
-	];
+	// DAY_OF_WEEK_IN_MONTH
+	var MAX_VALUES = [undefined, 292278994, // YEAR
+	GregorianCalendar.DECEMBER, // MONTH
+	undefined, // DAY_OF_MONTH
+	23, // HOUR_OF_DAY
+	59, // MINUTE
+	59, // SECONDS
+	999, // MILLISECONDS
+	undefined, // WEEK_OF_YEAR
+	undefined, // WEEK_OF_MONTH
+	undefined, // DAY_OF_YEAR
+	GregorianCalendar.SATURDAY, // DAY_OF_WEEK
+	undefined];
+	
+	// ------------------- private start
+	
+	// DAY_OF_WEEK_IN_MONTH
+	function getMonthLength(year, month) {
+	  return _isLeapYear(year) ? LEAP_MONTH_LENGTH[month] : MONTH_LENGTH[month];
+	}
+	
+	function getYearLength(year) {
+	  return _isLeapYear(year) ? 366 : 365;
+	}
+	
+	function adjustDayOfMonth(self) {
+	  var fields = self.fields;
+	  var year = fields[YEAR];
+	  var month = fields[MONTH];
+	  var monthLen = getMonthLength(year, month);
+	  var dayOfMonth = fields[DAY_OF_MONTH];
+	  if (dayOfMonth > monthLen) {
+	    self.set(DAY_OF_MONTH, monthLen);
+	  }
+	}
+	
+	function getDayOfWeekDateOnOrBefore(fixedDate, dayOfWeek) {
+	  // 1.1.1 is monday
+	  // one week has 7 days
+	  return fixedDate - mod(fixedDate - dayOfWeek, 7);
+	}
+	
+	function getWeekNumber(self, fixedDay1, fixedDate) {
+	  var fixedDay1st = getDayOfWeekDateOnOrBefore(fixedDay1 + 6, self.firstDayOfWeek);
+	  var nDays = fixedDay1st - fixedDay1;
+	  if (nDays >= self.minimalDaysInFirstWeek) {
+	    fixedDay1st -= 7;
+	  }
+	  var normalizedDayOfPeriod = fixedDate - fixedDay1st;
+	  return floorDivide(normalizedDayOfPeriod / 7) + 1;
+	}
+	
+	// ------------------- private end
 	
 	GregorianCalendar.prototype = {
 	  constructor: GregorianCalendar,
 	
 	  isGregorianCalendar: 1,
 	
-	  /**
+	  /*
 	   * Determines if current year is a leap year.
 	   * Returns true if the given year is a leap year. To specify BC year numbers,
 	   * 1 - year number must be given. For example, year BC 4 is specified as -3.
@@ -22074,19 +22099,19 @@ webpackJsonp([6,12],[
 	   * @method
 	   * @member Date.Gregorian
 	   */
-	  isLeapYear: function () {
-	    return isLeapYear(this.getYear());
+	  isLeapYear: function isLeapYear() {
+	    return _isLeapYear(this.getYear());
 	  },
 	
-	  /**
+	  /*
 	   * Return local info for current date instance
 	   * @returns {Object}
 	   */
-	  getLocale: function () {
+	  getLocale: function getLocale() {
 	    return this.locale;
 	  },
 	
-	  /**
+	  /*
 	   * Returns the minimum value for
 	   * the given calendar field of this GregorianCalendar instance.
 	   * The minimum value is defined as the smallest value
@@ -22096,23 +22121,21 @@ webpackJsonp([6,12],[
 	   * @param field the calendar field.
 	   * @returns {Number} the minimum value for the given calendar field.
 	   */
-	  getActualMinimum: function (field) {
+	  getActualMinimum: function getActualMinimum(field) {
 	    if (MIN_VALUES[field] !== undefined) {
 	      return MIN_VALUES[field];
 	    }
-	
-	    var fields = this.fields;
 	    if (field === WEEK_OF_MONTH) {
 	      var cal = this.clone();
 	      cal.clear();
-	      cal.set(fields[YEAR], fields[MONTH], 1);
+	      cal.set(this.fields[YEAR], this.fields[MONTH], 1);
 	      return cal.get(WEEK_OF_MONTH);
 	    }
 	
 	    throw new Error('minimum value not defined!');
 	  },
 	
-	  /**
+	  /*
 	   * Returns the maximum value for the given calendar field
 	   * of this GregorianCalendar instance.
 	   * The maximum value is defined as the largest value returned
@@ -22121,12 +22144,12 @@ webpackJsonp([6,12],[
 	   * @param field the calendar field.
 	   * @returns {Number} the maximum value for the given calendar field.
 	   */
-	  getActualMaximum: function (field) {
+	  getActualMaximum: function getActualMaximum(field) {
 	    if (MAX_VALUES[field] !== undefined) {
 	      return MAX_VALUES[field];
 	    }
-	    var value,
-	      fields = this.fields;
+	    var value = undefined;
+	    var fields = this.fields;
 	    switch (field) {
 	      case DAY_OF_MONTH:
 	        value = getMonthLength(fields[YEAR], fields[MONTH]);
@@ -22156,6 +22179,8 @@ webpackJsonp([6,12],[
 	      case DAY_OF_WEEK_IN_MONTH:
 	        value = toInt((getMonthLength(fields[YEAR], fields[MONTH]) - 1) / 7) + 1;
 	        break;
+	      default:
+	        break;
 	    }
 	    if (value === undefined) {
 	      throw new Error('maximum value not defined!');
@@ -22163,23 +22188,23 @@ webpackJsonp([6,12],[
 	    return value;
 	  },
 	
-	  /**
+	  /*
 	   * Determines if the given calendar field has a value set,
 	   * including cases that the value has been set by internal fields calculations
 	   * triggered by a get method call.
 	   * @param field the calendar field to be cleared.
 	   * @returns {boolean} true if the given calendar field has a value set; false otherwise.
 	   */
-	  isSet: function (field) {
+	  isSet: function isSet(field) {
 	    return this.fields[field] !== undefined;
 	  },
 	
-	  /**
+	  /*
 	   * Converts the time value (millisecond offset from the Epoch)
 	   * to calendar field values.
 	   * @protected
 	   */
-	  computeFields: function () {
+	  computeFields: function computeFields() {
 	    var time = this.time;
 	    var timezoneOffset = this.timezoneOffset * ONE_MINUTE;
 	    var fixedDate = toInt(timezoneOffset / ONE_DAY);
@@ -22216,10 +22241,7 @@ webpackJsonp([6,12],[
 	      fields[SECONDS] = toInt(r / ONE_SECOND);
 	      fields[MILLISECONDS] = r % ONE_SECOND;
 	    } else {
-	      fields[HOUR_OF_DAY] =
-	        fields[MINUTE] =
-	          fields[SECONDS] =
-	            fields[MILLISECONDS] = 0;
+	      fields[HOUR_OF_DAY] = fields[MINUTE] = fields[SECONDS] = fields[MILLISECONDS] = 0;
 	    }
 	
 	    var fixedDateJan1 = Utils.getFixedDate(year, GregorianCalendar.JANUARY, 1);
@@ -22240,19 +22262,18 @@ webpackJsonp([6,12],[
 	      var prevJan1 = fixedDateJan1 - getYearLength(year - 1);
 	      weekOfYear = getWeekNumber(this, prevJan1, fixedDec31);
 	    } else
-	    // 本周是年末最后一周，可能有足够的时间在新的一年
-	    if (weekOfYear >= 52) {
-	      var nextJan1 = fixedDateJan1 + getYearLength(year);
-	      var nextJan1st = getDayOfWeekDateOnOrBefore(nextJan1 + 6, this.firstDayOfWeek);
-	      var nDays = nextJan1st - nextJan1;
-	      // 本周有足够天数在新的一年
-	      if (nDays >= this.minimalDaysInFirstWeek &&
-	          // 当天确实在本周，weekOfYear === 53 时是不需要这个判断
-	        fixedDate >= (nextJan1st - 7)
-	      ) {
-	        weekOfYear = 1;
+	      // 本周是年末最后一周，可能有足够的时间在新的一年
+	      if (weekOfYear >= 52) {
+	        var nextJan1 = fixedDateJan1 + getYearLength(year);
+	        var nextJan1st = getDayOfWeekDateOnOrBefore(nextJan1 + 6, this.firstDayOfWeek);
+	        var nDays = nextJan1st - nextJan1;
+	        // 本周有足够天数在新的一年
+	        if (nDays >= this.minimalDaysInFirstWeek &&
+	        // 当天确实在本周，weekOfYear === 53 时是不需要这个判断
+	        fixedDate >= nextJan1st - 7) {
+	          weekOfYear = 1;
+	        }
 	      }
-	    }
 	
 	    fields[WEEK_OF_YEAR] = weekOfYear;
 	    fields[WEEK_OF_MONTH] = getWeekNumber(this, fixDateMonth1, fixedDate);
@@ -22260,12 +22281,12 @@ webpackJsonp([6,12],[
 	    this.fieldsComputed = true;
 	  },
 	
-	  /**
+	  /*
 	   * Converts calendar field values to the time value
 	   * (millisecond offset from the Epoch).
 	   * @protected
 	   */
-	  computeTime: function () {
+	  computeTime: function computeTime() {
 	    if (!this.isSet(YEAR)) {
 	      throw new Error('year must be set for GregorianCalendar');
 	    }
@@ -22300,14 +22321,14 @@ webpackJsonp([6,12],[
 	    this.computeFields();
 	  },
 	
-	  /**
+	  /*
 	   * Fills in any unset fields in the calendar fields. First,
 	   * the computeTime() method is called if the time value (millisecond offset from the Epoch)
 	   * has not been calculated from calendar field values.
 	   * Then, the computeFields() method is called to calculate all calendar field values.
 	   * @protected
 	   */
-	  complete: function () {
+	  complete: function complete() {
 	    if (this.time === undefined) {
 	      this.computeTime();
 	    }
@@ -22316,8 +22337,7 @@ webpackJsonp([6,12],[
 	    }
 	  },
 	
-	  getFixedDate: function () {
-	
+	  getFixedDate: function getFixedDate() {
 	    var self = this;
 	
 	    var fields = self.fields;
@@ -22342,7 +22362,7 @@ webpackJsonp([6,12],[
 	    // Get the fixed date since Jan 1, 1 (Gregorian). We are on
 	    // the first day of either `month' or January in 'year'.
 	    var fixedDate = Utils.getFixedDate(year, month, 1);
-	    var firstDayOfWeek;
+	    var firstDayOfWeek = undefined;
 	    var dayOfWeek = self.firstDayOfWeek;
 	
 	    if (self.isSet(DAY_OF_WEEK)) {
@@ -22358,7 +22378,7 @@ webpackJsonp([6,12],[
 	
 	          // If we have enough days in the first week, then
 	          // move to the previous week.
-	          if ((firstDayOfWeek - fixedDate) >= self.minimalDaysInFirstWeek) {
+	          if (firstDayOfWeek - fixedDate >= self.minimalDaysInFirstWeek) {
 	            firstDayOfWeek -= 7;
 	          }
 	
@@ -22368,15 +22388,15 @@ webpackJsonp([6,12],[
 	
 	          fixedDate = firstDayOfWeek + 7 * (fields[WEEK_OF_MONTH] - 1);
 	        } else {
-	          var dowim;
+	          var dowim = undefined;
 	          if (self.isSet(DAY_OF_WEEK_IN_MONTH)) {
 	            dowim = fields[DAY_OF_WEEK_IN_MONTH];
 	          } else {
 	            dowim = 1;
 	          }
-	          var lastDate = (7 * dowim);
+	          var lastDate = 7 * dowim;
 	          if (dowim < 0) {
-	            lastDate = getMonthLength(year, month) + (7 * (dowim + 1));
+	            lastDate = getMonthLength(year, month) + 7 * (dowim + 1);
 	          }
 	          fixedDate = getDayOfWeekDateOnOrBefore(fixedDate + lastDate - 1, dayOfWeek);
 	        }
@@ -22389,7 +22409,7 @@ webpackJsonp([6,12],[
 	        firstDayOfWeek = getDayOfWeekDateOnOrBefore(fixedDate + 6, firstDayOfWeekCfg);
 	        // If we have enough days in the first week, then move
 	        // to the previous week.
-	        if ((firstDayOfWeek - fixedDate) >= self.minimalDaysInFirstWeek) {
+	        if (firstDayOfWeek - fixedDate >= self.minimalDaysInFirstWeek) {
 	          firstDayOfWeek -= 7;
 	        }
 	        if (dayOfWeek !== firstDayOfWeekCfg) {
@@ -22402,116 +22422,116 @@ webpackJsonp([6,12],[
 	    return fixedDate;
 	  },
 	
-	  /**
+	  /*
 	   * Returns this Calendar's time value in milliseconds
 	   * @member Date.Gregorian
 	   * @returns {Number} the current time as UTC milliseconds from the epoch.
 	   */
-	  getTime: function () {
+	  getTime: function getTime() {
 	    if (this.time === undefined) {
 	      this.computeTime();
 	    }
 	    return this.time;
 	  },
 	
-	  /**
+	  /*
 	   * Sets this Calendar's current time from the given long value.
 	   * @param time the new time in UTC milliseconds from the epoch.
 	   */
-	  setTime: function (time) {
+	  setTime: function setTime(time) {
 	    this.time = time;
 	    this.fieldsComputed = false;
 	    this.complete();
 	  },
 	
-	  /**
+	  /*
 	   * Returns the value of the given calendar field.
 	   * @param field the given calendar field.
 	   * @returns {Number} the value for the given calendar field.
 	   */
-	  get: function (field) {
+	  get: function get(field) {
 	    this.complete();
 	    return this.fields[field];
 	  },
 	
-	  /**
+	  /*
 	   * Returns the year of the given calendar field.
 	   * @method getYear
 	   * @returns {Number} the year for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the month of the given calendar field.
 	   * @method getMonth
 	   * @returns {Number} the month for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the day of month of the given calendar field.
 	   * @method getDayOfMonth
 	   * @returns {Number} the day of month for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the hour of day of the given calendar field.
 	   * @method getHourOfDay
 	   * @returns {Number} the hour of day for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the minute of the given calendar field.
 	   * @method getMinute
 	   * @returns {Number} the minute for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the second of the given calendar field.
 	   * @method getSecond
 	   * @returns {Number} the second for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the millisecond of the given calendar field.
 	   * @method getMilliSecond
 	   * @returns {Number} the millisecond for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the week of year of the given calendar field.
 	   * @method getWeekOfYear
 	   * @returns {Number} the week of year for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the week of month of the given calendar field.
 	   * @method getWeekOfMonth
 	   * @returns {Number} the week of month for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the day of year of the given calendar field.
 	   * @method getDayOfYear
 	   * @returns {Number} the day of year for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the day of week of the given calendar field.
 	   * @method getDayOfWeek
 	   * @returns {Number} the day of week for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Returns the day of week in month of the given calendar field.
 	   * @method getDayOfWeekInMonth
 	   * @returns {Number} the day of week in month for the given calendar field.
 	   */
 	
-	  /**
+	  /*
 	   * Sets the given calendar field to the given value.
 	   * @param field the given calendar field.
 	   * @param v the value to be set for the given calendar field.
 	   */
-	  set: function (field, v) {
+	  set: function set(field, v) {
 	    var len = arguments.length;
 	    if (len === 2) {
 	      this.fields[field] = v;
@@ -22520,72 +22540,72 @@ webpackJsonp([6,12],[
 	        this.fields[YEAR + i] = arguments[i];
 	      }
 	    } else {
-	      throw  new Error('illegal arguments for GregorianCalendar set');
+	      throw new Error('illegal arguments for GregorianCalendar set');
 	    }
 	    this.time = undefined;
 	  },
 	
-	  /**
+	  /*
 	   * Set the year of the given calendar field.
 	   * @method setYear
 	   */
 	
-	  /**
+	  /*
 	   * Set the month of the given calendar field.
 	   * @method setMonth
 	   */
 	
-	  /**
+	  /*
 	   * Set the day of month of the given calendar field.
 	   * @method setDayOfMonth
 	   */
 	
-	  /**
+	  /*
 	   * Set the hour of day of the given calendar field.
 	   * @method setHourOfDay
 	   */
 	
-	  /**
+	  /*
 	   * Set the minute of the given calendar field.
 	   * @method setMinute
 	   */
 	
-	  /**
+	  /*
 	   * Set the second of the given calendar field.
 	   * @method setSecond
 	   */
 	
-	  /**
+	  /*
 	   * Set the millisecond of the given calendar field.
 	   * @method setMilliSecond
 	   */
 	
-	  /**
+	  /*
 	   * Set the week of year of the given calendar field.
 	   * @method setWeekOfYear
 	   */
 	
-	  /**
+	  /*
 	   * Set the week of month of the given calendar field.
 	   * @method setWeekOfMonth
 	   */
 	
-	  /**
+	  /*
 	   * Set the day of year of the given calendar field.
 	   * @method setDayOfYear
 	   */
 	
-	  /**
+	  /*
 	   * Set the day of week of the given calendar field.
 	   * @method setDayOfWeek
 	   */
 	
-	  /**
+	  /*
 	   * Set the day of week in month of the given calendar field.
 	   * @method setDayOfWeekInMonth
 	   */
 	
-	  /**
+	  /*
 	   * add for specified field based on two rules:
 	   *
 	   *  - Add rule 1. The value of field after the call minus the value of field before the
@@ -22607,23 +22627,24 @@ webpackJsonp([6,12],[
 	   *
 	   *      @example
 	   *      use('date/gregorian',function(S, GregorianCalendar){
-	         *          var d = new GregorianCalendar();
-	         *          d.set(2012, GregorianCalendar.JANUARY, 31);
-	         *          d.add(Gregorian.MONTH,1);
-	         *          // 2012-2-29
-	         *          document.writeln('<p>'+d.getYear()+'-'+d.getMonth()+'-'+d.getDayOfWeek())
-	         *          d.add(Gregorian.MONTH,12);
-	         *          // 2013-2-28
-	         *          document.writeln('<p>'+d.getYear()+'-'+d.getMonth()+'-'+d.getDayOfWeek())
-	         *      });
+	   *          const d = new GregorianCalendar();
+	   *          d.set(2012, GregorianCalendar.JANUARY, 31);
+	   *          d.add(Gregorian.MONTH,1);
+	   *          // 2012-2-29
+	   *          document.writeln('<p>'+d.getYear()+'-'+d.getMonth()+'-'+d.getDayOfWeek())
+	   *          d.add(Gregorian.MONTH,12);
+	   *          // 2013-2-28
+	   *          document.writeln('<p>'+d.getYear()+'-'+d.getMonth()+'-'+d.getDayOfWeek())
+	   *      });
 	   *
 	   * @param field the calendar field.
 	   * @param {Number} amount he amount of date or time to be added to the field.
 	   */
-	  add: function (field, amount) {
-	    if (!amount) {
+	  add: function add(field, a) {
+	    if (!a) {
 	      return;
 	    }
+	    var amount = a;
 	    var self = this;
 	    var fields = self.fields;
 	    // computer and retrieve original value
@@ -22669,93 +22690,93 @@ webpackJsonp([6,12],[
 	      }
 	      self.setTime(self.time + amount);
 	    }
-	
 	  },
 	
-	  /**
+	  /*
 	   * add the year of the given calendar field.
 	   * @method addYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the month of the given calendar field.
 	   * @method addMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the day of month of the given calendar field.
 	   * @method addDayOfMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the hour of day of the given calendar field.
 	   * @method addHourOfDay
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the minute of the given calendar field.
 	   * @method addMinute
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the second of the given calendar field.
 	   * @method addSecond
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the millisecond of the given calendar field.
 	   * @method addMilliSecond
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the week of year of the given calendar field.
 	   * @method addWeekOfYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the week of month of the given calendar field.
 	   * @method addWeekOfMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the day of year of the given calendar field.
 	   * @method addDayOfYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the day of week of the given calendar field.
 	   * @method addDayOfWeek
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * add the day of week in month of the given calendar field.
 	   * @method addDayOfWeekInMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * Get rolled value for the field
 	   * @protected
 	   */
-	  getRolledValue: function (value, amount, min, max) {
+	  getRolledValue: function getRolledValue(value, a, min, max) {
+	    var amount = a;
 	    var diff = value - min;
 	    var range = max - min + 1;
 	    amount %= range;
 	    return min + (diff + amount + range) % range;
 	  },
 	
-	  /**
+	  /*
 	   * Adds a signed amount to the specified calendar field without changing larger fields.
 	   * A negative roll amount means to subtract from field without changing
 	   * larger fields. If the specified amount is 0, this method performs nothing.
@@ -22763,7 +22784,7 @@ webpackJsonp([6,12],[
 	   *
 	   *
 	   *      @example
-	   *      var d = new GregorianCalendar();
+	   *      const d = new GregorianCalendar();
 	   *      d.set(1999, GregorianCalendar.AUGUST, 31);
 	   *      // 1999-4-30
 	   *      // Tuesday June 1, 1999
@@ -22776,7 +22797,7 @@ webpackJsonp([6,12],[
 	   * @param field the calendar field.
 	   * @param {Number} amount the signed amount to add to field.
 	   */
-	  roll: function (field, amount) {
+	  roll: function roll(field, amount) {
 	    if (!amount) {
 	      return;
 	    }
@@ -22801,78 +22822,97 @@ webpackJsonp([6,12],[
 	    }
 	  },
 	
-	  /**
+	  /*
+	   * keep field stable.
+	   *
+	   * 2015-09-29 setMonth 2 vs rollSetMonth 2
+	   *
+	   */
+	  rollSet: function rollSet(field, v) {
+	    this.set(field, v);
+	    switch (field) {
+	      case MONTH:
+	        adjustDayOfMonth(this);
+	        break;
+	      default:
+	        // other fields are set already when get
+	        this.updateFieldsBySet(field);
+	        break;
+	    }
+	  },
+	
+	  /*
 	   * roll the year of the given calendar field.
 	   * @method rollYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the month of the given calendar field.
 	   * @param {Number} amount the signed amount to add to field.
 	   * @method rollMonth
 	   */
 	
-	  /**
+	  /*
 	   * roll the day of month of the given calendar field.
 	   * @method rollDayOfMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the hour of day of the given calendar field.
 	   * @method rollHourOfDay
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the minute of the given calendar field.
 	   * @method rollMinute
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the second of the given calendar field.
 	   * @method rollSecond
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the millisecond of the given calendar field.
 	   * @method rollMilliSecond
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the week of year of the given calendar field.
 	   * @method rollWeekOfYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the week of month of the given calendar field.
 	   * @method rollWeekOfMonth
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the day of year of the given calendar field.
 	   * @method rollDayOfYear
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * roll the day of week of the given calendar field.
 	   * @method rollDayOfWeek
 	   * @param {Number} amount the signed amount to add to field.
 	   */
 	
-	  /**
+	  /*
 	   * remove other priority fields when call getFixedDate
 	   * precondition: other fields are all set or computed
 	   * @protected
 	   */
-	  updateFieldsBySet: function (field) {
+	  updateFieldsBySet: function updateFieldsBySet(field) {
 	    var fields = this.fields;
 	    switch (field) {
 	      case WEEK_OF_MONTH:
@@ -22888,71 +22928,73 @@ webpackJsonp([6,12],[
 	        fields[DAY_OF_YEAR] = undefined;
 	        fields[MONTH] = undefined;
 	        break;
+	      default:
+	        break;
 	    }
 	  },
 	
-	  /**
+	  /*
 	   * get current date instance's timezone offset
 	   * @returns {Number}
 	   */
-	  getTimezoneOffset: function () {
+	  getTimezoneOffset: function getTimezoneOffset() {
 	    return this.timezoneOffset;
 	  },
 	
-	  /**
+	  /*
 	   * set current date instance's timezone offset
 	   */
-	  setTimezoneOffset: function (timezoneOffset) {
+	  setTimezoneOffset: function setTimezoneOffset(timezoneOffset) {
 	    if (this.timezoneOffset !== timezoneOffset) {
 	      this.fieldsComputed = undefined;
 	      this.timezoneOffset = timezoneOffset;
 	    }
 	  },
 	
-	  /**
+	  /*
 	   * set first day of week for current date instance
 	   */
-	  setFirstDayOfWeek: function (firstDayOfWeek) {
+	  setFirstDayOfWeek: function setFirstDayOfWeek(firstDayOfWeek) {
 	    if (this.firstDayOfWeek !== firstDayOfWeek) {
 	      this.firstDayOfWeek = firstDayOfWeek;
 	      this.fieldsComputed = false;
 	    }
 	  },
 	
-	  /**
+	  /*
 	   * Gets what the first day of the week is; e.g., SUNDAY in the U.S., MONDAY in France.
 	   * @returns {Number} the first day of the week.
 	   */
-	  getFirstDayOfWeek: function () {
+	  getFirstDayOfWeek: function getFirstDayOfWeek() {
 	    return this.firstDayOfWeek;
 	  },
 	
-	  /**
+	  /*
 	   * Sets what the minimal days required in the first week of the year are; For example,
 	   * if the first week is defined as one that contains the first day of the first month of a year,
 	   * call this method with value 1.
 	   * If it must be a full week, use value 7.
 	   * @param minimalDaysInFirstWeek the given minimal days required in the first week of the year.
 	   */
-	  setMinimalDaysInFirstWeek: function (minimalDaysInFirstWeek) {
+	  setMinimalDaysInFirstWeek: function setMinimalDaysInFirstWeek(minimalDaysInFirstWeek) {
 	    if (this.minimalDaysInFirstWeek !== minimalDaysInFirstWeek) {
 	      this.minimalDaysInFirstWeek = minimalDaysInFirstWeek;
 	      this.fieldsComputed = false;
 	    }
 	  },
 	
-	  /**
+	  /*
 	   * Gets what the minimal days required in the first week of the year are; e.g.,
 	   * if the first week is defined as one that contains the first day of the first month of a year,
 	   * this method returns 1.
 	   * If the minimal days required must be a full week, this method returns 7.
 	   * @returns {Number} the minimal days required in the first week of the year.
 	   */
-	  getMinimalDaysInFirstWeek: function () {
+	  getMinimalDaysInFirstWeek: function getMinimalDaysInFirstWeek() {
 	    return this.minimalDaysInFirstWeek;
 	  },
 	
-	  /**
+	  /*
 	   * Returns the number of weeks in the week year
 	   * represented by this GregorianCalendar.
 	   *
@@ -22965,7 +23007,7 @@ webpackJsonp([6,12],[
 	   *
 	   * @return {Number} the number of weeks in the week year.
 	   */
-	  getWeeksInWeekYear: function () {
+	  getWeeksInWeekYear: function getWeeksInWeekYear() {
 	    var weekYear = this.getWeekYear();
 	    if (weekYear === this.get(YEAR)) {
 	      return this.getActualMaximum(WEEK_OF_YEAR);
@@ -22977,7 +23019,7 @@ webpackJsonp([6,12],[
 	    return gc.getActualMaximum(WEEK_OF_YEAR);
 	  },
 	
-	  /**
+	  /*
 	   * Returns the week year represented by this GregorianCalendar.
 	   * The dates in the weeks between 1 and the
 	   * maximum week number of the week year have the same week year value
@@ -22985,7 +23027,7 @@ webpackJsonp([6,12],[
 	   *
 	   * @return {Number} the week year represented by this GregorianCalendar.
 	   */
-	  getWeekYear: function () {
+	  getWeekYear: function getWeekYear() {
 	    var year = this.get(YEAR); // implicitly  complete
 	    var weekOfYear = this.get(WEEK_OF_YEAR);
 	    var month = this.get(MONTH);
@@ -23000,7 +23042,7 @@ webpackJsonp([6,12],[
 	    }
 	    return year;
 	  },
-	  /**
+	  /*
 	   * Sets this GregorianCalendar to the date given by the date specifiers - weekYear,
 	   * weekOfYear, and dayOfWeek. weekOfYear follows the WEEK_OF_YEAR numbering.
 	   * The dayOfWeek value must be one of the DAY_OF_WEEK values: SUNDAY to SATURDAY.
@@ -23009,7 +23051,7 @@ webpackJsonp([6,12],[
 	   * @param weekOfYear  the week number based on weekYear
 	   * @param dayOfWeek   the day of week value
 	   */
-	  setWeekDate: function (weekYear, weekOfYear, dayOfWeek) {
+	  setWeekDate: function setWeekDate(weekYear, weekOfYear, dayOfWeek) {
 	    if (dayOfWeek < GregorianCalendar.SUNDAY || dayOfWeek > GregorianCalendar.SATURDAY) {
 	      throw new Error('invalid dayOfWeek: ' + dayOfWeek);
 	    }
@@ -23037,11 +23079,11 @@ webpackJsonp([6,12],[
 	    fields[DAY_OF_MONTH] = gc.get(DAY_OF_MONTH);
 	    this.complete();
 	  },
-	  /**
+	  /*
 	   * Creates and returns a copy of this object.
 	   * @returns {Date.Gregorian}
 	   */
-	  clone: function () {
+	  clone: function clone() {
 	    if (this.time === undefined) {
 	      this.computeTime();
 	    }
@@ -23053,7 +23095,7 @@ webpackJsonp([6,12],[
 	    return cal;
 	  },
 	
-	  /**
+	  /*
 	   * Compares this GregorianCalendar to the specified Object.
 	   * The result is true if and only if the argument is a GregorianCalendar object
 	   * that represents the same time value (millisecond offset from the Epoch)
@@ -23061,21 +23103,18 @@ webpackJsonp([6,12],[
 	   * @param {Date.Gregorian} obj the object to compare with.
 	   * @returns {boolean} true if this object is equal to obj; false otherwise.
 	   */
-	  equals: function (obj) {
-	    return this.getTime() === obj.getTime() &&
-	      this.firstDayOfWeek === obj.firstDayOfWeek &&
-	      this.timezoneOffset === obj.timezoneOffset &&
-	      this.minimalDaysInFirstWeek === obj.minimalDaysInFirstWeek;
+	  equals: function equals(obj) {
+	    return this.getTime() === obj.getTime() && this.firstDayOfWeek === obj.firstDayOfWeek && this.timezoneOffset === obj.timezoneOffset && this.minimalDaysInFirstWeek === obj.minimalDaysInFirstWeek;
 	  },
 	
-	  /**
+	  /*
 	   * Sets all the calendar field values or specified field and the time value
 	   * (millisecond offset from the Epoch) of this Calendar undefined.
 	   * This means that isSet() will return false for all the calendar fields,
 	   * and the date and time calculations will treat the fields as if they had never been set.
 	   * @param [field] the calendar field to be cleared.
 	   */
-	  clear: function (field) {
+	  clear: function clear(field) {
 	    if (field === undefined) {
 	      this.field = [];
 	    } else {
@@ -23088,68 +23127,33 @@ webpackJsonp([6,12],[
 	
 	var GregorianCalendarProto = GregorianCalendar.prototype;
 	
-	Utils.each(fields, function (f, index) {
+	Utils.each(FIELDS, function (f, index) {
 	  if (f) {
-	    GregorianCalendarProto['get' + f] = function () {
+	    GregorianCalendarProto['get' + f] = function get() {
 	      return this.get(index);
 	    };
 	
-	    GregorianCalendarProto['isSet' + f] = function () {
+	    GregorianCalendarProto['isSet' + f] = function isSet() {
 	      return this.isSet(index);
 	    };
 	
-	    GregorianCalendarProto['set' + f] = function (v) {
+	    GregorianCalendarProto['set' + f] = function set(v) {
 	      return this.set(index, v);
 	    };
 	
-	    GregorianCalendarProto['add' + f] = function (v) {
+	    GregorianCalendarProto['add' + f] = function add(v) {
 	      return this.add(index, v);
 	    };
 	
-	    GregorianCalendarProto['roll' + f] = function (v) {
+	    GregorianCalendarProto['roll' + f] = function roll(v) {
 	      return this.roll(index, v);
+	    };
+	
+	    GregorianCalendarProto['rollSet' + f] = function rollSet(v) {
+	      return this.rollSet(index, v);
 	    };
 	  }
 	});
-	
-	// ------------------- private start
-	
-	function adjustDayOfMonth(self) {
-	  var fields = self.fields;
-	  var year = fields[YEAR];
-	  var month = fields[MONTH];
-	  var monthLen = getMonthLength(year, month);
-	  var dayOfMonth = fields[DAY_OF_MONTH];
-	  if (dayOfMonth > monthLen) {
-	    self.set(DAY_OF_MONTH, monthLen);
-	  }
-	}
-	
-	function getMonthLength(year, month) {
-	  return isLeapYear(year) ? LEAP_MONTH_LENGTH[month] : MONTH_LENGTH[month];
-	}
-	
-	function getYearLength(year) {
-	  return isLeapYear(year) ? 366 : 365;
-	}
-	
-	function getWeekNumber(self, fixedDay1, fixedDate) {
-	  var fixedDay1st = getDayOfWeekDateOnOrBefore(fixedDay1 + 6, self.firstDayOfWeek);
-	  var nDays = (fixedDay1st - fixedDay1);
-	  if (nDays >= self.minimalDaysInFirstWeek) {
-	    fixedDay1st -= 7;
-	  }
-	  var normalizedDayOfPeriod = (fixedDate - fixedDay1st);
-	  return floorDivide(normalizedDayOfPeriod / 7) + 1;
-	}
-	
-	function getDayOfWeekDateOnOrBefore(fixedDate, dayOfWeek) {
-	  // 1.1.1 is monday
-	  // one week has 7 days
-	  return fixedDate - mod(fixedDate - dayOfWeek, 7);
-	}
-	
-	// ------------------- private end
 	
 	module.exports = GregorianCalendar;
 	/*
@@ -23161,274 +23165,282 @@ webpackJsonp([6,12],[
 	 - julian calendar
 	 */
 
-
 /***/ },
-/* 227 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
+	/*
 	 * utils for gregorian date
 	 * @ignore
 	 * @author yiminghe@gmail.com
 	 */
 	
-	var Const = __webpack_require__(228);
+	'use strict';
+	
+	var Const = __webpack_require__(227);
 	var floor = Math.floor;
 	var ACCUMULATED_DAYS_IN_MONTH
-	        //   1/1 2/1 3/1 4/1 5/1 6/1 7/1 8/1 9/1 10/1 11/1 12/1
-	        = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
+	//   1/1 2/1 3/1 4/1 5/1 6/1 7/1 8/1 9/1 10/1 11/1 12/1
+	= [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
 	
-	    ACCUMULATED_DAYS_IN_MONTH_LEAP
-	        //   1/1 2/1   3/1   4/1   5/1   6/1   7/1   8/1   9/1
-	        // 10/1   11/1   12/1
-	        = [0, 31, 59 + 1, 90 + 1, 120 + 1, 151 + 1, 181 + 1,
-	            212 + 1, 243 + 1, 273 + 1, 304 + 1, 334 + 1],
+	var ACCUMULATED_DAYS_IN_MONTH_LEAP
+	//   1/1 2/1   3/1   4/1   5/1   6/1   7/1   8/1   9/1
+	// 10/1   11/1   12/1
+	= [0, 31, 59 + 1, 90 + 1, 120 + 1, 151 + 1, 181 + 1, 212 + 1, 243 + 1, 273 + 1, 304 + 1, 334 + 1];
 	
-	    DAYS_OF_YEAR = 365,
-	    DAYS_OF_4YEAR = 365 * 4 + 1,
-	    DAYS_OF_100YEAR = DAYS_OF_4YEAR * 25 - 1,
-	    DAYS_OF_400YEAR = DAYS_OF_100YEAR * 4 + 1;
+	var DAYS_OF_YEAR = 365;
+	var DAYS_OF_4YEAR = 365 * 4 + 1;
+	var DAYS_OF_100YEAR = DAYS_OF_4YEAR * 25 - 1;
+	var DAYS_OF_400YEAR = DAYS_OF_100YEAR * 4 + 1;
+	var _exports = {};
 	
 	function getDayOfYear(year, month, dayOfMonth) {
-	    return dayOfMonth + (exports.isLeapYear(year) ?
-	        ACCUMULATED_DAYS_IN_MONTH_LEAP[month] :
-	        ACCUMULATED_DAYS_IN_MONTH[month]);
+	  return dayOfMonth + (_exports.isLeapYear(year) ? ACCUMULATED_DAYS_IN_MONTH_LEAP[month] : ACCUMULATED_DAYS_IN_MONTH[month]);
 	}
 	
 	function getDayOfWeekFromFixedDate(fixedDate) {
-	    // The fixed day 1 (January 1, 1 Gregorian) is Monday.
-	    if (fixedDate >= 0) {
-	        return fixedDate % 7;
-	    }
-	    return exports.mod(fixedDate, 7);
+	  // The fixed day 1 (January 1, 1 Gregorian) is Monday.
+	  if (fixedDate >= 0) {
+	    return fixedDate % 7;
+	  }
+	  return _exports.mod(fixedDate, 7);
 	}
 	
 	function getGregorianYearFromFixedDate(fixedDate) {
-	    var d0;
-	    var d1, d2, d3;//, d4;
-	    var n400, n100, n4, n1;
-	    var year;
-	    d0 = fixedDate - 1;
+	  var d0 = undefined;
+	  var d1 = undefined;
+	  var d2 = undefined;
+	  var d3 = undefined;
+	  var n400 = undefined;
+	  var n100 = undefined;
+	  var n4 = undefined;
+	  var n1 = undefined;
+	  var year = undefined;
+	  d0 = fixedDate - 1;
 	
-	    n400 = floor(d0 / DAYS_OF_400YEAR);
-	    d1 = exports.mod(d0, DAYS_OF_400YEAR);
-	    n100 = floor(d1 / DAYS_OF_100YEAR);
-	    d2 = exports.mod(d1, DAYS_OF_100YEAR);
-	    n4 = floor(d2 / DAYS_OF_4YEAR);
-	    d3 = exports.mod(d2, DAYS_OF_4YEAR);
-	    n1 = floor(d3 / DAYS_OF_YEAR);
+	  n400 = floor(d0 / DAYS_OF_400YEAR);
+	  d1 = _exports.mod(d0, DAYS_OF_400YEAR);
+	  n100 = floor(d1 / DAYS_OF_100YEAR);
+	  d2 = _exports.mod(d1, DAYS_OF_100YEAR);
+	  n4 = floor(d2 / DAYS_OF_4YEAR);
+	  d3 = _exports.mod(d2, DAYS_OF_4YEAR);
+	  n1 = floor(d3 / DAYS_OF_YEAR);
 	
-	    year = 400 * n400 + 100 * n100 + 4 * n4 + n1;
+	  year = 400 * n400 + 100 * n100 + 4 * n4 + n1;
 	
-	    // ?
-	    if (!(n100 === 4 || n1 === 4)) {
-	        ++year;
-	    }
+	  // ?
+	  if (!(n100 === 4 || n1 === 4)) {
+	    ++year;
+	  }
 	
-	    return year;
+	  return year;
 	}
 	
-	var exports = module.exports = {
-	    each: function (arr, fn) {
-	        for (var i = 0, len = arr.length; i < len; i++) {
-	            if (fn(arr[i], i, arr) === false) {
-	                break;
-	            }
-	        }
-	    },
-	
-	    mix: function (t, s) {
-	        for (var p in s) {
-	            t[p] = s[p];
-	        }
-	    },
-	
-	    isLeapYear: function (year) {
-	        if ((year & 3) !== 0) {
-	            return false;
-	        }
-	        return (year % 100 !== 0) || (year % 400 === 0);
-	    },
-	
-	    mod: function (x, y) {
-	        // 负数时不是镜像关系
-	        return (x - y * floor(x / y));
-	    },
-	
-	    // month: 0 based
-	    getFixedDate: function (year, month, dayOfMonth) {
-	        var prevYear = year - 1;
-	        // 考虑公元前
-	        return DAYS_OF_YEAR * prevYear + floor(prevYear / 4) -
-	            floor(prevYear / 100) + floor(prevYear / 400) +
-	            getDayOfYear(year, month, dayOfMonth);
-	    },
-	
-	    getGregorianDateFromFixedDate: function (fixedDate) {
-	        var year = getGregorianYearFromFixedDate(fixedDate);
-	        var jan1 = exports.getFixedDate(year, Const.JANUARY, 1);
-	        var isLeap = exports.isLeapYear(year);
-	        var ACCUMULATED_DAYS = isLeap ? ACCUMULATED_DAYS_IN_MONTH_LEAP : ACCUMULATED_DAYS_IN_MONTH;
-	        var daysDiff = fixedDate - jan1;
-	        var month, i;
-	
-	        for (i = 0; i < ACCUMULATED_DAYS.length; i++) {
-	            if (ACCUMULATED_DAYS[i] <= daysDiff) {
-	                month = i;
-	            } else {
-	                break;
-	            }
-	        }
-	
-	        var dayOfMonth = fixedDate - jan1 - ACCUMULATED_DAYS[month] + 1;
-	        var dayOfWeek = getDayOfWeekFromFixedDate(fixedDate);
-	
-	        return {
-	            year: year,
-	            month: month,
-	            dayOfMonth: dayOfMonth,
-	            dayOfWeek: dayOfWeek,
-	            isLeap: isLeap
-	        };
+	_exports = module.exports = {
+	  each: function each(arr, fn) {
+	    for (var i = 0, len = arr.length; i < len; i++) {
+	      if (fn(arr[i], i, arr) === false) {
+	        break;
+	      }
 	    }
+	  },
+	
+	  mix: function mix(t, s) {
+	    for (var p in s) {
+	      if (s.hasOwnProperty(p)) {
+	        t[p] = s[p];
+	      }
+	    }
+	  },
+	
+	  isLeapYear: function isLeapYear(year) {
+	    if ((year & 3) !== 0) {
+	      return false;
+	    }
+	    return year % 100 !== 0 || year % 400 === 0;
+	  },
+	
+	  mod: function mod(x, y) {
+	    // 负数时不是镜像关系
+	    return x - y * floor(x / y);
+	  },
+	
+	  // month: 0 based
+	  getFixedDate: function getFixedDate(year, month, dayOfMonth) {
+	    var prevYear = year - 1;
+	    // 考虑公元前
+	    return DAYS_OF_YEAR * prevYear + floor(prevYear / 4) - floor(prevYear / 100) + floor(prevYear / 400) + getDayOfYear(year, month, dayOfMonth);
+	  },
+	
+	  getGregorianDateFromFixedDate: function getGregorianDateFromFixedDate(fixedDate) {
+	    var year = getGregorianYearFromFixedDate(fixedDate);
+	    var jan1 = _exports.getFixedDate(year, Const.JANUARY, 1);
+	    var isLeap = _exports.isLeapYear(year);
+	    var ACCUMULATED_DAYS = isLeap ? ACCUMULATED_DAYS_IN_MONTH_LEAP : ACCUMULATED_DAYS_IN_MONTH;
+	    var daysDiff = fixedDate - jan1;
+	    var month = undefined;
+	
+	    for (var i = 0; i < ACCUMULATED_DAYS.length; i++) {
+	      if (ACCUMULATED_DAYS[i] <= daysDiff) {
+	        month = i;
+	      } else {
+	        break;
+	      }
+	    }
+	
+	    var dayOfMonth = fixedDate - jan1 - ACCUMULATED_DAYS[month] + 1;
+	    var dayOfWeek = getDayOfWeekFromFixedDate(fixedDate);
+	
+	    return {
+	      year: year,
+	      month: month,
+	      dayOfMonth: dayOfMonth,
+	      dayOfWeek: dayOfWeek,
+	      isLeap: isLeap
+	    };
+	  }
+	};
+
+/***/ },
+/* 227 */
+/***/ function(module, exports) {
+
+	/*
+	 * @ignore
+	 * const for gregorian date
+	 * @author yiminghe@gmail.com
+	 */
+	
+	"use strict";
+	
+	module.exports = {
+	  /*
+	   * Enum indicating sunday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  SUNDAY: 0,
+	  /*
+	   * Enum indicating monday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  MONDAY: 1,
+	  /*
+	   * Enum indicating tuesday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  TUESDAY: 2,
+	  /*
+	   * Enum indicating wednesday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  WEDNESDAY: 3,
+	  /*
+	   * Enum indicating thursday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  THURSDAY: 4,
+	  /*
+	   * Enum indicating friday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  FRIDAY: 5,
+	  /*
+	   * Enum indicating saturday
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  SATURDAY: 6,
+	  /*
+	   * Enum indicating january
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  JANUARY: 0,
+	  /*
+	   * Enum indicating february
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  FEBRUARY: 1,
+	  /*
+	   * Enum indicating march
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  MARCH: 2,
+	  /*
+	   * Enum indicating april
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  APRIL: 3,
+	  /*
+	   * Enum indicating may
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  MAY: 4,
+	  /*
+	   * Enum indicating june
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  JUNE: 5,
+	  /*
+	   * Enum indicating july
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  JULY: 6,
+	  /*
+	   * Enum indicating august
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  AUGUST: 7,
+	  /*
+	   * Enum indicating september
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  SEPTEMBER: 8,
+	  /*
+	   * Enum indicating october
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  OCTOBER: 9,
+	  /*
+	   * Enum indicating november
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  NOVEMBER: 10,
+	  /*
+	   * Enum indicating december
+	   * @type Number
+	   * @member Date.Gregorian
+	   */
+	  DECEMBER: 11
 	};
 
 /***/ },
 /* 228 */
 /***/ function(module, exports) {
 
-	/**
-	 * @ignore
-	 * const for gregorian date
-	 * @author yiminghe@gmail.com
-	 */
-	
-	module.exports = {
-	    /**
-	     * Enum indicating sunday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    SUNDAY: 0,
-	    /**
-	     * Enum indicating monday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    MONDAY: 1,
-	    /**
-	     * Enum indicating tuesday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    TUESDAY: 2,
-	    /**
-	     * Enum indicating wednesday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    WEDNESDAY: 3,
-	    /**
-	     * Enum indicating thursday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    THURSDAY: 4,
-	    /**
-	     * Enum indicating friday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    FRIDAY: 5,
-	    /**
-	     * Enum indicating saturday
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    SATURDAY: 6,
-	    /**
-	     * Enum indicating january
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    JANUARY: 0,
-	    /**
-	     * Enum indicating february
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    FEBRUARY: 1,
-	    /**
-	     * Enum indicating march
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    MARCH: 2,
-	    /**
-	     * Enum indicating april
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    APRIL: 3,
-	    /**
-	     * Enum indicating may
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    MAY: 4,
-	    /**
-	     * Enum indicating june
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    JUNE: 5,
-	    /**
-	     * Enum indicating july
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    JULY: 6,
-	    /**
-	     * Enum indicating august
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    AUGUST: 7,
-	    /**
-	     * Enum indicating september
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    SEPTEMBER: 8,
-	    /**
-	     * Enum indicating october
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    OCTOBER: 9,
-	    /**
-	     * Enum indicating november
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    NOVEMBER: 10,
-	    /**
-	     * Enum indicating december
-	     * @type Number
-	     * @member Date.Gregorian
-	     */
-	    DECEMBER: 11
-	};
-
-/***/ },
-/* 229 */
-/***/ function(module, exports) {
-
-	/**
+	/*
 	 * en-us locale
 	 * @ignore
 	 * @author yiminghe@gmail.com
 	 */
+	"use strict";
+	
 	module.exports = {
 	  // in minutes
 	  timezoneOffset: -8 * 60,
@@ -23436,9 +23448,8 @@ webpackJsonp([6,12],[
 	  minimalDaysInFirstWeek: 1
 	};
 
-
 /***/ },
-/* 230 */
+/* 229 */
 /***/ function(module, exports) {
 
 	/**
@@ -23464,30 +23475,30 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  guid: __webpack_require__(232),
-	  classSet: __webpack_require__(233),
-	  joinClasses: __webpack_require__(234),
-	  KeyCode: __webpack_require__(235),
-	  PureRenderMixin: __webpack_require__(236),
-	  shallowEqual: __webpack_require__(237),
-	  createChainedFunction: __webpack_require__(238),
+	  guid: __webpack_require__(231),
+	  classSet: __webpack_require__(232),
+	  joinClasses: __webpack_require__(233),
+	  KeyCode: __webpack_require__(234),
+	  PureRenderMixin: __webpack_require__(235),
+	  shallowEqual: __webpack_require__(236),
+	  createChainedFunction: __webpack_require__(237),
 	  Dom: {
-	    addEventListener: __webpack_require__(239),
-	    contains: __webpack_require__(240)
+	    addEventListener: __webpack_require__(238),
+	    contains: __webpack_require__(239)
 	  },
 	  Children: {
-	    toArray: __webpack_require__(241),
-	    mapSelf: __webpack_require__(242)
+	    toArray: __webpack_require__(240),
+	    mapSelf: __webpack_require__(241)
 	  }
 	};
 
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports) {
 
 	var seed = 0;
@@ -23497,7 +23508,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/**
@@ -23542,7 +23553,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports) {
 
 	/**
@@ -23589,7 +23600,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports) {
 
 	/**
@@ -24116,7 +24127,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24132,7 +24143,7 @@ webpackJsonp([6,12],[
 	
 	"use strict";
 	
-	var shallowEqual = __webpack_require__(237);
+	var shallowEqual = __webpack_require__(236);
 	
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -24169,7 +24180,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/**
@@ -24217,7 +24228,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports) {
 
 	/**
@@ -24244,7 +24255,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports) {
 
 	module.exports = function (target, eventType, callback) {
@@ -24267,7 +24278,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 240 */
+/* 239 */
 /***/ function(module, exports) {
 
 	module.exports = function (root, node) {
@@ -24283,7 +24294,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 241 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(181);
@@ -24298,7 +24309,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 242 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(181);
@@ -24314,7 +24325,7 @@ webpackJsonp([6,12],[
 
 
 /***/ },
-/* 243 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24337,11 +24348,11 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _DateTHead = __webpack_require__(244);
+	var _DateTHead = __webpack_require__(243);
 	
 	var _DateTHead2 = _interopRequireDefault(_DateTHead);
 	
-	var _DateTBody = __webpack_require__(246);
+	var _DateTBody = __webpack_require__(245);
 	
 	var _DateTBody2 = _interopRequireDefault(_DateTBody);
 	
@@ -24375,7 +24386,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 244 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24398,7 +24409,7 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _DateConstants = __webpack_require__(245);
+	var _DateConstants = __webpack_require__(244);
 	
 	var _DateConstants2 = _interopRequireDefault(_DateConstants);
 	
@@ -24471,7 +24482,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 245 */
+/* 244 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -24486,7 +24497,7 @@ webpackJsonp([6,12],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 246 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24509,7 +24520,7 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _DateConstants = __webpack_require__(245);
+	var _DateConstants = __webpack_require__(244);
 	
 	var _DateConstants2 = _interopRequireDefault(_DateConstants);
 	
@@ -24702,7 +24713,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 247 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24725,7 +24736,7 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _monthMonthPanel = __webpack_require__(248);
+	var _monthMonthPanel = __webpack_require__(247);
 	
 	var _monthMonthPanel2 = _interopRequireDefault(_monthMonthPanel);
 	
@@ -24733,11 +24744,11 @@ webpackJsonp([6,12],[
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _yearYearPanel = __webpack_require__(249);
+	var _yearYearPanel = __webpack_require__(248);
 	
 	var _yearYearPanel2 = _interopRequireDefault(_yearYearPanel);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
@@ -24899,7 +24910,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 248 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24924,9 +24935,9 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
-	var _yearYearPanel = __webpack_require__(249);
+	var _yearYearPanel = __webpack_require__(248);
 	
 	var _yearYearPanel2 = _interopRequireDefault(_yearYearPanel);
 	
@@ -25121,7 +25132,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 249 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25146,9 +25157,9 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
-	var _decadeDecadePanel = __webpack_require__(250);
+	var _decadeDecadePanel = __webpack_require__(249);
 	
 	var _decadeDecadePanel2 = _interopRequireDefault(_decadeDecadePanel);
 	
@@ -25365,7 +25376,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 250 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25390,7 +25401,7 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var ROW = 4;
 	var COL = 3;
@@ -25559,7 +25570,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 251 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25582,11 +25593,11 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _timeTime = __webpack_require__(252);
+	var _timeTime = __webpack_require__(251);
 	
 	var _timeTime2 = _interopRequireDefault(_timeTime);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
@@ -25684,7 +25695,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 252 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25709,11 +25720,11 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
-	var _TimePanel = __webpack_require__(253);
+	var _TimePanel = __webpack_require__(252);
 	
 	var _TimePanel2 = _interopRequireDefault(_TimePanel);
 	
@@ -25928,7 +25939,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 253 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25953,7 +25964,7 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	function choose(hour, e) {
 	  var next = this.state.value.clone();
@@ -26064,7 +26075,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 254 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26075,7 +26086,7 @@ webpackJsonp([6,12],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _gregorianCalendarFormatLibLocaleEnUs = __webpack_require__(230);
+	var _gregorianCalendarFormatLibLocaleEnUs = __webpack_require__(229);
 	
 	var _gregorianCalendarFormatLibLocaleEnUs2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleEnUs);
 	
@@ -26110,7 +26121,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 255 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26139,15 +26150,15 @@ webpackJsonp([6,12],[
 	
 	var _gregorianCalendarFormat2 = _interopRequireDefault(_gregorianCalendarFormat);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
-	var _rcAlign = __webpack_require__(256);
+	var _rcAlign = __webpack_require__(255);
 	
 	var _rcAlign2 = _interopRequireDefault(_rcAlign);
 	
-	var _rcAnimate = __webpack_require__(260);
+	var _rcAnimate = __webpack_require__(265);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
@@ -26520,7 +26531,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 256 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26532,7 +26543,7 @@ webpackJsonp([6,12],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _Align = __webpack_require__(257);
+	var _Align = __webpack_require__(256);
 	
 	var _Align2 = _interopRequireDefault(_Align);
 	
@@ -26540,7 +26551,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 257 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26563,11 +26574,11 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _domAlign = __webpack_require__(258);
+	var _domAlign = __webpack_require__(257);
 	
 	var _domAlign2 = _interopRequireDefault(_domAlign);
 	
-	var _rcUtil = __webpack_require__(231);
+	var _rcUtil = __webpack_require__(230);
 	
 	var _rcUtil2 = _interopRequireDefault(_rcUtil);
 	
@@ -26705,7 +26716,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 258 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26721,164 +26732,31 @@ webpackJsonp([6,12],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _utils = __webpack_require__(259);
+	var _utils = __webpack_require__(258);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
+	var _getOffsetParent = __webpack_require__(259);
+	
+	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
+	
+	var _getVisibleRectForElement = __webpack_require__(260);
+	
+	var _getVisibleRectForElement2 = _interopRequireDefault(_getVisibleRectForElement);
+	
+	var _adjustForViewport = __webpack_require__(261);
+	
+	var _adjustForViewport2 = _interopRequireDefault(_adjustForViewport);
+	
+	var _getRegion = __webpack_require__(262);
+	
+	var _getRegion2 = _interopRequireDefault(_getRegion);
+	
+	var _getElFuturePos = __webpack_require__(263);
+	
+	var _getElFuturePos2 = _interopRequireDefault(_getElFuturePos);
+	
 	// http://yiminghe.iteye.com/blog/1124720
-	
-	/**
-	 * 获取 node 上的 align 对齐点 相对于页面的坐标
-	 */
-	
-	function getAlignOffset(region, align) {
-	  var V = align.charAt(0);
-	  var H = align.charAt(1);
-	  var w = region.width;
-	  var h = region.height;
-	  var x = undefined;
-	  var y = undefined;
-	
-	  x = region.left;
-	  y = region.top;
-	
-	  if (V === 'c') {
-	    y += h / 2;
-	  } else if (V === 'b') {
-	    y += h;
-	  }
-	
-	  if (H === 'c') {
-	    x += w / 2;
-	  } else if (H === 'r') {
-	    x += w;
-	  }
-	
-	  return {
-	    left: x,
-	    top: y
-	  };
-	}
-	
-	/**
-	 * 得到会导致元素显示不全的祖先元素
-	 */
-	
-	function getOffsetParent(element) {
-	  // ie 这个也不是完全可行
-	  /*
-	   <div style="width: 50px;height: 100px;overflow: hidden">
-	   <div style="width: 50px;height: 100px;position: relative;" id="d6">
-	   元素 6 高 100px 宽 50px<br/>
-	   </div>
-	   </div>
-	   */
-	  // element.offsetParent does the right thing in ie7 and below. Return parent with layout!
-	  //  In other browsers it only includes elements with position absolute, relative or
-	  // fixed, not elements with overflow set to auto or scroll.
-	  //        if (UA.ie && ieMode < 8) {
-	  //            return element.offsetParent;
-	  //        }
-	  // 统一的 offsetParent 方法
-	  var doc = element.ownerDocument;
-	  var body = doc.body;
-	  var parent = undefined;
-	  var positionStyle = _utils2['default'].css(element, 'position');
-	  var skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
-	
-	  if (!skipStatic) {
-	    return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
-	  }
-	
-	  for (parent = element.parentNode; parent && parent !== body; parent = parent.parentNode) {
-	    positionStyle = _utils2['default'].css(parent, 'position');
-	    if (positionStyle !== 'static') {
-	      return parent;
-	    }
-	  }
-	  return null;
-	}
-	
-	/**
-	 * 获得元素的显示部分的区域
-	 */
-	
-	function getVisibleRectForElement(element) {
-	  var visibleRect = {
-	    left: 0,
-	    right: Infinity,
-	    top: 0,
-	    bottom: Infinity
-	  };
-	  var el = element;
-	  var scrollX = undefined;
-	  var scrollY = undefined;
-	  var winSize = undefined;
-	  var doc = element.ownerDocument;
-	  var win = doc.defaultView || doc.parentWindow;
-	  var body = doc.body;
-	  var documentElement = doc.documentElement;
-	
-	  // Determine the size of the visible rect by climbing the dom accounting for
-	  // all scrollable containers.
-	  while (el) {
-	    // clientWidth is zero for inline block elements in ie.
-	    if ((navigator.userAgent.indexOf('MSIE') === -1 || el.clientWidth !== 0) && (
-	    // body may have overflow set on it, yet we still get the entire
-	    // viewport. In some browsers, el.offsetParent may be
-	    // document.documentElement, so check for that too.
-	    el !== body && el !== documentElement && _utils2['default'].css(el, 'overflow') !== 'visible')) {
-	      var pos = _utils2['default'].offset(el);
-	      // add border
-	      pos.left += el.clientLeft;
-	      pos.top += el.clientTop;
-	      visibleRect.top = Math.max(visibleRect.top, pos.top);
-	      visibleRect.right = Math.min(visibleRect.right,
-	      // consider area without scrollBar
-	      pos.left + el.clientWidth);
-	      visibleRect.bottom = Math.min(visibleRect.bottom, pos.top + el.clientHeight);
-	      visibleRect.left = Math.max(visibleRect.left, pos.left);
-	    } else if (el === body || el === documentElement) {
-	      break;
-	    }
-	    el = getOffsetParent(el);
-	  }
-	
-	  // Clip by window's viewport.
-	  scrollX = _utils2['default'].getWindowScrollLeft(win);
-	  scrollY = _utils2['default'].getWindowScrollTop(win);
-	  visibleRect.left = Math.max(visibleRect.left, scrollX);
-	  visibleRect.top = Math.max(visibleRect.top, scrollY);
-	  winSize = {
-	    width: _utils2['default'].viewportWidth(win),
-	    height: _utils2['default'].viewportHeight(win)
-	  };
-	  visibleRect.right = Math.min(visibleRect.right, scrollX + winSize.width);
-	  visibleRect.bottom = Math.min(visibleRect.bottom, scrollY + winSize.height);
-	  return visibleRect.top >= 0 && visibleRect.left >= 0 && visibleRect.bottom > visibleRect.top && visibleRect.right > visibleRect.left ? visibleRect : null;
-	}
-	
-	function getElFuturePos(elRegion, refNodeRegion, points, offset) {
-	  var xy = undefined;
-	  var diff = undefined;
-	  var p1 = undefined;
-	  var p2 = undefined;
-	
-	  xy = {
-	    left: elRegion.left,
-	    top: elRegion.top
-	  };
-	
-	  p1 = getAlignOffset(refNodeRegion, points[1]);
-	  p2 = getAlignOffset(elRegion, points[0]);
-	
-	  diff = [p2.left - p1.left, p2.top - p1.top];
-	
-	  return {
-	    left: xy.left - diff[0] + +offset[0],
-	    top: xy.top - diff[1] + +offset[1]
-	  };
-	}
 	
 	function isFailX(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.left < visibleRect.left || elFuturePos.left + elRegion.width > visibleRect.right;
@@ -26886,47 +26764,6 @@ webpackJsonp([6,12],[
 	
 	function isFailY(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.top < visibleRect.top || elFuturePos.top + elRegion.height > visibleRect.bottom;
-	}
-	
-	function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
-	  var pos = _utils2['default'].clone(elFuturePos);
-	  var size = {
-	    width: elRegion.width,
-	    height: elRegion.height
-	  };
-	
-	  if (overflow.adjustX && pos.left < visibleRect.left) {
-	    pos.left = visibleRect.left;
-	  }
-	
-	  // Left edge inside and right edge outside viewport, try to resize it.
-	  if (overflow.resizeWidth && pos.left >= visibleRect.left && pos.left + size.width > visibleRect.right) {
-	    size.width -= pos.left + size.width - visibleRect.right;
-	  }
-	
-	  // Right edge outside viewport, try to move it.
-	  if (overflow.adjustX && pos.left + size.width > visibleRect.right) {
-	    // 保证左边界和可视区域左边界对齐
-	    pos.left = Math.max(visibleRect.right - size.width, visibleRect.left);
-	  }
-	
-	  // Top edge outside viewport, try to move it.
-	  if (overflow.adjustY && pos.top < visibleRect.top) {
-	    pos.top = visibleRect.top;
-	  }
-	
-	  // Top edge inside and bottom edge outside viewport, try to resize it.
-	  if (overflow.resizeHeight && pos.top >= visibleRect.top && pos.top + size.height > visibleRect.bottom) {
-	    size.height -= pos.top + size.height - visibleRect.bottom;
-	  }
-	
-	  // Bottom edge outside viewport, try to move it.
-	  if (overflow.adjustY && pos.top + size.height > visibleRect.bottom) {
-	    // 保证上边界和可视区域上边界对齐
-	    pos.top = Math.max(visibleRect.bottom - size.height, visibleRect.top);
-	  }
-	
-	  return _utils2['default'].mix(pos, size);
 	}
 	
 	function flip(points, reg, map) {
@@ -26944,26 +26781,19 @@ webpackJsonp([6,12],[
 	  return offset;
 	}
 	
-	function getRegion(node) {
-	  var offset = undefined;
-	  var w = undefined;
-	  var h = undefined;
-	  if (!_utils2['default'].isWindow(node) && node.nodeType !== 9) {
-	    offset = _utils2['default'].offset(node);
-	    w = _utils2['default'].outerWidth(node);
-	    h = _utils2['default'].outerHeight(node);
+	function convertOffset(str, offsetLen) {
+	  var n = undefined;
+	  if (/%$/.test(str)) {
+	    n = parseInt(str.substring(0, str.length - 1), 10) / 100 * offsetLen;
 	  } else {
-	    var win = _utils2['default'].getWindow(node);
-	    offset = {
-	      left: _utils2['default'].getWindowScrollLeft(win),
-	      top: _utils2['default'].getWindowScrollTop(win)
-	    };
-	    w = _utils2['default'].viewportWidth(win);
-	    h = _utils2['default'].viewportHeight(win);
+	    n = parseInt(str, 10);
 	  }
-	  offset.width = w;
-	  offset.height = h;
-	  return offset;
+	  return n || 0;
+	}
+	
+	function normalizeOffset(offset, el) {
+	  offset[0] = convertOffset(offset[0], el.width);
+	  offset[1] = convertOffset(offset[1], el.height);
 	}
 	
 	/*
@@ -26980,21 +26810,26 @@ webpackJsonp([6,12],[
 	 */
 	function domAlign(el, refNode, align) {
 	  var points = align.points;
-	  var offset = align.offset;
+	  var offset = align.offset || [0, 0];
+	  var targetOffset = align.targetOffset || [0, 0];
 	  var overflow = align.overflow;
-	  offset = offset && [].concat(offset) || [0, 0];
+	  offset = [].concat(offset);
+	  targetOffset = [].concat(targetOffset);
 	  overflow = overflow || {};
 	  var newOverflowCfg = {};
 	
 	  var fail = 0;
 	  // 当前节点可以被放置的显示区域
-	  var visibleRect = getVisibleRectForElement(el);
+	  var visibleRect = (0, _getVisibleRectForElement2['default'])(el);
 	  // 当前节点所占的区域, left/top/width/height
-	  var elRegion = getRegion(el);
+	  var elRegion = (0, _getRegion2['default'])(el);
 	  // 参照节点所占的区域, left/top/width/height
-	  var refNodeRegion = getRegion(refNode);
+	  var refNodeRegion = (0, _getRegion2['default'])(refNode);
+	  // 将 offset 转换成数值，支持百分比
+	  normalizeOffset(offset, elRegion);
+	  normalizeOffset(targetOffset, refNodeRegion);
 	  // 当前节点将要被放置的位置
-	  var elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset);
+	  var elFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, points, offset, targetOffset);
 	  // 当前节点将要所处的区域
 	  var newElRegion = _utils2['default'].merge(elRegion, elFuturePos);
 	
@@ -27011,6 +26846,7 @@ webpackJsonp([6,12],[
 	        });
 	        // 偏移量也反下
 	        offset = flipOffset(offset, 0);
+	        targetOffset = flipOffset(targetOffset, 0);
 	      }
 	    }
 	
@@ -27025,12 +26861,13 @@ webpackJsonp([6,12],[
 	        });
 	        // 偏移量也反下
 	        offset = flipOffset(offset, 1);
+	        targetOffset = flipOffset(targetOffset, 1);
 	      }
 	    }
 	
 	    // 如果失败，重新计算当前节点将要被放置的位置
 	    if (fail) {
-	      elFuturePos = getElFuturePos(elRegion, refNodeRegion, points, offset);
+	      elFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, points, offset, targetOffset);
 	      _utils2['default'].mix(newElRegion, elFuturePos);
 	    }
 	
@@ -27042,7 +26879,7 @@ webpackJsonp([6,12],[
 	
 	    // 确实要调整，甚至可能会调整高度宽度
 	    if (newOverflowCfg.adjustX || newOverflowCfg.adjustY) {
-	      newElRegion = adjustForViewport(elFuturePos, elRegion, visibleRect, newOverflowCfg);
+	      newElRegion = (0, _adjustForViewport2['default'])(elFuturePos, elRegion, visibleRect, newOverflowCfg);
 	    }
 	  }
 	
@@ -27050,7 +26887,10 @@ webpackJsonp([6,12],[
 	  // http://localhost:8888/kissy/src/overlay/demo/other/relative_align/align.html
 	  // 相对于屏幕位置没变，而 left/top 变了
 	  // 例如 <div 'relative'><el absolute></div>
-	  _utils2['default'].offset(el, { left: newElRegion.left, top: newElRegion.top });
+	  _utils2['default'].offset(el, {
+	    left: newElRegion.left,
+	    top: newElRegion.top
+	  });
 	
 	  // need judge to in case set fixed with in css on height auto element
 	  if (newElRegion.width !== elRegion.width) {
@@ -27064,13 +26904,14 @@ webpackJsonp([6,12],[
 	  return {
 	    points: points,
 	    offset: offset,
+	    targetOffset: targetOffset,
 	    overflow: newOverflowCfg
 	  };
 	}
 	
-	domAlign.__getOffsetParent = getOffsetParent;
+	domAlign.__getOffsetParent = _getOffsetParent2['default'];
 	
-	domAlign.__getVisibleRectForElement = getVisibleRectForElement;
+	domAlign.__getVisibleRectForElement = _getVisibleRectForElement2['default'];
 	
 	exports['default'] = domAlign;
 	
@@ -27085,7 +26926,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 259 */
+/* 258 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27541,16 +27382,342 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utils = __webpack_require__(258);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	/**
+	 * 得到会导致元素显示不全的祖先元素
+	 */
+	
+	function getOffsetParent(element) {
+	  // ie 这个也不是完全可行
+	  /*
+	   <div style="width: 50px;height: 100px;overflow: hidden">
+	   <div style="width: 50px;height: 100px;position: relative;" id="d6">
+	   元素 6 高 100px 宽 50px<br/>
+	   </div>
+	   </div>
+	   */
+	  // element.offsetParent does the right thing in ie7 and below. Return parent with layout!
+	  //  In other browsers it only includes elements with position absolute, relative or
+	  // fixed, not elements with overflow set to auto or scroll.
+	  //        if (UA.ie && ieMode < 8) {
+	  //            return element.offsetParent;
+	  //        }
+	  // 统一的 offsetParent 方法
+	  var doc = element.ownerDocument;
+	  var body = doc.body;
+	  var parent = undefined;
+	  var positionStyle = _utils2['default'].css(element, 'position');
+	  var skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
+	
+	  if (!skipStatic) {
+	    return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
+	  }
+	
+	  for (parent = element.parentNode; parent && parent !== body; parent = parent.parentNode) {
+	    positionStyle = _utils2['default'].css(parent, 'position');
+	    if (positionStyle !== 'static') {
+	      return parent;
+	    }
+	  }
+	  return null;
+	}
+	
+	exports['default'] = getOffsetParent;
+	module.exports = exports['default'];
+
+/***/ },
 /* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utils = __webpack_require__(258);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	var _getOffsetParent = __webpack_require__(259);
+	
+	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
+	
+	/**
+	 * 获得元素的显示部分的区域
+	 */
+	function getVisibleRectForElement(element) {
+	  var visibleRect = {
+	    left: 0,
+	    right: Infinity,
+	    top: 0,
+	    bottom: Infinity
+	  };
+	  var el = (0, _getOffsetParent2['default'])(element);
+	  var scrollX = undefined;
+	  var scrollY = undefined;
+	  var winSize = undefined;
+	  var doc = element.ownerDocument;
+	  var win = doc.defaultView || doc.parentWindow;
+	  var body = doc.body;
+	  var documentElement = doc.documentElement;
+	
+	  // Determine the size of the visible rect by climbing the dom accounting for
+	  // all scrollable containers.
+	  while (el) {
+	    // clientWidth is zero for inline block elements in ie.
+	    if ((navigator.userAgent.indexOf('MSIE') === -1 || el.clientWidth !== 0) && (
+	    // body may have overflow set on it, yet we still get the entire
+	    // viewport. In some browsers, el.offsetParent may be
+	    // document.documentElement, so check for that too.
+	    el !== body && el !== documentElement && _utils2['default'].css(el, 'overflow') !== 'visible')) {
+	      var pos = _utils2['default'].offset(el);
+	      // add border
+	      pos.left += el.clientLeft;
+	      pos.top += el.clientTop;
+	      visibleRect.top = Math.max(visibleRect.top, pos.top);
+	      visibleRect.right = Math.min(visibleRect.right,
+	      // consider area without scrollBar
+	      pos.left + el.clientWidth);
+	      visibleRect.bottom = Math.min(visibleRect.bottom, pos.top + el.clientHeight);
+	      visibleRect.left = Math.max(visibleRect.left, pos.left);
+	    } else if (el === body || el === documentElement) {
+	      break;
+	    }
+	    el = (0, _getOffsetParent2['default'])(el);
+	  }
+	
+	  // Clip by window's viewport.
+	  scrollX = _utils2['default'].getWindowScrollLeft(win);
+	  scrollY = _utils2['default'].getWindowScrollTop(win);
+	  visibleRect.left = Math.max(visibleRect.left, scrollX);
+	  visibleRect.top = Math.max(visibleRect.top, scrollY);
+	  winSize = {
+	    width: _utils2['default'].viewportWidth(win),
+	    height: _utils2['default'].viewportHeight(win)
+	  };
+	  visibleRect.right = Math.min(visibleRect.right, scrollX + winSize.width);
+	  visibleRect.bottom = Math.min(visibleRect.bottom, scrollY + winSize.height);
+	  return visibleRect.top >= 0 && visibleRect.left >= 0 && visibleRect.bottom > visibleRect.top && visibleRect.right > visibleRect.left ? visibleRect : null;
+	}
+	
+	exports['default'] = getVisibleRectForElement;
+	module.exports = exports['default'];
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utils = __webpack_require__(258);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	function adjustForViewport(elFuturePos, elRegion, visibleRect, overflow) {
+	  var pos = _utils2['default'].clone(elFuturePos);
+	  var size = {
+	    width: elRegion.width,
+	    height: elRegion.height
+	  };
+	
+	  if (overflow.adjustX && pos.left < visibleRect.left) {
+	    pos.left = visibleRect.left;
+	  }
+	
+	  // Left edge inside and right edge outside viewport, try to resize it.
+	  if (overflow.resizeWidth && pos.left >= visibleRect.left && pos.left + size.width > visibleRect.right) {
+	    size.width -= pos.left + size.width - visibleRect.right;
+	  }
+	
+	  // Right edge outside viewport, try to move it.
+	  if (overflow.adjustX && pos.left + size.width > visibleRect.right) {
+	    // 保证左边界和可视区域左边界对齐
+	    pos.left = Math.max(visibleRect.right - size.width, visibleRect.left);
+	  }
+	
+	  // Top edge outside viewport, try to move it.
+	  if (overflow.adjustY && pos.top < visibleRect.top) {
+	    pos.top = visibleRect.top;
+	  }
+	
+	  // Top edge inside and bottom edge outside viewport, try to resize it.
+	  if (overflow.resizeHeight && pos.top >= visibleRect.top && pos.top + size.height > visibleRect.bottom) {
+	    size.height -= pos.top + size.height - visibleRect.bottom;
+	  }
+	
+	  // Bottom edge outside viewport, try to move it.
+	  if (overflow.adjustY && pos.top + size.height > visibleRect.bottom) {
+	    // 保证上边界和可视区域上边界对齐
+	    pos.top = Math.max(visibleRect.bottom - size.height, visibleRect.top);
+	  }
+	
+	  return _utils2['default'].mix(pos, size);
+	}
+	
+	exports['default'] = adjustForViewport;
+	module.exports = exports['default'];
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _utils = __webpack_require__(258);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	function getRegion(node) {
+	  var offset = undefined;
+	  var w = undefined;
+	  var h = undefined;
+	  if (!_utils2['default'].isWindow(node) && node.nodeType !== 9) {
+	    offset = _utils2['default'].offset(node);
+	    w = _utils2['default'].outerWidth(node);
+	    h = _utils2['default'].outerHeight(node);
+	  } else {
+	    var win = _utils2['default'].getWindow(node);
+	    offset = {
+	      left: _utils2['default'].getWindowScrollLeft(win),
+	      top: _utils2['default'].getWindowScrollTop(win)
+	    };
+	    w = _utils2['default'].viewportWidth(win);
+	    h = _utils2['default'].viewportHeight(win);
+	  }
+	  offset.width = w;
+	  offset.height = h;
+	  return offset;
+	}
+	
+	exports['default'] = getRegion;
+	module.exports = exports['default'];
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _getAlignOffset = __webpack_require__(264);
+	
+	var _getAlignOffset2 = _interopRequireDefault(_getAlignOffset);
+	
+	function getElFuturePos(elRegion, refNodeRegion, points, offset, targetOffset) {
+	  var xy = undefined;
+	  var diff = undefined;
+	  var p1 = undefined;
+	  var p2 = undefined;
+	
+	  xy = {
+	    left: elRegion.left,
+	    top: elRegion.top
+	  };
+	
+	  p1 = (0, _getAlignOffset2['default'])(refNodeRegion, points[1]);
+	  p2 = (0, _getAlignOffset2['default'])(elRegion, points[0]);
+	
+	  diff = [p2.left - p1.left, p2.top - p1.top];
+	
+	  return {
+	    left: xy.left - diff[0] + offset[0] - targetOffset[0],
+	    top: xy.top - diff[1] + offset[1] - targetOffset[1]
+	  };
+	}
+	
+	exports['default'] = getElFuturePos;
+	module.exports = exports['default'];
+
+/***/ },
+/* 264 */
+/***/ function(module, exports) {
+
+	/**
+	 * 获取 node 上的 align 对齐点 相对于页面的坐标
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function getAlignOffset(region, align) {
+	  var V = align.charAt(0);
+	  var H = align.charAt(1);
+	  var w = region.width;
+	  var h = region.height;
+	  var x = undefined;
+	  var y = undefined;
+	
+	  x = region.left;
+	  y = region.top;
+	
+	  if (V === 'c') {
+	    y += h / 2;
+	  } else if (V === 'b') {
+	    y += h;
+	  }
+	
+	  if (H === 'c') {
+	    x += w / 2;
+	  } else if (H === 'r') {
+	    x += w;
+	  }
+	
+	  return {
+	    left: x,
+	    top: y
+	  };
+	}
+	
+	exports['default'] = getAlignOffset;
+	module.exports = exports['default'];
+
+/***/ },
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(261);
+	module.exports = __webpack_require__(266);
 
 /***/ },
-/* 261 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27567,15 +27734,15 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(262);
+	var _ChildrenUtils = __webpack_require__(267);
 	
 	var _ChildrenUtils2 = _interopRequireDefault(_ChildrenUtils);
 	
-	var _AnimateChild = __webpack_require__(263);
+	var _AnimateChild = __webpack_require__(268);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(267);
+	var _util = __webpack_require__(272);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -27674,6 +27841,11 @@ webpackJsonp([6,12],[
 	        }
 	        if (newChild) {
 	          newChildren.push(newChild);
+	        }
+	      });
+	      nextChildren.forEach(function (nextChild) {
+	        if (!(0, _ChildrenUtils.findChildInChildrenByKey)(currentChildren, nextChild.key)) {
+	          newChildren.push(nextChild);
 	        }
 	      });
 	    } else {
@@ -27865,7 +28037,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 262 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27982,7 +28154,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 263 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27997,11 +28169,11 @@ webpackJsonp([6,12],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _cssAnimation = __webpack_require__(264);
+	var _cssAnimation = __webpack_require__(269);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(267);
+	var _util = __webpack_require__(272);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -28080,13 +28252,13 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 264 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(265);
-	var Css = __webpack_require__(266);
+	var Event = __webpack_require__(270);
+	var Css = __webpack_require__(271);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -28238,7 +28410,7 @@ webpackJsonp([6,12],[
 	module.exports = cssAnimation;
 
 /***/ },
-/* 265 */
+/* 270 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28326,7 +28498,7 @@ webpackJsonp([6,12],[
 	module.exports = TransitionEvents;
 
 /***/ },
-/* 266 */
+/* 271 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28357,7 +28529,7 @@ webpackJsonp([6,12],[
 	};
 
 /***/ },
-/* 267 */
+/* 272 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -28390,14 +28562,16 @@ webpackJsonp([6,12],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 268 */
+/* 273 */
 /***/ function(module, exports) {
 
-	/**
+	/*
 	 * zh-cn locale
 	 * @ignore
 	 * @author yiminghe@gmail.com
 	 */
+	"use strict";
+	
 	module.exports = {
 	  // in minutes
 	  timezoneOffset: 8 * 60,
@@ -28405,9 +28579,8 @@ webpackJsonp([6,12],[
 	  minimalDaysInFirstWeek: 1
 	};
 
-
 /***/ },
-/* 269 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28418,7 +28591,7 @@ webpackJsonp([6,12],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _gregorianCalendarFormatLibLocaleZhCn = __webpack_require__(270);
+	var _gregorianCalendarFormatLibLocaleZhCn = __webpack_require__(275);
 	
 	var _gregorianCalendarFormatLibLocaleZhCn2 = _interopRequireDefault(_gregorianCalendarFormatLibLocaleZhCn);
 	
@@ -28452,7 +28625,7 @@ webpackJsonp([6,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 270 */
+/* 275 */
 /***/ function(module, exports) {
 
 	/**

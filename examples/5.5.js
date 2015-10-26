@@ -468,7 +468,7 @@ webpackJsonp([5,12],{
 	    top: 0,
 	    bottom: Infinity
 	  };
-	  var el = element;
+	  var el = getOffsetParent(element);
 	  var scrollX = undefined;
 	  var scrollY = undefined;
 	  var winSize = undefined;
