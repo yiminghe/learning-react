@@ -82,9 +82,9 @@
                 <h2>安装生态圈模块</h2>
 
                 <pre><code>
-                    npm install xx
-                    tnpm install yy
-                    tnpm install @your-company/xx
+npm install xx
+tnpm install yy
+tnpm install @your-company/xx
                 </code></pre>
             </section>
         </section>
@@ -127,7 +127,10 @@
                 <h2>初始化</h2>
 
                 <pre><code>yo rc --author=chengyu@your-company.com
-                    --pkg_name=@your-company/xx --tnpm --port=8000 --repo_url='http://gitlab.com/xx'</code></pre>
+                    --pkg_name=@your-company/xx
+                    --tnpm
+                    --port=8000
+                    --repo_url='http://gitlab.com/xx'</code></pre>
 
                 <p>
                     author: 作者邮箱
@@ -180,11 +183,11 @@
                 </p>
 
                 <pre><code>
-                    import React from 'react';
-                    const Menu = React.createClass({
-                    render(){}
-                    });
-                    export default Menu;
+import React from 'react';
+const Menu = React.createClass({
+    render(){}
+});
+export default Menu;
                 </code></pre>
             </section>
 
@@ -194,11 +197,11 @@
                 <p>纯 js，渲染示例到留空的 __react-content div</p>
 
                 <pre><code>
-                    import React from 'react';
-                    import Menu from '@your-company/biz-menu';
-                    import '@your-company/biz-menu/assets/index.less';
-                    React.render(&lt;Menu /&gt;,
-                    document.getElementById('__react-content'));
+import React from 'react';
+import Menu from '@your-company/biz-menu';
+import '@your-company/biz-menu/assets/index.less';
+React.render(&lt;Menu /&gt;,
+document.getElementById('__react-content'));
                 </code></pre>
             </section>
 
@@ -210,16 +213,16 @@
                 </p>
 
                 <pre><code>
-                    import React from 'react';
-                    import Menu from '@your-company/biz-menu';
-                    import '@your-company/biz-menu/assets/index.less';
-                    var TestUtils = React.addons.TestUtils;
-                    describe('@your-company/biz-menu', () => {
-                    it('works', () => {
-                    var instance = TestUtils.renderIntoDocument(React.createElement(Menu));
-                    expect(TestUtils.scryRenderedDOMComponentsWithClass('.rc-menu-item')).to.be.ok();
-                    });
-                    });
+import React from 'react';
+import Menu from '@your-company/biz-menu';
+import '@your-company/biz-menu/assets/index.less';
+var TestUtils = React.addons.TestUtils;
+describe('@your-company/biz-menu', () => {
+    it('works', () => {
+        var instance = TestUtils.renderIntoDocument(React.createElement(Menu));
+        expect(TestUtils.scryRenderedDOMComponentsWithClass('.rc-menu-item')).to.be.ok();
+    });
+});
                 </code></pre>
             </section>
 
@@ -227,20 +230,20 @@
                 <h2>演示与测试</h2>
 
                 <pre><code>
-                    npm start // 启动调试服务器
+npm start // 启动调试服务器
 
-                    http://localhost:8000/examples/ // demo 查看
+http://localhost:8000/examples/ // demo 查看
 
-                    http://localhost:8000/tests/runner.html // 测试用例
+http://localhost:8000/tests/runner.html // 测试用例
 
-                    http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?
-                    w=http://localhost:8000/tests/runner.html?coverage
+http://localhost:8000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?
+w=http://localhost:8000/tests/runner.html?coverage
 
-                    npm run browser-test // phantomjs 运行测试用例
+npm run browser-test // phantomjs 运行测试用例
 
-                    npm run browser-test-cover // phantomjs 运行测试覆盖率
+npm run browser-test-cover // phantomjs 运行测试覆盖率
 
-                    npm run karma // 多浏览器测试
+npm run karma // 多浏览器测试
                 </code></pre>
             </section>
 
@@ -270,21 +273,21 @@
             <section>
                 <h2>package.json</h2>
                 <pre><code>
-                    {
-                    "entry": {
-                    "index": "./index.js"
-                    },
-                    "dependencies": {
-                    "antd": "*"
-                    },
-                    "devDependencies": {
-                    "antd-bin": "0.x"
-                    },
-                    "scripts": {
-                    "dev": "antd server",
-                    "build": "antd build"
-                    }
-                    }
+{
+    "entry": {
+        "index": "./index.js"
+    },
+    "dependencies": {
+        "antd": "*"
+    },
+    "devDependencies": {
+        "antd-bin": "0.x"
+    },
+    "scripts": {
+        "dev": "antd server",
+        "build": "antd build"
+    }
+}
                 </code></pre>
 
                 <p>
@@ -313,17 +316,17 @@
                     index.js: 引用依赖，渲染 react 组件到页面空位
                 </p>
                 <pre><code>
-                    import React from 'react';
-                    import 'antd/lib/index.css';
-                    import Datepicker from 'antd/lib/datepicker';
+import React from 'react';
+import 'antd/lib/index.css';
+import Datepicker from 'antd/lib/datepicker';
 
-                    class App {
-                    render(){
-                    return &lt;Datepicker /&gt;;
-                    }
-                    }
+class App {
+    render(){
+        return &lt;Datepicker /&gt;;
+    }
+}
 
-                    React.render(&lt;App /&gt;, document.getElementById('react-content'));
+React.render(&lt;App /&gt;, document.getElementById('react-content'));
                 </code></pre>
             </section>
 
@@ -332,16 +335,16 @@
 
                 <p>通过 AMD 的语法格式进行动态加载</p>
                 <pre><code>
-                    require(['x','y'], function(X, Y){
-                    // x y 模块进行了动态加载
-                    });
+require(['x','y'], function(X, Y){
+// x y 模块进行了动态加载
+});
                 </code></pre>
             </section>
 
             <section>
                 <h2>调试开发</h2>
                 <pre><code>
-                    npm run dev
+npm run dev
                 </code></pre>
 
                 <p>
@@ -353,7 +356,7 @@
                 <h2>发布</h2>
 
                 <pre><code>
-                    npm run build
+npm run build
                 </code></pre>
 
                 <img src="http://gtms03.alicdn.com/tps/i3/TB1Z2EzIFXXXXa6XXXXfwFg_VXX-344-476.png"/>
@@ -362,9 +365,9 @@
                 <h2>版本号目录</h2>
 
                 <pre><code>
-                    {
-                    "build": "rm -rf dist && antd build && mkdir -p dist/${npm_package_name}/${npm_package_version} && mv dist/*.* dist/${npm_package_name}/${npm_package_version}/"
-                    }
+{
+"build": "rm -rf dist && antd build && mkdir -p dist/${npm_package_name}/${npm_package_version} && mv dist/*.* dist/${npm_package_name}/${npm_package_version}/"
+}
                 </code></pre>
 
                 <p>
@@ -378,9 +381,9 @@
                 <h2>chair</h2>
 
                 <pre><code>
-                    tnpm install chair-init -g
+tnpm install chair-init -g
 
-                    chair init --type react test
+chair init --type react test
                 </code></pre>
             </section>
 
@@ -389,11 +392,11 @@
 
                 <p>app/assets/entry/index.jsx</p>
                 <pre><code data-trim>
-                    var React  = require('react');
-                    var appData = require('appData'); // 服务器端数据
-                    React.render(&lt;div&gt;
-                    react {appData.fromServer}
-                    &lt;/div&gt;,document.getElementById('react-content'));
+var React  = require('react');
+var appData = require('appData'); // 服务器端数据
+React.render(&lt;div&gt;
+react {appData.fromServer}
+&lt;/div&gt;,document.getElementById('react-content'));
                 </code></pre>
             </section>
 
@@ -401,11 +404,11 @@
                 <h2>app/controllers/home.js 启动渲染</h2>
 
             <pre><code data-trim>
-                var render = require('../views/render');
-                this.body = render(this, {
-                entry: 'index',
-                appData: {fromServer: 'database'}
-                });
+var render = require('../views/render');
+this.body = render(this, {
+    entry: 'index',
+    appData: {fromServer: 'database'}
+});
             </code></pre>
             </section>
         </section>
