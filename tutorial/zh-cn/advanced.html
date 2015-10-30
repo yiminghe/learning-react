@@ -102,7 +102,7 @@ tnpm install @your-company/xx
                 项目开发：
             </p>
             <pre><code>
-                tnpm install antd-bin -g
+                tnpm install antd-init -g
             </code></pre>
         </section>
 
@@ -267,7 +267,7 @@ npm run karma // 多浏览器测试
                 <h2>纯前端项目</h2>
 
                 <pre><code>
-                    antd init
+                    antd-init
                 </code></pre>
             </section>
             <section>
@@ -278,14 +278,17 @@ npm run karma // 多浏览器测试
         "index": "./index.js"
     },
     "dependencies": {
-        "antd": "*"
+        "antd": "*",
+        "antd-build": "0.4.x",
+        "react": "~0.14.0",
+        "react-dom": "~0.14.0"
     },
     "devDependencies": {
         "antd-bin": "0.x"
     },
     "scripts": {
-        "dev": "antd server",
-        "build": "antd build"
+        "start": "antd server",
+        "build": "antd-build"
     }
 }
                 </code></pre>
@@ -298,15 +301,7 @@ npm run karma // 多浏览器测试
             <section>
                 <h2>一个应用页面 index.html</h2>
 
-                <iframe width="100%" height="400" src="//jsfiddle.net/yiminghe/0zvvk18c/1/embedded/html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-            </section>
-
-            <section>
-                <h2>安装依赖</h2>
-
-                <pre><code>
-                    tnpm install react antd --save
-                </code></pre>
+                <iframe width="100%" height="400" src="//jsfiddle.net/yiminghe/0zvvk18c/2/embedded/html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
             </section>
 
             <section>
@@ -317,7 +312,7 @@ npm run karma // 多浏览器测试
                 </p>
                 <pre><code>
 import React from 'react';
-import 'antd/lib/index.css';
+import '../common/lib';
 import Datepicker from 'antd/lib/datepicker';
 
 class App {
@@ -344,7 +339,7 @@ require(['x','y'], function(X, Y){
             <section>
                 <h2>调试开发</h2>
                 <pre><code>
-npm run dev
+npm start
                 </code></pre>
 
                 <p>
