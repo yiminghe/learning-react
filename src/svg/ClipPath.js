@@ -1,4 +1,5 @@
-const React = require('react');
+import React from 'react';
+import assign from 'object-assign';
 const ClipPath = React.createClass({
   propTypes: {
     start: React.PropTypes.shape({
@@ -36,7 +37,7 @@ const ClipPath = React.createClass({
     const endX = this.props.end.x + 16;
     const endY = this.props.end.y + 16;
     setTimeout(() => {
-      const style = this.state.style;
+      const style = assign({}, this.state.style);
       // Define our transition
       // ie11 not working...
       style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = `-webkit-clip-path ${duration}s ease-in-out`;
@@ -70,4 +71,4 @@ const ClipPath = React.createClass({
   },
 });
 
-module.exports = ClipPath;
+export default ClipPath;

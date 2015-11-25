@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Select, {Option} from 'antd/lib/select';
 import jsonp from 'jsonp';
@@ -33,9 +31,11 @@ const Search = React.createClass({
           text: <b>{singleResult[0]}</b>,
         });
       });
-      this.setState({
-        data: data,
-      });
+      if (this.isMounted()) {
+        this.setState({
+          data: data,
+        });
+      }
     });
   },
 

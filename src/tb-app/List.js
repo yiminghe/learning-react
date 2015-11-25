@@ -2,6 +2,9 @@ import React from 'react';
 import jsonp from 'jsonp';
 import Table from 'antd/lib/table';
 import querystring from 'querystring';
+import fakeData from './data.json';
+
+/* react/no-multi-comp: 0*/
 
 const columns = [{
   title: '名称',
@@ -30,8 +33,8 @@ const List = React.createClass({
       ajax: 'true',
       q: this.props.params.q,
     });
-    jsonp('https://s.taobao.com/search?' + queryStr, (err, ret) => {
-      const data = ret.mods.itemlist.data.auctions;
+    jsonp('https://s.taobao.com/search?' + queryStr, () => {
+      const data = fakeData;
       data.forEach((d2, index)=> {
         d2.key = index;
       });

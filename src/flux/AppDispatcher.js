@@ -1,5 +1,5 @@
-
-const Dispatcher = require('flux').Dispatcher;
+import flux from 'flux';
+const Dispatcher = flux.Dispatcher;
 
 class AppDispatcher extends Dispatcher {
   handleViewAction(action) {
@@ -10,4 +10,6 @@ class AppDispatcher extends Dispatcher {
   }
 }
 
-module.exports = new AppDispatcher();
+const dispatcher = new AppDispatcher();
+
+export default dispatcher;

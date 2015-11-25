@@ -2,5 +2,6 @@
 
 import App from './Main';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-React.render(<App />, document.getElementById('__react-content'));
+ReactDOM.render(<App />, document.getElementById('__react-content'));

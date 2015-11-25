@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const Component = React.createClass({
   propTypes: {
@@ -45,4 +45,4 @@ const Component = React.createClass({
   },
 });
 
-module.exports = Component;
+export default Component;

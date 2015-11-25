@@ -1,11 +1,10 @@
-
-
-const assign = require('object-assign');
+import assign from 'object-assign';
+import AppDispatcher from './AppDispatcher';
+import events from 'events';
 let user = {
   name: 'init',
 };
-const AppDispatcher = require('./AppDispatcher');
-const UserStore = assign({}, require('events').EventEmitter.prototype, {
+const UserStore = assign({}, events.EventEmitter.prototype, {
   getUser() {
     return user;
   },
@@ -20,4 +19,4 @@ AppDispatcher.register((payload) => {
     UserStore.emit('change');
   }
 });
-module.exports = UserStore;
+export default UserStore;

@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 var consolePolyfill = `
 window.process = {
             env: {}
@@ -49,4 +49,4 @@ Page.propTypes = {
   script: React.PropTypes.string,
 };
 
-module.exports = Page;
+export default Page;

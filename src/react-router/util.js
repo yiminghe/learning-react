@@ -1,8 +1,8 @@
-function underscore(str) {
+export function underscore(str) {
   return str.toLowerCase().replace(/ /, '_');
 }
 
-function findStates() {
+export function findStates() {
   return [
     {abbr: 'AL', name: 'Alabama'},
     {abbr: 'AK', name: 'Alaska'},
@@ -57,7 +57,7 @@ function findStates() {
   ];
 }
 
-function findState(abbr) {
+export function findState(abbr) {
   const states = findStates();
   for (let i = 0, l = states.length; i < l; i++) {
     if (states[i].abbr === abbr) {
@@ -65,9 +65,3 @@ function findState(abbr) {
     }
   }
 }
-
-export default {
-  findState,
-  findStates,
-  underscore,
-};

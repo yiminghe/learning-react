@@ -1,5 +1,5 @@
-const React = require('react');
-const UserAction = require('./UserAction');
+import React from 'react';
+import UserAction from './UserAction';
 
 const User = React.createClass({
   propTypes: {
@@ -27,4 +27,4 @@ const User = React.createClass({
   },
 });
 
-module.exports = User;
+export default User;

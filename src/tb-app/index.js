@@ -4,6 +4,7 @@ import Search from './Search';
 import List from './List';
 import App from './App';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 const rootRoute = [{
   path: '/',
@@ -17,6 +18,6 @@ const rootRoute = [{
   ],
 }];
 
-React.render((
+ReactDOM.render((
   <Router>{rootRoute}</Router>
 ), document.getElementById('__react-content'));

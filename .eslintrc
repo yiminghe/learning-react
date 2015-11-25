@@ -1,0 +1,26 @@
+{
+  "extends": "eslint-config-airbnb",
+  "rules": {
+    "no-var": [
+      0
+    ],
+    "no-console": [
+      0
+    ],
+    "func-names": [
+      0
+    ],
+    "space-before-function-paren": [
+      0
+    ],
+    "no-param-reassign": [
+      0
+    ],
+    "vars-on-top": [
+      0
+    ],
+    "react/no-multi-comp": [2,{
+      "ignoreStateless": true
+    }]
+  }
+}

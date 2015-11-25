@@ -1,11 +1,12 @@
-const React = require('react');
-const ReactART = require('react-art');
+import React from 'react';
+import ReactART from 'react-art';
+import Rectangle from 'react-art/lib/Rectangle.art';
+import d3 from 'd3';
 const Group = ReactART.Group;
 const ARTText = ReactART.Text;
 const Shape = ReactART.Shape;
 const Surface = ReactART.Surface;
-const Rectangle = require('react-art/lib/Rectangle.art');
-const d3 = require('d3');
+import ReactDOM from 'react-dom';
 const monthText = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
   'Oct', 'Nov', 'Dec'];
 const monthScale = d3.scale.linear().domain([0, 12]).range([0, 400 - 20]);
@@ -25,7 +26,7 @@ class Component extends React.Component {
   }
 
   componentDidMount() {
-    const rootNode = React.findDOMNode(this);
+    const rootNode = ReactDOM.findDOMNode(this);
     this.rootOffset = rootNode.getBoundingClientRect();
   }
 
@@ -56,7 +57,8 @@ class Component extends React.Component {
       const height = value.height;
       const y = 400 - height;
       const x = monthScale(d.month);
-      return (<Rectangle width={10} height={height} x={x} y={y}
+      return (<Rectangle key={value}
+                         width={10} height={height} x={x} y={y}
                          onMouseOut={this.onMouseOut.bind(this)}
                          onMouseMove={this.onMouseMove.bind(this, d)}
                          fill={value.color} key={d.month + ''}/>);
@@ -80,7 +82,9 @@ class Component extends React.Component {
     const months = [];
     for (let i = 1; i <= 12; i++) {
       const value = monthScale(i) - 5;
-      months.push((<Group x={value} y={400}>
+      months.push((<Group x={value}
+                          key={value}
+                          y={400}>
         <ARTText stroke="#000" font={{fontSize: 10}}>{monthText[i]}</ARTText>
       </Group>));
     }
@@ -95,7 +99,7 @@ class Component extends React.Component {
       const value = valueScale(i);
       const height = value.height;
       const y = 400 - height;
-      values.push(<Group y={y}>
+      values.push(<Group y={y} key={y}>
         <ARTText stroke="#000" font={{fontSize: 20}}>{i + ''}</ARTText>
         <Shape d="M0,0 L20,0 Z M20,0" stroke="#000"/>
       </Group>);
@@ -138,6 +142,6 @@ for (let i = 1; i < 13; i++) {
 }
 
 console.log('data', data);
-React.render(<div style={{width: 500, margin: 'auto'}}>
+ReactDOM.render(<div style={{width: 500, margin: 'auto'}}>
   <Component data={data}/>
 </div>, document.getElementById('__react-content'));

@@ -1,6 +1,6 @@
-const React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
+const Component = React.createClass({
   propTypes: {
     count: React.PropTypes.number,
   },
@@ -46,3 +46,5 @@ module.exports = React.createClass({
     });
   },
 });
+
+export default Component;

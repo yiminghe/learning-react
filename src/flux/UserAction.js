@@ -1,8 +1,6 @@
+import AppDispatcher from './AppDispatcher';
 
-
-const AppDispatcher = require('./AppDispatcher');
-
-module.exports = {
+export default {
   change() {
     setTimeout(() => {
       AppDispatcher.handleViewAction({

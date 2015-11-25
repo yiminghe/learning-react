@@ -1,4 +1,5 @@
-const React = require('react');
+import React from 'react';
+
 const StrikeDash = React.createClass({
   propTypes: {
     start: React.PropTypes.shape({
@@ -18,8 +19,8 @@ const StrikeDash = React.createClass({
 
   componentDidMount() {
     // force repaint
-    this.refs.path.getDOMNode().getBoundingClientRect();
-    const style = this.refs.path.getDOMNode().style;
+    this.refs.path.getBoundingClientRect();
+    const style = this.refs.path.style;
     const duration = this.props.duration;
     // Define our transition
     // ie11 not working...
@@ -82,4 +83,4 @@ const StrikeDash = React.createClass({
   },
 });
 
-module.exports = StrikeDash;
+export default StrikeDash;

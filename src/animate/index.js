@@ -1,7 +1,8 @@
-require('../../assets/css-transition-group/index.css');
+import '../../assets/animate/index.css';
 
-const React = require('react/addons');
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Animate from 'rc-animate';
 
 const TodoList = React.createClass({
   getInitialState() {
@@ -28,12 +29,12 @@ const TodoList = React.createClass({
     return (
       <div>
         <button onClick={this.onAdd}>Add Item</button>
-        <ReactCSSTransitionGroup transitionName="example">
+        <Animate transitionName="example">
           {items}
-        </ReactCSSTransitionGroup>
+        </Animate>
       </div>
     );
   },
 });
 
-React.render(<TodoList />, document.getElementById('__react-content'));
+ReactDOM.render(<TodoList />, document.getElementById('__react-content'));

@@ -1,7 +1,9 @@
 var expect = require('expect.js');
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+var React = require('react');
+var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
 var Simulate = TestUtils.Simulate;
+var $ = require('jquery');
 
 describe('react-router', function () {
   var Main = require('../../src/react-router/Main');
@@ -15,21 +17,21 @@ describe('react-router', function () {
 
   afterEach(function () {
     window.location.hash = '';
-    React.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);
     document.body.removeChild(div);
   });
 
   it('works', function (done) {
-    var instance = React.render(<Main />, div);
+    var instance = ReactDOM.render(<Main />, div);
     var img = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'state-image')[0];
     expect(img).not.to.be.ok();
     var master = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'Master')[0];
-    var Alaska = TestUtils.scryRenderedDOMComponentsWithTag(master, 'a')[1];
-    location.hash = Alaska.getDOMNode().getAttribute('href');
+    var Alaska = $(master).find('a')[1];
+    location.hash = Alaska.getAttribute('href');
     setTimeout(function () {
       img = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'state-image')[0];
       expect(img).to.be.ok();
-      expect(img.props.src).to.be('http://www.50states.com/maps/alaska.gif');
+      expect(img.src).to.be('http://www.50states.com/maps/alaska.gif');
       done();
     }, 1000);
   });

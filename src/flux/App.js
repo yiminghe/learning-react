@@ -1,9 +1,8 @@
+import React from 'react';
+import User from './User';
+import UserStore from './UserStore';
 
-
-const React = require('react');
-const User = require('./User');
-const UserStore = require('./UserStore');
-module.exports = React.createClass({
+const App = React.createClass({
   getInitialState() {
     return {
       user: UserStore.getUser(),
@@ -21,3 +20,5 @@ module.exports = React.createClass({
     return (<User {...this.state.user}/>);
   },
 });
+
+export default App;

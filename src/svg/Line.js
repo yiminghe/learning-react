@@ -1,7 +1,6 @@
+import React from 'react';
+import $ from 'jquery';
 
-
-const React = require('react');
-const $ = require('jquery');
 const Line = React.createClass({
   propTypes: {
     start: React.PropTypes.shape({
@@ -76,4 +75,4 @@ const Line = React.createClass({
   },
 });
 
-module.exports = Line;
+export default Line;
