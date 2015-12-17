@@ -1,8 +1,8 @@
-webpackJsonp([2,12],[
+webpackJsonp([7,12],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(171);
+	module.exports = __webpack_require__(260);
 
 
 /***/ },
@@ -19605,487 +19605,1114 @@ webpackJsonp([2,12],[
 /* 168 */,
 /* 169 */,
 /* 170 */,
-/* 171 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	__webpack_require__(172);
-
-/***/ },
-/* 172 */
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
+	var _qs = __webpack_require__(261);
+	
+	var _qs2 = _interopRequireDefault(_qs);
+	
+	var _reactIntl = __webpack_require__(265);
+	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
-	
-	var _App = __webpack_require__(173);
-	
-	var _App2 = _interopRequireDefault(_App);
 	
 	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	_reactDom2['default'].render(_react2['default'].createElement(_App2['default'], null), document.getElementById('__react-content'));
-
-/***/ },
-/* 173 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	var _scriptjs = __webpack_require__(302);
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
+	var _scriptjs2 = _interopRequireDefault(_scriptjs);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var locale = _qs2['default'].parse(location.search && location.search.slice(1)).locale || 'en-US';
+	var localePrefix = locale.slice(0, locale.indexOf('-'));
 	
-	var _react = __webpack_require__(4);
+	var scripts = [];
 	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _User = __webpack_require__(174);
-	
-	var _User2 = _interopRequireDefault(_User);
-	
-	var _UserStore = __webpack_require__(180);
-	
-	var _UserStore2 = _interopRequireDefault(_UserStore);
-	
-	var App = _react2['default'].createClass({
-	  displayName: 'App',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      user: _UserStore2['default'].getUser()
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    _UserStore2['default'].addChangeListener(this.onUserChange);
-	  },
-	  onUserChange: function onUserChange() {
-	    this.setState({
-	      user: _UserStore2['default'].getUser()
-	    });
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement(_User2['default'], this.state.user);
+	if (!window.Intl) {
+	  // should output by server by <script>
+	  scripts.push('https://as.alipayobjects.com/g/component/intl/1.0.1/Intl.js');
+	  scripts.push('https://as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/en-US.js');
+	  // the following should be output by server template conditionally by <script>
+	  if (locale !== 'en-US') {
+	    scripts.push('https://as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/' + locale + '.js');
 	  }
-	});
+	  // end
+	}
+	// should output by server by <script>
+	scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/en.js');
+	// the following should be output by server template conditionally by <script>
+	if (localePrefix !== 'en') {
+	  scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/' + localePrefix + '.js');
+	}
+	// end
 	
-	exports['default'] = App;
-	module.exports = exports['default'];
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	var ready = function ready() {
+	  (0, _reactIntl.addLocaleData)(ReactIntlLocaleData[localePrefix]);
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
+	  window.app = {
+	    // output by server conditional
+	    'zh-Hans-CN': {
+	      'app.zh': '选择中文',
+	      'app.en': '选择英文'
+	    },
+	    'en-US': {
+	      'app.zh': 'choose chinese',
+	      'app.en': 'choose english'
+	    }
+	  };
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	  var Test = _react2['default'].createClass({
+	    displayName: 'Test',
 	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _UserAction = __webpack_require__(175);
-	
-	var _UserAction2 = _interopRequireDefault(_UserAction);
-	
-	var User = _react2['default'].createClass({
-	  displayName: 'User',
-	
-	  propTypes: {
-	    name: _react2['default'].PropTypes.string
-	  },
-	  getInitialState: function getInitialState() {
-	    return {};
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps() {
-	    this.setState({
-	      loading: 0
-	    });
-	  },
-	  onClick: function onClick() {
-	    this.setState({
-	      loading: 1
-	    });
-	    _UserAction2['default'].change();
-	  },
-	  render: function render() {
-	    return this.state.loading ? _react2['default'].createElement(
-	      'div',
-	      null,
-	      'loading'
-	    ) : _react2['default'].createElement(
-	      'div',
-	      null,
-	      _react2['default'].createElement(
-	        'p',
+	    render: function render() {
+	      return _react2['default'].createElement(
+	        'div',
 	        null,
-	        'name: ',
-	        this.props.name
-	      ),
-	      _react2['default'].createElement(
-	        'button',
-	        { onClick: this.onClick },
-	        'change'
-	      )
-	    );
-	  }
-	});
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          'npm install react-intl@2.0.0-beta-2'
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          _react2['default'].createElement(
+	            'a',
+	            { href: '?locale=en-US' },
+	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
+	              id: 'app.en'
+	            })
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          'p',
+	          null,
+	          _react2['default'].createElement(
+	            'a',
+	            { href: '?locale=zh-Hans-CN' },
+	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
+	              id: 'app.zh'
+	            })
+	          )
+	        )
+	      );
+	    }
+	  });
 	
-	exports['default'] = User;
-	module.exports = exports['default'];
-
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _AppDispatcher = __webpack_require__(176);
-	
-	var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
-	
-	exports['default'] = {
-	  change: function change() {
-	    setTimeout(function () {
-	      _AppDispatcher2['default'].handleViewAction({
-	        user: {
-	          name: 'changed ' + Date.now()
-	        },
-	        actionType: 'update_user'
-	      });
-	    }, 1000);
-	  }
+	  _reactDom2['default'].render(_react2['default'].createElement(
+	    _reactIntl.IntlProvider,
+	    { locale: locale, messages: window.app[locale] || window.app['en-US'] },
+	    _react2['default'].createElement(Test, null)
+	  ), document.getElementById('__react-content'));
 	};
-	module.exports = exports['default'];
+	
+	if (scripts.length) {
+	  (0, _scriptjs2['default'])(scripts, ready);
+	} else {
+	  ready();
+	}
 
 /***/ },
-/* 176 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	// Load modules
+	
+	const Stringify = __webpack_require__(262);
+	const Parse = __webpack_require__(264);
+	
+	
+	// Declare internals
+	
+	const internals = {};
+	
+	
+	exports.stringify = Stringify;
+	exports.parse = Parse;
+
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// Load modules
+	
+	const Utils = __webpack_require__(263);
+	
+	
+	// Declare internals
+	
+	const internals = {
+	    delimiter: '&',
+	    arrayPrefixGenerators: {
+	        brackets: function (prefix, key) {
+	
+	            return prefix + '[]';
+	        },
+	        indices: function (prefix, key) {
+	
+	            return prefix + '[' + key + ']';
+	        },
+	        repeat: function (prefix, key) {
+	
+	            return prefix;
+	        }
+	    },
+	    strictNullHandling: false,
+	    skipNulls: false,
+	    encode: true
+	};
+	
+	
+	internals.stringify = function (obj, prefix, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort) {
+	
+	    if (typeof filter === 'function') {
+	        obj = filter(prefix, obj);
+	    }
+	    else if (Utils.isBuffer(obj)) {
+	        obj = obj.toString();
+	    }
+	    else if (obj instanceof Date) {
+	        obj = obj.toISOString();
+	    }
+	    else if (obj === null) {
+	        if (strictNullHandling) {
+	            return encode ? Utils.encode(prefix) : prefix;
+	        }
+	
+	        obj = '';
+	    }
+	
+	    if (typeof obj === 'string' ||
+	        typeof obj === 'number' ||
+	        typeof obj === 'boolean') {
+	
+	        if (encode) {
+	            return [Utils.encode(prefix) + '=' + Utils.encode(obj)];
+	        }
+	        return [prefix + '=' + obj];
+	    }
+	
+	    let values = [];
+	
+	    if (typeof obj === 'undefined') {
+	        return values;
+	    }
+	
+	    let objKeys;
+	    if (Array.isArray(filter)) {
+	        objKeys = filter;
+	    }
+	    else {
+	        const keys = Object.keys(obj);
+	        objKeys = sort ? keys.sort(sort) : keys;
+	    }
+	
+	    for (let i = 0; i < objKeys.length; ++i) {
+	        const key = objKeys[i];
+	
+	        if (skipNulls &&
+	            obj[key] === null) {
+	
+	            continue;
+	        }
+	
+	        if (Array.isArray(obj)) {
+	            values = values.concat(internals.stringify(obj[key], generateArrayPrefix(prefix, key), generateArrayPrefix, strictNullHandling, skipNulls, encode, filter));
+	        }
+	        else {
+	            values = values.concat(internals.stringify(obj[key], prefix + '[' + key + ']', generateArrayPrefix, strictNullHandling, skipNulls, encode, filter));
+	        }
+	    }
+	
+	    return values;
+	};
+	
+	
+	module.exports = function (obj, options) {
+	
+	    options = options || {};
+	    const delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
+	    const strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
+	    const skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : internals.skipNulls;
+	    const encode = typeof options.encode === 'boolean' ? options.encode : internals.encode;
+	    const sort = typeof options.sort === 'function' ? options.sort : null;
+	    let objKeys;
+	    let filter;
+	    if (typeof options.filter === 'function') {
+	        filter = options.filter;
+	        obj = filter('', obj);
+	    }
+	    else if (Array.isArray(options.filter)) {
+	        objKeys = filter = options.filter;
+	    }
+	
+	    let keys = [];
+	
+	    if (typeof obj !== 'object' ||
+	        obj === null) {
+	
+	        return '';
+	    }
+	
+	    let arrayFormat;
+	    if (options.arrayFormat in internals.arrayPrefixGenerators) {
+	        arrayFormat = options.arrayFormat;
+	    }
+	    else if ('indices' in options) {
+	        arrayFormat = options.indices ? 'indices' : 'repeat';
+	    }
+	    else {
+	        arrayFormat = 'indices';
+	    }
+	
+	    const generateArrayPrefix = internals.arrayPrefixGenerators[arrayFormat];
+	
+	    if (!objKeys) {
+	        objKeys = Object.keys(obj);
+	    }
+	
+	    if (sort) {
+	        objKeys.sort(sort);
+	    }
+	
+	    for (let i = 0; i < objKeys.length; ++i) {
+	        const key = objKeys[i];
+	
+	        if (skipNulls &&
+	            obj[key] === null) {
+	
+	            continue;
+	        }
+	
+	        keys = keys.concat(internals.stringify(obj[key], key, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort));
+	    }
+	
+	    return keys.join(delimiter);
+	};
+
+
+/***/ },
+/* 263 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// Load modules
+	
+	
+	// Declare internals
+	
+	const internals = {};
+	
+	
+	internals.hexTable = function () {
+	
+	    const array = new Array(256);
+	    for (let i = 0; i < 256; ++i) {
+	        array[i] = '%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase();
+	    }
+	
+	    return array;
+	}();
+	
+	
+	exports.arrayToObject = function (source, options) {
+	
+	    const obj = options.plainObjects ? Object.create(null) : {};
+	    for (let i = 0; i < source.length; ++i) {
+	        if (typeof source[i] !== 'undefined') {
+	            obj[i] = source[i];
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	
+	exports.merge = function (target, source, options) {
+	
+	    if (!source) {
+	        return target;
+	    }
+	
+	    if (typeof source !== 'object') {
+	        if (Array.isArray(target)) {
+	            target.push(source);
+	        }
+	        else if (typeof target === 'object') {
+	            target[source] = true;
+	        }
+	        else {
+	            target = [target, source];
+	        }
+	
+	        return target;
+	    }
+	
+	    if (typeof target !== 'object') {
+	        target = [target].concat(source);
+	        return target;
+	    }
+	
+	    if (Array.isArray(target) &&
+	        !Array.isArray(source)) {
+	
+	        target = exports.arrayToObject(target, options);
+	    }
+	
+	    const keys = Object.keys(source);
+	    for (let i = 0; i < keys.length; ++i) {
+	        const key = keys[i];
+	        const value = source[key];
+	
+	        if (!Object.prototype.hasOwnProperty.call(target, key)) {
+	            target[key] = value;
+	        }
+	        else {
+	            target[key] = exports.merge(target[key], value, options);
+	        }
+	    }
+	
+	    return target;
+	};
+	
+	
+	exports.decode = function (str) {
+	
+	    try {
+	        return decodeURIComponent(str.replace(/\+/g, ' '));
+	    }
+	    catch (e) {
+	        return str;
+	    }
+	};
+	
+	exports.encode = function (str) {
+	
+	    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
+	    // It has been adapted here for stricter adherence to RFC 3986
+	    if (str.length === 0) {
+	        return str;
+	    }
+	
+	    if (typeof str !== 'string') {
+	        str = '' + str;
+	    }
+	
+	    let out = '';
+	    for (let i = 0; i < str.length; ++i) {
+	        let c = str.charCodeAt(i);
+	
+	        if (c === 0x2D || // -
+	            c === 0x2E || // .
+	            c === 0x5F || // _
+	            c === 0x7E || // ~
+	            (c >= 0x30 && c <= 0x39) || // 0-9
+	            (c >= 0x41 && c <= 0x5A) || // a-z
+	            (c >= 0x61 && c <= 0x7A)) { // A-Z
+	
+	            out = out + str[i];
+	            continue;
+	        }
+	
+	        if (c < 0x80) {
+	            out = out + internals.hexTable[c];
+	            continue;
+	        }
+	
+	        if (c < 0x800) {
+	            out = out + (internals.hexTable[0xC0 | (c >> 6)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	            continue;
+	        }
+	
+	        if (c < 0xD800 || c >= 0xE000) {
+	            out = out + (internals.hexTable[0xE0 | (c >> 12)] + internals.hexTable[0x80 | ((c >> 6) & 0x3F)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	            continue;
+	        }
+	
+	        ++i;
+	        c = 0x10000 + (((c & 0x3FF) << 10) | (str.charCodeAt(i) & 0x3FF));
+	        out = out + (internals.hexTable[0xF0 | (c >> 18)] + internals.hexTable[0x80 | ((c >> 12) & 0x3F)] + internals.hexTable[0x80 | ((c >> 6) & 0x3F)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	    }
+	
+	    return out;
+	};
+	
+	exports.compact = function (obj, refs) {
+	
+	    if (typeof obj !== 'object' ||
+	        obj === null) {
+	
+	        return obj;
+	    }
+	
+	    refs = refs || [];
+	    const lookup = refs.indexOf(obj);
+	    if (lookup !== -1) {
+	        return refs[lookup];
+	    }
+	
+	    refs.push(obj);
+	
+	    if (Array.isArray(obj)) {
+	        const compacted = [];
+	
+	        for (let i = 0; i < obj.length; ++i) {
+	            if (typeof obj[i] !== 'undefined') {
+	                compacted.push(obj[i]);
+	            }
+	        }
+	
+	        return compacted;
+	    }
+	
+	    const keys = Object.keys(obj);
+	    for (let i = 0; i < keys.length; ++i) {
+	        const key = keys[i];
+	        obj[key] = exports.compact(obj[key], refs);
+	    }
+	
+	    return obj;
+	};
+	
+	
+	exports.isRegExp = function (obj) {
+	
+	    return Object.prototype.toString.call(obj) === '[object RegExp]';
+	};
+	
+	
+	exports.isBuffer = function (obj) {
+	
+	    if (obj === null ||
+	        typeof obj === 'undefined') {
+	
+	        return false;
+	    }
+	
+	    return !!(obj.constructor &&
+	              obj.constructor.isBuffer &&
+	              obj.constructor.isBuffer(obj));
+	};
+
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// Load modules
+	
+	const Utils = __webpack_require__(263);
+	
+	
+	// Declare internals
+	
+	const internals = {
+	    delimiter: '&',
+	    depth: 5,
+	    arrayLimit: 20,
+	    parameterLimit: 1000,
+	    strictNullHandling: false,
+	    plainObjects: false,
+	    allowPrototypes: false,
+	    allowDots: false
+	};
+	
+	
+	internals.parseValues = function (str, options) {
+	
+	    const obj = {};
+	    const parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
+	
+	    for (let i = 0; i < parts.length; ++i) {
+	        const part = parts[i];
+	        const pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
+	
+	        if (pos === -1) {
+	            obj[Utils.decode(part)] = '';
+	
+	            if (options.strictNullHandling) {
+	                obj[Utils.decode(part)] = null;
+	            }
+	        }
+	        else {
+	            const key = Utils.decode(part.slice(0, pos));
+	            const val = Utils.decode(part.slice(pos + 1));
+	
+	            if (!Object.prototype.hasOwnProperty.call(obj, key)) {
+	                obj[key] = val;
+	            }
+	            else {
+	                obj[key] = [].concat(obj[key]).concat(val);
+	            }
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	
+	internals.parseObject = function (chain, val, options) {
+	
+	    if (!chain.length) {
+	        return val;
+	    }
+	
+	    const root = chain.shift();
+	
+	    let obj;
+	    if (root === '[]') {
+	        obj = [];
+	        obj = obj.concat(internals.parseObject(chain, val, options));
+	    }
+	    else {
+	        obj = options.plainObjects ? Object.create(null) : {};
+	        const cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
+	        const index = parseInt(cleanRoot, 10);
+	        const indexString = '' + index;
+	        if (!isNaN(index) &&
+	            root !== cleanRoot &&
+	            indexString === cleanRoot &&
+	            index >= 0 &&
+	            (options.parseArrays &&
+	             index <= options.arrayLimit)) {
+	
+	            obj = [];
+	            obj[index] = internals.parseObject(chain, val, options);
+	        }
+	        else {
+	            obj[cleanRoot] = internals.parseObject(chain, val, options);
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	
+	internals.parseKeys = function (key, val, options) {
+	
+	    if (!key) {
+	        return;
+	    }
+	
+	    // Transform dot notation to bracket notation
+	
+	    if (options.allowDots) {
+	        key = key.replace(/\.([^\.\[]+)/g, '[$1]');
+	    }
+	
+	    // The regex chunks
+	
+	    const parent = /^([^\[\]]*)/;
+	    const child = /(\[[^\[\]]*\])/g;
+	
+	    // Get the parent
+	
+	    let segment = parent.exec(key);
+	
+	    // Stash the parent if it exists
+	
+	    const keys = [];
+	    if (segment[1]) {
+	        // If we aren't using plain objects, optionally prefix keys
+	        // that would overwrite object prototype properties
+	        if (!options.plainObjects &&
+	            Object.prototype.hasOwnProperty(segment[1])) {
+	
+	            if (!options.allowPrototypes) {
+	                return;
+	            }
+	        }
+	
+	        keys.push(segment[1]);
+	    }
+	
+	    // Loop through children appending to the array until we hit depth
+	
+	    let i = 0;
+	    while ((segment = child.exec(key)) !== null && i < options.depth) {
+	
+	        ++i;
+	        if (!options.plainObjects &&
+	            Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
+	
+	            if (!options.allowPrototypes) {
+	                continue;
+	            }
+	        }
+	        keys.push(segment[1]);
+	    }
+	
+	    // If there's a remainder, just add whatever is left
+	
+	    if (segment) {
+	        keys.push('[' + key.slice(segment.index) + ']');
+	    }
+	
+	    return internals.parseObject(keys, val, options);
+	};
+	
+	
+	module.exports = function (str, options) {
+	
+	    options = options || {};
+	    options.delimiter = typeof options.delimiter === 'string' || Utils.isRegExp(options.delimiter) ? options.delimiter : internals.delimiter;
+	    options.depth = typeof options.depth === 'number' ? options.depth : internals.depth;
+	    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : internals.arrayLimit;
+	    options.parseArrays = options.parseArrays !== false;
+	    options.allowDots = typeof options.allowDots === 'boolean' ? options.allowDots : internals.allowDots;
+	    options.plainObjects = typeof options.plainObjects === 'boolean' ? options.plainObjects : internals.plainObjects;
+	    options.allowPrototypes = typeof options.allowPrototypes === 'boolean' ? options.allowPrototypes : internals.allowPrototypes;
+	    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : internals.parameterLimit;
+	    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
+	
+	    if (str === '' ||
+	        str === null ||
+	        typeof str === 'undefined') {
+	
+	        return options.plainObjects ? Object.create(null) : {};
+	    }
+	
+	    const tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
+	    let obj = options.plainObjects ? Object.create(null) : {};
+	
+	    // Iterate over the keys and setup the new object
+	
+	    const keys = Object.keys(tempObj);
+	    for (let i = 0; i < keys.length; ++i) {
+	        const key = keys[i];
+	        const newObj = internals.parseKeys(key, tempObj[key], options);
+	        obj = Utils.merge(obj, newObj, options);
+	    }
+	
+	    return Utils.compact(obj);
+	};
+
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.FormattedHTMLMessage = exports.FormattedMessage = exports.FormattedPlural = exports.FormattedNumber = exports.FormattedRelative = exports.FormattedTime = exports.FormattedDate = exports.IntlProvider = exports.injectIntl = exports.intlShape = exports.addLocaleData = undefined;
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _types = __webpack_require__(266);
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _flux = __webpack_require__(177);
-	
-	var _flux2 = _interopRequireDefault(_flux);
-	
-	var Dispatcher = _flux2['default'].Dispatcher;
-	
-	var AppDispatcher = (function (_Dispatcher) {
-	  _inherits(AppDispatcher, _Dispatcher);
-	
-	  function AppDispatcher() {
-	    _classCallCheck(this, AppDispatcher);
-	
-	    _get(Object.getPrototypeOf(AppDispatcher.prototype), 'constructor', this).apply(this, arguments);
+	Object.defineProperty(exports, 'intlShape', {
+	  enumerable: true,
+	  get: function get() {
+	    return _types.intlShape;
 	  }
+	});
 	
-	  _createClass(AppDispatcher, [{
-	    key: 'handleViewAction',
-	    value: function handleViewAction(action) {
-	      this.dispatch({
-	        type: 'view_action',
-	        action: action
-	      });
-	    }
-	  }]);
+	var _inject = __webpack_require__(267);
 	
-	  return AppDispatcher;
-	})(Dispatcher);
+	Object.defineProperty(exports, 'injectIntl', {
+	  enumerable: true,
+	  get: function get() {
+	    return _inject.default;
+	  }
+	});
 	
-	var dispatcher = new AppDispatcher();
+	var _intl = __webpack_require__(270);
 	
-	exports['default'] = dispatcher;
-	module.exports = exports['default'];
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	Object.defineProperty(exports, 'IntlProvider', {
+	  enumerable: true,
+	  get: function get() {
+	    return _intl.default;
+	  }
+	});
+	
+	var _date = __webpack_require__(294);
+	
+	Object.defineProperty(exports, 'FormattedDate', {
+	  enumerable: true,
+	  get: function get() {
+	    return _date.default;
+	  }
+	});
+	
+	var _time = __webpack_require__(295);
+	
+	Object.defineProperty(exports, 'FormattedTime', {
+	  enumerable: true,
+	  get: function get() {
+	    return _time.default;
+	  }
+	});
+	
+	var _relative = __webpack_require__(296);
+	
+	Object.defineProperty(exports, 'FormattedRelative', {
+	  enumerable: true,
+	  get: function get() {
+	    return _relative.default;
+	  }
+	});
+	
+	var _number = __webpack_require__(297);
+	
+	Object.defineProperty(exports, 'FormattedNumber', {
+	  enumerable: true,
+	  get: function get() {
+	    return _number.default;
+	  }
+	});
+	
+	var _plural = __webpack_require__(298);
+	
+	Object.defineProperty(exports, 'FormattedPlural', {
+	  enumerable: true,
+	  get: function get() {
+	    return _plural.default;
+	  }
+	});
+	
+	var _message = __webpack_require__(299);
+	
+	Object.defineProperty(exports, 'FormattedMessage', {
+	  enumerable: true,
+	  get: function get() {
+	    return _message.default;
+	  }
+	});
+	
+	var _htmlMessage = __webpack_require__(300);
+	
+	Object.defineProperty(exports, 'FormattedHTMLMessage', {
+	  enumerable: true,
+	  get: function get() {
+	    return _htmlMessage.default;
+	  }
+	});
+	exports.defineMessages = defineMessages;
+	
+	var _en = __webpack_require__(301);
+	
+	var _en2 = _interopRequireDefault(_en);
+	
+	var _localeDataRegistry = __webpack_require__(293);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright 2015, Yahoo Inc.
+	 * Copyrights licensed under the New BSD License.
+	 * See the accompanying LICENSE file for terms.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(178);
-
+	(0, _localeDataRegistry.addLocaleData)(_en2.default);
+	
+	exports.addLocaleData = _localeDataRegistry.addLocaleData;
+	function defineMessages(messageDescriptors) {
+	  // This simply returns what's passed-in because it's meant to be a hook for
+	  // babel-plugin-react-intl.
+	  return messageDescriptors;
+	}
 
 /***/ },
-/* 178 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule Dispatcher
-	 * 
-	 * @preventMunge
-	 */
-	
 	'use strict';
 	
-	exports.__esModule = true;
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
+	                                                                                                                                                                                                                                                                   * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                   * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                   * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                   */
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.pluralFormatPropTypes = exports.relativeFormatPropTypes = exports.numberFormatPropTypes = exports.dateTimeFormatPropTypes = exports.messageDescriptorPropTypes = exports.intlShape = exports.intlFormatPropTypes = exports.intlConfigPropTypes = undefined;
 	
-	var invariant = __webpack_require__(179);
+	var _react = __webpack_require__(4);
 	
-	var _prefix = 'ID_';
+	var bool = _react.PropTypes.bool;
+	var number = _react.PropTypes.number;
+	var string = _react.PropTypes.string;
+	var func = _react.PropTypes.func;
+	var object = _react.PropTypes.object;
+	var oneOf = _react.PropTypes.oneOf;
+	var shape = _react.PropTypes.shape;
+	var intlConfigPropTypes = exports.intlConfigPropTypes = {
+	    locale: string,
+	    formats: object,
+	    messages: object,
 	
-	/**
-	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
-	 * different from generic pub-sub systems in two ways:
-	 *
-	 *   1) Callbacks are not subscribed to particular events. Every payload is
-	 *      dispatched to every registered callback.
-	 *   2) Callbacks can be deferred in whole or part until other callbacks have
-	 *      been executed.
-	 *
-	 * For example, consider this hypothetical flight destination form, which
-	 * selects a default city when a country is selected:
-	 *
-	 *   var flightDispatcher = new Dispatcher();
-	 *
-	 *   // Keeps track of which country is selected
-	 *   var CountryStore = {country: null};
-	 *
-	 *   // Keeps track of which city is selected
-	 *   var CityStore = {city: null};
-	 *
-	 *   // Keeps track of the base flight price of the selected city
-	 *   var FlightPriceStore = {price: null}
-	 *
-	 * When a user changes the selected city, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'city-update',
-	 *     selectedCity: 'paris'
-	 *   });
-	 *
-	 * This payload is digested by `CityStore`:
-	 *
-	 *   flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'city-update') {
-	 *       CityStore.city = payload.selectedCity;
-	 *     }
-	 *   });
-	 *
-	 * When the user selects a country, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'country-update',
-	 *     selectedCountry: 'australia'
-	 *   });
-	 *
-	 * This payload is digested by both stores:
-	 *
-	 *   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       CountryStore.country = payload.selectedCountry;
-	 *     }
-	 *   });
-	 *
-	 * When the callback to update `CountryStore` is registered, we save a reference
-	 * to the returned token. Using this token with `waitFor()`, we can guarantee
-	 * that `CountryStore` is updated before the callback that updates `CityStore`
-	 * needs to query its data.
-	 *
-	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       // `CountryStore.country` may not be updated.
-	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
-	 *       // `CountryStore.country` is now guaranteed to be updated.
-	 *
-	 *       // Select the default city for the new country
-	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
-	 *     }
-	 *   });
-	 *
-	 * The usage of `waitFor()` can be chained, for example:
-	 *
-	 *   FlightPriceStore.dispatchToken =
-	 *     flightDispatcher.register(function(payload) {
-	 *       switch (payload.actionType) {
-	 *         case 'country-update':
-	 *         case 'city-update':
-	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
-	 *           FlightPriceStore.price =
-	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
-	 *           break;
-	 *     }
-	 *   });
-	 *
-	 * The `country-update` payload will be guaranteed to invoke the stores'
-	 * registered callbacks in order: `CountryStore`, `CityStore`, then
-	 * `FlightPriceStore`.
-	 */
+	    defaultLocale: string,
+	    defaultFormats: object
+	};
 	
-	var Dispatcher = (function () {
-	  function Dispatcher() {
-	    _classCallCheck(this, Dispatcher);
+	var intlFormatPropTypes = exports.intlFormatPropTypes = {
+	    formatDate: func.isRequired,
+	    formatTime: func.isRequired,
+	    formatRelative: func.isRequired,
+	    formatNumber: func.isRequired,
+	    formatPlural: func.isRequired,
+	    formatMessage: func.isRequired,
+	    formatHTMLMessage: func.isRequired
+	};
 	
-	    this._callbacks = {};
-	    this._isDispatching = false;
-	    this._isHandled = {};
-	    this._isPending = {};
-	    this._lastID = 1;
-	  }
+	var intlShape = exports.intlShape = shape(_extends({}, intlConfigPropTypes, intlFormatPropTypes, {
+	    now: func.isRequired
+	}));
 	
-	  /**
-	   * Registers a callback to be invoked with every dispatched payload. Returns
-	   * a token that can be used with `waitFor()`.
-	   */
+	var messageDescriptorPropTypes = exports.messageDescriptorPropTypes = {
+	    id: string.isRequired,
+	    description: string,
+	    defaultMessage: string
+	};
 	
-	  Dispatcher.prototype.register = function register(callback) {
-	    var id = _prefix + this._lastID++;
-	    this._callbacks[id] = callback;
-	    return id;
-	  };
+	var dateTimeFormatPropTypes = exports.dateTimeFormatPropTypes = {
+	    localeMatcher: oneOf(['best fit', 'lookup']),
+	    formatMatcher: oneOf(['basic', 'best fit']),
 	
-	  /**
-	   * Removes a callback based on its token.
-	   */
+	    timeZone: string,
+	    hour12: bool,
 	
-	  Dispatcher.prototype.unregister = function unregister(id) {
-	    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-	    delete this._callbacks[id];
-	  };
+	    weekday: oneOf(['narrow', 'short', 'long']),
+	    era: oneOf(['narrow', 'short', 'long']),
+	    year: oneOf(['numeric', '2-digit']),
+	    month: oneOf(['numeric', '2-digit', 'narrow', 'short', 'long']),
+	    day: oneOf(['numeric', '2-digit']),
+	    hour: oneOf(['numeric', '2-digit']),
+	    minute: oneOf(['numeric', '2-digit']),
+	    second: oneOf(['numeric', '2-digit']),
+	    timeZoneName: oneOf(['short', 'long'])
+	};
 	
-	  /**
-	   * Waits for the callbacks specified to be invoked before continuing execution
-	   * of the current callback. This method should only be used by a callback in
-	   * response to a dispatched payload.
-	   */
+	var numberFormatPropTypes = exports.numberFormatPropTypes = {
+	    localeMatcher: oneOf(['best fit', 'lookup']),
 	
-	  Dispatcher.prototype.waitFor = function waitFor(ids) {
-	    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
-	    for (var ii = 0; ii < ids.length; ii++) {
-	      var id = ids[ii];
-	      if (this._isPending[id]) {
-	        !this._isHandled[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Circular dependency detected while ' + 'waiting for `%s`.', id) : invariant(false) : undefined;
-	        continue;
-	      }
-	      !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-	      this._invokeCallback(id);
-	    }
-	  };
+	    style: oneOf(['decimal', 'currency', 'percent']),
+	    currency: string,
+	    currencyDisplay: oneOf(['symbol', 'code', 'name']),
+	    useGrouping: bool,
 	
-	  /**
-	   * Dispatches a payload to all registered callbacks.
-	   */
+	    minimumIntegerDigits: number,
+	    minimumFractionDigits: number,
+	    maximumFractionDigits: number,
+	    minimumSignificantDigits: number,
+	    maximumSignificantDigits: number
+	};
 	
-	  Dispatcher.prototype.dispatch = function dispatch(payload) {
-	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
-	    this._startDispatching(payload);
-	    try {
-	      for (var id in this._callbacks) {
-	        if (this._isPending[id]) {
-	          continue;
-	        }
-	        this._invokeCallback(id);
-	      }
-	    } finally {
-	      this._stopDispatching();
-	    }
-	  };
+	var relativeFormatPropTypes = exports.relativeFormatPropTypes = {
+	    style: oneOf(['best fit', 'numeric']),
+	    units: oneOf(['second', 'minute', 'hour', 'day', 'month', 'year'])
+	};
 	
-	  /**
-	   * Is this Dispatcher currently dispatching.
-	   */
-	
-	  Dispatcher.prototype.isDispatching = function isDispatching() {
-	    return this._isDispatching;
-	  };
-	
-	  /**
-	   * Call the callback stored with the given id. Also do some internal
-	   * bookkeeping.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
-	    this._isPending[id] = true;
-	    this._callbacks[id](this._pendingPayload);
-	    this._isHandled[id] = true;
-	  };
-	
-	  /**
-	   * Set up bookkeeping needed when dispatching.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
-	    for (var id in this._callbacks) {
-	      this._isPending[id] = false;
-	      this._isHandled[id] = false;
-	    }
-	    this._pendingPayload = payload;
-	    this._isDispatching = true;
-	  };
-	
-	  /**
-	   * Clear bookkeeping used for dispatching.
-	   *
-	   * @internal
-	   */
-	
-	  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
-	    delete this._pendingPayload;
-	    this._isDispatching = false;
-	  };
-	
-	  return Dispatcher;
-	})();
-	
-	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+	var pluralFormatPropTypes = exports.pluralFormatPropTypes = {
+	    style: oneOf(['cardinal', 'ordinal'])
+	};
 
 /***/ },
-/* 179 */
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = injectIntl;
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _invariant = __webpack_require__(268);
+	
+	var _invariant2 = _interopRequireDefault(_invariant);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	// Inspired by react-redux's `connect()` HOC factory function implementation:
+	// https://github.com/rackt/react-redux
+	
+	function getDisplayName(Component) {
+	    return Component.displayName || Component.name || 'Component';
+	}
+	
+	function injectIntl(WrappedComponent) {
+	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var _options$intlPropName = options.intlPropName;
+	    var intlPropName = _options$intlPropName === undefined ? 'intl' : _options$intlPropName;
+	    var _options$withRef = options.withRef;
+	    var withRef = _options$withRef === undefined ? false : _options$withRef;
+	
+	    var InjectIntl = (function (_Component) {
+	        _inherits(InjectIntl, _Component);
+	
+	        function InjectIntl(props, context) {
+	            _classCallCheck(this, InjectIntl);
+	
+	            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InjectIntl).call(this, props, context));
+	
+	            (0, _utils.invariantIntlContext)(context);
+	            return _this;
+	        }
+	
+	        _createClass(InjectIntl, [{
+	            key: 'getWrappedInstance',
+	            value: function getWrappedInstance() {
+	                (0, _invariant2.default)(withRef, '[React Intl] To access the wrapped instance, ' + 'the `{withRef: true}` option must be set when calling: ' + '`injectIntl()`');
+	
+	                return this.refs.wrappedInstance;
+	            }
+	        }, {
+	            key: 'render',
+	            value: function render() {
+	                return _react2.default.createElement(WrappedComponent, _extends({}, this.props, _defineProperty({}, intlPropName, this.context.intl), {
+	                    ref: withRef ? 'wrappedInstance' : null
+	                }));
+	            }
+	        }]);
+	
+	        return InjectIntl;
+	    })(_react.Component);
+	
+	    InjectIntl.displayName = 'InjectIntl(' + getDisplayName(WrappedComponent) + ')';
+	
+	    InjectIntl.contextTypes = {
+	        intl: _types.intlShape
+	    };
+	
+	    InjectIntl.WrappedComponent = WrappedComponent;
+	
+	    return InjectIntl;
+	}
+
+/***/ },
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20095,11 +20722,9 @@ webpackJsonp([2,12],[
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
 	 */
 	
-	"use strict";
+	'use strict';
 	
 	/**
 	 * Use invariant() to assert state which your program assumes to be true.
@@ -20112,7 +20737,7 @@ webpackJsonp([2,12],[
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	var invariant = function(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -20122,13 +20747,17 @@ webpackJsonp([2,12],[
 	  if (!condition) {
 	    var error;
 	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	      error = new Error(
+	        'Minified exception occurred; use the non-minified dev environment ' +
+	        'for the full error message and additional helpful warnings.'
+	      );
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
+	      error = new Error(
+	        format.replace(/%s/g, function() { return args[argIndex++]; })
+	      );
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
@@ -20137,389 +20766,4294 @@ webpackJsonp([2,12],[
 	};
 	
 	module.exports = invariant;
+	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
-/* 180 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+	exports.escape = escape;
+	exports.invariantIntlContext = invariantIntlContext;
+	exports.shallowEquals = shallowEquals;
+	exports.shouldIntlComponentUpdate = shouldIntlComponentUpdate;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _invariant = __webpack_require__(268);
 	
-	var _objectAssign = __webpack_require__(181);
+	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _AppDispatcher = __webpack_require__(176);
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+	/*
+	HTML escaping and shallow-equals implementations are the same as React's
+	(on purpose.) Therefore, it has the following Copyright and Licensing:
 	
-	var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
+	Copyright 2013-2014, Facebook, Inc.
+	All rights reserved.
 	
-	var _events = __webpack_require__(182);
+	This source code is licensed under the BSD-style license found in the LICENSE
+	file in the root directory of React's source tree.
+	*/
 	
-	var _events2 = _interopRequireDefault(_events);
-	
-	var user = {
-	  name: 'init'
+	var ESCAPED_CHARS = {
+	    '&': '&amp;',
+	    '>': '&gt;',
+	    '<': '&lt;',
+	    '"': '&quot;',
+	    '\'': '&#x27;'
 	};
-	var UserStore = (0, _objectAssign2['default'])({}, _events2['default'].EventEmitter.prototype, {
-	  getUser: function getUser() {
-	    return user;
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on('change', callback);
-	  }
-	});
-	_AppDispatcher2['default'].register(function (payload) {
-	  var action = payload.action;
-	  if (action.actionType === 'update_user') {
-	    user = action.user;
-	    UserStore.emit('change');
-	  }
-	});
-	exports['default'] = UserStore;
-	module.exports = exports['default'];
+	
+	var UNSAFE_CHARS_REGEX = /[&><"']/g;
+	
+	function escape(str) {
+	    return ('' + str).replace(UNSAFE_CHARS_REGEX, function (match) {
+	        return ESCAPED_CHARS[match];
+	    });
+	}
+	
+	function invariantIntlContext() {
+	    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	    var intl = _ref.intl;
+	
+	    (0, _invariant2.default)(intl, '[React Intl] Could not find required `intl` object. ' + '<IntlProvider> needs to exist in the component ancestry.');
+	}
+	
+	function shallowEquals(objA, objB) {
+	    if (objA === objB) {
+	        return true;
+	    }
+	
+	    if ((typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object' || objB === null) {
+	        return false;
+	    }
+	
+	    var keysA = Object.keys(objA);
+	    var keysB = Object.keys(objB);
+	
+	    if (keysA.length !== keysB.length) {
+	        return false;
+	    }
+	
+	    // Test for A's keys different from B.
+	    var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
+	    for (var i = 0; i < keysA.length; i++) {
+	        if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+	            return false;
+	        }
+	    }
+	
+	    return true;
+	}
+	
+	function shouldIntlComponentUpdate(_ref2, nextProps, nextState) {
+	    var props = _ref2.props;
+	    var state = _ref2.state;
+	    var _ref2$context = _ref2.context;
+	    var context = _ref2$context === undefined ? {} : _ref2$context;
+	    var nextContext = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var _context$intl = context.intl;
+	    var intl = _context$intl === undefined ? {} : _context$intl;
+	    var _nextContext$intl = nextContext.intl;
+	    var nextIntl = _nextContext$intl === undefined ? {} : _nextContext$intl;
+	
+	    return !shallowEquals(nextProps, props) || !shallowEquals(nextState, state) || !shallowEquals(nextIntl, intl);
+	}
 
 /***/ },
-/* 181 */
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _intlMessageformat = __webpack_require__(271);
+	
+	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
+	
+	var _intlRelativeformat = __webpack_require__(281);
+	
+	var _intlRelativeformat2 = _interopRequireDefault(_intlRelativeformat);
+	
+	var _plural = __webpack_require__(288);
+	
+	var _plural2 = _interopRequireDefault(_plural);
+	
+	var _intlFormatCache = __webpack_require__(289);
+	
+	var _intlFormatCache2 = _interopRequireDefault(_intlFormatCache);
+	
+	var _invariant = __webpack_require__(268);
+	
+	var _invariant2 = _interopRequireDefault(_invariant);
+	
+	var _utils = __webpack_require__(269);
+	
+	var _types = __webpack_require__(266);
+	
+	var _format = __webpack_require__(292);
+	
+	var format = _interopRequireWildcard(_format);
+	
+	var _localeDataRegistry = __webpack_require__(293);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var intlConfigPropNames = Object.keys(_types.intlConfigPropTypes);
+	var intlFormatPropNames = Object.keys(_types.intlFormatPropTypes);
+	
+	var IntlProvider = (function (_Component) {
+	    _inherits(IntlProvider, _Component);
+	
+	    function IntlProvider(props, context) {
+	        _classCallCheck(this, IntlProvider);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IntlProvider).call(this, props, context));
+	
+	        (0, _invariant2.default)(Intl, '[React Intl] The `Intl` APIs must be available in the runtime, ' + 'and do not appear to be built-in. An `Intl` polyfill should be loaded.\n' + 'See: http://formatjs.io/guides/runtime-environments/');
+	
+	        // Used to stabilize time when performing an initial rendering so that
+	        // all relative times use the same reference "now" time.
+	        var initialNow = undefined;
+	        if (isFinite(props.initialNow)) {
+	            initialNow = Number(props.initialNow);
+	        } else {
+	            // When an `initialNow` isn't provided via `props`, look to see an
+	            // <IntlProvider> exists in the ancestry and call its `now()`
+	            // function to propagate its value for "now".
+	            initialNow = context.intl ? context.intl.now() : Date.now();
+	        }
+	
+	        _this.state = {
+	            // Creating `Intl*` formatters is expensive so these format caches
+	            // memoize the `Intl*` constructors and have the same lifecycle as
+	            // this IntlProvider instance.
+	            getDateTimeFormat: (0, _intlFormatCache2.default)(Intl.DateTimeFormat),
+	            getNumberFormat: (0, _intlFormatCache2.default)(Intl.NumberFormat),
+	            getMessageFormat: (0, _intlFormatCache2.default)(_intlMessageformat2.default),
+	            getRelativeFormat: (0, _intlFormatCache2.default)(_intlRelativeformat2.default),
+	            getPluralFormat: (0, _intlFormatCache2.default)(_plural2.default),
+	
+	            // Wrapper to provide stable "now" time for initial render.
+	            now: function now() {
+	                return _this._didDisplay ? Date.now() : initialNow;
+	            }
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(IntlProvider, [{
+	        key: 'getConfig',
+	        value: function getConfig() {
+	            var _this2 = this;
+	
+	            var _context$intl = this.context.intl;
+	            var intlContext = _context$intl === undefined ? {} : _context$intl;
+	
+	            // Build a whitelisted config object from `props` and `context.intl`, if
+	            // an <IntlProvider> exists in the ancestry.
+	
+	            var config = intlConfigPropNames.reduce(function (config, name) {
+	                config[name] = _this2.props[name] || intlContext[name];
+	                return config;
+	            }, {});
+	
+	            if (!(0, _localeDataRegistry.hasLocaleData)(config.locale)) {
+	                var _config = config;
+	                var locale = _config.locale;
+	                var defaultLocale = _config.defaultLocale;
+	                var defaultFormats = _config.defaultFormats;
+	
+	                if (process.env.NODE_ENV !== 'production') {
+	                    console.error('[React Intl] Missing locale data for locale: "' + locale + '". ' + ('Using default locale: "' + defaultLocale + '" as fallback.'));
+	                }
+	
+	                // Since there's no registered locale data for `locale`, this will
+	                // fallback to the `defaultLocale` to make sure things can render.
+	                // The `messages` are overridden to the `defaultProps` empty object
+	                // to maintain referential equality across re-renders. It's assumed
+	                // each <FormattedMessage> contains a `defaultMessage` prop.
+	                config = _extends({}, config, {
+	                    locale: defaultLocale,
+	                    formats: defaultFormats,
+	                    messages: IntlProvider.defaultProps.messages
+	                });
+	            }
+	
+	            return config;
+	        }
+	    }, {
+	        key: 'getBoundFormatFns',
+	        value: function getBoundFormatFns(config, state) {
+	            return intlFormatPropNames.reduce(function (boundFormatFns, name) {
+	                boundFormatFns[name] = format[name].bind(null, config, state);
+	                return boundFormatFns;
+	            }, {});
+	        }
+	    }, {
+	        key: 'getChildContext',
+	        value: function getChildContext() {
+	            var config = this.getConfig();
+	
+	            // Bind intl factories and current config to the format functions.
+	            var boundFormatFns = this.getBoundFormatFns(config, this.state);
+	
+	            return {
+	                intl: _extends({}, config, boundFormatFns, {
+	                    now: this.state.now
+	                })
+	            };
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this._didDisplay = true;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react.Children.only(this.props.children);
+	        }
+	    }]);
+	
+	    return IntlProvider;
+	})(_react.Component);
+	
+	exports.default = IntlProvider;
+	
+	IntlProvider.displayName = 'IntlProvider';
+	
+	IntlProvider.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	IntlProvider.childContextTypes = {
+	    intl: _types.intlShape.isRequired
+	};
+	
+	IntlProvider.propTypes = _extends({}, _types.intlConfigPropTypes, {
+	    children: _react.PropTypes.element.isRequired,
+	    initialNow: _react.PropTypes.any
+	});
+	
+	IntlProvider.defaultProps = {
+	    formats: {},
+	    messages: {},
+	
+	    defaultLocale: 'en',
+	    defaultFormats: {}
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* jshint node:true */
+	
+	'use strict';
+	
+	var IntlMessageFormat = __webpack_require__(272)['default'];
+	
+	// Add all locale data to `IntlMessageFormat`. This module will be ignored when
+	// bundling for the browser with Browserify/Webpack.
+	__webpack_require__(280);
+	
+	// Re-export `IntlMessageFormat` as the CommonJS default exports with all the
+	// locale data registered, and with English set as the default locale. Define
+	// the `default` prop for use with other compiled ES6 Modules.
+	exports = module.exports = IntlMessageFormat;
+	exports['default'] = exports;
+
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* jslint esnext: true */
+	
+	"use strict";
+	var src$core$$ = __webpack_require__(273), src$en$$ = __webpack_require__(279);
+	
+	src$core$$["default"].__addLocaleData(src$en$$["default"]);
+	src$core$$["default"].defaultLocale = 'en';
+	
+	exports["default"] = src$core$$["default"];
+	
+	//# sourceMappingURL=main.js.map
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	var src$utils$$ = __webpack_require__(274), src$es5$$ = __webpack_require__(275), src$compiler$$ = __webpack_require__(276), intl$messageformat$parser$$ = __webpack_require__(277);
+	exports["default"] = MessageFormat;
+	
+	// -- MessageFormat --------------------------------------------------------
+	
+	function MessageFormat(message, locales, formats) {
+	    // Parse string messages into an AST.
+	    var ast = typeof message === 'string' ?
+	            MessageFormat.__parse(message) : message;
+	
+	    if (!(ast && ast.type === 'messageFormatPattern')) {
+	        throw new TypeError('A message must be provided as a String or AST.');
+	    }
+	
+	    // Creates a new object with the specified `formats` merged with the default
+	    // formats.
+	    formats = this._mergeFormats(MessageFormat.formats, formats);
+	
+	    // Defined first because it's used to build the format pattern.
+	    src$es5$$.defineProperty(this, '_locale',  {value: this._resolveLocale(locales)});
+	
+	    // Compile the `ast` to a pattern that is highly optimized for repeated
+	    // `format()` invocations. **Note:** This passes the `locales` set provided
+	    // to the constructor instead of just the resolved locale.
+	    var pluralFn = this._findPluralRuleFunction(this._locale);
+	    var pattern  = this._compilePattern(ast, locales, formats, pluralFn);
+	
+	    // "Bind" `format()` method to `this` so it can be passed by reference like
+	    // the other `Intl` APIs.
+	    var messageFormat = this;
+	    this.format = function (values) {
+	        return messageFormat._format(pattern, values);
+	    };
+	}
+	
+	// Default format options used as the prototype of the `formats` provided to the
+	// constructor. These are used when constructing the internal Intl.NumberFormat
+	// and Intl.DateTimeFormat instances.
+	src$es5$$.defineProperty(MessageFormat, 'formats', {
+	    enumerable: true,
+	
+	    value: {
+	        number: {
+	            'currency': {
+	                style: 'currency'
+	            },
+	
+	            'percent': {
+	                style: 'percent'
+	            }
+	        },
+	
+	        date: {
+	            'short': {
+	                month: 'numeric',
+	                day  : 'numeric',
+	                year : '2-digit'
+	            },
+	
+	            'medium': {
+	                month: 'short',
+	                day  : 'numeric',
+	                year : 'numeric'
+	            },
+	
+	            'long': {
+	                month: 'long',
+	                day  : 'numeric',
+	                year : 'numeric'
+	            },
+	
+	            'full': {
+	                weekday: 'long',
+	                month  : 'long',
+	                day    : 'numeric',
+	                year   : 'numeric'
+	            }
+	        },
+	
+	        time: {
+	            'short': {
+	                hour  : 'numeric',
+	                minute: 'numeric'
+	            },
+	
+	            'medium':  {
+	                hour  : 'numeric',
+	                minute: 'numeric',
+	                second: 'numeric'
+	            },
+	
+	            'long': {
+	                hour        : 'numeric',
+	                minute      : 'numeric',
+	                second      : 'numeric',
+	                timeZoneName: 'short'
+	            },
+	
+	            'full': {
+	                hour        : 'numeric',
+	                minute      : 'numeric',
+	                second      : 'numeric',
+	                timeZoneName: 'short'
+	            }
+	        }
+	    }
+	});
+	
+	// Define internal private properties for dealing with locale data.
+	src$es5$$.defineProperty(MessageFormat, '__localeData__', {value: src$es5$$.objCreate(null)});
+	src$es5$$.defineProperty(MessageFormat, '__addLocaleData', {value: function (data) {
+	    if (!(data && data.locale)) {
+	        throw new Error(
+	            'Locale data provided to IntlMessageFormat is missing a ' +
+	            '`locale` property'
+	        );
+	    }
+	
+	    MessageFormat.__localeData__[data.locale.toLowerCase()] = data;
+	}});
+	
+	// Defines `__parse()` static method as an exposed private.
+	src$es5$$.defineProperty(MessageFormat, '__parse', {value: intl$messageformat$parser$$["default"].parse});
+	
+	// Define public `defaultLocale` property which defaults to English, but can be
+	// set by the developer.
+	src$es5$$.defineProperty(MessageFormat, 'defaultLocale', {
+	    enumerable: true,
+	    writable  : true,
+	    value     : undefined
+	});
+	
+	MessageFormat.prototype.resolvedOptions = function () {
+	    // TODO: Provide anything else?
+	    return {
+	        locale: this._locale
+	    };
+	};
+	
+	MessageFormat.prototype._compilePattern = function (ast, locales, formats, pluralFn) {
+	    var compiler = new src$compiler$$["default"](locales, formats, pluralFn);
+	    return compiler.compile(ast);
+	};
+	
+	MessageFormat.prototype._findPluralRuleFunction = function (locale) {
+	    var localeData = MessageFormat.__localeData__;
+	    var data       = localeData[locale.toLowerCase()];
+	
+	    // The locale data is de-duplicated, so we have to traverse the locale's
+	    // hierarchy until we find a `pluralRuleFunction` to return.
+	    while (data) {
+	        if (data.pluralRuleFunction) {
+	            return data.pluralRuleFunction;
+	        }
+	
+	        data = data.parentLocale && localeData[data.parentLocale.toLowerCase()];
+	    }
+	
+	    throw new Error(
+	        'Locale data added to IntlMessageFormat is missing a ' +
+	        '`pluralRuleFunction` for :' + locale
+	    );
+	};
+	
+	MessageFormat.prototype._format = function (pattern, values) {
+	    var result = '',
+	        i, len, part, id, value;
+	
+	    for (i = 0, len = pattern.length; i < len; i += 1) {
+	        part = pattern[i];
+	
+	        // Exist early for string parts.
+	        if (typeof part === 'string') {
+	            result += part;
+	            continue;
+	        }
+	
+	        id = part.id;
+	
+	        // Enforce that all required values are provided by the caller.
+	        if (!(values && src$utils$$.hop.call(values, id))) {
+	            throw new Error('A value must be provided for: ' + id);
+	        }
+	
+	        value = values[id];
+	
+	        // Recursively format plural and select parts' option — which can be a
+	        // nested pattern structure. The choosing of the option to use is
+	        // abstracted-by and delegated-to the part helper object.
+	        if (part.options) {
+	            result += this._format(part.getOption(value), values);
+	        } else {
+	            result += part.format(value);
+	        }
+	    }
+	
+	    return result;
+	};
+	
+	MessageFormat.prototype._mergeFormats = function (defaults, formats) {
+	    var mergedFormats = {},
+	        type, mergedType;
+	
+	    for (type in defaults) {
+	        if (!src$utils$$.hop.call(defaults, type)) { continue; }
+	
+	        mergedFormats[type] = mergedType = src$es5$$.objCreate(defaults[type]);
+	
+	        if (formats && src$utils$$.hop.call(formats, type)) {
+	            src$utils$$.extend(mergedType, formats[type]);
+	        }
+	    }
+	
+	    return mergedFormats;
+	};
+	
+	MessageFormat.prototype._resolveLocale = function (locales) {
+	    if (typeof locales === 'string') {
+	        locales = [locales];
+	    }
+	
+	    // Create a copy of the array so we can push on the default locale.
+	    locales = (locales || []).concat(MessageFormat.defaultLocale);
+	
+	    var localeData = MessageFormat.__localeData__;
+	    var i, len, localeParts, data;
+	
+	    // Using the set of locales + the default locale, we look for the first one
+	    // which that has been registered. When data does not exist for a locale, we
+	    // traverse its ancestors to find something that's been registered within
+	    // its hierarchy of locales. Since we lack the proper `parentLocale` data
+	    // here, we must take a naive approach to traversal.
+	    for (i = 0, len = locales.length; i < len; i += 1) {
+	        localeParts = locales[i].toLowerCase().split('-');
+	
+	        while (localeParts.length) {
+	            data = localeData[localeParts.join('-')];
+	            if (data) {
+	                // Return the normalized locale string; e.g., we return "en-US",
+	                // instead of "en-us".
+	                return data.locale;
+	            }
+	
+	            localeParts.pop();
+	        }
+	    }
+	
+	    var defaultLocale = locales.pop();
+	    throw new Error(
+	        'No locale data has been added to IntlMessageFormat for: ' +
+	        locales.join(', ') + ', or the default locale: ' + defaultLocale
+	    );
+	};
+	
+	//# sourceMappingURL=core.js.map
+
+/***/ },
+/* 274 */
 /***/ function(module, exports) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	exports.extend = extend;
+	var hop = Object.prototype.hasOwnProperty;
+	
+	function extend(obj) {
+	    var sources = Array.prototype.slice.call(arguments, 1),
+	        i, len, source, key;
+	
+	    for (i = 0, len = sources.length; i < len; i += 1) {
+	        source = sources[i];
+	        if (!source) { continue; }
+	
+	        for (key in source) {
+	            if (hop.call(source, key)) {
+	                obj[key] = source[key];
+	            }
+	        }
+	    }
+	
+	    return obj;
+	}
+	exports.hop = hop;
+	
+	//# sourceMappingURL=utils.js.map
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	var src$utils$$ = __webpack_require__(274);
+	
+	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
+	// Copyright 2013 Andy Earnshaw, MIT License
+	
+	var realDefineProp = (function () {
+	    try { return !!Object.defineProperty({}, 'a', {}); }
+	    catch (e) { return false; }
+	})();
+	
+	var es3 = !realDefineProp && !Object.prototype.__defineGetter__;
+	
+	var defineProperty = realDefineProp ? Object.defineProperty :
+	        function (obj, name, desc) {
+	
+	    if ('get' in desc && obj.__defineGetter__) {
+	        obj.__defineGetter__(name, desc.get);
+	    } else if (!src$utils$$.hop.call(obj, name) || 'value' in desc) {
+	        obj[name] = desc.value;
+	    }
+	};
+	
+	var objCreate = Object.create || function (proto, props) {
+	    var obj, k;
+	
+	    function F() {}
+	    F.prototype = proto;
+	    obj = new F();
+	
+	    for (k in props) {
+	        if (src$utils$$.hop.call(props, k)) {
+	            defineProperty(obj, k, props[k]);
+	        }
+	    }
+	
+	    return obj;
+	};
+	exports.defineProperty = defineProperty, exports.objCreate = objCreate;
+	
+	//# sourceMappingURL=es5.js.map
+
+/***/ },
+/* 276 */
+/***/ function(module, exports) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	exports["default"] = Compiler;
+	
+	function Compiler(locales, formats, pluralFn) {
+	    this.locales  = locales;
+	    this.formats  = formats;
+	    this.pluralFn = pluralFn;
+	}
+	
+	Compiler.prototype.compile = function (ast) {
+	    this.pluralStack        = [];
+	    this.currentPlural      = null;
+	    this.pluralNumberFormat = null;
+	
+	    return this.compileMessage(ast);
+	};
+	
+	Compiler.prototype.compileMessage = function (ast) {
+	    if (!(ast && ast.type === 'messageFormatPattern')) {
+	        throw new Error('Message AST is not of type: "messageFormatPattern"');
+	    }
+	
+	    var elements = ast.elements,
+	        pattern  = [];
+	
+	    var i, len, element;
+	
+	    for (i = 0, len = elements.length; i < len; i += 1) {
+	        element = elements[i];
+	
+	        switch (element.type) {
+	            case 'messageTextElement':
+	                pattern.push(this.compileMessageText(element));
+	                break;
+	
+	            case 'argumentElement':
+	                pattern.push(this.compileArgument(element));
+	                break;
+	
+	            default:
+	                throw new Error('Message element does not have a valid type');
+	        }
+	    }
+	
+	    return pattern;
+	};
+	
+	Compiler.prototype.compileMessageText = function (element) {
+	    // When this `element` is part of plural sub-pattern and its value contains
+	    // an unescaped '#', use a `PluralOffsetString` helper to properly output
+	    // the number with the correct offset in the string.
+	    if (this.currentPlural && /(^|[^\\])#/g.test(element.value)) {
+	        // Create a cache a NumberFormat instance that can be reused for any
+	        // PluralOffsetString instance in this message.
+	        if (!this.pluralNumberFormat) {
+	            this.pluralNumberFormat = new Intl.NumberFormat(this.locales);
+	        }
+	
+	        return new PluralOffsetString(
+	                this.currentPlural.id,
+	                this.currentPlural.format.offset,
+	                this.pluralNumberFormat,
+	                element.value);
+	    }
+	
+	    // Unescape the escaped '#'s in the message text.
+	    return element.value.replace(/\\#/g, '#');
+	};
+	
+	Compiler.prototype.compileArgument = function (element) {
+	    var format = element.format;
+	
+	    if (!format) {
+	        return new StringFormat(element.id);
+	    }
+	
+	    var formats  = this.formats,
+	        locales  = this.locales,
+	        pluralFn = this.pluralFn,
+	        options;
+	
+	    switch (format.type) {
+	        case 'numberFormat':
+	            options = formats.number[format.style];
+	            return {
+	                id    : element.id,
+	                format: new Intl.NumberFormat(locales, options).format
+	            };
+	
+	        case 'dateFormat':
+	            options = formats.date[format.style];
+	            return {
+	                id    : element.id,
+	                format: new Intl.DateTimeFormat(locales, options).format
+	            };
+	
+	        case 'timeFormat':
+	            options = formats.time[format.style];
+	            return {
+	                id    : element.id,
+	                format: new Intl.DateTimeFormat(locales, options).format
+	            };
+	
+	        case 'pluralFormat':
+	            options = this.compileOptions(element);
+	            return new PluralFormat(
+	                element.id, format.ordinal, format.offset, options, pluralFn
+	            );
+	
+	        case 'selectFormat':
+	            options = this.compileOptions(element);
+	            return new SelectFormat(element.id, options);
+	
+	        default:
+	            throw new Error('Message element does not have a valid format type');
+	    }
+	};
+	
+	Compiler.prototype.compileOptions = function (element) {
+	    var format      = element.format,
+	        options     = format.options,
+	        optionsHash = {};
+	
+	    // Save the current plural element, if any, then set it to a new value when
+	    // compiling the options sub-patterns. This conforms the spec's algorithm
+	    // for handling `"#"` syntax in message text.
+	    this.pluralStack.push(this.currentPlural);
+	    this.currentPlural = format.type === 'pluralFormat' ? element : null;
+	
+	    var i, len, option;
+	
+	    for (i = 0, len = options.length; i < len; i += 1) {
+	        option = options[i];
+	
+	        // Compile the sub-pattern and save it under the options's selector.
+	        optionsHash[option.selector] = this.compileMessage(option.value);
+	    }
+	
+	    // Pop the plural stack to put back the original current plural value.
+	    this.currentPlural = this.pluralStack.pop();
+	
+	    return optionsHash;
+	};
+	
+	// -- Compiler Helper Classes --------------------------------------------------
+	
+	function StringFormat(id) {
+	    this.id = id;
+	}
+	
+	StringFormat.prototype.format = function (value) {
+	    if (!value) {
+	        return '';
+	    }
+	
+	    return typeof value === 'string' ? value : String(value);
+	};
+	
+	function PluralFormat(id, useOrdinal, offset, options, pluralFn) {
+	    this.id         = id;
+	    this.useOrdinal = useOrdinal;
+	    this.offset     = offset;
+	    this.options    = options;
+	    this.pluralFn   = pluralFn;
+	}
+	
+	PluralFormat.prototype.getOption = function (value) {
+	    var options = this.options;
+	
+	    var option = options['=' + value] ||
+	            options[this.pluralFn(value - this.offset, this.useOrdinal)];
+	
+	    return option || options.other;
+	};
+	
+	function PluralOffsetString(id, offset, numberFormat, string) {
+	    this.id           = id;
+	    this.offset       = offset;
+	    this.numberFormat = numberFormat;
+	    this.string       = string;
+	}
+	
+	PluralOffsetString.prototype.format = function (value) {
+	    var number = this.numberFormat.format(value - this.offset);
+	
+	    return this.string
+	            .replace(/(^|[^\\])#/g, '$1' + number)
+	            .replace(/\\#/g, '#');
+	};
+	
+	function SelectFormat(id, options) {
+	    this.id      = id;
+	    this.options = options;
+	}
+	
+	SelectFormat.prototype.getOption = function (value) {
+	    var options = this.options;
+	    return options[value] || options.other;
+	};
+	
+	//# sourceMappingURL=compiler.js.map
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	function ToObject(val) {
-		if (val == null) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
-	
-		return Object(val);
-	}
-	
-	module.exports = Object.assign || function (target, source) {
-		var from;
-		var keys;
-		var to = ToObject(target);
-	
-		for (var s = 1; s < arguments.length; s++) {
-			from = arguments[s];
-			keys = Object.keys(Object(from));
-	
-			for (var i = 0; i < keys.length; i++) {
-				to[keys[i]] = from[keys[i]];
-			}
-		}
-	
-		return to;
-	};
+	exports = module.exports = __webpack_require__(278)['default'];
+	exports['default'] = exports;
 
 
 /***/ },
-/* 182 */
+/* 278 */
 /***/ function(module, exports) {
 
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+	"use strict";
 	
-	function EventEmitter() {
-	  this._events = this._events || {};
-	  this._maxListeners = this._maxListeners || undefined;
-	}
-	module.exports = EventEmitter;
+	exports["default"] = (function() {
+	  /*
+	   * Generated by PEG.js 0.8.0.
+	   *
+	   * http://pegjs.majda.cz/
+	   */
 	
-	// Backwards-compat with node 0.10.x
-	EventEmitter.EventEmitter = EventEmitter;
+	  function peg$subclass(child, parent) {
+	    function ctor() { this.constructor = child; }
+	    ctor.prototype = parent.prototype;
+	    child.prototype = new ctor();
+	  }
 	
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
+	  function SyntaxError(message, expected, found, offset, line, column) {
+	    this.message  = message;
+	    this.expected = expected;
+	    this.found    = found;
+	    this.offset   = offset;
+	    this.line     = line;
+	    this.column   = column;
 	
-	// By default EventEmitters will print a warning if more than 10 listeners are
-	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
+	    this.name     = "SyntaxError";
+	  }
 	
-	// Obviously not all Emitters should be limited to 10. This function allows
-	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function(n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n))
-	    throw TypeError('n must be a positive number');
-	  this._maxListeners = n;
-	  return this;
-	};
+	  peg$subclass(SyntaxError, Error);
 	
-	EventEmitter.prototype.emit = function(type) {
-	  var er, handler, len, args, i, listeners;
+	  function parse(input) {
+	    var options = arguments.length > 1 ? arguments[1] : {},
 	
-	  if (!this._events)
-	    this._events = {};
+	        peg$FAILED = {},
 	
-	  // If there is no 'error' event listener then throw.
-	  if (type === 'error') {
-	    if (!this._events.error ||
-	        (isObject(this._events.error) && !this._events.error.length)) {
-	      er = arguments[1];
-	      if (er instanceof Error) {
-	        throw er; // Unhandled 'error' event
+	        peg$startRuleFunctions = { start: peg$parsestart },
+	        peg$startRuleFunction  = peg$parsestart,
+	
+	        peg$c0 = [],
+	        peg$c1 = function(elements) {
+	                return {
+	                    type    : 'messageFormatPattern',
+	                    elements: elements
+	                };
+	            },
+	        peg$c2 = peg$FAILED,
+	        peg$c3 = function(text) {
+	                var string = '',
+	                    i, j, outerLen, inner, innerLen;
+	
+	                for (i = 0, outerLen = text.length; i < outerLen; i += 1) {
+	                    inner = text[i];
+	
+	                    for (j = 0, innerLen = inner.length; j < innerLen; j += 1) {
+	                        string += inner[j];
+	                    }
+	                }
+	
+	                return string;
+	            },
+	        peg$c4 = function(messageText) {
+	                return {
+	                    type : 'messageTextElement',
+	                    value: messageText
+	                };
+	            },
+	        peg$c5 = /^[^ \t\n\r,.+={}#]/,
+	        peg$c6 = { type: "class", value: "[^ \\t\\n\\r,.+={}#]", description: "[^ \\t\\n\\r,.+={}#]" },
+	        peg$c7 = "{",
+	        peg$c8 = { type: "literal", value: "{", description: "\"{\"" },
+	        peg$c9 = null,
+	        peg$c10 = ",",
+	        peg$c11 = { type: "literal", value: ",", description: "\",\"" },
+	        peg$c12 = "}",
+	        peg$c13 = { type: "literal", value: "}", description: "\"}\"" },
+	        peg$c14 = function(id, format) {
+	                return {
+	                    type  : 'argumentElement',
+	                    id    : id,
+	                    format: format && format[2]
+	                };
+	            },
+	        peg$c15 = "number",
+	        peg$c16 = { type: "literal", value: "number", description: "\"number\"" },
+	        peg$c17 = "date",
+	        peg$c18 = { type: "literal", value: "date", description: "\"date\"" },
+	        peg$c19 = "time",
+	        peg$c20 = { type: "literal", value: "time", description: "\"time\"" },
+	        peg$c21 = function(type, style) {
+	                return {
+	                    type : type + 'Format',
+	                    style: style && style[2]
+	                };
+	            },
+	        peg$c22 = "plural",
+	        peg$c23 = { type: "literal", value: "plural", description: "\"plural\"" },
+	        peg$c24 = function(pluralStyle) {
+	                return {
+	                    type   : pluralStyle.type,
+	                    ordinal: false,
+	                    offset : pluralStyle.offset || 0,
+	                    options: pluralStyle.options
+	                };
+	            },
+	        peg$c25 = "selectordinal",
+	        peg$c26 = { type: "literal", value: "selectordinal", description: "\"selectordinal\"" },
+	        peg$c27 = function(pluralStyle) {
+	                return {
+	                    type   : pluralStyle.type,
+	                    ordinal: true,
+	                    offset : pluralStyle.offset || 0,
+	                    options: pluralStyle.options
+	                }
+	            },
+	        peg$c28 = "select",
+	        peg$c29 = { type: "literal", value: "select", description: "\"select\"" },
+	        peg$c30 = function(options) {
+	                return {
+	                    type   : 'selectFormat',
+	                    options: options
+	                };
+	            },
+	        peg$c31 = "=",
+	        peg$c32 = { type: "literal", value: "=", description: "\"=\"" },
+	        peg$c33 = function(selector, pattern) {
+	                return {
+	                    type    : 'optionalFormatPattern',
+	                    selector: selector,
+	                    value   : pattern
+	                };
+	            },
+	        peg$c34 = "offset:",
+	        peg$c35 = { type: "literal", value: "offset:", description: "\"offset:\"" },
+	        peg$c36 = function(number) {
+	                return number;
+	            },
+	        peg$c37 = function(offset, options) {
+	                return {
+	                    type   : 'pluralFormat',
+	                    offset : offset,
+	                    options: options
+	                };
+	            },
+	        peg$c38 = { type: "other", description: "whitespace" },
+	        peg$c39 = /^[ \t\n\r]/,
+	        peg$c40 = { type: "class", value: "[ \\t\\n\\r]", description: "[ \\t\\n\\r]" },
+	        peg$c41 = { type: "other", description: "optionalWhitespace" },
+	        peg$c42 = /^[0-9]/,
+	        peg$c43 = { type: "class", value: "[0-9]", description: "[0-9]" },
+	        peg$c44 = /^[0-9a-f]/i,
+	        peg$c45 = { type: "class", value: "[0-9a-f]i", description: "[0-9a-f]i" },
+	        peg$c46 = "0",
+	        peg$c47 = { type: "literal", value: "0", description: "\"0\"" },
+	        peg$c48 = /^[1-9]/,
+	        peg$c49 = { type: "class", value: "[1-9]", description: "[1-9]" },
+	        peg$c50 = function(digits) {
+	            return parseInt(digits, 10);
+	        },
+	        peg$c51 = /^[^{}\\\0-\x1F \t\n\r]/,
+	        peg$c52 = { type: "class", value: "[^{}\\\\\\0-\\x1F \\t\\n\\r]", description: "[^{}\\\\\\0-\\x1F \\t\\n\\r]" },
+	        peg$c53 = "\\\\",
+	        peg$c54 = { type: "literal", value: "\\\\", description: "\"\\\\\\\\\"" },
+	        peg$c55 = function() { return '\\'; },
+	        peg$c56 = "\\#",
+	        peg$c57 = { type: "literal", value: "\\#", description: "\"\\\\#\"" },
+	        peg$c58 = function() { return '\\#'; },
+	        peg$c59 = "\\{",
+	        peg$c60 = { type: "literal", value: "\\{", description: "\"\\\\{\"" },
+	        peg$c61 = function() { return '\u007B'; },
+	        peg$c62 = "\\}",
+	        peg$c63 = { type: "literal", value: "\\}", description: "\"\\\\}\"" },
+	        peg$c64 = function() { return '\u007D'; },
+	        peg$c65 = "\\u",
+	        peg$c66 = { type: "literal", value: "\\u", description: "\"\\\\u\"" },
+	        peg$c67 = function(digits) {
+	                return String.fromCharCode(parseInt(digits, 16));
+	            },
+	        peg$c68 = function(chars) { return chars.join(''); },
+	
+	        peg$currPos          = 0,
+	        peg$reportedPos      = 0,
+	        peg$cachedPos        = 0,
+	        peg$cachedPosDetails = { line: 1, column: 1, seenCR: false },
+	        peg$maxFailPos       = 0,
+	        peg$maxFailExpected  = [],
+	        peg$silentFails      = 0,
+	
+	        peg$result;
+	
+	    if ("startRule" in options) {
+	      if (!(options.startRule in peg$startRuleFunctions)) {
+	        throw new Error("Can't start parsing from rule \"" + options.startRule + "\".");
 	      }
-	      throw TypeError('Uncaught, unspecified "error" event.');
+	
+	      peg$startRuleFunction = peg$startRuleFunctions[options.startRule];
 	    }
-	  }
 	
-	  handler = this._events[type];
-	
-	  if (isUndefined(handler))
-	    return false;
-	
-	  if (isFunction(handler)) {
-	    switch (arguments.length) {
-	      // fast cases
-	      case 1:
-	        handler.call(this);
-	        break;
-	      case 2:
-	        handler.call(this, arguments[1]);
-	        break;
-	      case 3:
-	        handler.call(this, arguments[1], arguments[2]);
-	        break;
-	      // slower
-	      default:
-	        args = Array.prototype.slice.call(arguments, 1);
-	        handler.apply(this, args);
+	    function text() {
+	      return input.substring(peg$reportedPos, peg$currPos);
 	    }
-	  } else if (isObject(handler)) {
-	    args = Array.prototype.slice.call(arguments, 1);
-	    listeners = handler.slice();
-	    len = listeners.length;
-	    for (i = 0; i < len; i++)
-	      listeners[i].apply(this, args);
-	  }
 	
-	  return true;
-	};
+	    function offset() {
+	      return peg$reportedPos;
+	    }
 	
-	EventEmitter.prototype.addListener = function(type, listener) {
-	  var m;
+	    function line() {
+	      return peg$computePosDetails(peg$reportedPos).line;
+	    }
 	
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
+	    function column() {
+	      return peg$computePosDetails(peg$reportedPos).column;
+	    }
 	
-	  if (!this._events)
-	    this._events = {};
+	    function expected(description) {
+	      throw peg$buildException(
+	        null,
+	        [{ type: "other", description: description }],
+	        peg$reportedPos
+	      );
+	    }
 	
-	  // To avoid recursion in the case that type === "newListener"! Before
-	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener)
-	    this.emit('newListener', type,
-	              isFunction(listener.listener) ?
-	              listener.listener : listener);
+	    function error(message) {
+	      throw peg$buildException(message, null, peg$reportedPos);
+	    }
 	
-	  if (!this._events[type])
-	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;
-	  else if (isObject(this._events[type]))
-	    // If we've already got an array, just append.
-	    this._events[type].push(listener);
-	  else
-	    // Adding the second element, need to change to array.
-	    this._events[type] = [this._events[type], listener];
+	    function peg$computePosDetails(pos) {
+	      function advance(details, startPos, endPos) {
+	        var p, ch;
 	
-	  // Check for listener leak
-	  if (isObject(this._events[type]) && !this._events[type].warned) {
-	    if (!isUndefined(this._maxListeners)) {
-	      m = this._maxListeners;
+	        for (p = startPos; p < endPos; p++) {
+	          ch = input.charAt(p);
+	          if (ch === "\n") {
+	            if (!details.seenCR) { details.line++; }
+	            details.column = 1;
+	            details.seenCR = false;
+	          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
+	            details.line++;
+	            details.column = 1;
+	            details.seenCR = true;
+	          } else {
+	            details.column++;
+	            details.seenCR = false;
+	          }
+	        }
+	      }
+	
+	      if (peg$cachedPos !== pos) {
+	        if (peg$cachedPos > pos) {
+	          peg$cachedPos = 0;
+	          peg$cachedPosDetails = { line: 1, column: 1, seenCR: false };
+	        }
+	        advance(peg$cachedPosDetails, peg$cachedPos, pos);
+	        peg$cachedPos = pos;
+	      }
+	
+	      return peg$cachedPosDetails;
+	    }
+	
+	    function peg$fail(expected) {
+	      if (peg$currPos < peg$maxFailPos) { return; }
+	
+	      if (peg$currPos > peg$maxFailPos) {
+	        peg$maxFailPos = peg$currPos;
+	        peg$maxFailExpected = [];
+	      }
+	
+	      peg$maxFailExpected.push(expected);
+	    }
+	
+	    function peg$buildException(message, expected, pos) {
+	      function cleanupExpected(expected) {
+	        var i = 1;
+	
+	        expected.sort(function(a, b) {
+	          if (a.description < b.description) {
+	            return -1;
+	          } else if (a.description > b.description) {
+	            return 1;
+	          } else {
+	            return 0;
+	          }
+	        });
+	
+	        while (i < expected.length) {
+	          if (expected[i - 1] === expected[i]) {
+	            expected.splice(i, 1);
+	          } else {
+	            i++;
+	          }
+	        }
+	      }
+	
+	      function buildMessage(expected, found) {
+	        function stringEscape(s) {
+	          function hex(ch) { return ch.charCodeAt(0).toString(16).toUpperCase(); }
+	
+	          return s
+	            .replace(/\\/g,   '\\\\')
+	            .replace(/"/g,    '\\"')
+	            .replace(/\x08/g, '\\b')
+	            .replace(/\t/g,   '\\t')
+	            .replace(/\n/g,   '\\n')
+	            .replace(/\f/g,   '\\f')
+	            .replace(/\r/g,   '\\r')
+	            .replace(/[\x00-\x07\x0B\x0E\x0F]/g, function(ch) { return '\\x0' + hex(ch); })
+	            .replace(/[\x10-\x1F\x80-\xFF]/g,    function(ch) { return '\\x'  + hex(ch); })
+	            .replace(/[\u0180-\u0FFF]/g,         function(ch) { return '\\u0' + hex(ch); })
+	            .replace(/[\u1080-\uFFFF]/g,         function(ch) { return '\\u'  + hex(ch); });
+	        }
+	
+	        var expectedDescs = new Array(expected.length),
+	            expectedDesc, foundDesc, i;
+	
+	        for (i = 0; i < expected.length; i++) {
+	          expectedDescs[i] = expected[i].description;
+	        }
+	
+	        expectedDesc = expected.length > 1
+	          ? expectedDescs.slice(0, -1).join(", ")
+	              + " or "
+	              + expectedDescs[expected.length - 1]
+	          : expectedDescs[0];
+	
+	        foundDesc = found ? "\"" + stringEscape(found) + "\"" : "end of input";
+	
+	        return "Expected " + expectedDesc + " but " + foundDesc + " found.";
+	      }
+	
+	      var posDetails = peg$computePosDetails(pos),
+	          found      = pos < input.length ? input.charAt(pos) : null;
+	
+	      if (expected !== null) {
+	        cleanupExpected(expected);
+	      }
+	
+	      return new SyntaxError(
+	        message !== null ? message : buildMessage(expected, found),
+	        expected,
+	        found,
+	        pos,
+	        posDetails.line,
+	        posDetails.column
+	      );
+	    }
+	
+	    function peg$parsestart() {
+	      var s0;
+	
+	      s0 = peg$parsemessageFormatPattern();
+	
+	      return s0;
+	    }
+	
+	    function peg$parsemessageFormatPattern() {
+	      var s0, s1, s2;
+	
+	      s0 = peg$currPos;
+	      s1 = [];
+	      s2 = peg$parsemessageFormatElement();
+	      while (s2 !== peg$FAILED) {
+	        s1.push(s2);
+	        s2 = peg$parsemessageFormatElement();
+	      }
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c1(s1);
+	      }
+	      s0 = s1;
+	
+	      return s0;
+	    }
+	
+	    function peg$parsemessageFormatElement() {
+	      var s0;
+	
+	      s0 = peg$parsemessageTextElement();
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$parseargumentElement();
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsemessageText() {
+	      var s0, s1, s2, s3, s4, s5;
+	
+	      s0 = peg$currPos;
+	      s1 = [];
+	      s2 = peg$currPos;
+	      s3 = peg$parse_();
+	      if (s3 !== peg$FAILED) {
+	        s4 = peg$parsechars();
+	        if (s4 !== peg$FAILED) {
+	          s5 = peg$parse_();
+	          if (s5 !== peg$FAILED) {
+	            s3 = [s3, s4, s5];
+	            s2 = s3;
+	          } else {
+	            peg$currPos = s2;
+	            s2 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s2;
+	          s2 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s2;
+	        s2 = peg$c2;
+	      }
+	      if (s2 !== peg$FAILED) {
+	        while (s2 !== peg$FAILED) {
+	          s1.push(s2);
+	          s2 = peg$currPos;
+	          s3 = peg$parse_();
+	          if (s3 !== peg$FAILED) {
+	            s4 = peg$parsechars();
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$parse_();
+	              if (s5 !== peg$FAILED) {
+	                s3 = [s3, s4, s5];
+	                s2 = s3;
+	              } else {
+	                peg$currPos = s2;
+	                s2 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s2;
+	              s2 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s2;
+	            s2 = peg$c2;
+	          }
+	        }
+	      } else {
+	        s1 = peg$c2;
+	      }
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c3(s1);
+	      }
+	      s0 = s1;
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$currPos;
+	        s1 = peg$parsews();
+	        if (s1 !== peg$FAILED) {
+	          s1 = input.substring(s0, peg$currPos);
+	        }
+	        s0 = s1;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsemessageTextElement() {
+	      var s0, s1;
+	
+	      s0 = peg$currPos;
+	      s1 = peg$parsemessageText();
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c4(s1);
+	      }
+	      s0 = s1;
+	
+	      return s0;
+	    }
+	
+	    function peg$parseargument() {
+	      var s0, s1, s2;
+	
+	      s0 = peg$parsenumber();
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$currPos;
+	        s1 = [];
+	        if (peg$c5.test(input.charAt(peg$currPos))) {
+	          s2 = input.charAt(peg$currPos);
+	          peg$currPos++;
+	        } else {
+	          s2 = peg$FAILED;
+	          if (peg$silentFails === 0) { peg$fail(peg$c6); }
+	        }
+	        if (s2 !== peg$FAILED) {
+	          while (s2 !== peg$FAILED) {
+	            s1.push(s2);
+	            if (peg$c5.test(input.charAt(peg$currPos))) {
+	              s2 = input.charAt(peg$currPos);
+	              peg$currPos++;
+	            } else {
+	              s2 = peg$FAILED;
+	              if (peg$silentFails === 0) { peg$fail(peg$c6); }
+	            }
+	          }
+	        } else {
+	          s1 = peg$c2;
+	        }
+	        if (s1 !== peg$FAILED) {
+	          s1 = input.substring(s0, peg$currPos);
+	        }
+	        s0 = s1;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseargumentElement() {
+	      var s0, s1, s2, s3, s4, s5, s6, s7, s8;
+	
+	      s0 = peg$currPos;
+	      if (input.charCodeAt(peg$currPos) === 123) {
+	        s1 = peg$c7;
+	        peg$currPos++;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c8); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          s3 = peg$parseargument();
+	          if (s3 !== peg$FAILED) {
+	            s4 = peg$parse_();
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$currPos;
+	              if (input.charCodeAt(peg$currPos) === 44) {
+	                s6 = peg$c10;
+	                peg$currPos++;
+	              } else {
+	                s6 = peg$FAILED;
+	                if (peg$silentFails === 0) { peg$fail(peg$c11); }
+	              }
+	              if (s6 !== peg$FAILED) {
+	                s7 = peg$parse_();
+	                if (s7 !== peg$FAILED) {
+	                  s8 = peg$parseelementFormat();
+	                  if (s8 !== peg$FAILED) {
+	                    s6 = [s6, s7, s8];
+	                    s5 = s6;
+	                  } else {
+	                    peg$currPos = s5;
+	                    s5 = peg$c2;
+	                  }
+	                } else {
+	                  peg$currPos = s5;
+	                  s5 = peg$c2;
+	                }
+	              } else {
+	                peg$currPos = s5;
+	                s5 = peg$c2;
+	              }
+	              if (s5 === peg$FAILED) {
+	                s5 = peg$c9;
+	              }
+	              if (s5 !== peg$FAILED) {
+	                s6 = peg$parse_();
+	                if (s6 !== peg$FAILED) {
+	                  if (input.charCodeAt(peg$currPos) === 125) {
+	                    s7 = peg$c12;
+	                    peg$currPos++;
+	                  } else {
+	                    s7 = peg$FAILED;
+	                    if (peg$silentFails === 0) { peg$fail(peg$c13); }
+	                  }
+	                  if (s7 !== peg$FAILED) {
+	                    peg$reportedPos = s0;
+	                    s1 = peg$c14(s3, s5);
+	                    s0 = s1;
+	                  } else {
+	                    peg$currPos = s0;
+	                    s0 = peg$c2;
+	                  }
+	                } else {
+	                  peg$currPos = s0;
+	                  s0 = peg$c2;
+	                }
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseelementFormat() {
+	      var s0;
+	
+	      s0 = peg$parsesimpleFormat();
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$parsepluralFormat();
+	        if (s0 === peg$FAILED) {
+	          s0 = peg$parseselectOrdinalFormat();
+	          if (s0 === peg$FAILED) {
+	            s0 = peg$parseselectFormat();
+	          }
+	        }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsesimpleFormat() {
+	      var s0, s1, s2, s3, s4, s5, s6;
+	
+	      s0 = peg$currPos;
+	      if (input.substr(peg$currPos, 6) === peg$c15) {
+	        s1 = peg$c15;
+	        peg$currPos += 6;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c16); }
+	      }
+	      if (s1 === peg$FAILED) {
+	        if (input.substr(peg$currPos, 4) === peg$c17) {
+	          s1 = peg$c17;
+	          peg$currPos += 4;
+	        } else {
+	          s1 = peg$FAILED;
+	          if (peg$silentFails === 0) { peg$fail(peg$c18); }
+	        }
+	        if (s1 === peg$FAILED) {
+	          if (input.substr(peg$currPos, 4) === peg$c19) {
+	            s1 = peg$c19;
+	            peg$currPos += 4;
+	          } else {
+	            s1 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c20); }
+	          }
+	        }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          s3 = peg$currPos;
+	          if (input.charCodeAt(peg$currPos) === 44) {
+	            s4 = peg$c10;
+	            peg$currPos++;
+	          } else {
+	            s4 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+	          }
+	          if (s4 !== peg$FAILED) {
+	            s5 = peg$parse_();
+	            if (s5 !== peg$FAILED) {
+	              s6 = peg$parsechars();
+	              if (s6 !== peg$FAILED) {
+	                s4 = [s4, s5, s6];
+	                s3 = s4;
+	              } else {
+	                peg$currPos = s3;
+	                s3 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s3;
+	              s3 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s3;
+	            s3 = peg$c2;
+	          }
+	          if (s3 === peg$FAILED) {
+	            s3 = peg$c9;
+	          }
+	          if (s3 !== peg$FAILED) {
+	            peg$reportedPos = s0;
+	            s1 = peg$c21(s1, s3);
+	            s0 = s1;
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsepluralFormat() {
+	      var s0, s1, s2, s3, s4, s5;
+	
+	      s0 = peg$currPos;
+	      if (input.substr(peg$currPos, 6) === peg$c22) {
+	        s1 = peg$c22;
+	        peg$currPos += 6;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c23); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          if (input.charCodeAt(peg$currPos) === 44) {
+	            s3 = peg$c10;
+	            peg$currPos++;
+	          } else {
+	            s3 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+	          }
+	          if (s3 !== peg$FAILED) {
+	            s4 = peg$parse_();
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$parsepluralStyle();
+	              if (s5 !== peg$FAILED) {
+	                peg$reportedPos = s0;
+	                s1 = peg$c24(s5);
+	                s0 = s1;
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseselectOrdinalFormat() {
+	      var s0, s1, s2, s3, s4, s5;
+	
+	      s0 = peg$currPos;
+	      if (input.substr(peg$currPos, 13) === peg$c25) {
+	        s1 = peg$c25;
+	        peg$currPos += 13;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c26); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          if (input.charCodeAt(peg$currPos) === 44) {
+	            s3 = peg$c10;
+	            peg$currPos++;
+	          } else {
+	            s3 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+	          }
+	          if (s3 !== peg$FAILED) {
+	            s4 = peg$parse_();
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$parsepluralStyle();
+	              if (s5 !== peg$FAILED) {
+	                peg$reportedPos = s0;
+	                s1 = peg$c27(s5);
+	                s0 = s1;
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseselectFormat() {
+	      var s0, s1, s2, s3, s4, s5, s6;
+	
+	      s0 = peg$currPos;
+	      if (input.substr(peg$currPos, 6) === peg$c28) {
+	        s1 = peg$c28;
+	        peg$currPos += 6;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c29); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          if (input.charCodeAt(peg$currPos) === 44) {
+	            s3 = peg$c10;
+	            peg$currPos++;
+	          } else {
+	            s3 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c11); }
+	          }
+	          if (s3 !== peg$FAILED) {
+	            s4 = peg$parse_();
+	            if (s4 !== peg$FAILED) {
+	              s5 = [];
+	              s6 = peg$parseoptionalFormatPattern();
+	              if (s6 !== peg$FAILED) {
+	                while (s6 !== peg$FAILED) {
+	                  s5.push(s6);
+	                  s6 = peg$parseoptionalFormatPattern();
+	                }
+	              } else {
+	                s5 = peg$c2;
+	              }
+	              if (s5 !== peg$FAILED) {
+	                peg$reportedPos = s0;
+	                s1 = peg$c30(s5);
+	                s0 = s1;
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseselector() {
+	      var s0, s1, s2, s3;
+	
+	      s0 = peg$currPos;
+	      s1 = peg$currPos;
+	      if (input.charCodeAt(peg$currPos) === 61) {
+	        s2 = peg$c31;
+	        peg$currPos++;
+	      } else {
+	        s2 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c32); }
+	      }
+	      if (s2 !== peg$FAILED) {
+	        s3 = peg$parsenumber();
+	        if (s3 !== peg$FAILED) {
+	          s2 = [s2, s3];
+	          s1 = s2;
+	        } else {
+	          peg$currPos = s1;
+	          s1 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s1;
+	        s1 = peg$c2;
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s1 = input.substring(s0, peg$currPos);
+	      }
+	      s0 = s1;
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$parsechars();
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseoptionalFormatPattern() {
+	      var s0, s1, s2, s3, s4, s5, s6, s7, s8;
+	
+	      s0 = peg$currPos;
+	      s1 = peg$parse_();
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parseselector();
+	        if (s2 !== peg$FAILED) {
+	          s3 = peg$parse_();
+	          if (s3 !== peg$FAILED) {
+	            if (input.charCodeAt(peg$currPos) === 123) {
+	              s4 = peg$c7;
+	              peg$currPos++;
+	            } else {
+	              s4 = peg$FAILED;
+	              if (peg$silentFails === 0) { peg$fail(peg$c8); }
+	            }
+	            if (s4 !== peg$FAILED) {
+	              s5 = peg$parse_();
+	              if (s5 !== peg$FAILED) {
+	                s6 = peg$parsemessageFormatPattern();
+	                if (s6 !== peg$FAILED) {
+	                  s7 = peg$parse_();
+	                  if (s7 !== peg$FAILED) {
+	                    if (input.charCodeAt(peg$currPos) === 125) {
+	                      s8 = peg$c12;
+	                      peg$currPos++;
+	                    } else {
+	                      s8 = peg$FAILED;
+	                      if (peg$silentFails === 0) { peg$fail(peg$c13); }
+	                    }
+	                    if (s8 !== peg$FAILED) {
+	                      peg$reportedPos = s0;
+	                      s1 = peg$c33(s2, s6);
+	                      s0 = s1;
+	                    } else {
+	                      peg$currPos = s0;
+	                      s0 = peg$c2;
+	                    }
+	                  } else {
+	                    peg$currPos = s0;
+	                    s0 = peg$c2;
+	                  }
+	                } else {
+	                  peg$currPos = s0;
+	                  s0 = peg$c2;
+	                }
+	              } else {
+	                peg$currPos = s0;
+	                s0 = peg$c2;
+	              }
+	            } else {
+	              peg$currPos = s0;
+	              s0 = peg$c2;
+	            }
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parseoffset() {
+	      var s0, s1, s2, s3;
+	
+	      s0 = peg$currPos;
+	      if (input.substr(peg$currPos, 7) === peg$c34) {
+	        s1 = peg$c34;
+	        peg$currPos += 7;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c35); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          s3 = peg$parsenumber();
+	          if (s3 !== peg$FAILED) {
+	            peg$reportedPos = s0;
+	            s1 = peg$c36(s3);
+	            s0 = s1;
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsepluralStyle() {
+	      var s0, s1, s2, s3, s4;
+	
+	      s0 = peg$currPos;
+	      s1 = peg$parseoffset();
+	      if (s1 === peg$FAILED) {
+	        s1 = peg$c9;
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s2 = peg$parse_();
+	        if (s2 !== peg$FAILED) {
+	          s3 = [];
+	          s4 = peg$parseoptionalFormatPattern();
+	          if (s4 !== peg$FAILED) {
+	            while (s4 !== peg$FAILED) {
+	              s3.push(s4);
+	              s4 = peg$parseoptionalFormatPattern();
+	            }
+	          } else {
+	            s3 = peg$c2;
+	          }
+	          if (s3 !== peg$FAILED) {
+	            peg$reportedPos = s0;
+	            s1 = peg$c37(s1, s3);
+	            s0 = s1;
+	          } else {
+	            peg$currPos = s0;
+	            s0 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s0;
+	          s0 = peg$c2;
+	        }
+	      } else {
+	        peg$currPos = s0;
+	        s0 = peg$c2;
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsews() {
+	      var s0, s1;
+	
+	      peg$silentFails++;
+	      s0 = [];
+	      if (peg$c39.test(input.charAt(peg$currPos))) {
+	        s1 = input.charAt(peg$currPos);
+	        peg$currPos++;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c40); }
+	      }
+	      if (s1 !== peg$FAILED) {
+	        while (s1 !== peg$FAILED) {
+	          s0.push(s1);
+	          if (peg$c39.test(input.charAt(peg$currPos))) {
+	            s1 = input.charAt(peg$currPos);
+	            peg$currPos++;
+	          } else {
+	            s1 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c40); }
+	          }
+	        }
+	      } else {
+	        s0 = peg$c2;
+	      }
+	      peg$silentFails--;
+	      if (s0 === peg$FAILED) {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c38); }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parse_() {
+	      var s0, s1, s2;
+	
+	      peg$silentFails++;
+	      s0 = peg$currPos;
+	      s1 = [];
+	      s2 = peg$parsews();
+	      while (s2 !== peg$FAILED) {
+	        s1.push(s2);
+	        s2 = peg$parsews();
+	      }
+	      if (s1 !== peg$FAILED) {
+	        s1 = input.substring(s0, peg$currPos);
+	      }
+	      s0 = s1;
+	      peg$silentFails--;
+	      if (s0 === peg$FAILED) {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c41); }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsedigit() {
+	      var s0;
+	
+	      if (peg$c42.test(input.charAt(peg$currPos))) {
+	        s0 = input.charAt(peg$currPos);
+	        peg$currPos++;
+	      } else {
+	        s0 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsehexDigit() {
+	      var s0;
+	
+	      if (peg$c44.test(input.charAt(peg$currPos))) {
+	        s0 = input.charAt(peg$currPos);
+	        peg$currPos++;
+	      } else {
+	        s0 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c45); }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsenumber() {
+	      var s0, s1, s2, s3, s4, s5;
+	
+	      s0 = peg$currPos;
+	      if (input.charCodeAt(peg$currPos) === 48) {
+	        s1 = peg$c46;
+	        peg$currPos++;
+	      } else {
+	        s1 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c47); }
+	      }
+	      if (s1 === peg$FAILED) {
+	        s1 = peg$currPos;
+	        s2 = peg$currPos;
+	        if (peg$c48.test(input.charAt(peg$currPos))) {
+	          s3 = input.charAt(peg$currPos);
+	          peg$currPos++;
+	        } else {
+	          s3 = peg$FAILED;
+	          if (peg$silentFails === 0) { peg$fail(peg$c49); }
+	        }
+	        if (s3 !== peg$FAILED) {
+	          s4 = [];
+	          s5 = peg$parsedigit();
+	          while (s5 !== peg$FAILED) {
+	            s4.push(s5);
+	            s5 = peg$parsedigit();
+	          }
+	          if (s4 !== peg$FAILED) {
+	            s3 = [s3, s4];
+	            s2 = s3;
+	          } else {
+	            peg$currPos = s2;
+	            s2 = peg$c2;
+	          }
+	        } else {
+	          peg$currPos = s2;
+	          s2 = peg$c2;
+	        }
+	        if (s2 !== peg$FAILED) {
+	          s2 = input.substring(s1, peg$currPos);
+	        }
+	        s1 = s2;
+	      }
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c50(s1);
+	      }
+	      s0 = s1;
+	
+	      return s0;
+	    }
+	
+	    function peg$parsechar() {
+	      var s0, s1, s2, s3, s4, s5, s6, s7;
+	
+	      if (peg$c51.test(input.charAt(peg$currPos))) {
+	        s0 = input.charAt(peg$currPos);
+	        peg$currPos++;
+	      } else {
+	        s0 = peg$FAILED;
+	        if (peg$silentFails === 0) { peg$fail(peg$c52); }
+	      }
+	      if (s0 === peg$FAILED) {
+	        s0 = peg$currPos;
+	        if (input.substr(peg$currPos, 2) === peg$c53) {
+	          s1 = peg$c53;
+	          peg$currPos += 2;
+	        } else {
+	          s1 = peg$FAILED;
+	          if (peg$silentFails === 0) { peg$fail(peg$c54); }
+	        }
+	        if (s1 !== peg$FAILED) {
+	          peg$reportedPos = s0;
+	          s1 = peg$c55();
+	        }
+	        s0 = s1;
+	        if (s0 === peg$FAILED) {
+	          s0 = peg$currPos;
+	          if (input.substr(peg$currPos, 2) === peg$c56) {
+	            s1 = peg$c56;
+	            peg$currPos += 2;
+	          } else {
+	            s1 = peg$FAILED;
+	            if (peg$silentFails === 0) { peg$fail(peg$c57); }
+	          }
+	          if (s1 !== peg$FAILED) {
+	            peg$reportedPos = s0;
+	            s1 = peg$c58();
+	          }
+	          s0 = s1;
+	          if (s0 === peg$FAILED) {
+	            s0 = peg$currPos;
+	            if (input.substr(peg$currPos, 2) === peg$c59) {
+	              s1 = peg$c59;
+	              peg$currPos += 2;
+	            } else {
+	              s1 = peg$FAILED;
+	              if (peg$silentFails === 0) { peg$fail(peg$c60); }
+	            }
+	            if (s1 !== peg$FAILED) {
+	              peg$reportedPos = s0;
+	              s1 = peg$c61();
+	            }
+	            s0 = s1;
+	            if (s0 === peg$FAILED) {
+	              s0 = peg$currPos;
+	              if (input.substr(peg$currPos, 2) === peg$c62) {
+	                s1 = peg$c62;
+	                peg$currPos += 2;
+	              } else {
+	                s1 = peg$FAILED;
+	                if (peg$silentFails === 0) { peg$fail(peg$c63); }
+	              }
+	              if (s1 !== peg$FAILED) {
+	                peg$reportedPos = s0;
+	                s1 = peg$c64();
+	              }
+	              s0 = s1;
+	              if (s0 === peg$FAILED) {
+	                s0 = peg$currPos;
+	                if (input.substr(peg$currPos, 2) === peg$c65) {
+	                  s1 = peg$c65;
+	                  peg$currPos += 2;
+	                } else {
+	                  s1 = peg$FAILED;
+	                  if (peg$silentFails === 0) { peg$fail(peg$c66); }
+	                }
+	                if (s1 !== peg$FAILED) {
+	                  s2 = peg$currPos;
+	                  s3 = peg$currPos;
+	                  s4 = peg$parsehexDigit();
+	                  if (s4 !== peg$FAILED) {
+	                    s5 = peg$parsehexDigit();
+	                    if (s5 !== peg$FAILED) {
+	                      s6 = peg$parsehexDigit();
+	                      if (s6 !== peg$FAILED) {
+	                        s7 = peg$parsehexDigit();
+	                        if (s7 !== peg$FAILED) {
+	                          s4 = [s4, s5, s6, s7];
+	                          s3 = s4;
+	                        } else {
+	                          peg$currPos = s3;
+	                          s3 = peg$c2;
+	                        }
+	                      } else {
+	                        peg$currPos = s3;
+	                        s3 = peg$c2;
+	                      }
+	                    } else {
+	                      peg$currPos = s3;
+	                      s3 = peg$c2;
+	                    }
+	                  } else {
+	                    peg$currPos = s3;
+	                    s3 = peg$c2;
+	                  }
+	                  if (s3 !== peg$FAILED) {
+	                    s3 = input.substring(s2, peg$currPos);
+	                  }
+	                  s2 = s3;
+	                  if (s2 !== peg$FAILED) {
+	                    peg$reportedPos = s0;
+	                    s1 = peg$c67(s2);
+	                    s0 = s1;
+	                  } else {
+	                    peg$currPos = s0;
+	                    s0 = peg$c2;
+	                  }
+	                } else {
+	                  peg$currPos = s0;
+	                  s0 = peg$c2;
+	                }
+	              }
+	            }
+	          }
+	        }
+	      }
+	
+	      return s0;
+	    }
+	
+	    function peg$parsechars() {
+	      var s0, s1, s2;
+	
+	      s0 = peg$currPos;
+	      s1 = [];
+	      s2 = peg$parsechar();
+	      if (s2 !== peg$FAILED) {
+	        while (s2 !== peg$FAILED) {
+	          s1.push(s2);
+	          s2 = peg$parsechar();
+	        }
+	      } else {
+	        s1 = peg$c2;
+	      }
+	      if (s1 !== peg$FAILED) {
+	        peg$reportedPos = s0;
+	        s1 = peg$c68(s1);
+	      }
+	      s0 = s1;
+	
+	      return s0;
+	    }
+	
+	    peg$result = peg$startRuleFunction();
+	
+	    if (peg$result !== peg$FAILED && peg$currPos === input.length) {
+	      return peg$result;
 	    } else {
-	      m = EventEmitter.defaultMaxListeners;
-	    }
-	
-	    if (m && m > 0 && this._events[type].length > m) {
-	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' +
-	                    'leak detected. %d listeners added. ' +
-	                    'Use emitter.setMaxListeners() to increase limit.',
-	                    this._events[type].length);
-	      if (typeof console.trace === 'function') {
-	        // not supported in IE 10
-	        console.trace();
+	      if (peg$result !== peg$FAILED && peg$currPos < input.length) {
+	        peg$fail({ type: "end", description: "end of input" });
 	      }
+	
+	      throw peg$buildException(null, peg$maxFailExpected, peg$maxFailPos);
 	    }
 	  }
 	
-	  return this;
+	  return {
+	    SyntaxError: SyntaxError,
+	    parse:       parse
+	  };
+	})();
+	
+	//# sourceMappingURL=parser.js.map
+
+/***/ },
+/* 279 */
+/***/ function(module, exports) {
+
+	// GENERATED FILE
+	"use strict";
+	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"}};
+	
+	//# sourceMappingURL=en.js.map
+
+/***/ },
+/* 280 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* jshint node:true */
+	
+	'use strict';
+	
+	var IntlRelativeFormat = __webpack_require__(282)['default'];
+	
+	// Add all locale data to `IntlRelativeFormat`. This module will be ignored when
+	// bundling for the browser with Browserify/Webpack.
+	__webpack_require__(287);
+	
+	// Re-export `IntlRelativeFormat` as the CommonJS default exports with all the
+	// locale data registered, and with English set as the default locale. Define
+	// the `default` prop for use with other compiled ES6 Modules.
+	exports = module.exports = IntlRelativeFormat;
+	exports['default'] = exports;
+
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* jslint esnext: true */
+	
+	"use strict";
+	var src$core$$ = __webpack_require__(283), src$en$$ = __webpack_require__(286);
+	
+	src$core$$["default"].__addLocaleData(src$en$$["default"]);
+	src$core$$["default"].defaultLocale = 'en';
+	
+	exports["default"] = src$core$$["default"];
+	
+	//# sourceMappingURL=main.js.map
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	var intl$messageformat$$ = __webpack_require__(271), src$diff$$ = __webpack_require__(284), src$es5$$ = __webpack_require__(285);
+	exports["default"] = RelativeFormat;
+	
+	// -----------------------------------------------------------------------------
+	
+	var FIELDS = ['second', 'minute', 'hour', 'day', 'month', 'year'];
+	var STYLES = ['best fit', 'numeric'];
+	
+	// -- RelativeFormat -----------------------------------------------------------
+	
+	function RelativeFormat(locales, options) {
+	    options = options || {};
+	
+	    // Make a copy of `locales` if it's an array, so that it doesn't change
+	    // since it's used lazily.
+	    if (src$es5$$.isArray(locales)) {
+	        locales = locales.concat();
+	    }
+	
+	    src$es5$$.defineProperty(this, '_locale', {value: this._resolveLocale(locales)});
+	    src$es5$$.defineProperty(this, '_options', {value: {
+	        style: this._resolveStyle(options.style),
+	        units: this._isValidUnits(options.units) && options.units
+	    }});
+	
+	    src$es5$$.defineProperty(this, '_locales', {value: locales});
+	    src$es5$$.defineProperty(this, '_fields', {value: this._findFields(this._locale)});
+	    src$es5$$.defineProperty(this, '_messages', {value: src$es5$$.objCreate(null)});
+	
+	    // "Bind" `format()` method to `this` so it can be passed by reference like
+	    // the other `Intl` APIs.
+	    var relativeFormat = this;
+	    this.format = function format(date, options) {
+	        return relativeFormat._format(date, options);
+	    };
+	}
+	
+	// Define internal private properties for dealing with locale data.
+	src$es5$$.defineProperty(RelativeFormat, '__localeData__', {value: src$es5$$.objCreate(null)});
+	src$es5$$.defineProperty(RelativeFormat, '__addLocaleData', {value: function (data) {
+	    if (!(data && data.locale)) {
+	        throw new Error(
+	            'Locale data provided to IntlRelativeFormat is missing a ' +
+	            '`locale` property value'
+	        );
+	    }
+	
+	    RelativeFormat.__localeData__[data.locale.toLowerCase()] = data;
+	
+	    // Add data to IntlMessageFormat.
+	    intl$messageformat$$["default"].__addLocaleData(data);
+	}});
+	
+	// Define public `defaultLocale` property which can be set by the developer, or
+	// it will be set when the first RelativeFormat instance is created by
+	// leveraging the resolved locale from `Intl`.
+	src$es5$$.defineProperty(RelativeFormat, 'defaultLocale', {
+	    enumerable: true,
+	    writable  : true,
+	    value     : undefined
+	});
+	
+	// Define public `thresholds` property which can be set by the developer, and
+	// defaults to relative time thresholds from moment.js.
+	src$es5$$.defineProperty(RelativeFormat, 'thresholds', {
+	    enumerable: true,
+	
+	    value: {
+	        second: 45,  // seconds to minute
+	        minute: 45,  // minutes to hour
+	        hour  : 22,  // hours to day
+	        day   : 26,  // days to month
+	        month : 11   // months to year
+	    }
+	});
+	
+	RelativeFormat.prototype.resolvedOptions = function () {
+	    return {
+	        locale: this._locale,
+	        style : this._options.style,
+	        units : this._options.units
+	    };
 	};
 	
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+	RelativeFormat.prototype._compileMessage = function (units) {
+	    // `this._locales` is the original set of locales the user specified to the
+	    // constructor, while `this._locale` is the resolved root locale.
+	    var locales        = this._locales;
+	    var resolvedLocale = this._locale;
 	
-	EventEmitter.prototype.once = function(type, listener) {
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
+	    var field        = this._fields[units];
+	    var relativeTime = field.relativeTime;
+	    var future       = '';
+	    var past         = '';
+	    var i;
 	
-	  var fired = false;
-	
-	  function g() {
-	    this.removeListener(type, g);
-	
-	    if (!fired) {
-	      fired = true;
-	      listener.apply(this, arguments);
+	    for (i in relativeTime.future) {
+	        if (relativeTime.future.hasOwnProperty(i)) {
+	            future += ' ' + i + ' {' +
+	                relativeTime.future[i].replace('{0}', '#') + '}';
+	        }
 	    }
-	  }
 	
-	  g.listener = listener;
-	  this.on(type, g);
+	    for (i in relativeTime.past) {
+	        if (relativeTime.past.hasOwnProperty(i)) {
+	            past += ' ' + i + ' {' +
+	                relativeTime.past[i].replace('{0}', '#') + '}';
+	        }
+	    }
 	
-	  return this;
+	    var message = '{when, select, future {{0, plural, ' + future + '}}' +
+	                                 'past {{0, plural, ' + past + '}}}';
+	
+	    // Create the synthetic IntlMessageFormat instance using the original
+	    // locales value specified by the user when constructing the the parent
+	    // IntlRelativeFormat instance.
+	    return new intl$messageformat$$["default"](message, locales);
 	};
 	
-	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function(type, listener) {
-	  var list, position, length, i;
+	RelativeFormat.prototype._getMessage = function (units) {
+	    var messages = this._messages;
 	
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-	
-	  if (!this._events || !this._events[type])
-	    return this;
-	
-	  list = this._events[type];
-	  length = list.length;
-	  position = -1;
-	
-	  if (list === listener ||
-	      (isFunction(list.listener) && list.listener === listener)) {
-	    delete this._events[type];
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-	
-	  } else if (isObject(list)) {
-	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener ||
-	          (list[i].listener && list[i].listener === listener)) {
-	        position = i;
-	        break;
-	      }
+	    // Create a new synthetic message based on the locale data from CLDR.
+	    if (!messages[units]) {
+	        messages[units] = this._compileMessage(units);
 	    }
 	
-	    if (position < 0)
-	      return this;
+	    return messages[units];
+	};
 	
-	    if (list.length === 1) {
-	      list.length = 0;
-	      delete this._events[type];
+	RelativeFormat.prototype._getRelativeUnits = function (diff, units) {
+	    var field = this._fields[units];
+	
+	    if (field.relative) {
+	        return field.relative[diff];
+	    }
+	};
+	
+	RelativeFormat.prototype._findFields = function (locale) {
+	    var localeData = RelativeFormat.__localeData__;
+	    var data       = localeData[locale.toLowerCase()];
+	
+	    // The locale data is de-duplicated, so we have to traverse the locale's
+	    // hierarchy until we find `fields` to return.
+	    while (data) {
+	        if (data.fields) {
+	            return data.fields;
+	        }
+	
+	        data = data.parentLocale && localeData[data.parentLocale.toLowerCase()];
+	    }
+	
+	    throw new Error(
+	        'Locale data added to IntlRelativeFormat is missing `fields` for :' +
+	        locale
+	    );
+	};
+	
+	RelativeFormat.prototype._format = function (date, options) {
+	    var now = options && options.now !== undefined ? options.now : src$es5$$.dateNow();
+	
+	    if (date === undefined) {
+	        date = now;
+	    }
+	
+	    // Determine if the `date` and optional `now` values are valid, and throw a
+	    // similar error to what `Intl.DateTimeFormat#format()` would throw.
+	    if (!isFinite(now)) {
+	        throw new RangeError(
+	            'The `now` option provided to IntlRelativeFormat#format() is not ' +
+	            'in valid range.'
+	        );
+	    }
+	
+	    if (!isFinite(date)) {
+	        throw new RangeError(
+	            'The date value provided to IntlRelativeFormat#format() is not ' +
+	            'in valid range.'
+	        );
+	    }
+	
+	    var diffReport  = src$diff$$["default"](now, date);
+	    var units       = this._options.units || this._selectUnits(diffReport);
+	    var diffInUnits = diffReport[units];
+	
+	    if (this._options.style !== 'numeric') {
+	        var relativeUnits = this._getRelativeUnits(diffInUnits, units);
+	        if (relativeUnits) {
+	            return relativeUnits;
+	        }
+	    }
+	
+	    return this._getMessage(units).format({
+	        '0' : Math.abs(diffInUnits),
+	        when: diffInUnits < 0 ? 'past' : 'future'
+	    });
+	};
+	
+	RelativeFormat.prototype._isValidUnits = function (units) {
+	    if (!units || src$es5$$.arrIndexOf.call(FIELDS, units) >= 0) {
+	        return true;
+	    }
+	
+	    if (typeof units === 'string') {
+	        var suggestion = /s$/.test(units) && units.substr(0, units.length - 1);
+	        if (suggestion && src$es5$$.arrIndexOf.call(FIELDS, suggestion) >= 0) {
+	            throw new Error(
+	                '"' + units + '" is not a valid IntlRelativeFormat `units` ' +
+	                'value, did you mean: ' + suggestion
+	            );
+	        }
+	    }
+	
+	    throw new Error(
+	        '"' + units + '" is not a valid IntlRelativeFormat `units` value, it ' +
+	        'must be one of: "' + FIELDS.join('", "') + '"'
+	    );
+	};
+	
+	RelativeFormat.prototype._resolveLocale = function (locales) {
+	    if (typeof locales === 'string') {
+	        locales = [locales];
+	    }
+	
+	    // Create a copy of the array so we can push on the default locale.
+	    locales = (locales || []).concat(RelativeFormat.defaultLocale);
+	
+	    var localeData = RelativeFormat.__localeData__;
+	    var i, len, localeParts, data;
+	
+	    // Using the set of locales + the default locale, we look for the first one
+	    // which that has been registered. When data does not exist for a locale, we
+	    // traverse its ancestors to find something that's been registered within
+	    // its hierarchy of locales. Since we lack the proper `parentLocale` data
+	    // here, we must take a naive approach to traversal.
+	    for (i = 0, len = locales.length; i < len; i += 1) {
+	        localeParts = locales[i].toLowerCase().split('-');
+	
+	        while (localeParts.length) {
+	            data = localeData[localeParts.join('-')];
+	            if (data) {
+	                // Return the normalized locale string; e.g., we return "en-US",
+	                // instead of "en-us".
+	                return data.locale;
+	            }
+	
+	            localeParts.pop();
+	        }
+	    }
+	
+	    var defaultLocale = locales.pop();
+	    throw new Error(
+	        'No locale data has been added to IntlRelativeFormat for: ' +
+	        locales.join(', ') + ', or the default locale: ' + defaultLocale
+	    );
+	};
+	
+	RelativeFormat.prototype._resolveStyle = function (style) {
+	    // Default to "best fit" style.
+	    if (!style) {
+	        return STYLES[0];
+	    }
+	
+	    if (src$es5$$.arrIndexOf.call(STYLES, style) >= 0) {
+	        return style;
+	    }
+	
+	    throw new Error(
+	        '"' + style + '" is not a valid IntlRelativeFormat `style` value, it ' +
+	        'must be one of: "' + STYLES.join('", "') + '"'
+	    );
+	};
+	
+	RelativeFormat.prototype._selectUnits = function (diffReport) {
+	    var i, l, units;
+	
+	    for (i = 0, l = FIELDS.length; i < l; i += 1) {
+	        units = FIELDS[i];
+	
+	        if (Math.abs(diffReport[units]) < RelativeFormat.thresholds[units]) {
+	            break;
+	        }
+	    }
+	
+	    return units;
+	};
+	
+	//# sourceMappingURL=core.js.map
+
+/***/ },
+/* 284 */
+/***/ function(module, exports) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	
+	var round = Math.round;
+	
+	function daysToYears(days) {
+	    // 400 years have 146097 days (taking into account leap year rules)
+	    return days * 400 / 146097;
+	}
+	
+	exports["default"] = function (from, to) {
+	    // Convert to ms timestamps.
+	    from = +from;
+	    to   = +to;
+	
+	    var millisecond = round(to - from),
+	        second      = round(millisecond / 1000),
+	        minute      = round(second / 60),
+	        hour        = round(minute / 60),
+	        day         = round(hour / 24),
+	        week        = round(day / 7);
+	
+	    var rawYears = daysToYears(day),
+	        month    = round(rawYears * 12),
+	        year     = round(rawYears);
+	
+	    return {
+	        millisecond: millisecond,
+	        second     : second,
+	        minute     : minute,
+	        hour       : hour,
+	        day        : day,
+	        week       : week,
+	        month      : month,
+	        year       : year
+	    };
+	};
+	
+	//# sourceMappingURL=diff.js.map
+
+/***/ },
+/* 285 */
+/***/ function(module, exports) {
+
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	"use strict";
+	
+	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
+	// Copyright 2013 Andy Earnshaw, MIT License
+	
+	var hop = Object.prototype.hasOwnProperty;
+	var toString = Object.prototype.toString;
+	
+	var realDefineProp = (function () {
+	    try { return !!Object.defineProperty({}, 'a', {}); }
+	    catch (e) { return false; }
+	})();
+	
+	var es3 = !realDefineProp && !Object.prototype.__defineGetter__;
+	
+	var defineProperty = realDefineProp ? Object.defineProperty :
+	        function (obj, name, desc) {
+	
+	    if ('get' in desc && obj.__defineGetter__) {
+	        obj.__defineGetter__(name, desc.get);
+	    } else if (!hop.call(obj, name) || 'value' in desc) {
+	        obj[name] = desc.value;
+	    }
+	};
+	
+	var objCreate = Object.create || function (proto, props) {
+	    var obj, k;
+	
+	    function F() {}
+	    F.prototype = proto;
+	    obj = new F();
+	
+	    for (k in props) {
+	        if (hop.call(props, k)) {
+	            defineProperty(obj, k, props[k]);
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	var arrIndexOf = Array.prototype.indexOf || function (search, fromIndex) {
+	    /*jshint validthis:true */
+	    var arr = this;
+	    if (!arr.length) {
+	        return -1;
+	    }
+	
+	    for (var i = fromIndex || 0, max = arr.length; i < max; i++) {
+	        if (arr[i] === search) {
+	            return i;
+	        }
+	    }
+	
+	    return -1;
+	};
+	
+	var isArray = Array.isArray || function (obj) {
+	    return toString.call(obj) === '[object Array]';
+	};
+	
+	var dateNow = Date.now || function () {
+	    return new Date().getTime();
+	};
+	exports.defineProperty = defineProperty, exports.objCreate = objCreate, exports.arrIndexOf = arrIndexOf, exports.isArray = isArray, exports.dateNow = dateNow;
+	
+	//# sourceMappingURL=es5.js.map
+
+/***/ },
+/* 286 */
+/***/ function(module, exports) {
+
+	// GENERATED FILE
+	"use strict";
+	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"},"fields":{"year":{"displayName":"Year","relative":{"0":"this year","1":"next year","-1":"last year"},"relativeTime":{"future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"}}},"month":{"displayName":"Month","relative":{"0":"this month","1":"next month","-1":"last month"},"relativeTime":{"future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"}}},"day":{"displayName":"Day","relative":{"0":"today","1":"tomorrow","-1":"yesterday"},"relativeTime":{"future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"}}},"hour":{"displayName":"Hour","relativeTime":{"future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}}},"minute":{"displayName":"Minute","relativeTime":{"future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}}},"second":{"displayName":"Second","relative":{"0":"now"},"relativeTime":{"future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}}}}};
+	
+	//# sourceMappingURL=en.js.map
+
+/***/ },
+/* 287 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _intlMessageformat = __webpack_require__(271);
+	
+	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*
+	                                                                                                                                                           * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                           * Copyrights licensed under the New BSD License.
+	                                                                                                                                                           * See the accompanying LICENSE file for terms.
+	                                                                                                                                                           */
+	
+	// This is a "hack" until a proper `intl-pluralformat` package is created.
+	
+	function resolveLocale(locales) {
+	    // IntlMessageFormat#_resolveLocale() does not depend on `this`.
+	    return _intlMessageformat2.default.prototype._resolveLocale(locales);
+	}
+	
+	function findPluralFunction(locale) {
+	    // IntlMessageFormat#_findPluralFunction() does not depend on `this`.
+	    return _intlMessageformat2.default.prototype._findPluralRuleFunction(locale);
+	}
+	
+	var IntlPluralFormat = function IntlPluralFormat(locales) {
+	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+	    _classCallCheck(this, IntlPluralFormat);
+	
+	    var useOrdinal = options.style === 'ordinal';
+	    var pluralFn = findPluralFunction(resolveLocale(locales));
+	
+	    this.format = function (value) {
+	        return pluralFn(value, useOrdinal);
+	    };
+	};
+	
+	exports.default = IntlPluralFormat;
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports = module.exports = __webpack_require__(290)['default'];
+	exports['default'] = exports;
+
+
+/***/ },
+/* 290 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var src$es5$$ = __webpack_require__(291);
+	exports["default"] = createFormatCache;
+	
+	// -----------------------------------------------------------------------------
+	
+	function createFormatCache(FormatConstructor) {
+	    var cache = src$es5$$.objCreate(null);
+	
+	    return function () {
+	        var args    = Array.prototype.slice.call(arguments);
+	        var cacheId = getCacheId(args);
+	        var format  = cacheId && cache[cacheId];
+	
+	        if (!format) {
+	            format = new (src$es5$$.bind.apply(FormatConstructor, [null].concat(args)))();
+	
+	            if (cacheId) {
+	                cache[cacheId] = format;
+	            }
+	        }
+	
+	        return format;
+	    };
+	}
+	
+	// -- Utilities ----------------------------------------------------------------
+	
+	function getCacheId(inputs) {
+	    // When JSON is not available in the runtime, we will not create a cache id.
+	    if (typeof JSON === 'undefined') { return; }
+	
+	    var cacheId = [];
+	
+	    var i, len, input;
+	
+	    for (i = 0, len = inputs.length; i < len; i += 1) {
+	        input = inputs[i];
+	
+	        if (input && typeof input === 'object') {
+	            cacheId.push(orderedProps(input));
+	        } else {
+	            cacheId.push(input);
+	        }
+	    }
+	
+	    return JSON.stringify(cacheId);
+	}
+	
+	function orderedProps(obj) {
+	    var props = [],
+	        keys  = [];
+	
+	    var key, i, len, prop;
+	
+	    for (key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	            keys.push(key);
+	        }
+	    }
+	
+	    var orderedKeys = keys.sort();
+	
+	    for (i = 0, len = orderedKeys.length; i < len; i += 1) {
+	        key  = orderedKeys[i];
+	        prop = {};
+	
+	        prop[key] = obj[key];
+	        props[i]  = prop;
+	    }
+	
+	    return props;
+	}
+	
+	//# sourceMappingURL=memoizer.js.map
+
+/***/ },
+/* 291 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/*
+	Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+	Copyrights licensed under the New BSD License.
+	See the accompanying LICENSE file for terms.
+	*/
+	
+	/* jslint esnext: true */
+	
+	// Function.prototype.bind implementation from Mozilla Developer Network:
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Polyfill
+	
+	var bind = Function.prototype.bind || function (oThis) {
+	    if (typeof this !== 'function') {
+	      // closest thing possible to the ECMAScript 5
+	      // internal IsCallable function
+	      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+	    }
+	
+	    var aArgs   = Array.prototype.slice.call(arguments, 1),
+	        fToBind = this,
+	        fNOP    = function() {},
+	        fBound  = function() {
+	          return fToBind.apply(this instanceof fNOP
+	                 ? this
+	                 : oThis,
+	                 aArgs.concat(Array.prototype.slice.call(arguments)));
+	        };
+	
+	    if (this.prototype) {
+	      // native functions don't have a prototype
+	      fNOP.prototype = this.prototype;
+	    }
+	    fBound.prototype = new fNOP();
+	
+	    return fBound;
+	};
+	
+	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
+	// Copyright 2013 Andy Earnshaw, MIT License
+	
+	var hop = Object.prototype.hasOwnProperty;
+	
+	var realDefineProp = (function () {
+	    try { return !!Object.defineProperty({}, 'a', {}); }
+	    catch (e) { return false; }
+	})();
+	
+	var es3 = !realDefineProp && !Object.prototype.__defineGetter__;
+	
+	var defineProperty = realDefineProp ? Object.defineProperty :
+	        function (obj, name, desc) {
+	
+	    if ('get' in desc && obj.__defineGetter__) {
+	        obj.__defineGetter__(name, desc.get);
+	    } else if (!hop.call(obj, name) || 'value' in desc) {
+	        obj[name] = desc.value;
+	    }
+	};
+	
+	var objCreate = Object.create || function (proto, props) {
+	    var obj, k;
+	
+	    function F() {}
+	    F.prototype = proto;
+	    obj = new F();
+	
+	    for (k in props) {
+	        if (hop.call(props, k)) {
+	            defineProperty(obj, k, props[k]);
+	        }
+	    }
+	
+	    return obj;
+	};
+	
+	exports.bind = bind, exports.defineProperty = defineProperty, exports.objCreate = objCreate;
+	
+	//# sourceMappingURL=es5.js.map
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.formatDate = formatDate;
+	exports.formatTime = formatTime;
+	exports.formatRelative = formatRelative;
+	exports.formatNumber = formatNumber;
+	exports.formatPlural = formatPlural;
+	exports.formatMessage = formatMessage;
+	exports.formatHTMLMessage = formatHTMLMessage;
+	
+	var _invariant = __webpack_require__(268);
+	
+	var _invariant2 = _interopRequireDefault(_invariant);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DATE_TIME_FORMAT_OPTIONS = Object.keys(_types.dateTimeFormatPropTypes); /*
+	                                                                             * Copyright 2015, Yahoo Inc.
+	                                                                             * Copyrights licensed under the New BSD License.
+	                                                                             * See the accompanying LICENSE file for terms.
+	                                                                             */
+	
+	var NUMBER_FORMAT_OPTIONS = Object.keys(_types.numberFormatPropTypes);
+	var RELATIVE_FORMAT_OPTIONS = Object.keys(_types.relativeFormatPropTypes);
+	var PLURAL_FORMAT_OPTIONS = Object.keys(_types.pluralFormatPropTypes);
+	
+	function filterFormatOptions(whitelist, obj) {
+	    var defaults = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	
+	    return whitelist.reduce(function (opts, name) {
+	        if (obj.hasOwnProperty(name)) {
+	            opts[name] = obj[name];
+	        } else if (defaults.hasOwnProperty(name)) {
+	            opts[name] = defaults[name];
+	        }
+	
+	        return opts;
+	    }, {});
+	}
+	
+	function getNamedFormat(formats, type, name) {
+	    var format = formats && formats[type] && formats[type][name];
+	    if (format) {
+	        return format;
+	    }
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	        console.error('[React Intl] No ' + type + ' format named: ' + name);
+	    }
+	}
+	
+	function formatDate(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	    var date = new Date(value);
+	    var defaults = format && getNamedFormat(formats, 'date', format);
+	
+	    var filteredOptions = filterFormatOptions(DATE_TIME_FORMAT_OPTIONS, options, defaults);
+	
+	    return state.getDateTimeFormat(locale, filteredOptions).format(date);
+	}
+	
+	function formatTime(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	    var date = new Date(value);
+	    var defaults = format && getNamedFormat(formats, 'time', format);
+	
+	    var filteredOptions = filterFormatOptions(DATE_TIME_FORMAT_OPTIONS, options, defaults);
+	
+	    return state.getDateTimeFormat(locale, filteredOptions).format(date);
+	}
+	
+	function formatRelative(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	    var date = new Date(value);
+	    var now = new Date(options.now);
+	    var defaults = format && getNamedFormat(formats, 'relative', format);
+	
+	    var filteredOptions = filterFormatOptions(RELATIVE_FORMAT_OPTIONS, options, defaults);
+	
+	    return state.getRelativeFormat(locale, filteredOptions).format(date, {
+	        now: isFinite(now) ? now : state.now()
+	    });
+	}
+	
+	function formatNumber(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	    var defaults = format && getNamedFormat(formats, 'number', format);
+	
+	    var filteredOptions = filterFormatOptions(NUMBER_FORMAT_OPTIONS, options, defaults);
+	
+	    return state.getNumberFormat(locale, filteredOptions).format(value);
+	}
+	
+	function formatPlural(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	
+	    var filteredOptions = filterFormatOptions(PLURAL_FORMAT_OPTIONS, options);
+	
+	    return state.getPluralFormat(locale, filteredOptions).format(value);
+	}
+	
+	function formatMessage(config, state) {
+	    var messageDescriptor = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	    var values = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var messages = config.messages;
+	    var defaultLocale = config.defaultLocale;
+	    var defaultFormats = config.defaultFormats;
+	    var id = messageDescriptor.id;
+	    var defaultMessage = messageDescriptor.defaultMessage;
+	
+	    // `id` is a required field of a Message Descriptor.
+	
+	    (0, _invariant2.default)(id, '[React Intl] An `id` must be provided to format a message.');
+	
+	    var message = messages && messages[id];
+	    var hasValues = Object.keys(values).length > 0;
+	
+	    // Avoid expensive message formatting for simple messages without values. In
+	    // development messages will always be formatted in case of missing values.
+	    if (!hasValues && process.env.NODE_ENV === 'production') {
+	        return message || defaultMessage || id;
+	    }
+	
+	    var formattedMessage = undefined;
+	
+	    if (message) {
+	        try {
+	            var formatter = state.getMessageFormat(message, locale, formats);
+	
+	            formattedMessage = formatter.format(values);
+	        } catch (e) {
+	            if (process.env.NODE_ENV !== 'production') {
+	                console.error('[React Intl] Error formatting message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : '') + ('\n' + e));
+	            }
+	        }
 	    } else {
-	      list.splice(position, 1);
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Missing message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : ''));
+	        }
 	    }
 	
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-	  }
+	    if (!formattedMessage && defaultMessage) {
+	        try {
+	            var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
 	
-	  return this;
-	};
-	
-	EventEmitter.prototype.removeAllListeners = function(type) {
-	  var key, listeners;
-	
-	  if (!this._events)
-	    return this;
-	
-	  // not listening for removeListener, no need to emit
-	  if (!this._events.removeListener) {
-	    if (arguments.length === 0)
-	      this._events = {};
-	    else if (this._events[type])
-	      delete this._events[type];
-	    return this;
-	  }
-	
-	  // emit removeListener for all listeners on all events
-	  if (arguments.length === 0) {
-	    for (key in this._events) {
-	      if (key === 'removeListener') continue;
-	      this.removeAllListeners(key);
+	            formattedMessage = formatter.format(values);
+	        } catch (e) {
+	            if (process.env.NODE_ENV !== 'production') {
+	                console.error('[React Intl] Error formatting the default message for: "' + id + '"' + ('\n' + e));
+	            }
+	        }
 	    }
-	    this.removeAllListeners('removeListener');
-	    this._events = {};
-	    return this;
+	
+	    if (!formattedMessage) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Cannot format message: "' + id + '", ' + ('using message ' + (message || defaultMessage ? 'source' : 'id') + ' as fallback.'));
+	        }
+	    }
+	
+	    return formattedMessage || message || defaultMessage || id;
+	}
+	
+	function formatHTMLMessage(config, state, messageDescriptor) {
+	    var rawValues = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	
+	    // Process all the values before they are used when formatting the ICU
+	    // Message string. Since the formatted message might be injected via
+	    // `innerHTML`, all String-based values need to be HTML-escaped.
+	    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
+	        var value = rawValues[name];
+	        escaped[name] = typeof value === 'string' ? (0, _utils.escape)(value) : value;
+	        return escaped;
+	    }, {});
+	
+	    return formatMessage(config, state, messageDescriptor, escapedValues);
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.addLocaleData = addLocaleData;
+	exports.hasLocaleData = hasLocaleData;
+	
+	var _intlMessageformat = __webpack_require__(271);
+	
+	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
+	
+	var _intlRelativeformat = __webpack_require__(281);
+	
+	var _intlRelativeformat2 = _interopRequireDefault(_intlRelativeformat);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/*
+	 * Copyright 2015, Yahoo Inc.
+	 * Copyrights licensed under the New BSD License.
+	 * See the accompanying LICENSE file for terms.
+	 */
+	
+	function addLocaleData() {
+	    var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	
+	    var locales = Array.isArray(data) ? data : [data];
+	
+	    locales.forEach(function (localeData) {
+	        _intlMessageformat2.default.__addLocaleData(localeData);
+	        _intlRelativeformat2.default.__addLocaleData(localeData);
+	    });
+	}
+	
+	function hasLocaleData(locale) {
+	    var normalizedLocale = locale && locale.toLowerCase();
+	
+	    return !!(_intlMessageformat2.default.__localeData__[normalizedLocale] && _intlRelativeformat2.default.__localeData__[normalizedLocale]);
+	}
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedDate = (function (_Component) {
+	    _inherits(FormattedDate, _Component);
+	
+	    function FormattedDate(props, context) {
+	        _classCallCheck(this, FormattedDate);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedDate).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedDate, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatDate = this.context.intl.formatDate;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	            var formattedDate = formatDate(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedDate);
+	            }
+	
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                formattedDate
+	            );
+	        }
+	    }]);
+	
+	    return FormattedDate;
+	})(_react.Component);
+	
+	exports.default = FormattedDate;
+	
+	FormattedDate.displayName = 'FormattedDate';
+	
+	FormattedDate.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedDate.propTypes = _extends({}, _types.dateTimeFormatPropTypes, {
+	    value: _react.PropTypes.any.isRequired,
+	    format: _react.PropTypes.string,
+	    children: _react.PropTypes.func
+	});
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedTime = (function (_Component) {
+	    _inherits(FormattedTime, _Component);
+	
+	    function FormattedTime(props, context) {
+	        _classCallCheck(this, FormattedTime);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedTime).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedTime, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatTime = this.context.intl.formatTime;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	            var formattedTime = formatTime(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedTime);
+	            }
+	
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                formattedTime
+	            );
+	        }
+	    }]);
+	
+	    return FormattedTime;
+	})(_react.Component);
+	
+	exports.default = FormattedTime;
+	
+	FormattedTime.displayName = 'FormattedTime';
+	
+	FormattedTime.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedTime.propTypes = _extends({}, _types.dateTimeFormatPropTypes, {
+	    value: _react.PropTypes.any.isRequired,
+	    format: _react.PropTypes.string,
+	    children: _react.PropTypes.func
+	});
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var SECOND = 1000;
+	var MINUTE = 1000 * 60;
+	var HOUR = 1000 * 60 * 60;
+	var DAY = 1000 * 60 * 60 * 24;
+	
+	// The maximum timer delay value is a 32-bit signed integer.
+	// See: https://mdn.io/setTimeout
+	var MAX_TIMER_DELAY = 2147483647;
+	
+	function selectUnits(delta) {
+	    var absDelta = Math.abs(delta);
+	
+	    if (absDelta < MINUTE) {
+	        return 'second';
+	    }
+	
+	    if (absDelta < HOUR) {
+	        return 'minute';
+	    }
+	
+	    if (absDelta < DAY) {
+	        return 'hour';
+	    }
+	
+	    // The maximum scheduled delay will be measured in days since the maximum
+	    // timer delay is less than the number of milliseconds in 25 days.
+	    return 'day';
+	}
+	
+	function getUnitDelay(units) {
+	    switch (units) {
+	        case 'second':
+	            return SECOND;
+	        case 'minute':
+	            return MINUTE;
+	        case 'hour':
+	            return HOUR;
+	        case 'day':
+	            return DAY;
+	        default:
+	            return MAX_TIMER_DELAY;
+	    }
+	}
+	
+	var FormattedRelative = (function (_Component) {
+	    _inherits(FormattedRelative, _Component);
+	
+	    function FormattedRelative(props, context) {
+	        _classCallCheck(this, FormattedRelative);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedRelative).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	
+	        var now = isFinite(props.initialNow) ? Number(props.initialNow) : context.intl.now();
+	
+	        // `now` is stored as state so that `render()` remains a function of
+	        // props + state, instead of accessing `Date.now()` inside `render()`.
+	        _this.state = { now: now };
+	        return _this;
+	    }
+	
+	    _createClass(FormattedRelative, [{
+	        key: 'scheduleNextUpdate',
+	        value: function scheduleNextUpdate(props, state) {
+	            var _this2 = this;
+	
+	            var updateInterval = props.updateInterval;
+	
+	            // If the `updateInterval` is falsy, including `0`, then auto updates
+	            // have been turned off, so we bail and skip scheduling an update.
+	
+	            if (!updateInterval) {
+	                return;
+	            }
+	
+	            var delta = Number(props.value) - state.now;
+	            var units = props.units || selectUnits(delta);
+	
+	            var unitDelay = getUnitDelay(units);
+	            var unitRemainder = Math.abs(delta % unitDelay);
+	
+	            // We want the largest possible timer delay which will still display
+	            // accurate information while reducing unnecessary re-renders. The delay
+	            // should be until the next "interesting" moment, like a tick from
+	            // "1 minute ago" to "2 minutes ago" when the delta is 120,000ms.
+	            var delay = delta < 0 ? Math.max(updateInterval, unitDelay - unitRemainder) : Math.max(updateInterval, unitRemainder);
+	
+	            clearTimeout(this._timer);
+	
+	            this._timer = setTimeout(function () {
+	                _this2.setState({ now: _this2.context.intl.now() });
+	            }, delay);
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'componentWillUpdate',
+	        value: function componentWillUpdate(nextProps, nextState) {
+	            this.scheduleNextUpdate(nextProps, nextState);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.scheduleNextUpdate(this.props, this.state);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearTimeout(this._timer);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatRelative = this.context.intl.formatRelative;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	            var formattedRelative = formatRelative(value, _extends({}, this.props, this.state));
+	
+	            if (typeof children === 'function') {
+	                return children(formattedRelative);
+	            }
+	
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                formattedRelative
+	            );
+	        }
+	    }]);
+	
+	    return FormattedRelative;
+	})(_react.Component);
+	
+	exports.default = FormattedRelative;
+	
+	FormattedRelative.displayName = 'FormattedRelative';
+	
+	FormattedRelative.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedRelative.propTypes = _extends({}, _types.relativeFormatPropTypes, {
+	    value: _react.PropTypes.any.isRequired,
+	    format: _react.PropTypes.string,
+	    updateInterval: _react.PropTypes.number,
+	    initialNow: _react.PropTypes.any,
+	    children: _react.PropTypes.func
+	});
+	
+	FormattedRelative.defaultProps = {
+	    updateInterval: 1000 * 10
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedNumber = (function (_Component) {
+	    _inherits(FormattedNumber, _Component);
+	
+	    function FormattedNumber(props, context) {
+	        _classCallCheck(this, FormattedNumber);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedNumber).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedNumber, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatNumber = this.context.intl.formatNumber;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	            var formattedNumber = formatNumber(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedNumber);
+	            }
+	
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                formattedNumber
+	            );
+	        }
+	    }]);
+	
+	    return FormattedNumber;
+	})(_react.Component);
+	
+	exports.default = FormattedNumber;
+	
+	FormattedNumber.displayName = 'FormattedNumber';
+	
+	FormattedNumber.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedNumber.propTypes = _extends({}, _types.numberFormatPropTypes, {
+	    value: _react.PropTypes.any.isRequired,
+	    format: _react.PropTypes.string,
+	    children: _react.PropTypes.func
+	});
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedPlural = (function (_Component) {
+	    _inherits(FormattedPlural, _Component);
+	
+	    function FormattedPlural(props, context) {
+	        _classCallCheck(this, FormattedPlural);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedPlural).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedPlural, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatPlural = this.context.intl.formatPlural;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var other = _props.other;
+	            var children = _props.children;
+	
+	            var pluralCategory = formatPlural(value, this.props);
+	            var formattedPlural = this.props[pluralCategory] || other;
+	
+	            if (typeof children === 'function') {
+	                return children(formattedPlural);
+	            }
+	
+	            return _react2.default.createElement(
+	                'span',
+	                null,
+	                formattedPlural
+	            );
+	        }
+	    }]);
+	
+	    return FormattedPlural;
+	})(_react.Component);
+	
+	exports.default = FormattedPlural;
+	
+	FormattedPlural.displayName = 'FormattedPlural';
+	
+	FormattedPlural.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedPlural.propTypes = _extends({}, _types.pluralFormatPropTypes, {
+	    value: _react.PropTypes.any.isRequired,
+	
+	    other: _react.PropTypes.node.isRequired,
+	    zero: _react.PropTypes.node,
+	    one: _react.PropTypes.node,
+	    two: _react.PropTypes.node,
+	    few: _react.PropTypes.node,
+	    many: _react.PropTypes.node,
+	
+	    children: _react.PropTypes.func
+	});
+	
+	FormattedPlural.defaultProps = {
+	    style: 'cardinal'
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedMessage = (function (_Component) {
+	    _inherits(FormattedMessage, _Component);
+	
+	    function FormattedMessage(props, context) {
+	        _classCallCheck(this, FormattedMessage);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedMessage).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedMessage, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps) {
+	            var values = this.props.values;
+	            var nextValues = nextProps.values;
+	
+	            if (!(0, _utils.shallowEquals)(nextValues, values)) {
+	                return true;
+	            }
+	
+	            // Since `values` has already been checked, we know they're not
+	            // different, so the current `values` are carried over so the shallow
+	            // equals comparison on the other props isn't affected by the `values`.
+	            var nextPropsToCheck = _extends({}, nextProps, {
+	                values: values
+	            });
+	
+	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                next[_key - 1] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatMessage = this.context.intl.formatMessage;
+	            var _props = this.props;
+	            var id = _props.id;
+	            var description = _props.description;
+	            var defaultMessage = _props.defaultMessage;
+	            var values = _props.values;
+	            var tagName = _props.tagName;
+	            var children = _props.children;
+	
+	            // Creates a token with a random UID that should not be guessable or
+	            // conflict with other parts of the `message` string.
+	
+	            var uid = Math.floor(Math.random() * 0x10000000000).toString(16);
+	            var tokenRegexp = new RegExp('(@__ELEMENT-' + uid + '-\\d+__@)', 'g');
+	
+	            var generateToken = (function () {
+	                var counter = 0;
+	                return function () {
+	                    return '@__ELEMENT-' + uid + '-' + (counter += 1) + '__@';
+	                };
+	            })();
+	
+	            var tokenizedValues = {};
+	            var elements = {};
+	
+	            // Iterates over the `props` to keep track of any React Element values
+	            // so they can be represented by the `token` as a placeholder when the
+	            // `message` is formatted. This allows the formatted message to then be
+	            // broken-up into parts with references to the React Elements inserted
+	            // back in.
+	            Object.keys(values).forEach(function (name) {
+	                var value = values[name];
+	
+	                if ((0, _react.isValidElement)(value)) {
+	                    var token = generateToken();
+	                    tokenizedValues[name] = token;
+	                    elements[token] = value;
+	                } else {
+	                    tokenizedValues[name] = value;
+	                }
+	            });
+	
+	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
+	            var formattedMessage = formatMessage(descriptor, tokenizedValues);
+	
+	            // Split the message into parts so the React Element values captured
+	            // above can be inserted back into the rendered message. This approach
+	            // allows messages to render with React Elements while keeping React's
+	            // virtual diffing working properly.
+	            var nodes = formattedMessage.split(tokenRegexp).filter(function (part) {
+	                return !!part;
+	            }).map(function (part) {
+	                return elements[part] || part;
+	            });
+	
+	            if (typeof children === 'function') {
+	                return children.apply(undefined, _toConsumableArray(nodes));
+	            }
+	
+	            return _react.createElement.apply(undefined, [tagName, null].concat(_toConsumableArray(nodes)));
+	        }
+	    }]);
+	
+	    return FormattedMessage;
+	})(_react.Component);
+	
+	exports.default = FormattedMessage;
+	
+	FormattedMessage.displayName = 'FormattedMessage';
+	
+	FormattedMessage.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedMessage.propTypes = _extends({}, _types.messageDescriptorPropTypes, {
+	    values: _react.PropTypes.object,
+	    tagName: _react.PropTypes.string,
+	    children: _react.PropTypes.func
+	});
+	
+	FormattedMessage.defaultProps = {
+	    values: {},
+	    tagName: 'span'
+	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _types = __webpack_require__(266);
+	
+	var _utils = __webpack_require__(269);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var FormattedHTMLMessage = (function (_Component) {
+	    _inherits(FormattedHTMLMessage, _Component);
+	
+	    function FormattedHTMLMessage(props, context) {
+	        _classCallCheck(this, FormattedHTMLMessage);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedHTMLMessage).call(this, props, context));
+	
+	        (0, _utils.invariantIntlContext)(context);
+	        return _this;
+	    }
+	
+	    _createClass(FormattedHTMLMessage, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps) {
+	            var values = this.props.values;
+	            var nextValues = nextProps.values;
+	
+	            if (!(0, _utils.shallowEquals)(nextValues, values)) {
+	                return true;
+	            }
+	
+	            // Since `values` has already been checked, we know they're not
+	            // different, so the current `values` are carried over so the shallow
+	            // equals comparison on the other props isn't affected by the `values`.
+	            var nextPropsToCheck = _extends({}, nextProps, {
+	                values: values
+	            });
+	
+	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                next[_key - 1] = arguments[_key];
+	            }
+	
+	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatHTMLMessage = this.context.intl.formatHTMLMessage;
+	            var _props = this.props;
+	            var id = _props.id;
+	            var description = _props.description;
+	            var defaultMessage = _props.defaultMessage;
+	            var rawValues = _props.values;
+	            var tagName = _props.tagName;
+	            var children = _props.children;
+	
+	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
+	            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedHTMLMessage);
+	            }
+	
+	            // Since the message presumably has HTML in it, we need to set
+	            // `innerHTML` in order for it to be rendered and not escaped by React.
+	            // To be safe, all string prop values were escaped when formatting the
+	            // message. It is assumed that the message is not UGC, and came from the
+	            // developer making it more like a template.
+	            //
+	            // Note: There's a perf impact of using this component since there's no
+	            // way for React to do its virtual DOM diffing.
+	            return (0, _react.createElement)(tagName, {
+	                dangerouslySetInnerHTML: {
+	                    __html: formattedHTMLMessage
+	                }
+	            });
+	        }
+	    }]);
+	
+	    return FormattedHTMLMessage;
+	})(_react.Component);
+	
+	exports.default = FormattedHTMLMessage;
+	
+	FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
+	
+	FormattedHTMLMessage.contextTypes = {
+	    intl: _types.intlShape
+	};
+	
+	FormattedHTMLMessage.propTypes = _extends({}, _types.messageDescriptorPropTypes, {
+	    values: _react.PropTypes.object,
+	    tagName: _react.PropTypes.string,
+	    children: _react.PropTypes.func
+	});
+	
+	FormattedHTMLMessage.defaultProps = {
+	    values: {},
+	    tagName: 'span'
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// GENERATED FILE
+	exports.default = { "locale": "en", "pluralRuleFunction": function pluralRuleFunction(n, ord) {
+	    var s = String(n).split("."),
+	        v0 = !s[1],
+	        t0 = Number(s[0]) == n,
+	        n10 = t0 && s[0].slice(-1),
+	        n100 = t0 && s[0].slice(-2);if (ord) return n10 == 1 && n100 != 11 ? "one" : n10 == 2 && n100 != 12 ? "two" : n10 == 3 && n100 != 13 ? "few" : "other";return n == 1 && v0 ? "one" : "other";
+	  }, "fields": { "year": { "displayName": "Year", "relative": { "0": "this year", "1": "next year", "-1": "last year" }, "relativeTime": { "future": { "one": "in {0} year", "other": "in {0} years" }, "past": { "one": "{0} year ago", "other": "{0} years ago" } } }, "month": { "displayName": "Month", "relative": { "0": "this month", "1": "next month", "-1": "last month" }, "relativeTime": { "future": { "one": "in {0} month", "other": "in {0} months" }, "past": { "one": "{0} month ago", "other": "{0} months ago" } } }, "day": { "displayName": "Day", "relative": { "0": "today", "1": "tomorrow", "-1": "yesterday" }, "relativeTime": { "future": { "one": "in {0} day", "other": "in {0} days" }, "past": { "one": "{0} day ago", "other": "{0} days ago" } } }, "hour": { "displayName": "Hour", "relativeTime": { "future": { "one": "in {0} hour", "other": "in {0} hours" }, "past": { "one": "{0} hour ago", "other": "{0} hours ago" } } }, "minute": { "displayName": "Minute", "relativeTime": { "future": { "one": "in {0} minute", "other": "in {0} minutes" }, "past": { "one": "{0} minute ago", "other": "{0} minutes ago" } } }, "second": { "displayName": "Second", "relative": { "0": "now" }, "relativeTime": { "future": { "one": "in {0} second", "other": "in {0} seconds" }, "past": { "one": "{0} second ago", "other": "{0} seconds ago" } } } } };
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  * $script.js JS loader & dependency manager
+	  * https://github.com/ded/script.js
+	  * (c) Dustin Diaz 2014 | License MIT
+	  */
+	
+	(function (name, definition) {
+	  if (typeof module != 'undefined' && module.exports) module.exports = definition()
+	  else if (true) !(__WEBPACK_AMD_DEFINE_FACTORY__ = (definition), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+	  else this[name] = definition()
+	})('$script', function () {
+	  var doc = document
+	    , head = doc.getElementsByTagName('head')[0]
+	    , s = 'string'
+	    , f = false
+	    , push = 'push'
+	    , readyState = 'readyState'
+	    , onreadystatechange = 'onreadystatechange'
+	    , list = {}
+	    , ids = {}
+	    , delay = {}
+	    , scripts = {}
+	    , scriptpath
+	    , urlArgs
+	
+	  function every(ar, fn) {
+	    for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
+	    return 1
+	  }
+	  function each(ar, fn) {
+	    every(ar, function (el) {
+	      return !fn(el)
+	    })
 	  }
 	
-	  listeners = this._events[type];
+	  function $script(paths, idOrDone, optDone) {
+	    paths = paths[push] ? paths : [paths]
+	    var idOrDoneIsDone = idOrDone && idOrDone.call
+	      , done = idOrDoneIsDone ? idOrDone : optDone
+	      , id = idOrDoneIsDone ? paths.join('') : idOrDone
+	      , queue = paths.length
+	    function loopFn(item) {
+	      return item.call ? item() : list[item]
+	    }
+	    function callback() {
+	      if (!--queue) {
+	        list[id] = 1
+	        done && done()
+	        for (var dset in delay) {
+	          every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
+	        }
+	      }
+	    }
+	    setTimeout(function () {
+	      each(paths, function loading(path, force) {
+	        if (path === null) return callback()
+	        
+	        if (!force && !/^https?:\/\//.test(path) && scriptpath) {
+	          path = (path.indexOf('.js') === -1) ? scriptpath + path + '.js' : scriptpath + path;
+	        }
+	        
+	        if (scripts[path]) {
+	          if (id) ids[id] = 1
+	          return (scripts[path] == 2) ? callback() : setTimeout(function () { loading(path, true) }, 0)
+	        }
 	
-	  if (isFunction(listeners)) {
-	    this.removeListener(type, listeners);
-	  } else if (listeners) {
-	    // LIFO order
-	    while (listeners.length)
-	      this.removeListener(type, listeners[listeners.length - 1]);
+	        scripts[path] = 1
+	        if (id) ids[id] = 1
+	        create(path, callback)
+	      })
+	    }, 0)
+	    return $script
 	  }
-	  delete this._events[type];
 	
-	  return this;
-	};
-	
-	EventEmitter.prototype.listeners = function(type) {
-	  var ret;
-	  if (!this._events || !this._events[type])
-	    ret = [];
-	  else if (isFunction(this._events[type]))
-	    ret = [this._events[type]];
-	  else
-	    ret = this._events[type].slice();
-	  return ret;
-	};
-	
-	EventEmitter.prototype.listenerCount = function(type) {
-	  if (this._events) {
-	    var evlistener = this._events[type];
-	
-	    if (isFunction(evlistener))
-	      return 1;
-	    else if (evlistener)
-	      return evlistener.length;
+	  function create(path, fn) {
+	    var el = doc.createElement('script'), loaded
+	    el.onload = el.onerror = el[onreadystatechange] = function () {
+	      if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
+	      el.onload = el[onreadystatechange] = null
+	      loaded = 1
+	      scripts[path] = 2
+	      fn()
+	    }
+	    el.async = 1
+	    el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
+	    head.insertBefore(el, head.lastChild)
 	  }
-	  return 0;
-	};
 	
-	EventEmitter.listenerCount = function(emitter, type) {
-	  return emitter.listenerCount(type);
-	};
+	  $script.get = create
 	
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
+	  $script.order = function (scripts, id, done) {
+	    (function callback(s) {
+	      s = scripts.shift()
+	      !scripts.length ? $script(s, id, done) : $script(s, callback)
+	    }())
+	  }
 	
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
+	  $script.path = function (p) {
+	    scriptpath = p
+	  }
+	  $script.urlArgs = function (str) {
+	    urlArgs = str;
+	  }
+	  $script.ready = function (deps, ready, req) {
+	    deps = deps[push] ? deps : [deps]
+	    var missing = [];
+	    !each(deps, function (dep) {
+	      list[dep] || missing[push](dep);
+	    }) && every(deps, function (dep) {return list[dep]}) ?
+	      ready() : !function (key) {
+	      delay[key] = delay[key] || []
+	      delay[key][push](ready)
+	      req && req(missing)
+	    }(deps.join('|'))
+	    return $script
+	  }
 	
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
+	  $script.done = function (idOrDone) {
+	    $script([null], idOrDone)
+	  }
 	
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
+	  return $script
+	});
 
 
 /***/ }
 ]);
-//# sourceMappingURL=flux.js.map
+//# sourceMappingURL=react-intl.js.map
