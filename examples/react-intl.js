@@ -19757,6 +19757,8 @@ webpackJsonp([7,12],[
 	    }
 	  };
 	
+	  var defaultApp = app['en-US'];
+	
 	  var Test = _react2['default'].createClass({
 	    displayName: 'Test',
 	
@@ -19776,7 +19778,8 @@ webpackJsonp([7,12],[
 	            'a',
 	            { href: '?locale=en-US' },
 	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
-	              id: 'app.en'
+	              id: 'app.en',
+	              defaultMessage: defaultApp['app.en']
 	            })
 	          )
 	        ),
@@ -19787,7 +19790,8 @@ webpackJsonp([7,12],[
 	            'a',
 	            { href: '?locale=zh-Hans-CN' },
 	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
-	              id: 'app.zh'
+	              id: 'app.zh',
+	              defaultMessage: defaultApp['app.zh']
 	            })
 	          )
 	        )
@@ -19797,7 +19801,8 @@ webpackJsonp([7,12],[
 	
 	  _reactDom2['default'].render(_react2['default'].createElement(
 	    _reactIntl.IntlProvider,
-	    { locale: locale, messages: window.app[locale] || window.app['en-US'] },
+	    { locale: locale,
+	      messages: window.app[locale] || defaultApp },
 	    _react2['default'].createElement(Test, null)
 	  ), document.getElementById('__react-content'));
 	};
