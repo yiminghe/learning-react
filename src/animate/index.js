@@ -1,3 +1,5 @@
+/* eslint no-alert:0 */
+
 import '../../assets/animate/index.css';
 
 import React from 'react';
