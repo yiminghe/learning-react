@@ -42,6 +42,8 @@ const ready = ()=> {
     },
   };
 
+  const defaultApp = app['en-US'];
+
   const Test = React.createClass({
     render() {
       return <div>
@@ -51,18 +53,22 @@ const ready = ()=> {
         <p>
           <a href="?locale=en-US"><FormattedMessage
             id="app.en"
+            defaultMessage={defaultApp['app.en']}
           /></a>
         </p>
         <p>
           <a href="?locale=zh-Hans-CN"><FormattedMessage
             id="app.zh"
+            defaultMessage={defaultApp['app.zh']}
           /></a>
         </p>
       </div>
     }
   });
 
-  ReactDOM.render(<IntlProvider locale={locale} messages={window.app[locale] || window.app['en-US']}>
+
+  ReactDOM.render(<IntlProvider locale={locale}
+                                messages={window.app[locale] || defaultApp}>
       <Test />
     </IntlProvider>,
     document.getElementById('__react-content'));
