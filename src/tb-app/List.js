@@ -49,7 +49,10 @@ const List = React.createClass({
       return false;
     }
 
-    return <Table dataSource={this.state.data} columns={columns}/>;
+    return (<div>
+      <h2 style={{ margin: 20, textAlign: 'center' }}>{this.props.params.q} 搜索结果</h2>
+      <Table dataSource={this.state.data} columns={columns}/>
+    </div>);
   },
 });
 

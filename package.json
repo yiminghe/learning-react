@@ -2,19 +2,16 @@
   "name": "learning-react",
   "version": "1.0.0",
   "author": "yiminghe <yiminghe@gmail.com>",
+  "private": true,
   "description": "learning materials and examples for react",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4.0.0"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "http://github.com/yiminghe/learning-react.git"
   },
-  "files": [
-    "examples",
-    "tutorial"
-  ],
   "keywords": [
     "react",
     "jsx",
@@ -28,6 +25,7 @@
     "flux": "^2.0.1",
     "jquery": "^1.11.3",
     "jsonp": "^0.2.0",
+    "normalize.css": "^3.0.3",
     "object-assign": "^2.0.0",
     "querystring": "^0.2.0",
     "rc-animate": "~2.0.2",
@@ -43,7 +41,6 @@
     "scriptjs": "^2.5.8",
     "react-intl": "^v2.0.0-rc-1",
     "react-addons-test-utils": "~0.14.3",
-    "babel-core": "~5.8.24",
     "expect.js": "~0.3.1",
     "pre-commit": "1.x",
     "rc-tools": "5.x",

@@ -1,3 +1,5 @@
+import 'normalize.css';
+
 var content = document.getElementById('__react-content');
 
 content.innerHTML = `

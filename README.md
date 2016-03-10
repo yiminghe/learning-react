@@ -17,19 +17,15 @@ online example: http://yiminghe.github.io/learning-react/examples/
 
 ## Test Case
 
-http://localhost:9000/tests/runner.html?coverage
-
 ```
-npm run browser-test
-npm run karma
+npm run chrome-test
+npm test
 ```
 
 ## Coverage
 
-http://localhost:9000/node_modules/rc-server/node_modules/node-jscover/lib/front-end/jscoverage.html?w=http://localhost:9000/tests/runner.html?coverage
-
 ```
-npm run browser-test-cover
+npm run coverage
 ```
 
 ## Tutorials

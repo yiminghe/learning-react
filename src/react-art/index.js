@@ -1,3 +1,4 @@
+import 'normalize.css';
 import React from 'react';
 import ReactART from 'react-art';
 import Rectangle from 'react-art/lib/Rectangle.art';
@@ -29,30 +30,37 @@ function onMouseMove(d, e) {
   console.log('mousemove ', d, e.pageX, e.pageY);
 }
 
-class Component extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function onMouseOut() {
+  this.setState({
+    tip: null,
+  });
+}
+
+const Component = React.createClass({
+  propTypes: {
+    data: React.PropTypes.arrayOf(React.PropTypes.shape({
+      month: React.PropTypes.number,
+      value: React.PropTypes.number,
+    })),
+  },
+
+  getInitialState() {
+    return {};
+  },
 
   componentDidMount() {
     const rootNode = ReactDOM.findDOMNode(this);
     this.rootOffset = rootNode.getBoundingClientRect();
-  }
+  },
 
   componentDidUpdate() {
     this.componentDidMount();
-  }
-
-  onMouseOut() {
-    this.setState({
-      tip: null,
-    });
-  }
+  },
 
   getRects() {
     return this.props.data.map((d) => {
       var mouseMove = onMouseMove.bind(this, d);
+      var mouseOut = onMouseOut.bind(this);
       const value = valueScale(d.value);
       const height = value.height;
       const y = 400 - height;
@@ -63,13 +71,13 @@ class Component extends React.Component {
         height={height}
         x={x}
         y={y}
-        onMouseOut={this.onMouseOut}
+        onMouseOut={mouseOut}
         onMouseMove={mouseMove}
         fill={value.color}
         key={d.month}
       />);
     });
-  }
+  },
 
   getTip() {
     const tip = this.state.tip;
@@ -87,7 +95,7 @@ class Component extends React.Component {
       >
         {tip.content}
       </div>);
-  }
+  },
 
   getXAxis() {
     const months = [];
@@ -105,7 +113,7 @@ class Component extends React.Component {
     return (<Group x={20}>
       <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>{months}
     </Group>);
-  }
+  },
 
   getYAxis() {
     const values = [];
@@ -121,7 +129,7 @@ class Component extends React.Component {
     return (<Group>
       <Shape d="M20,0 L20,400 Z M20,400" stroke="#000" strokeWidth={2}/>{values}
     </Group>);
-  }
+  },
 
   render() {
     const tip = this.getTip();
@@ -136,15 +144,8 @@ class Component extends React.Component {
         </Group>
       </Surface>
     </div>);
-  }
-}
-
-Component.propTypes = {
-  data: React.PropTypes.arrayOf(React.PropTypes.shape({
-    month: React.PropTypes.number,
-    value: React.PropTypes.number,
-  })),
-};
+  },
+});
 
 const data = [];
 

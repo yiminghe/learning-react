@@ -10,14 +10,32 @@ const Search = React.createClass({
   getInitialState() {
     return {
       data: [],
+      value: '',
     };
   },
 
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      console.log('onEnter', this.state.value);
+      this.jump(this.state.value);
+    }
+  },
+
   onSelect(value) {
-    this.history.pushState(null, `/list/${value}`);
+    console.log('select ', value);
+    this.jump(value);
+  },
+
+  jump(v) {
+    setTimeout(() => {
+      this.history.pushState(null, `/list/${v}`);
+    }, 30);
   },
 
   fetchData(value) {
+    this.setState({
+      value,
+    });
     const queryStr = querystring.encode({
       code: 'utf-8',
       q: value,
@@ -43,10 +61,14 @@ const Search = React.createClass({
       const ret = <Option key={od.value}>{od.text}</Option>;
       return ret;
     });
-    return (<div style={{ textAlign: 'center' }}>
+    return (<div style={{ textAlign: 'center' }} onKeyDown={this.onKeyDown}>
       <Select
         style={{ width: 500 }}
         combobox
+        value={this.state.value}
+        placeholder="淘你喜欢"
+        optionLabelProp="value"
+        defaultActiveFirstOption={false}
         showArrow={false}
         notFoundContent=""
         onChange={this.fetchData}

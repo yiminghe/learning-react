@@ -1,3 +1,5 @@
+import 'normalize.css';
+
 import qs from 'qs';
 import { addLocaleData, IntlProvider, FormattedMessage } from 'react-intl';
 import React from 'react';
