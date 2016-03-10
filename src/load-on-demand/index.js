@@ -8,4 +8,5 @@ function load() {
     Async.show();
   });
 }
-ReactDOM.render(<button onClick={load} className="my-button">load</button>, document.getElementById('__react-content'));
+ReactDOM.render(<button onClick={load} className="my-button">load</button>,
+  document.getElementById('__react-content'));

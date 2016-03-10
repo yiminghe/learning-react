@@ -33,14 +33,14 @@ const List = React.createClass({
       ajax: 'true',
       q: this.props.params.q,
     });
-    jsonp('https://s.taobao.com/search?' + queryStr, () => {
+    jsonp(`https://s.taobao.com/search?${queryStr}`, () => {
       const data = fakeData;
-      data.forEach((d2, index)=> {
+      data.forEach((d2, index) => {
         d2.key = index;
       });
       this.setState({
         loading: false,
-        data: data,
+        data,
       });
     });
   },

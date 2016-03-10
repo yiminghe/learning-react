@@ -5,7 +5,7 @@ export default {
     setTimeout(() => {
       AppDispatcher.handleViewAction({
         user: {
-          name: 'changed ' + Date.now(),
+          name: `changed ${Date.now()}`,
         },
         actionType: 'update_user',
       });

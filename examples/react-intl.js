@@ -1,5 +1,5 @@
 import qs from 'qs';
-import {addLocaleData, IntlProvider, FormattedMessage} from 'react-intl';
+import { addLocaleData, IntlProvider, FormattedMessage } from 'react-intl';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import scriptjs from 'scriptjs';
@@ -20,15 +20,15 @@ if (!window.Intl) {
   // end
 }
 // should output by server by <script>
-scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/en.js`);
+scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/en.js`);
 // the following should be output by server template conditionally by <script>
 if (localePrefix !== 'en') {
-  scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/${localePrefix}.js`);
+  scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/${localePrefix}.js`);
 }
 // end
 
-const ready = ()=> {
-  addLocaleData(ReactIntlLocaleData[localePrefix]);
+const ready = () => {
+  addLocaleData(window.ReactIntlLocaleData[localePrefix]);
 
   window.app = {
     // output by server conditional
@@ -42,13 +42,13 @@ const ready = ()=> {
     },
   };
 
-  const defaultApp = app['en-US'];
+  const defaultApp = window.app['en-US'];
 
   const Test = React.createClass({
     render() {
-      return <div>
+      return (<div>
         <p>
-          npm install react-intl@2.0.0-beta-2
+          npm install react-intl@2.0.0-rc-1
         </p>
         <p>
           <a href="?locale=en-US"><FormattedMessage
@@ -62,18 +62,19 @@ const ready = ()=> {
             defaultMessage={defaultApp['app.zh']}
           /></a>
         </p>
-      </div>
-    }
+      </div>);
+    },
   });
 
-
-  ReactDOM.render(<IntlProvider locale={locale}
-                                messages={window.app[locale] || defaultApp}>
+  ReactDOM.render(
+    <IntlProvider
+      locale={locale}
+      messages={window.app[locale] || defaultApp}
+    >
       <Test />
     </IntlProvider>,
     document.getElementById('__react-content'));
 };
-
 
 if (scripts.length) {
   scriptjs(scripts, ready);

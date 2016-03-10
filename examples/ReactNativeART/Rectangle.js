@@ -26,19 +26,17 @@
  *
  */
 
-
-
 var React = require('react-native');
 var ReactART = require('ReactNativeART');
 
-var Group = ReactART.Group;
-var Shape = ReactART.Shape;
-var Surface = ReactART.Surface;
-var Transform = ReactART.Transform;
+// var Group = ReactART.Group;
+// var Shape = ReactART.Shape;
+// var Surface = ReactART.Surface;
+// var Transform = ReactART.Transform;
 
 var Props = React.PropTypes;
 var Shape = ReactART.Shape;
-var Path = ReactART.Path;
+var getPath = ReactART.Path;
 
 /**
  * Rectangle is a React component for drawing rectangles. Like other ReactART
@@ -52,10 +50,10 @@ var Rectangle = React.createClass({
     radiusTopLeft: Props.number,
     radiusTopRight: Props.number,
     radiusBottomRight: Props.number,
-    radiusBottomLeft: Props.number
+    radiusBottomLeft: Props.number,
   },
 
-  render: function() {
+  render() {
     var width = this.props.width;
     var height = this.props.height;
     var radius = this.props.radius ? this.props.radius : 0;
@@ -68,7 +66,7 @@ var Rectangle = React.createClass({
       this.props.radiusBottomRight : radius;
     var bl = this.props.radiusBottomLeft ? this.props.radiusBottomLeft : radius;
 
-    var path = Path();
+    var path = getPath();
 
     // for negative width/height, offset the rectangle in the negative x/y
     // direction. for negative radius, just default to 0.
@@ -107,8 +105,7 @@ var Rectangle = React.createClass({
     path.line(0, - height + (bl + tl));
 
     return <Shape {...this.props} d={path} />;
-  }
-
+  },
 });
 
 module.exports = Rectangle;

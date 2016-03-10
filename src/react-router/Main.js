@@ -4,12 +4,12 @@ import React from 'react';
 import App from './App';
 import Index from './IndexPage';
 import State from './State';
-import {Router} from 'react-router';
+import { Router } from 'react-router';
 
 const rootRoute = [{
   path: '/',
   component: App,
-  indexRoute: {component: Index},
+  indexRoute: { component: Index },
   childRoutes: [
     {
       path: 'state/:abbr',

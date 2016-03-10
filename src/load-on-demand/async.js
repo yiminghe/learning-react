@@ -9,7 +9,7 @@ exports.show = () => {
     container = document.createElement('div');
     document.getElementById('__react-content').appendChild(container);
   }
-  ReactDOM.render(<Dialog style={{width: 400}} title="test dialog" visible closable={false}>
+  ReactDOM.render(<Dialog style={{ width: 400 }} title="test dialog" visible closable={false}>
     <div className="my-content">loaded</div>
   </Dialog>, container);
 };

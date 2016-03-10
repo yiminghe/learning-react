@@ -1,1 +1,1 @@
-import "../src/tb-app/index";
+import '../src/tb-app/index';

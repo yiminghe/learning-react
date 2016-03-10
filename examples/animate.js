@@ -1,1 +1,1 @@
-import "../src/animate/index";
+import '../src/animate/index';

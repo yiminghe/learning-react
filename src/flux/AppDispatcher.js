@@ -5,7 +5,7 @@ class AppDispatcher extends Dispatcher {
   handleViewAction(action) {
     this.dispatch({
       type: 'view_action',
-      action: action,
+      action,
     });
   }
 }

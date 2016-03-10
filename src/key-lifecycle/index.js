@@ -11,9 +11,11 @@ const Test = React.createClass({
   },
 });
 
-ReactDOM.render(<Test id1="id1" id2="id2" key1="key1" key2="key2"/>, document.getElementById('__react-content'));
+ReactDOM.render(<Test id1="id1" id2="id2" key1="key1" key2="key2"/>,
+  document.getElementById('__react-content'));
 
 setTimeout(() => {
   console.log('*******************************');
-  ReactDOM.render(<Test id1="id1" id2="id2" key1="key11" key2="key2"/>, document.getElementById('__react-content'));
+  ReactDOM.render(<Test id1="id1" id2="id2" key1="key11" key2="key2"/>,
+    document.getElementById('__react-content'));
 }, 1000);

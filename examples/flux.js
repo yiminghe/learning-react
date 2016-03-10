@@ -1,1 +1,1 @@
-import "../src/flux/index";
+import '../src/flux/index';

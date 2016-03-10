@@ -24,7 +24,8 @@ const StrikeDash = React.createClass({
     const duration = this.props.duration;
     // Define our transition
     // ie11 not working...
-    style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = `stroke-dashoffset ${duration}s ease-in-out`;
+    style.transition = style.MsTransition = style.msTransition =
+      style.WebkitTransition = `stroke-dashoffset ${duration}s ease-in-out`;
     // Go!
     style.strokeDashoffset = '0px';
     setTimeout(this.onEnd, duration * 1000);
@@ -53,8 +54,14 @@ const StrikeDash = React.createClass({
     style.strokeDasharray = length;
     style.strokeDashoffset = length;
     if (this.state.end) {
-      endCircle = (<circle cx={endX} cy={endY} r="10" stroke="black"
-                           strokeWidth="5" fill="red"/>);
+      endCircle = (<circle
+        cx={endX}
+        cy={endY}
+        r="10"
+        stroke="black"
+        strokeWidth="5"
+        fill="red"
+      />);
       style.strokeDashoffset = '0';
       style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
     }
@@ -64,19 +71,26 @@ const StrikeDash = React.createClass({
     // https://github.com/facebook/react/issues/2187
     return (
       <div>
-        <h2 dangerouslySetInnerHTML={{__html: h2Title}}></h2>
+        <h2 dangerouslySetInnerHTML={{ __html: h2Title }}></h2>
         <svg width="400" height="400">
-          <circle cx={startX} cy={startY} r="10" stroke="black"
-                  strokeWidth="5" fill="red"/>
+          <circle
+            cx={startX}
+            cy={startY}
+            r="10"
+            stroke="black"
+            strokeWidth="5"
+            fill="red"
+          />
           {endCircle}
-          <path d={path}
-                ref="path"
-                onTransitionEnd={this.onEnd}
-                onWebkitTransitionEnd={this.onEnd}
-                style={style}
-                stroke="red"
-                strokeWidth="2"
-            ></path>
+          <path
+            d={path}
+            ref="path"
+            onTransitionEnd={this.onEnd}
+            onWebkitTransitionEnd={this.onEnd}
+            style={style}
+            stroke="red"
+            strokeWidth="2"
+          />
         </svg>
       </div>
     );

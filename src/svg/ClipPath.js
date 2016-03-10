@@ -23,10 +23,12 @@ const ClipPath = React.createClass({
     // Clear any previous transition
     style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = 'none';
     // Set up the starting positions
-    style.WebkitClipPath = `polygon(${startX}px ${startY}px,${startX}px ${startY}px, ${startX}px ${startY}px,${startX}px ${startY}px)`;
+    style.WebkitClipPath =
+      `polygon(${startX}px ${startY}px,${startX}px ${startY}px,
+      ${startX}px ${startY}px,${startX}px ${startY}px)`;
     return {
-      style: style,
-      path: path,
+      style,
+      path,
     };
   },
 
@@ -40,11 +42,13 @@ const ClipPath = React.createClass({
       const style = assign({}, this.state.style);
       // Define our transition
       // ie11 not working...
-      style.transition = style.MsTransition = style.msTransition = style.WebkitTransition = `-webkit-clip-path ${duration}s ease-in-out`;
+      style.transition = style.MsTransition = style.msTransition =
+        style.WebkitTransition = `-webkit-clip-path ${duration}s ease-in-out`;
       // Go!
-      style.WebkitClipPath = `polygon(${startX}px ${startY}px,${endX}px ${startY}px, ${endX}px ${endY}px,${startX}px ${endY}px)`;
+      style.WebkitClipPath = `polygon(${startX}px ${startY}px,${endX}px ${startY}px,
+      ${endX}px ${endY}px,${startX}px ${endY}px)`;
       this.setState({
-        style: style,
+        style,
       });
     }, 0);
   },
@@ -56,15 +60,28 @@ const ClipPath = React.createClass({
       <div>
         <h2>clip-path anim</h2>
         <svg width="400" height="400" style={this.state.style}>
-          <rect width="400" height="400" fill="white"></rect>
-          <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
-                  strokeWidth="5" fill="red"/>
-          <circle cx={this.props.end.x} cy={this.props.end.y} r="10" stroke="black"
-                  strokeWidth="5" fill="red"/>
-          <path d={this.state.path}
-                stroke="red"
-                strokeWidth="2"
-            ></path>
+          <rect width="400" height="400" fill="white"/>
+          <circle
+            cx={this.props.start.x}
+            cy={this.props.start.y}
+            r="10"
+            stroke="black"
+            strokeWidth="5"
+            fill="red"
+          />
+          <circle
+            cx={this.props.end.x}
+            cy={this.props.end.y}
+            r="10"
+            stroke="black"
+            strokeWidth="5"
+            fill="red"
+          />
+          <path
+            d={this.state.path}
+            stroke="red"
+            strokeWidth="2"
+          />
         </svg>
       </div>
     );

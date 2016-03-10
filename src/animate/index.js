@@ -8,22 +8,29 @@ import Animate from 'rc-animate';
 
 const TodoList = React.createClass({
   getInitialState() {
-    return {items: ['hello', 'world', 'click', 'me']};
+    return {
+      items: ['hello', 'world', 'click', 'me'],
+    };
   },
   onAdd() {
     const newItems =
       this.state.items.concat([window.prompt('Enter some text')]);
-    this.setState({items: newItems});
+    this.setState({
+      items: newItems,
+    });
   },
   onRemove(i) {
     const newItems = this.state.items;
     newItems.splice(i, 1);
-    this.setState({items: newItems});
+    this.setState({
+      items: newItems,
+    });
   },
   render() {
     const items = this.state.items.map((item, i) => {
+      const remove = this.onRemove.bind(this, i);
       return (
-        <div key={item} onClick={this.onRemove.bind(this, i)}>
+        <div key={item} onClick={remove}>
           {item}
         </div>
       );

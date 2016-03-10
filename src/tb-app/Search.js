@@ -1,8 +1,8 @@
 import React from 'react';
-import Select, {Option} from 'antd/lib/select';
+import Select, { Option } from 'antd/lib/select';
 import jsonp from 'jsonp';
 import querystring from 'querystring';
-import {History} from 'react-router';
+import { History } from 'react-router';
 
 const Search = React.createClass({
   mixins: [History],
@@ -22,37 +22,37 @@ const Search = React.createClass({
       code: 'utf-8',
       q: value,
     });
-    jsonp('http://suggest.taobao.com/sug?' + queryStr, (err, d) => {
+    jsonp(`http://suggest.taobao.com/sug?${queryStr}`, (err, d) => {
       const result = d.result;
       const data = [];
-      result.forEach((singleResult)=> {
+      result.forEach((singleResult) => {
         data.push({
           value: singleResult[0],
           text: <b>{singleResult[0]}</b>,
         });
       });
-      if (this.isMounted()) {
-        this.setState({
-          data: data,
-        });
-      }
+      this.setState({
+        data,
+      });
     });
   },
 
   render() {
     const data = this.state.data;
     const options = data.map((od) => {
-      return <Option key={od.value}>{od.text}</Option>;
+      const ret = <Option key={od.value}>{od.text}</Option>;
+      return ret;
     });
-    return (<div style={{textAlign: 'center'}}>
+    return (<div style={{ textAlign: 'center' }}>
       <Select
-        style={{width: 500}}
+        style={{ width: 500 }}
         combobox
         showArrow={false}
         notFoundContent=""
         onChange={this.fetchData}
         onSelect={this.onSelect}
-        filterOption={false}>
+        filterOption={false}
+      >
         {options}
       </Select>
     </div>);

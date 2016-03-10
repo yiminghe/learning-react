@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 const rootRoute = [{
   path: '/',
-  indexRoute: {component: Search},
+  indexRoute: { component: Search },
   component: App,
   childRoutes: [
     {

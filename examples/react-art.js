@@ -1,1 +1,1 @@
-import "../src/react-art/index";
+import '../src/react-art/index';

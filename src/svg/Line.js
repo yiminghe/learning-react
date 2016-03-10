@@ -38,10 +38,10 @@ const Line = React.createClass({
       duration: this.props.duration * 1000,
       step(val, tw) {
         current[tw.prop] = val;
-        const path = 'M' + start.x + ' ' + start.y + ' L' + current.x + ' ' + current.y;
+        const path = `M${start.x} ${start.y} L${current.x} ${current.y}`;
         self.setState({
           pos: (tw.now - tw.start) / (tw.end - tw.end),
-          path: path,
+          path,
         });
       },
     });
@@ -54,21 +54,34 @@ const Line = React.createClass({
   render() {
     let end;
     if (this.state.pos > 0.99) {
-      end = (<circle cx={this.props.end.x} cy={this.props.end.y} r="10" stroke="black"
-        strokeWidth="5" fill="red"/>);
+      end = (<circle
+        cx={this.props.end.x}
+        cy={this.props.end.y}
+        r="10"
+        stroke="black"
+        strokeWidth="5"
+        fill="red"
+      />);
     }
     const x = 'js anim';
     return (
       <div>
-        <h2 dangerouslySetInnerHTML={{__html: x}}></h2>
+        <h2 dangerouslySetInnerHTML={{ __html: x }} />
         <svg width="400" height="400">
-          <circle cx={this.props.start.x} cy={this.props.start.y} r="10" stroke="black"
-            strokeWidth="5" fill="red"/>
-                {end}
-          <path d={this.state.path}
+          <circle
+            cx={this.props.start.x}
+            cy={this.props.start.y}
+            r="10"
+            stroke="black"
+            strokeWidth="5"
+            fill="red"
+          />
+          {end}
+          <path
+            d={this.state.path}
             stroke="red"
             strokeWidth="2"
-          ></path>
+          />
         </svg>
       </div>
     );

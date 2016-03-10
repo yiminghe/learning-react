@@ -6,41 +6,45 @@ const Component = React.createClass({
   },
 
   getInitialState() {
-    console.log(this.props.id + ' getInitialState');
+    this.log(' getInitialState');
     return {};
   },
 
   componentWillMount() {
-    console.log(this.props.id + ' componentWillMount');
+    this.log(' componentWillMount');
   },
 
   componentDidMount() {
-    console.log(this.props.id + ' componentDidMount');
+    this.log(' componentDidMount');
   },
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.id + ' componentWillReceiveProps ' + nextProps.id);
+    console.log(`componentWillReceiveProps ${nextProps.id}`);
   },
 
   shouldComponentUpdate() {
-    console.log(this.props.id + ' shouldComponentUpdate');
+    this.log(' shouldComponentUpdate');
     return 1;
   },
 
   componentWillUpdate() {
-    console.log(this.props.id + ' componentWillUpdate');
+    this.log(' componentWillUpdate');
   },
 
   componentDidUpdate() {
-    console.log(this.props.id + ' componentDidUpdate');
+    this.log(' componentDidUpdate');
   },
 
   componentWillUnmount() {
-    console.log(this.props.id + ' componentWillUnmount');
+    this.log(' componentWillUnmount');
+  },
+
+  log(str) {
+    console.log(`${this.props.id} ${str}`);
   },
 
   render() {
-    console.log(this.props.id + ' render');
+    this.log(' render');
     return <div {...this.props}></div>;
   },
 });

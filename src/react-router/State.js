@@ -1,5 +1,5 @@
 import React from 'react';
-import {underscore, findState} from './util';
+import { underscore, findState } from './util';
 import Index from './IndexPage';
 
 const State = React.createClass({
@@ -8,7 +8,7 @@ const State = React.createClass({
   },
 
   imageUrl(name) {
-    return 'http://www.50states.com/maps/' + underscore(name) + '.gif';
+    return `http://www.50states.com/maps/${underscore(name)}.gif`;
   },
 
   render() {

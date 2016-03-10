@@ -1,6 +1,10 @@
 {
   "extends": "eslint-config-airbnb",
+  "parser": "babel-eslint",
   "rules": {
+    "react/prefer-es6-class": [
+      0
+    ],
     "no-var": [
       0
     ],
@@ -19,8 +23,10 @@
     "vars-on-top": [
       0
     ],
-    "react/no-multi-comp": [2,{
-      "ignoreStateless": true
-    }]
+    "react/no-multi-comp": [0]
+  },
+  "env": {
+    "node": true,
+    "mocha": true
   }
 }

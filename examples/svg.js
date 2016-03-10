@@ -1,1 +1,1 @@
-import "../src/svg/index";
+import '../src/svg/index';

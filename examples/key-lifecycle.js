@@ -1,1 +1,1 @@
-import "../src/key-lifecycle/index";
+import '../src/key-lifecycle/index';

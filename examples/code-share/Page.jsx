@@ -21,7 +21,7 @@ window.process = {
         })(typeof window === 'undefined' ? this : window);
 `;
 
-var app=`
+var app = `
 require('./index');
 `;
 
@@ -29,16 +29,18 @@ class Page extends React.Component {
   render() {
     return (<html>
     <head>
-      <script dangerouslySetInnerHTML={{__html: consolePolyfill}}/>
+      <script dangerouslySetInnerHTML={{ __html: consolePolyfill }}/>
       <script
-        src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"/>
+        src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"
+      />
       <script
-        src="/node_modules/rc-server/node_modules/modulex/build/modulex-debug.js?nowrap"/>
+        src="/node_modules/rc-server/node_modules/modulex/build/modulex-debug.js?nowrap"
+      />
     </head>
     <body>
-    <div id="__react-content" dangerouslySetInnerHTML={{__html: this.props.content}}/>
-    <script dangerouslySetInnerHTML={{__html: this.props.script}}/>
-    <script dangerouslySetInnerHTML={{__html: app}}/>
+    <div id="__react-content" dangerouslySetInnerHTML={{ __html: this.props.content }}/>
+    <script dangerouslySetInnerHTML={{ __html: this.props.script }}/>
+    <script dangerouslySetInnerHTML={{ __html: app }}/>
     </body>
     </html>);
   }

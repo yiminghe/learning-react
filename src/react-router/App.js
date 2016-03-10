@@ -1,8 +1,8 @@
 import '../../assets/react-router/index.css';
 import 'antd/lib/index.css';
 import React from 'react';
-import {Link} from 'react-router';
-import {findStates} from './util';
+import { Link } from 'react-router';
+import { findStates } from './util';
 
 const App = React.createClass({
   propTypes: {
@@ -10,18 +10,23 @@ const App = React.createClass({
   },
 
   getInitialState() {
-    return {states: findStates()};
+    return {
+      states: findStates(),
+    };
   },
 
   render() {
     const links = this.state.states.map((state) => {
-      return (
+      const ret = (
         <li key={state.abbr}>
           <Link
             to={`/state/${state.abbr}`}
-            >{state.name}</Link>
+          >
+            {state.name}
+          </Link>
         </li>
       );
+      return ret;
     });
     return (
       <div className="row App">

@@ -55,10 +55,10 @@ var prevChildren = {
   [node7.key]: node7,
   [node6.key]: node6,
   [node8.key]: node8,
-  [node9.key]: node9
+  [node9.key]: node9,
 };
 
-var nodes = Object.keys(prevChildren).map(function (k) {
+var nodes = Object.keys(prevChildren).map((k) => {
   var node = prevChildren[k];
   return `<${node.tag}>${node.key} - ${node.tag}</${node.tag}>`;
 });
@@ -74,14 +74,14 @@ node9.dom = prevDOMChildNodes[3];
 
 var newNode8 = {
   key: '.8',
-  tag: 'p'
+  tag: 'p',
 };
 
 newNode8.dom = getNode(`<${newNode8.tag}>${newNode8.key} - ${newNode8.tag}</${newNode8.tag}>`);
 
 var newNodeX = {
   key: '.x',
-  tag: 'div'
+  tag: 'div',
 };
 
 newNodeX.dom = getNode(`<${newNodeX.tag}>${newNodeX.key} - ${newNodeX.tag}</${newNodeX.tag}>`);
@@ -90,7 +90,7 @@ var nextChildren = {
   [node9.key]: node9,
   [node7.key]: node7,
   [newNode8.key]: newNode8,
-  [newNodeX.key]: newNodeX
+  [newNodeX.key]: newNodeX,
 };
 
 document.getElementById('action').onclick = function () {
@@ -110,7 +110,7 @@ document.getElementById('action').onclick = function () {
         queue.push({
           type: 'move',
           child: prevChild,
-          toIndex: nextIndex
+          toIndex: nextIndex,
         });
       }
       lastIndex = Math.max(prevChild._mountIndex, lastIndex);
@@ -121,28 +121,29 @@ document.getElementById('action').onclick = function () {
         lastIndex = Math.max(prevChild._mountIndex, lastIndex);
         queue.push({
           type: 'remove',
-          child: prevChild
+          child: prevChild,
         });
       }
       queue.push({
         type: 'new',
         child: nextChild,
-        toIndex: nextIndex
+        toIndex: nextIndex,
       });
     }
     nextIndex++;
   }
 // Remove children that are no longer present.
-  for (name in prevChildren) {
-    if (prevChildren.hasOwnProperty(name) && !(nextChildren && nextChildren.hasOwnProperty(name))) {
+  for (const childName in prevChildren) {
+    if (prevChildren.hasOwnProperty(childName) &&
+      !(nextChildren && nextChildren.hasOwnProperty(childName))) {
       queue.push({
         type: 'remove',
-        child: prevChildren[name]
+        child: prevChildren[childName],
       });
     }
   }
 
-  queue.forEach(function (q) {
+  queue.forEach((q) => {
     if (q.type === 'remove' || q.type === 'move') {
       removeNode(q.child.dom);
 
@@ -152,11 +153,10 @@ document.getElementById('action').onclick = function () {
     }
   });
 
-  queue.forEach(function (q) {
+  queue.forEach((q) => {
     if (q.type === 'new' || q.type === 'move') {
       insertAtIndex(result, q.child.dom, q.toIndex);
       console.log(q.type, q.child, 'to', q.toIndex);
     }
   });
-
 };

@@ -18,6 +18,16 @@ const valueScale = d3.scale.linear().domain([0, 10]).range([{
   height: 400,
 }]);
 
+function onMouseMove(d, e) {
+  this.setState({
+    tip: {
+      content: `${monthText[d.month]} : ${d.value}`,
+      x: e.pageX,
+      y: e.pageY,
+    },
+  });
+  console.log('mousemove ', d, e.pageX, e.pageY);
+}
 
 class Component extends React.Component {
   constructor(props) {
@@ -34,17 +44,6 @@ class Component extends React.Component {
     this.componentDidMount();
   }
 
-  onMouseMove(d, e) {
-    this.setState({
-      tip: {
-        content: monthText[d.month] + ' : ' + d.value,
-        x: e.pageX,
-        y: e.pageY,
-      },
-    });
-    console.log('mousemove ', d, e.pageX, e.pageY);
-  }
-
   onMouseOut() {
     this.setState({
       tip: null,
@@ -53,15 +52,22 @@ class Component extends React.Component {
 
   getRects() {
     return this.props.data.map((d) => {
+      var mouseMove = onMouseMove.bind(this, d);
       const value = valueScale(d.value);
       const height = value.height;
       const y = 400 - height;
       const x = monthScale(d.month);
-      return (<Rectangle key={value}
-                         width={10} height={height} x={x} y={y}
-                         onMouseOut={this.onMouseOut.bind(this)}
-                         onMouseMove={this.onMouseMove.bind(this, d)}
-                         fill={value.color} key={d.month + ''}/>);
+      return (<Rectangle
+        key={value}
+        width={10}
+        height={height}
+        x={x}
+        y={y}
+        onMouseOut={this.onMouseOut}
+        onMouseMove={mouseMove}
+        fill={value.color}
+        key={d.month}
+      />);
     });
   }
 
@@ -70,23 +76,31 @@ class Component extends React.Component {
     if (!tip) {
       return null;
     }
-    return (<div style={{
-      position: 'absolute',
-      border: '1px solid red',
-      left: tip.x - this.rootOffset.left + 10,
-      top: tip.y - this.rootOffset.top,
-    }}>{tip.content}</div>);
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          border: '1px solid red',
+          left: tip.x - this.rootOffset.left + 10,
+          top: tip.y - this.rootOffset.top,
+        }}
+      >
+        {tip.content}
+      </div>);
   }
 
   getXAxis() {
     const months = [];
     for (let i = 1; i <= 12; i++) {
       const value = monthScale(i) - 5;
-      months.push((<Group x={value}
-                          key={value}
-                          y={400}>
-        <ARTText stroke="#000" font={{fontSize: 10}}>{monthText[i]}</ARTText>
-      </Group>));
+      months.push((
+        <Group
+          x={value}
+          key={value}
+          y={400}
+        >
+          <ARTText stroke="#000" font={{ fontSize: 10 }}>{monthText[i]}</ARTText>
+        </Group>));
     }
     return (<Group x={20}>
       <Shape d="M0,400 L400,400 Z M400,400" stroke="#000" strokeWidth={2}/>{months}
@@ -100,7 +114,7 @@ class Component extends React.Component {
       const height = value.height;
       const y = 400 - height;
       values.push(<Group y={y} key={y}>
-        <ARTText stroke="#000" font={{fontSize: 20}}>{i + ''}</ARTText>
+        <ARTText stroke="#000" font={{ fontSize: 20 }}>{i}</ARTText>
         <Shape d="M0,0 L20,0 Z M20,0" stroke="#000"/>
       </Group>);
     }
@@ -112,7 +126,7 @@ class Component extends React.Component {
   render() {
     const tip = this.getTip();
 
-    return (<div style={{width: 500, height: 420, position: 'relative'}}>
+    return (<div style={{ width: 500, height: 420, position: 'relative' }}>
       {tip}
       <Surface width={500} height={420}>
         {this.getYAxis()}
@@ -142,6 +156,6 @@ for (let i = 1; i < 13; i++) {
 }
 
 console.log('data', data);
-ReactDOM.render(<div style={{width: 500, margin: 'auto'}}>
+ReactDOM.render(<div style={{ width: 500, margin: 'auto' }}>
   <Component data={data}/>
 </div>, document.getElementById('__react-content'));

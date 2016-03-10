@@ -22,7 +22,7 @@
     "webpack"
   ],
   "dependencies": {
-    "antd": "~0.10.1",
+    "antd": "~0.12.1",
     "d3": "^3.5.5",
     "events": "^1.0.2",
     "flux": "^2.0.1",
@@ -41,27 +41,27 @@
     "history": "1.x",
     "qs": "^6.0.1",
     "scriptjs": "^2.5.8",
-    "react-intl": "^2.0.0-beta-2",
+    "react-intl": "^v2.0.0-rc-1",
     "react-addons-test-utils": "~0.14.3",
     "babel-core": "~5.8.24",
     "expect.js": "~0.3.1",
     "pre-commit": "1.x",
-    "rc-server": "3.x",
-    "rc-tools": "4.x",
+    "rc-tools": "5.x",
     "replace": "~0.3.0",
     "reveal.js": "~3.1.0"
   },
   "scripts": {
+    "pre-gh-pages": "sh ./scripts/pre-gh-pages.sh",
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
-    "pre-gh-pages": "sh ./scripts/pre-gh-pages.sh",
-    "start": "rc-server",
+    "start": "rc-tools run server",
     "pub": "rc-tools run pub",
     "lint": "rc-tools run lint",
     "karma": "rc-tools run karma",
     "saucelabs": "rc-tools run saucelabs",
-    "browser-test": "rc-tools run browser-test",
-    "browser-test-cover": "rc-tools run browser-test-cover"
+    "test": "rc-tools run test",
+    "chrome-test": "rc-tools run chrome-test",
+    "coverage": "rc-tools run coverage"
   },
   "pre-commit": [
     "lint"

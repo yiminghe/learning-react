@@ -23,6 +23,16 @@ const Component = React.createClass({
       count: nextProps.count,
     });
   },
+  turnOn() {
+    this.setState({
+      disabled: false,
+    });
+  },
+  increase() {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  },
   render() {
     return (
       <div>
@@ -34,16 +44,6 @@ const Component = React.createClass({
         </div>
       </div>
     );
-  },
-  turnOn() {
-    this.setState({
-      disabled: false,
-    });
-  },
-  increase() {
-    this.setState({
-      count: this.state.count + 1,
-    });
   },
 });
 

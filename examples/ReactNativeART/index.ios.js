@@ -11,22 +11,22 @@ var Dimensions = require('Dimensions');
 var windowWidth = Dimensions.get('window').width;
 var windowHeight = Dimensions.get('window').height;
 
-console.log(windowHeight, windowWidth);
-
+/* eslint react/no-multi-comp:0 */
 var React = require('react-native');
 var ReactART = require('ReactNativeART');
 var {
-  NavigatorIOS,
+  // NavigatorIOS,
   AppRegistry,
-  StyleSheet,
-  Text,
+  PropTypes,
+  // StyleSheet,
+  // Text,
   View,
   } = React;
 
 var Group = ReactART.Group;
 var Shape = ReactART.Shape;
 var Surface = ReactART.Surface;
-var Transform = ReactART.Transform;
+// var Transform = ReactART.Transform;
 var ARTText = ReactART.Text;
 var Rectangle = require('./Rectangle');
 
@@ -58,8 +58,14 @@ class Bar extends React.Component {
       const height = value.height;
       const y = this.props.height - height - this.gap;
       const x = this.monthScale(d.month) - this.rectangleWidth * 1.5;
-      return (<Rectangle width={this.rectangleWidth} height={height} x={x} y={y}
-                         fill={value.color} key={d.month + ''}/>);
+      return (<Rectangle
+        width={this.rectangleWidth}
+        height={height}
+        x={x}
+        y={y}
+        fill={value.color}
+        key={d.month}
+      />);
     });
   }
 
@@ -68,13 +74,25 @@ class Bar extends React.Component {
     var height = this.props.height - this.gap;
     for (let i = 1; i <= 12; i++) {
       const value = this.monthScale(i) - this.rectangleWidth * 2;
-      months.push((<Group x={value} y={height}>
-        <ARTText stroke="#000" font={{fontSize: 10,fontFamily:"Arial"}}>{monthText[i]}</ARTText>
+      months.push((<Group
+        x={value}
+        y={height}
+      >
+        <ARTText
+          stroke="#000"
+          font={{ fontSize: 10, fontFamily: 'Arial' }}
+        >
+          {monthText[i]}
+        </ARTText>
       </Group>));
     }
     var width = this.props.width - this.gap;
     return (<Group x={this.gap}>
-      <Shape d={`M0,${height} L${width},${height} Z M${width},${height}`} stroke="#000" strokeWidth={2}/>
+      <Shape
+        d={`M0,${height} L${width},${height} Z M${width},${height}`}
+        stroke="#000"
+        strokeWidth={2}
+      />
       {months}
     </Group>);
   }
@@ -88,7 +106,7 @@ class Bar extends React.Component {
       const height = value.height;
       const y = yHeight - height;
       values.push(<Group y={y}>
-        <ARTText stroke="#000" font={{fontSize: 20,fontFamily:"Arial"}}>{i + ''}</ARTText>
+        <ARTText stroke="#000" font={{ fontSize: 20, fontFamily: 'Arial' }}>{i}</ARTText>
         <Shape d={`M0,0 L${gap},0 Z M${gap},0`} stroke="#000"/>
       </Group>);
     }
@@ -102,12 +120,18 @@ class Bar extends React.Component {
     return (<Surface width={this.props.width} height={this.props.height}>
       {this.getYAxis()}
       {this.getXAxis()}
-      <Group x={this.gap} y={0} style={{flex:1}} height={this.props.height-this.gap}>
+      <Group x={this.gap} y={0} style={{ flex: 1 }} height={this.props.height - this.gap}>
         {this.getRects()}
       </Group>
     </Surface>);
   }
 }
+
+Bar.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+  data: PropTypes.object,
+};
 
 const data = [];
 
@@ -118,6 +142,7 @@ for (let i = 1; i < 13; i++) {
   });
 }
 
+/*
 class ReactNativeART extends React.Component {
   render() {
     return (
@@ -130,12 +155,13 @@ class ReactNativeART extends React.Component {
     );
   }
 }
+*/
 
 class ReactNativeART2 extends React.Component {
   render() {
     return (
-      <View style={{flex:1, justifyContent:'center',alignItems:'center'}}>
-        <Bar data={data} width={windowWidth-100} height={windowHeight/2}/>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Bar data={data} width={windowWidth - 100} height={windowHeight / 2}/>
       </View>
     );
   }

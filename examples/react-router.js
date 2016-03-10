@@ -1,1 +1,1 @@
-import "../src/react-router/index";
+import '../src/react-router/index';

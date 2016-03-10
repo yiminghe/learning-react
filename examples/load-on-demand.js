@@ -1,1 +1,1 @@
-import "../src/load-on-demand/index";
+import '../src/load-on-demand/index';
