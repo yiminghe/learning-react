@@ -7,7 +7,7 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="https://a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
   <style>
     .highlight pre {
       padding: .8em 1em;
@@ -251,7 +251,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  
+  <link rel="stylesheet" href="diff-children.css" />
 </head>
 
 <body>
@@ -264,167 +264,169 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="diff-children.js?nowrap"></script>
-  <div class="highlight"><pre><code language="undefined">var content = document.getElementById('__react-content');
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'normalize.css'</span>;
 
-content.innerHTML = `
+<span class="hljs-keyword">var</span> content = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'__react-content'</span>);
+
+content.innerHTML = <span class="hljs-string">`
 &lt;h2&gt;diff children demo&lt;/h2&gt;
 &lt;div&gt;
 &lt;button id="action"&gt;change&lt;/button&gt;
 &lt;/div&gt;
 &lt;div id="result"&gt;&lt;/div&gt;
-`;
+`</span>;
 
-var result = document.getElementById('result');
+<span class="hljs-keyword">var</span> result = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'result'</span>);
 
-var tmp = document.createElement('div');
+<span class="hljs-keyword">var</span> tmp = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'div'</span>);
 
-function getNode(html) {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNode</span>(<span class="hljs-params">html</span>) </span>{
   tmp.innerHTML = html;
-  return tmp.firstChild;
+  <span class="hljs-keyword">return</span> tmp.firstChild;
 }
 
-function removeNode(node) {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeNode</span>(<span class="hljs-params">node</span>) </span>{
   node.parentNode.removeChild(node);
 }
 
-function insertAtIndex(parent, child, index) {
-  var after = parent.childNodes[index] || null;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertAtIndex</span>(<span class="hljs-params">parent, child, index</span>) </span>{
+  <span class="hljs-keyword">var</span> after = parent.childNodes[index] || <span class="hljs-literal">null</span>;
   parent.insertBefore(child, after);
 }
 
-var node7 = {
-  key: '.7',
-  tag: 'div',
-  _mountIndex: 0,
+<span class="hljs-keyword">var</span> node7 = {
+  key: <span class="hljs-string">'.7'</span>,
+  tag: <span class="hljs-string">'div'</span>,
+  _mountIndex: <span class="hljs-number">0</span>,
 };
 
-var node6 = {
-  key: '.6',
-  tag: 'div',
-  _mountIndex: 1,
+<span class="hljs-keyword">var</span> node6 = {
+  key: <span class="hljs-string">'.6'</span>,
+  tag: <span class="hljs-string">'div'</span>,
+  _mountIndex: <span class="hljs-number">1</span>,
 };
 
-var node8 = {
-  key: '.8',
-  tag: 'div',
-  _mountIndex: 2,
+<span class="hljs-keyword">var</span> node8 = {
+  key: <span class="hljs-string">'.8'</span>,
+  tag: <span class="hljs-string">'div'</span>,
+  _mountIndex: <span class="hljs-number">2</span>,
 };
 
-var node9 = {
-  key: '.9',
-  tag: 'div',
-  _mountIndex: 3,
+<span class="hljs-keyword">var</span> node9 = {
+  key: <span class="hljs-string">'.9'</span>,
+  tag: <span class="hljs-string">'div'</span>,
+  _mountIndex: <span class="hljs-number">3</span>,
 };
 
 
-var prevChildren = {
+<span class="hljs-keyword">var</span> prevChildren = {
   [node7.key]: node7,
   [node6.key]: node6,
   [node8.key]: node8,
-  [node9.key]: node9
+  [node9.key]: node9,
 };
 
-var nodes = Object.keys(prevChildren).map(function (k) {
-  var node = prevChildren[k];
-  return `&lt;${node.tag}&gt;${node.key} - ${node.tag}&lt;/${node.tag}&gt;`;
+<span class="hljs-keyword">var</span> nodes = <span class="hljs-built_in">Object</span>.keys(prevChildren).map((k) =&gt; {
+  <span class="hljs-keyword">var</span> node = prevChildren[k];
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;<span class="hljs-subst">${node.tag}</span>&gt;<span class="hljs-subst">${node.key}</span> - <span class="hljs-subst">${node.tag}</span>&lt;/<span class="hljs-subst">${node.tag}</span>&gt;`</span>;
 });
 
-result.innerHTML = nodes.join('');
+result.innerHTML = nodes.join(<span class="hljs-string">''</span>);
 
-var prevDOMChildNodes = result.childNodes;
+<span class="hljs-keyword">var</span> prevDOMChildNodes = result.childNodes;
 
-node7.dom = prevDOMChildNodes[0];
-node6.dom = prevDOMChildNodes[1];
-node8.dom = prevDOMChildNodes[2];
-node9.dom = prevDOMChildNodes[3];
+node7.dom = prevDOMChildNodes[<span class="hljs-number">0</span>];
+node6.dom = prevDOMChildNodes[<span class="hljs-number">1</span>];
+node8.dom = prevDOMChildNodes[<span class="hljs-number">2</span>];
+node9.dom = prevDOMChildNodes[<span class="hljs-number">3</span>];
 
-var newNode8 = {
-  key: '.8',
-  tag: 'p'
+<span class="hljs-keyword">var</span> newNode8 = {
+  key: <span class="hljs-string">'.8'</span>,
+  tag: <span class="hljs-string">'p'</span>,
 };
 
-newNode8.dom = getNode(`&lt;${newNode8.tag}&gt;${newNode8.key} - ${newNode8.tag}&lt;/${newNode8.tag}&gt;`);
+newNode8.dom = getNode(<span class="hljs-string">`&lt;<span class="hljs-subst">${newNode8.tag}</span>&gt;<span class="hljs-subst">${newNode8.key}</span> - <span class="hljs-subst">${newNode8.tag}</span>&lt;/<span class="hljs-subst">${newNode8.tag}</span>&gt;`</span>);
 
-var newNodeX = {
-  key: '.x',
-  tag: 'div'
+<span class="hljs-keyword">var</span> newNodeX = {
+  key: <span class="hljs-string">'.x'</span>,
+  tag: <span class="hljs-string">'div'</span>,
 };
 
-newNodeX.dom = getNode(`&lt;${newNodeX.tag}&gt;${newNodeX.key} - ${newNodeX.tag}&lt;/${newNodeX.tag}&gt;`);
+newNodeX.dom = getNode(<span class="hljs-string">`&lt;<span class="hljs-subst">${newNodeX.tag}</span>&gt;<span class="hljs-subst">${newNodeX.key}</span> - <span class="hljs-subst">${newNodeX.tag}</span>&lt;/<span class="hljs-subst">${newNodeX.tag}</span>&gt;`</span>);
 
-var nextChildren = {
+<span class="hljs-keyword">var</span> nextChildren = {
   [node9.key]: node9,
   [node7.key]: node7,
   [newNode8.key]: newNode8,
-  [newNodeX.key]: newNodeX
+  [newNodeX.key]: newNodeX,
 };
 
-document.getElementById('action').onclick = function () {
-  document.getElementById('action').disabled = true;
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'action'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'action'</span>).disabled = <span class="hljs-literal">true</span>;
 
-  var lastIndex = 0;
-  var nextIndex = 0;
-  var queue = [];
-  for (var name in nextChildren) {
-    if (!nextChildren.hasOwnProperty(name)) {
-      continue;
+  <span class="hljs-keyword">var</span> lastIndex = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> nextIndex = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">var</span> queue = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> name <span class="hljs-keyword">in</span> nextChildren) {
+    <span class="hljs-keyword">if</span> (!nextChildren.hasOwnProperty(name)) {
+      <span class="hljs-keyword">continue</span>;
     }
-    var prevChild = prevChildren &amp;&amp; prevChildren[name];
-    var nextChild = nextChildren[name];
-    if (prevChild === nextChild) {
-      if (prevChild._mountIndex &lt; lastIndex) {
+    <span class="hljs-keyword">var</span> prevChild = prevChildren &amp;&amp; prevChildren[name];
+    <span class="hljs-keyword">var</span> nextChild = nextChildren[name];
+    <span class="hljs-keyword">if</span> (prevChild === nextChild) {
+      <span class="hljs-keyword">if</span> (prevChild._mountIndex &lt; lastIndex) {
         queue.push({
-          type: 'move',
+          type: <span class="hljs-string">'move'</span>,
           child: prevChild,
-          toIndex: nextIndex
+          toIndex: nextIndex,
         });
       }
-      lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+      lastIndex = <span class="hljs-built_in">Math</span>.max(prevChild._mountIndex, lastIndex);
       prevChild._mountIndex = nextIndex;
-    } else {
-      if (prevChild) {
-        // Update `lastIndex` before `_mountIndex` gets unset by unmounting.
-        lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">if</span> (prevChild) {
+        <span class="hljs-comment">// Update `lastIndex` before `_mountIndex` gets unset by unmounting.</span>
+        lastIndex = <span class="hljs-built_in">Math</span>.max(prevChild._mountIndex, lastIndex);
         queue.push({
-          type: 'remove',
-          child: prevChild
+          type: <span class="hljs-string">'remove'</span>,
+          child: prevChild,
         });
       }
       queue.push({
-        type: 'new',
+        type: <span class="hljs-string">'new'</span>,
         child: nextChild,
-        toIndex: nextIndex
+        toIndex: nextIndex,
       });
     }
     nextIndex++;
   }
-// Remove children that are no longer present.
-  for (name in prevChildren) {
-    if (prevChildren.hasOwnProperty(name) &amp;&amp; !(nextChildren &amp;&amp; nextChildren.hasOwnProperty(name))) {
+<span class="hljs-comment">// Remove children that are no longer present.</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> childName <span class="hljs-keyword">in</span> prevChildren) {
+    <span class="hljs-keyword">if</span> (prevChildren.hasOwnProperty(childName) &amp;&amp;
+      !(nextChildren &amp;&amp; nextChildren.hasOwnProperty(childName))) {
       queue.push({
-        type: 'remove',
-        child: prevChildren[name]
+        type: <span class="hljs-string">'remove'</span>,
+        child: prevChildren[childName],
       });
     }
   }
 
-  queue.forEach(function (q) {
-    if (q.type === 'remove' || q.type === 'move') {
+  queue.forEach((q) =&gt; {
+    <span class="hljs-keyword">if</span> (q.type === <span class="hljs-string">'remove'</span> || q.type === <span class="hljs-string">'move'</span>) {
       removeNode(q.child.dom);
 
-      if (q.type === 'remove') {
-        console.log('remove', q.child);
+      <span class="hljs-keyword">if</span> (q.type === <span class="hljs-string">'remove'</span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'remove'</span>, q.child);
       }
     }
   });
 
-  queue.forEach(function (q) {
-    if (q.type === 'new' || q.type === 'move') {
+  queue.forEach((q) =&gt; {
+    <span class="hljs-keyword">if</span> (q.type === <span class="hljs-string">'new'</span> || q.type === <span class="hljs-string">'move'</span>) {
       insertAtIndex(result, q.child.dom, q.toIndex);
-      console.log(q.type, q.child, 'to', q.toIndex);
+      <span class="hljs-built_in">console</span>.log(q.type, q.child, <span class="hljs-string">'to'</span>, q.toIndex);
     }
   });
-
 };
 </code></pre></div>
 </div>

@@ -7,7 +7,7 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="https://a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
   <style>
     .highlight pre {
       padding: .8em 1em;
@@ -251,7 +251,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  
+  <link rel="stylesheet" href="react-intl.css" />
 </head>
 
 <body>
@@ -264,11 +264,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="react-intl.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js">import qs from <span class="hljs-string">'qs'</span>;
-import {addLocaleData, IntlProvider, FormattedMessage} from <span class="hljs-string">'react-intl'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
-import scriptjs from <span class="hljs-string">'scriptjs'</span>;
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> <span class="hljs-string">'normalize.css'</span>;
+
+<span class="hljs-keyword">import</span> qs <span class="hljs-keyword">from</span> <span class="hljs-string">'qs'</span>;
+<span class="hljs-keyword">import</span> { addLocaleData, IntlProvider, FormattedMessage } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-intl'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> scriptjs <span class="hljs-keyword">from</span> <span class="hljs-string">'scriptjs'</span>;
 
 <span class="hljs-keyword">const</span> locale = qs.parse(location.search &amp;&amp; location.search.slice(<span class="hljs-number">1</span>)).locale || <span class="hljs-string">'en-US'</span>;
 <span class="hljs-keyword">const</span> localePrefix = locale.slice(<span class="hljs-number">0</span>, locale.indexOf(<span class="hljs-string">'-'</span>));
@@ -277,24 +279,24 @@ import scriptjs from <span class="hljs-string">'scriptjs'</span>;
 
 <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">window</span>.Intl) {
   <span class="hljs-comment">// should output by server by &lt;script&gt;</span>
-  scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/component/intl/1.0.1/Intl.js`);</span>
-  scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/en-US.js`);</span>
+  scripts.push(<span class="hljs-string">`https://as.alipayobjects.com/g/component/intl/1.0.1/Intl.js`</span>);
+  scripts.push(<span class="hljs-string">`https://as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/en-US.js`</span>);
   <span class="hljs-comment">// the following should be output by server template conditionally by &lt;script&gt;</span>
   <span class="hljs-keyword">if</span> (locale !== <span class="hljs-string">'en-US'</span>) {
-    scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/${locale}.js`);</span>
+    scripts.push(<span class="hljs-string">`https://as.alipayobjects.com/g/component/intl/1.0.1/locale-data/jsonp/<span class="hljs-subst">${locale}</span>.js`</span>);
   }
   <span class="hljs-comment">// end</span>
 }
 <span class="hljs-comment">// should output by server by &lt;script&gt;</span>
-scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/en.js`);</span>
+scripts.push(<span class="hljs-string">`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/en.js`</span>);
 <span class="hljs-comment">// the following should be output by server template conditionally by &lt;script&gt;</span>
 <span class="hljs-keyword">if</span> (localePrefix !== <span class="hljs-string">'en'</span>) {
-  scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/${localePrefix}.js`);</span>
+  scripts.push(<span class="hljs-string">`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/<span class="hljs-subst">${localePrefix}</span>.js`</span>);
 }
 <span class="hljs-comment">// end</span>
 
-<span class="hljs-keyword">const</span> ready = ()=&gt; {
-  addLocaleData(ReactIntlLocaleData[localePrefix]);
+<span class="hljs-keyword">const</span> ready = () =&gt; {
+  addLocaleData(<span class="hljs-built_in">window</span>.ReactIntlLocaleData[localePrefix]);
 
   <span class="hljs-built_in">window</span>.app = {
     <span class="hljs-comment">// output by server conditional</span>
@@ -308,13 +310,13 @@ scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/componen
     },
   };
 
-  <span class="hljs-keyword">const</span> defaultApp = app[<span class="hljs-string">'en-US'</span>];
+  <span class="hljs-keyword">const</span> defaultApp = <span class="hljs-built_in">window</span>.app[<span class="hljs-string">'en-US'</span>];
 
   <span class="hljs-keyword">const</span> Test = React.createClass({
     render() {
-      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          npm install react-intl@2.0.0-beta-2
+          npm install react-intl@2.0.0-rc-1
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"?locale=en-US"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">FormattedMessage</span>
@@ -328,18 +330,19 @@ scripts.push(`https:<span class="hljs-comment">//as.alipayobjects.com/g/componen
             <span class="hljs-attribute">defaultMessage</span>=<span class="hljs-value">{defaultApp['app.zh']}</span>
           /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    }
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+    },
   });
 
-
-  ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">IntlProvider</span> <span class="hljs-attribute">locale</span>=<span class="hljs-value">{locale}</span>
-                                <span class="hljs-attribute">messages</span>=<span class="hljs-value">{window.app[locale]</span> || <span class="hljs-attribute">defaultApp</span>}&gt;</span>
+  ReactDOM.render(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">IntlProvider</span>
+      <span class="hljs-attribute">locale</span>=<span class="hljs-value">{locale}</span>
+      <span class="hljs-attribute">messages</span>=<span class="hljs-value">{window.app[locale]</span> || <span class="hljs-attribute">defaultApp</span>}
+    &gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">IntlProvider</span>&gt;</span>,
     document.getElementById('__react-content'));
 };
-
 
 if (scripts.length) {
   scriptjs(scripts, ready);

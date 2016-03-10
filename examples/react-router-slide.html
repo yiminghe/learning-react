@@ -7,7 +7,7 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="https://a.alipayobjects.com/normalize.css/3.0.1/normalize.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
   <style>
     .highlight pre {
       padding: .8em 1em;
@@ -264,85 +264,101 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="react-router-slide.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js">import createHistory from <span class="hljs-string">'history/lib/createHashHistory'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
-import {Router, Link} from <span class="hljs-string">'react-router'</span>;
-import Animate from <span class="hljs-string">'rc-animate'</span>;
-import <span class="hljs-string">'../assets/react-router-slide/index.less'</span>;
+  <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> createHistory <span class="hljs-keyword">from</span> <span class="hljs-string">'history/lib/createHashHistory'</span>;
+<span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> { Router, Link } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router'</span>;
+<span class="hljs-keyword">import</span> Animate <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-animate'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'../assets/react-router-slide/index.less'</span>;
 
 <span class="hljs-keyword">const</span> history = createHistory();
 
-<span class="hljs-built_in">console</span>.log(history)
+<span class="hljs-built_in">console</span>.log(history);
 
 <span class="hljs-keyword">const</span> Header = React.createClass({
+  propTypes: {
+    location: PropTypes.object,
+  },
   onClick(e) {
     e.preventDefault();
     history.goBack();
   },
-  render(){
-    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
-    <span class="hljs-attribute">textAlign:</span>'<span class="hljs-attribute">center</span>',
-    <span class="hljs-attribute">position:</span>'<span class="hljs-attribute">relative</span>',
-    <span class="hljs-attribute">padding:20</span>
-    }}&gt;</span>
-      {this.props.location.pathname === '/' ? null : <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
-          <span class="hljs-attribute">position:</span>'<span class="hljs-attribute">absolute</span>',
-          <span class="hljs-attribute">top:20</span>,
-          <span class="hljs-attribute">left:20</span>
-      }} <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onClick}</span>&gt;</span>back<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>}
+  render() {
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>
+      <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
+        <span class="hljs-attribute">textAlign:</span> '<span class="hljs-attribute">center</span>',
+        <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">relative</span>',
+        <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">20</span>,
+      }}
+    &gt;</span>
+      {this.props.location.pathname === '/' ? null : <span class="hljs-tag">&lt;<span class="hljs-title">a</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
+          <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">absolute</span>',
+          <span class="hljs-attribute">top:</span> <span class="hljs-attribute">20</span>,
+          <span class="hljs-attribute">left:</span> <span class="hljs-attribute">20</span>,
+        }}
+        <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span>
+        <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onClick}</span>
+      &gt;</span>back<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>}
 
       do not use native browser nav
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   },
 });
 
-const Page1 = React.createClass({
+<span class="hljs-keyword">const</span> Page1 = React.createClass({
   render() {
-    return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{padding:100}}</span>&gt;</span>
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">100</span> }}&gt;</span>
       page1
       &amp;nbsp;&amp;nbsp;
       <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>goto page2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
-  }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+  },
 });
 
-const Page2 = React.createClass({
+<span class="hljs-keyword">const</span> Page2 = React.createClass({
   render() {
-    return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{padding:100}}</span>&gt;</span>
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">padding:</span> <span class="hljs-attribute">100</span> }}&gt;</span>
       page2
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
-  }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+  },
 });
 
-const App = React.createClass({
+<span class="hljs-keyword">const</span> App = React.createClass({
+  propTypes: {
+    location: PropTypes.object,
+    children: PropTypes.object,
+  },
   render() {
-    const location = this.props.location;
-    var direction = location.action === 'POP' ? 'backward' : 'forward';
-    return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{width:800,border:'1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">red</span>',<span class="hljs-attribute">margin:</span>'<span class="hljs-attribute">auto</span>',<span class="hljs-attribute">overflow:</span>'<span class="hljs-attribute">hidden</span>'}}&gt;</span>
+    <span class="hljs-keyword">const</span> location = <span class="hljs-keyword">this</span>.props.location;
+    <span class="hljs-keyword">var</span> direction = location.action === <span class="hljs-string">'POP'</span> ? <span class="hljs-string">'backward'</span> : <span class="hljs-string">'forward'</span>;
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>
+      <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">800</span>, <span class="hljs-attribute">border:</span> '<span class="hljs-attribute">1px</span> <span class="hljs-attribute">solid</span> <span class="hljs-attribute">red</span>', <span class="hljs-attribute">margin:</span> '<span class="hljs-attribute">auto</span>', <span class="hljs-attribute">overflow:</span> '<span class="hljs-attribute">hidden</span>' }}
+    &gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Header</span> <span class="hljs-attribute">location</span>=<span class="hljs-value">{this.props.location}</span>/&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{position:'relative'}}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">position:</span> '<span class="hljs-attribute">relative</span>' }}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">Animate</span> <span class="hljs-attribute">transitionAppear</span>=<span class="hljs-value">{false}</span> <span class="hljs-attribute">transitionName</span>=<span class="hljs-value">{`rr-slide-horizontal-${direction}`}</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{location.pathname}</span>&gt;</span>{this.props.children}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">Animate</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>);
-  }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+  },
 });
 
-const rootRoutes = [{
-  path: '/',
+<span class="hljs-keyword">const</span> rootRoutes = [{
+  path: <span class="hljs-string">'/'</span>,
   component: App,
   indexRoute: {
     component: Page1,
   },
   childRoutes: [{
-    path: 'page2',
-    component: Page2
-  }]
+    path: <span class="hljs-string">'page2'</span>,
+    component: Page2,
+  }],
 }];
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>{rootRoutes}<span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>, document.getElementById('__react-content'));</span></code></pre></div>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>{rootRoutes}<span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>, document.getElementById('__react-content'));
+</span></code></pre></div>
 </div>
 <a href="">
   <img style="position: absolute; top: 0; right: 0; border: 0;"

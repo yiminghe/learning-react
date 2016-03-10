@@ -2,7 +2,7 @@ webpackJsonp([7,12],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(260);
+	module.exports = __webpack_require__(265);
 
 
 /***/ },
@@ -1023,7 +1023,7 @@ webpackJsonp([7,12],[
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -1037,15 +1037,16 @@ webpackJsonp([7,12],[
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
@@ -9264,6 +9265,7 @@ webpackJsonp([7,12],[
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9297,8 +9299,6 @@ webpackJsonp([7,12],[
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9309,7 +9309,11 @@ webpackJsonp([7,12],[
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -10472,8 +10476,8 @@ webpackJsonp([7,12],[
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: null,
-	    autoCorrect: null,
+	    autoCapitalize: MUST_USE_ATTRIBUTE,
+	    autoCorrect: MUST_USE_ATTRIBUTE,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -10504,9 +10508,7 @@ webpackJsonp([7,12],[
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
-	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
-	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -13160,7 +13162,10 @@ webpackJsonp([7,12],[
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -13585,7 +13590,7 @@ webpackJsonp([7,12],[
 	    var value = LinkedValueUtils.getValue(props);
 	
 	    if (value != null) {
-	      updateOptions(this, props, value);
+	      updateOptions(this, Boolean(props.multiple), value);
 	    }
 	  }
 	}
@@ -16620,11 +16625,14 @@ webpackJsonp([7,12],[
 	 * @typechecks
 	 */
 	
+	/* eslint-disable fb-www/typeof-undefined */
+	
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not
+	 * yet defined.
 	 */
 	'use strict';
 	
@@ -16632,7 +16640,6 @@ webpackJsonp([7,12],[
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
-	
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -18372,7 +18379,9 @@ webpackJsonp([7,12],[
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+	  'setValueForStyles': 'update styles',
+	  'replaceNodeWithMarkup': 'replace',
+	  'updateTextContent': 'set textContent'
 	};
 	
 	function getTotalTime(measurements) {
@@ -18564,18 +18573,23 @@ webpackJsonp([7,12],[
 	'use strict';
 	
 	var performance = __webpack_require__(148);
-	var curPerformance = performance;
+	
+	var performanceNow;
 	
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (!curPerformance || !curPerformance.now) {
-	  curPerformance = Date;
+	if (performance.now) {
+	  performanceNow = function () {
+	    return performance.now();
+	  };
+	} else {
+	  performanceNow = function () {
+	    return Date.now();
+	  };
 	}
-	
-	var performanceNow = curPerformance.now.bind(curPerformance);
 	
 	module.exports = performanceNow;
 
@@ -18624,7 +18638,7 @@ webpackJsonp([7,12],[
 	
 	'use strict';
 	
-	module.exports = '0.14.3';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 150 */
@@ -19605,7 +19619,12 @@ webpackJsonp([7,12],[
 /* 168 */,
 /* 169 */,
 /* 170 */,
-/* 171 */,
+/* 171 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
 /* 172 */,
 /* 173 */,
 /* 174 */,
@@ -19694,18 +19713,23 @@ webpackJsonp([7,12],[
 /* 257 */,
 /* 258 */,
 /* 259 */,
-/* 260 */
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	__webpack_require__(171);
 	
-	var _qs = __webpack_require__(261);
+	var _qs = __webpack_require__(266);
 	
 	var _qs2 = _interopRequireDefault(_qs);
 	
-	var _reactIntl = __webpack_require__(265);
+	var _reactIntl = __webpack_require__(270);
 	
 	var _react = __webpack_require__(4);
 	
@@ -19715,11 +19739,13 @@ webpackJsonp([7,12],[
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _scriptjs = __webpack_require__(302);
+	var _scriptjs = __webpack_require__(293);
 	
 	var _scriptjs2 = _interopRequireDefault(_scriptjs);
 	
-	var locale = _qs2['default'].parse(location.search && location.search.slice(1)).locale || 'en-US';
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var locale = _qs2.default.parse(location.search && location.search.slice(1)).locale || 'en-US';
 	var localePrefix = locale.slice(0, locale.indexOf('-'));
 	
 	var scripts = [];
@@ -19735,15 +19761,15 @@ webpackJsonp([7,12],[
 	  // end
 	}
 	// should output by server by <script>
-	scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/en.js');
+	scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/en.js');
 	// the following should be output by server template conditionally by <script>
 	if (localePrefix !== 'en') {
-	  scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-beta-2/locale-data/' + localePrefix + '.js');
+	  scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/' + localePrefix + '.js');
 	}
 	// end
 	
 	var ready = function ready() {
-	  (0, _reactIntl.addLocaleData)(ReactIntlLocaleData[localePrefix]);
+	  (0, _reactIntl.addLocaleData)(window.ReactIntlLocaleData[localePrefix]);
 	
 	  window.app = {
 	    // output by server conditional
@@ -19757,39 +19783,38 @@ webpackJsonp([7,12],[
 	    }
 	  };
 	
-	  var defaultApp = app['en-US'];
+	  var defaultApp = window.app['en-US'];
 	
-	  var Test = _react2['default'].createClass({
+	  var Test = _react2.default.createClass({
 	    displayName: 'Test',
-	
 	    render: function render() {
-	      return _react2['default'].createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'npm install react-intl@2.0.0-beta-2'
+	          'npm install react-intl@2.0.0-rc-1'
 	        ),
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          _react2.default.createElement(
 	            'a',
 	            { href: '?locale=en-US' },
-	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
+	            _react2.default.createElement(_reactIntl.FormattedMessage, {
 	              id: 'app.en',
 	              defaultMessage: defaultApp['app.en']
 	            })
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          _react2.default.createElement(
 	            'a',
 	            { href: '?locale=zh-Hans-CN' },
-	            _react2['default'].createElement(_reactIntl.FormattedMessage, {
+	            _react2.default.createElement(_reactIntl.FormattedMessage, {
 	              id: 'app.zh',
 	              defaultMessage: defaultApp['app.zh']
 	            })
@@ -19799,67 +19824,55 @@ webpackJsonp([7,12],[
 	    }
 	  });
 	
-	  _reactDom2['default'].render(_react2['default'].createElement(
+	  _reactDom2.default.render(_react2.default.createElement(
 	    _reactIntl.IntlProvider,
-	    { locale: locale,
-	      messages: window.app[locale] || defaultApp },
-	    _react2['default'].createElement(Test, null)
+	    {
+	      locale: locale,
+	      messages: window.app[locale] || defaultApp
+	    },
+	    _react2.default.createElement(Test, null)
 	  ), document.getElementById('__react-content'));
 	};
 	
 	if (scripts.length) {
-	  (0, _scriptjs2['default'])(scripts, ready);
+	  (0, _scriptjs2.default)(scripts, ready);
 	} else {
 	  ready();
 	}
 
 /***/ },
-/* 261 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	// Load modules
+	var Stringify = __webpack_require__(267);
+	var Parse = __webpack_require__(269);
 	
-	const Stringify = __webpack_require__(262);
-	const Parse = __webpack_require__(264);
-	
-	
-	// Declare internals
-	
-	const internals = {};
-	
-	
-	exports.stringify = Stringify;
-	exports.parse = Parse;
+	module.exports = {
+	    stringify: Stringify,
+	    parse: Parse
+	};
 
 
 /***/ },
-/* 262 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	// Load modules
+	var Utils = __webpack_require__(268);
 	
-	const Utils = __webpack_require__(263);
-	
-	
-	// Declare internals
-	
-	const internals = {
+	var internals = {
 	    delimiter: '&',
 	    arrayPrefixGenerators: {
-	        brackets: function (prefix, key) {
-	
+	        brackets: function (prefix) {
 	            return prefix + '[]';
 	        },
 	        indices: function (prefix, key) {
-	
 	            return prefix + '[' + key + ']';
 	        },
-	        repeat: function (prefix, key) {
-	
+	        repeat: function (prefix) {
 	            return prefix;
 	        }
 	    },
@@ -19868,19 +19881,15 @@ webpackJsonp([7,12],[
 	    encode: true
 	};
 	
-	
-	internals.stringify = function (obj, prefix, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort) {
-	
+	internals.stringify = function (object, prefix, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort, allowDots) {
+	    var obj = object;
 	    if (typeof filter === 'function') {
 	        obj = filter(prefix, obj);
-	    }
-	    else if (Utils.isBuffer(obj)) {
-	        obj = obj.toString();
-	    }
-	    else if (obj instanceof Date) {
+	    } else if (Utils.isBuffer(obj)) {
+	        obj = String(obj);
+	    } else if (obj instanceof Date) {
 	        obj = obj.toISOString();
-	    }
-	    else if (obj === null) {
+	    } else if (obj === null) {
 	        if (strictNullHandling) {
 	            return encode ? Utils.encode(prefix) : prefix;
 	        }
@@ -19888,90 +19897,78 @@ webpackJsonp([7,12],[
 	        obj = '';
 	    }
 	
-	    if (typeof obj === 'string' ||
-	        typeof obj === 'number' ||
-	        typeof obj === 'boolean') {
-	
+	    if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
 	        if (encode) {
 	            return [Utils.encode(prefix) + '=' + Utils.encode(obj)];
 	        }
 	        return [prefix + '=' + obj];
 	    }
 	
-	    let values = [];
+	    var values = [];
 	
 	    if (typeof obj === 'undefined') {
 	        return values;
 	    }
 	
-	    let objKeys;
+	    var objKeys;
 	    if (Array.isArray(filter)) {
 	        objKeys = filter;
-	    }
-	    else {
-	        const keys = Object.keys(obj);
+	    } else {
+	        var keys = Object.keys(obj);
 	        objKeys = sort ? keys.sort(sort) : keys;
 	    }
 	
-	    for (let i = 0; i < objKeys.length; ++i) {
-	        const key = objKeys[i];
+	    for (var i = 0; i < objKeys.length; ++i) {
+	        var key = objKeys[i];
 	
-	        if (skipNulls &&
-	            obj[key] === null) {
-	
+	        if (skipNulls && obj[key] === null) {
 	            continue;
 	        }
 	
 	        if (Array.isArray(obj)) {
-	            values = values.concat(internals.stringify(obj[key], generateArrayPrefix(prefix, key), generateArrayPrefix, strictNullHandling, skipNulls, encode, filter));
-	        }
-	        else {
-	            values = values.concat(internals.stringify(obj[key], prefix + '[' + key + ']', generateArrayPrefix, strictNullHandling, skipNulls, encode, filter));
+	            values = values.concat(internals.stringify(obj[key], generateArrayPrefix(prefix, key), generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort, allowDots));
+	        } else {
+	            values = values.concat(internals.stringify(obj[key], prefix + (allowDots ? '.' + key : '[' + key + ']'), generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort, allowDots));
 	        }
 	    }
 	
 	    return values;
 	};
 	
-	
-	module.exports = function (obj, options) {
-	
-	    options = options || {};
-	    const delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
-	    const strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
-	    const skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : internals.skipNulls;
-	    const encode = typeof options.encode === 'boolean' ? options.encode : internals.encode;
-	    const sort = typeof options.sort === 'function' ? options.sort : null;
-	    let objKeys;
-	    let filter;
+	module.exports = function (object, opts) {
+	    var obj = object;
+	    var options = opts || {};
+	    var delimiter = typeof options.delimiter === 'undefined' ? internals.delimiter : options.delimiter;
+	    var strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
+	    var skipNulls = typeof options.skipNulls === 'boolean' ? options.skipNulls : internals.skipNulls;
+	    var encode = typeof options.encode === 'boolean' ? options.encode : internals.encode;
+	    var sort = typeof options.sort === 'function' ? options.sort : null;
+	    var allowDots = typeof options.allowDots === 'undefined' ? false : options.allowDots;
+	    var objKeys;
+	    var filter;
 	    if (typeof options.filter === 'function') {
 	        filter = options.filter;
 	        obj = filter('', obj);
-	    }
-	    else if (Array.isArray(options.filter)) {
+	    } else if (Array.isArray(options.filter)) {
 	        objKeys = filter = options.filter;
 	    }
 	
-	    let keys = [];
+	    var keys = [];
 	
-	    if (typeof obj !== 'object' ||
-	        obj === null) {
-	
+	    if (typeof obj !== 'object' || obj === null) {
 	        return '';
 	    }
 	
-	    let arrayFormat;
+	    var arrayFormat;
 	    if (options.arrayFormat in internals.arrayPrefixGenerators) {
 	        arrayFormat = options.arrayFormat;
-	    }
-	    else if ('indices' in options) {
+	    } else if ('indices' in options) {
 	        arrayFormat = options.indices ? 'indices' : 'repeat';
-	    }
-	    else {
+	    } else {
 	        arrayFormat = 'indices';
 	    }
 	
-	    const generateArrayPrefix = internals.arrayPrefixGenerators[arrayFormat];
+	    var generateArrayPrefix = internals.arrayPrefixGenerators[arrayFormat];
 	
 	    if (!objKeys) {
 	        objKeys = Object.keys(obj);
@@ -19981,16 +19978,14 @@ webpackJsonp([7,12],[
 	        objKeys.sort(sort);
 	    }
 	
-	    for (let i = 0; i < objKeys.length; ++i) {
-	        const key = objKeys[i];
+	    for (var i = 0; i < objKeys.length; ++i) {
+	        var key = objKeys[i];
 	
-	        if (skipNulls &&
-	            obj[key] === null) {
-	
+	        if (skipNulls && obj[key] === null) {
 	            continue;
 	        }
 	
-	        keys = keys.concat(internals.stringify(obj[key], key, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort));
+	        keys = keys.concat(internals.stringify(obj[key], key, generateArrayPrefix, strictNullHandling, skipNulls, encode, filter, sort, allowDots));
 	    }
 	
 	    return keys.join(delimiter);
@@ -19998,34 +19993,23 @@ webpackJsonp([7,12],[
 
 
 /***/ },
-/* 263 */
+/* 268 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	// Load modules
-	
-	
-	// Declare internals
-	
-	const internals = {};
-	
-	
-	internals.hexTable = function () {
-	
-	    const array = new Array(256);
-	    for (let i = 0; i < 256; ++i) {
+	var hexTable = (function () {
+	    var array = new Array(256);
+	    for (var i = 0; i < 256; ++i) {
 	        array[i] = '%' + ((i < 16 ? '0' : '') + i.toString(16)).toUpperCase();
 	    }
 	
 	    return array;
-	}();
-	
+	}());
 	
 	exports.arrayToObject = function (source, options) {
-	
-	    const obj = options.plainObjects ? Object.create(null) : {};
-	    for (let i = 0; i < source.length; ++i) {
+	    var obj = options.plainObjects ? Object.create(null) : {};
+	    for (var i = 0; i < source.length; ++i) {
 	        if (typeof source[i] !== 'undefined') {
 	            obj[i] = source[i];
 	        }
@@ -20034,9 +20018,7 @@ webpackJsonp([7,12],[
 	    return obj;
 	};
 	
-	
 	exports.merge = function (target, source, options) {
-	
 	    if (!source) {
 	        return target;
 	    }
@@ -20044,116 +20026,100 @@ webpackJsonp([7,12],[
 	    if (typeof source !== 'object') {
 	        if (Array.isArray(target)) {
 	            target.push(source);
-	        }
-	        else if (typeof target === 'object') {
+	        } else if (typeof target === 'object') {
 	            target[source] = true;
-	        }
-	        else {
-	            target = [target, source];
+	        } else {
+	            return [target, source];
 	        }
 	
 	        return target;
 	    }
 	
 	    if (typeof target !== 'object') {
-	        target = [target].concat(source);
-	        return target;
+	        return [target].concat(source);
 	    }
 	
-	    if (Array.isArray(target) &&
-	        !Array.isArray(source)) {
-	
-	        target = exports.arrayToObject(target, options);
+	    var mergeTarget = target;
+	    if (Array.isArray(target) && !Array.isArray(source)) {
+	        mergeTarget = exports.arrayToObject(target, options);
 	    }
 	
-	    const keys = Object.keys(source);
-	    for (let i = 0; i < keys.length; ++i) {
-	        const key = keys[i];
-	        const value = source[key];
+		return Object.keys(source).reduce(function (acc, key) {
+	        var value = source[key];
 	
-	        if (!Object.prototype.hasOwnProperty.call(target, key)) {
-	            target[key] = value;
+	        if (Object.prototype.hasOwnProperty.call(acc, key)) {
+	            acc[key] = exports.merge(acc[key], value, options);
+	        } else {
+	            acc[key] = value;
 	        }
-	        else {
-	            target[key] = exports.merge(target[key], value, options);
-	        }
-	    }
-	
-	    return target;
+			return acc;
+	    }, mergeTarget);
 	};
 	
-	
 	exports.decode = function (str) {
-	
 	    try {
 	        return decodeURIComponent(str.replace(/\+/g, ' '));
-	    }
-	    catch (e) {
+	    } catch (e) {
 	        return str;
 	    }
 	};
 	
 	exports.encode = function (str) {
-	
 	    // This code was originally written by Brian White (mscdex) for the io.js core querystring library.
 	    // It has been adapted here for stricter adherence to RFC 3986
 	    if (str.length === 0) {
 	        return str;
 	    }
 	
-	    if (typeof str !== 'string') {
-	        str = '' + str;
-	    }
+	    var string = typeof str === 'string' ? str : String(str);
 	
-	    let out = '';
-	    for (let i = 0; i < str.length; ++i) {
-	        let c = str.charCodeAt(i);
+	    var out = '';
+	    for (var i = 0; i < string.length; ++i) {
+	        var c = string.charCodeAt(i);
 	
-	        if (c === 0x2D || // -
+	        if (
+	            c === 0x2D || // -
 	            c === 0x2E || // .
 	            c === 0x5F || // _
 	            c === 0x7E || // ~
 	            (c >= 0x30 && c <= 0x39) || // 0-9
 	            (c >= 0x41 && c <= 0x5A) || // a-z
-	            (c >= 0x61 && c <= 0x7A)) { // A-Z
-	
-	            out = out + str[i];
+	            (c >= 0x61 && c <= 0x7A) // A-Z
+	        ) {
+	            out += string.charAt(i);
 	            continue;
 	        }
 	
 	        if (c < 0x80) {
-	            out = out + internals.hexTable[c];
+	            out = out + hexTable[c];
 	            continue;
 	        }
 	
 	        if (c < 0x800) {
-	            out = out + (internals.hexTable[0xC0 | (c >> 6)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	            out = out + (hexTable[0xC0 | (c >> 6)] + hexTable[0x80 | (c & 0x3F)]);
 	            continue;
 	        }
 	
 	        if (c < 0xD800 || c >= 0xE000) {
-	            out = out + (internals.hexTable[0xE0 | (c >> 12)] + internals.hexTable[0x80 | ((c >> 6) & 0x3F)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	            out = out + (hexTable[0xE0 | (c >> 12)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
 	            continue;
 	        }
 	
-	        ++i;
-	        c = 0x10000 + (((c & 0x3FF) << 10) | (str.charCodeAt(i) & 0x3FF));
-	        out = out + (internals.hexTable[0xF0 | (c >> 18)] + internals.hexTable[0x80 | ((c >> 12) & 0x3F)] + internals.hexTable[0x80 | ((c >> 6) & 0x3F)] + internals.hexTable[0x80 | (c & 0x3F)]);
+	        i += 1;
+	        c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+	        out += (hexTable[0xF0 | (c >> 18)] + hexTable[0x80 | ((c >> 12) & 0x3F)] + hexTable[0x80 | ((c >> 6) & 0x3F)] + hexTable[0x80 | (c & 0x3F)]);
 	    }
 	
 	    return out;
 	};
 	
-	exports.compact = function (obj, refs) {
-	
-	    if (typeof obj !== 'object' ||
-	        obj === null) {
-	
+	exports.compact = function (obj, references) {
+	    if (typeof obj !== 'object' || obj === null) {
 	        return obj;
 	    }
 	
-	    refs = refs || [];
-	    const lookup = refs.indexOf(obj);
+	    var refs = references || [];
+	    var lookup = refs.indexOf(obj);
 	    if (lookup !== -1) {
 	        return refs[lookup];
 	    }
@@ -20161,9 +20127,9 @@ webpackJsonp([7,12],[
 	    refs.push(obj);
 	
 	    if (Array.isArray(obj)) {
-	        const compacted = [];
+	        var compacted = [];
 	
-	        for (let i = 0; i < obj.length; ++i) {
+	        for (var i = 0; i < obj.length; ++i) {
 	            if (typeof obj[i] !== 'undefined') {
 	                compacted.push(obj[i]);
 	            }
@@ -20172,50 +20138,37 @@ webpackJsonp([7,12],[
 	        return compacted;
 	    }
 	
-	    const keys = Object.keys(obj);
-	    for (let i = 0; i < keys.length; ++i) {
-	        const key = keys[i];
+	    var keys = Object.keys(obj);
+	    for (var j = 0; j < keys.length; ++j) {
+	        var key = keys[j];
 	        obj[key] = exports.compact(obj[key], refs);
 	    }
 	
 	    return obj;
 	};
 	
-	
 	exports.isRegExp = function (obj) {
-	
 	    return Object.prototype.toString.call(obj) === '[object RegExp]';
 	};
 	
-	
 	exports.isBuffer = function (obj) {
-	
-	    if (obj === null ||
-	        typeof obj === 'undefined') {
-	
+	    if (obj === null || typeof obj === 'undefined') {
 	        return false;
 	    }
 	
-	    return !!(obj.constructor &&
-	              obj.constructor.isBuffer &&
-	              obj.constructor.isBuffer(obj));
+	    return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
 	};
 
 
 /***/ },
-/* 264 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	// Load modules
+	var Utils = __webpack_require__(268);
 	
-	const Utils = __webpack_require__(263);
-	
-	
-	// Declare internals
-	
-	const internals = {
+	var internals = {
 	    delimiter: '&',
 	    depth: 5,
 	    arrayLimit: 20,
@@ -20226,15 +20179,13 @@ webpackJsonp([7,12],[
 	    allowDots: false
 	};
 	
-	
 	internals.parseValues = function (str, options) {
+	    var obj = {};
+	    var parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
 	
-	    const obj = {};
-	    const parts = str.split(options.delimiter, options.parameterLimit === Infinity ? undefined : options.parameterLimit);
-	
-	    for (let i = 0; i < parts.length; ++i) {
-	        const part = parts[i];
-	        const pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
+	    for (var i = 0; i < parts.length; ++i) {
+	        var part = parts[i];
+	        var pos = part.indexOf(']=') === -1 ? part.indexOf('=') : part.indexOf(']=') + 1;
 	
 	        if (pos === -1) {
 	            obj[Utils.decode(part)] = '';
@@ -20242,16 +20193,14 @@ webpackJsonp([7,12],[
 	            if (options.strictNullHandling) {
 	                obj[Utils.decode(part)] = null;
 	            }
-	        }
-	        else {
-	            const key = Utils.decode(part.slice(0, pos));
-	            const val = Utils.decode(part.slice(pos + 1));
+	        } else {
+	            var key = Utils.decode(part.slice(0, pos));
+	            var val = Utils.decode(part.slice(pos + 1));
 	
-	            if (!Object.prototype.hasOwnProperty.call(obj, key)) {
-	                obj[key] = val;
-	            }
-	            else {
+	            if (Object.prototype.hasOwnProperty.call(obj, key)) {
 	                obj[key] = [].concat(obj[key]).concat(val);
+	            } else {
+	                obj[key] = val;
 	            }
 	        }
 	    }
@@ -20259,36 +20208,31 @@ webpackJsonp([7,12],[
 	    return obj;
 	};
 	
-	
 	internals.parseObject = function (chain, val, options) {
-	
 	    if (!chain.length) {
 	        return val;
 	    }
 	
-	    const root = chain.shift();
+	    var root = chain.shift();
 	
-	    let obj;
+	    var obj;
 	    if (root === '[]') {
 	        obj = [];
 	        obj = obj.concat(internals.parseObject(chain, val, options));
-	    }
-	    else {
+	    } else {
 	        obj = options.plainObjects ? Object.create(null) : {};
-	        const cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
-	        const index = parseInt(cleanRoot, 10);
-	        const indexString = '' + index;
-	        if (!isNaN(index) &&
+	        var cleanRoot = root[0] === '[' && root[root.length - 1] === ']' ? root.slice(1, root.length - 1) : root;
+	        var index = parseInt(cleanRoot, 10);
+	        if (
+	            !isNaN(index) &&
 	            root !== cleanRoot &&
-	            indexString === cleanRoot &&
+	            String(index) === cleanRoot &&
 	            index >= 0 &&
-	            (options.parseArrays &&
-	             index <= options.arrayLimit)) {
-	
+	            (options.parseArrays && index <= options.arrayLimit)
+	        ) {
 	            obj = [];
 	            obj[index] = internals.parseObject(chain, val, options);
-	        }
-	        else {
+	        } else {
 	            obj[cleanRoot] = internals.parseObject(chain, val, options);
 	        }
 	    }
@@ -20296,37 +20240,30 @@ webpackJsonp([7,12],[
 	    return obj;
 	};
 	
-	
-	internals.parseKeys = function (key, val, options) {
-	
-	    if (!key) {
+	internals.parseKeys = function (givenKey, val, options) {
+	    if (!givenKey) {
 	        return;
 	    }
 	
 	    // Transform dot notation to bracket notation
-	
-	    if (options.allowDots) {
-	        key = key.replace(/\.([^\.\[]+)/g, '[$1]');
-	    }
+	    var key = options.allowDots ? givenKey.replace(/\.([^\.\[]+)/g, '[$1]') : givenKey;
 	
 	    // The regex chunks
 	
-	    const parent = /^([^\[\]]*)/;
-	    const child = /(\[[^\[\]]*\])/g;
+	    var parent = /^([^\[\]]*)/;
+	    var child = /(\[[^\[\]]*\])/g;
 	
 	    // Get the parent
 	
-	    let segment = parent.exec(key);
+	    var segment = parent.exec(key);
 	
 	    // Stash the parent if it exists
 	
-	    const keys = [];
+	    var keys = [];
 	    if (segment[1]) {
 	        // If we aren't using plain objects, optionally prefix keys
 	        // that would overwrite object prototype properties
-	        if (!options.plainObjects &&
-	            Object.prototype.hasOwnProperty(segment[1])) {
-	
+	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1])) {
 	            if (!options.allowPrototypes) {
 	                return;
 	            }
@@ -20337,13 +20274,10 @@ webpackJsonp([7,12],[
 	
 	    // Loop through children appending to the array until we hit depth
 	
-	    let i = 0;
+	    var i = 0;
 	    while ((segment = child.exec(key)) !== null && i < options.depth) {
-	
-	        ++i;
-	        if (!options.plainObjects &&
-	            Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
-	
+	        i += 1;
+	        if (!options.plainObjects && Object.prototype.hasOwnProperty(segment[1].replace(/\[|\]/g, ''))) {
 	            if (!options.allowPrototypes) {
 	                continue;
 	            }
@@ -20360,10 +20294,8 @@ webpackJsonp([7,12],[
 	    return internals.parseObject(keys, val, options);
 	};
 	
-	
-	module.exports = function (str, options) {
-	
-	    options = options || {};
+	module.exports = function (str, opts) {
+	    var options = opts || {};
 	    options.delimiter = typeof options.delimiter === 'string' || Utils.isRegExp(options.delimiter) ? options.delimiter : internals.delimiter;
 	    options.depth = typeof options.depth === 'number' ? options.depth : internals.depth;
 	    options.arrayLimit = typeof options.arrayLimit === 'number' ? options.arrayLimit : internals.arrayLimit;
@@ -20374,22 +20306,23 @@ webpackJsonp([7,12],[
 	    options.parameterLimit = typeof options.parameterLimit === 'number' ? options.parameterLimit : internals.parameterLimit;
 	    options.strictNullHandling = typeof options.strictNullHandling === 'boolean' ? options.strictNullHandling : internals.strictNullHandling;
 	
-	    if (str === '' ||
+	    if (
+	        str === '' ||
 	        str === null ||
-	        typeof str === 'undefined') {
-	
+	        typeof str === 'undefined'
+	    ) {
 	        return options.plainObjects ? Object.create(null) : {};
 	    }
 	
-	    const tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
-	    let obj = options.plainObjects ? Object.create(null) : {};
+	    var tempObj = typeof str === 'string' ? internals.parseValues(str, options) : str;
+	    var obj = options.plainObjects ? Object.create(null) : {};
 	
 	    // Iterate over the keys and setup the new object
 	
-	    const keys = Object.keys(tempObj);
-	    for (let i = 0; i < keys.length; ++i) {
-	        const key = keys[i];
-	        const newObj = internals.parseKeys(key, tempObj[key], options);
+	    var keys = Object.keys(tempObj);
+	    for (var i = 0; i < keys.length; ++i) {
+	        var key = keys[i];
+	        var newObj = internals.parseKeys(key, tempObj[key], options);
 	        obj = Utils.merge(obj, newObj, options);
 	    }
 	
@@ -20398,157 +20331,175 @@ webpackJsonp([7,12],[
 
 
 /***/ },
-/* 265 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.FormattedHTMLMessage = exports.FormattedMessage = exports.FormattedPlural = exports.FormattedNumber = exports.FormattedRelative = exports.FormattedTime = exports.FormattedDate = exports.IntlProvider = exports.injectIntl = exports.intlShape = exports.addLocaleData = undefined;
-	
-	var _types = __webpack_require__(266);
-	
-	Object.defineProperty(exports, 'intlShape', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.intlShape;
-	  }
-	});
-	
-	var _inject = __webpack_require__(267);
-	
-	Object.defineProperty(exports, 'injectIntl', {
-	  enumerable: true,
-	  get: function get() {
-	    return _inject.default;
-	  }
-	});
-	
-	var _intl = __webpack_require__(270);
-	
-	Object.defineProperty(exports, 'IntlProvider', {
-	  enumerable: true,
-	  get: function get() {
-	    return _intl.default;
-	  }
-	});
-	
-	var _date = __webpack_require__(294);
-	
-	Object.defineProperty(exports, 'FormattedDate', {
-	  enumerable: true,
-	  get: function get() {
-	    return _date.default;
-	  }
-	});
-	
-	var _time = __webpack_require__(295);
-	
-	Object.defineProperty(exports, 'FormattedTime', {
-	  enumerable: true,
-	  get: function get() {
-	    return _time.default;
-	  }
-	});
-	
-	var _relative = __webpack_require__(296);
-	
-	Object.defineProperty(exports, 'FormattedRelative', {
-	  enumerable: true,
-	  get: function get() {
-	    return _relative.default;
-	  }
-	});
-	
-	var _number = __webpack_require__(297);
-	
-	Object.defineProperty(exports, 'FormattedNumber', {
-	  enumerable: true,
-	  get: function get() {
-	    return _number.default;
-	  }
-	});
-	
-	var _plural = __webpack_require__(298);
-	
-	Object.defineProperty(exports, 'FormattedPlural', {
-	  enumerable: true,
-	  get: function get() {
-	    return _plural.default;
-	  }
-	});
-	
-	var _message = __webpack_require__(299);
-	
-	Object.defineProperty(exports, 'FormattedMessage', {
-	  enumerable: true,
-	  get: function get() {
-	    return _message.default;
-	  }
-	});
-	
-	var _htmlMessage = __webpack_require__(300);
-	
-	Object.defineProperty(exports, 'FormattedHTMLMessage', {
-	  enumerable: true,
-	  get: function get() {
-	    return _htmlMessage.default;
-	  }
-	});
-	exports.defineMessages = defineMessages;
-	
-	var _en = __webpack_require__(301);
-	
-	var _en2 = _interopRequireDefault(_en);
-	
-	var _localeDataRegistry = __webpack_require__(293);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright 2015, Yahoo Inc.
+	/* WEBPACK VAR INJECTION */(function(process) {/*
+	 * Copyright 2016, Yahoo Inc.
 	 * Copyrights licensed under the New BSD License.
 	 * See the accompanying LICENSE file for terms.
 	 */
 	
-	(0, _localeDataRegistry.addLocaleData)(_en2.default);
-	
-	exports.addLocaleData = _localeDataRegistry.addLocaleData;
-	function defineMessages(messageDescriptors) {
-	  // This simply returns what's passed-in because it's meant to be a hook for
-	  // babel-plugin-react-intl.
-	  return messageDescriptors;
-	}
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
-	                                                                                                                                                                                                                                                                   * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                   * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                   * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                   */
+	function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.pluralFormatPropTypes = exports.relativeFormatPropTypes = exports.numberFormatPropTypes = exports.dateTimeFormatPropTypes = exports.messageDescriptorPropTypes = exports.intlShape = exports.intlFormatPropTypes = exports.intlConfigPropTypes = undefined;
+	var allLocaleData = _interopDefault(__webpack_require__(271));
+	var IntlMessageFormat = _interopDefault(__webpack_require__(272));
+	var IntlRelativeFormat = _interopDefault(__webpack_require__(282));
+	var React = __webpack_require__(4);
+	var React__default = _interopDefault(React);
+	var invariant = _interopDefault(__webpack_require__(289));
+	var memoizeIntlConstructor = _interopDefault(__webpack_require__(290));
 	
-	var _react = __webpack_require__(4);
+	var babelHelpers = {};
+	babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	  return typeof obj;
+	} : function (obj) {
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+	};
 	
-	var bool = _react.PropTypes.bool;
-	var number = _react.PropTypes.number;
-	var string = _react.PropTypes.string;
-	var func = _react.PropTypes.func;
-	var object = _react.PropTypes.object;
-	var oneOf = _react.PropTypes.oneOf;
-	var shape = _react.PropTypes.shape;
-	var intlConfigPropTypes = exports.intlConfigPropTypes = {
+	babelHelpers.classCallCheck = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+	
+	babelHelpers.createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+	      Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }
+	
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	}();
+	
+	babelHelpers.defineProperty = function (obj, key, value) {
+	  if (key in obj) {
+	    Object.defineProperty(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+	
+	  return obj;
+	};
+	
+	babelHelpers.extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+	
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+	
+	  return target;
+	};
+	
+	babelHelpers.inherits = function (subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	  }
+	
+	  subClass.prototype = Object.create(superClass && superClass.prototype, {
+	    constructor: {
+	      value: subClass,
+	      enumerable: false,
+	      writable: true,
+	      configurable: true
+	    }
+	  });
+	  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	};
+	
+	babelHelpers.possibleConstructorReturn = function (self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }
+	
+	  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	};
+	
+	babelHelpers.toConsumableArray = function (arr) {
+	  if (Array.isArray(arr)) {
+	    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+	
+	    return arr2;
+	  } else {
+	    return Array.from(arr);
+	  }
+	};
+	
+	babelHelpers;
+	
+	// GENERATED FILE
+	var defaultLocaleData = { "locale": "en", "pluralRuleFunction": function pluralRuleFunction(n, ord) {
+	    var s = String(n).split("."),
+	        v0 = !s[1],
+	        t0 = Number(s[0]) == n,
+	        n10 = t0 && s[0].slice(-1),
+	        n100 = t0 && s[0].slice(-2);if (ord) return n10 == 1 && n100 != 11 ? "one" : n10 == 2 && n100 != 12 ? "two" : n10 == 3 && n100 != 13 ? "few" : "other";return n == 1 && v0 ? "one" : "other";
+	  }, "fields": { "year": { "displayName": "year", "relative": { "0": "this year", "1": "next year", "-1": "last year" }, "relativeTime": { "future": { "one": "in {0} year", "other": "in {0} years" }, "past": { "one": "{0} year ago", "other": "{0} years ago" } } }, "month": { "displayName": "month", "relative": { "0": "this month", "1": "next month", "-1": "last month" }, "relativeTime": { "future": { "one": "in {0} month", "other": "in {0} months" }, "past": { "one": "{0} month ago", "other": "{0} months ago" } } }, "day": { "displayName": "day", "relative": { "0": "today", "1": "tomorrow", "-1": "yesterday" }, "relativeTime": { "future": { "one": "in {0} day", "other": "in {0} days" }, "past": { "one": "{0} day ago", "other": "{0} days ago" } } }, "hour": { "displayName": "hour", "relativeTime": { "future": { "one": "in {0} hour", "other": "in {0} hours" }, "past": { "one": "{0} hour ago", "other": "{0} hours ago" } } }, "minute": { "displayName": "minute", "relativeTime": { "future": { "one": "in {0} minute", "other": "in {0} minutes" }, "past": { "one": "{0} minute ago", "other": "{0} minutes ago" } } }, "second": { "displayName": "second", "relative": { "0": "now" }, "relativeTime": { "future": { "one": "in {0} second", "other": "in {0} seconds" }, "past": { "one": "{0} second ago", "other": "{0} seconds ago" } } } } };
+	
+	function addLocaleData() {
+	    var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	
+	    var locales = Array.isArray(data) ? data : [data];
+	
+	    locales.forEach(function (localeData) {
+	        if (localeData && localeData.locale) {
+	            IntlMessageFormat.__addLocaleData(localeData);
+	            IntlRelativeFormat.__addLocaleData(localeData);
+	        }
+	    });
+	}
+	
+	function hasLocaleData(locale) {
+	    var localeParts = (locale || '').split('-');
+	
+	    while (localeParts.length > 0) {
+	        if (hasIMFAndIRFLocaleData(localeParts.join('-'))) {
+	            return true;
+	        }
+	
+	        localeParts.pop();
+	    }
+	
+	    return false;
+	}
+	
+	function hasIMFAndIRFLocaleData(locale) {
+	    var normalizedLocale = locale && locale.toLowerCase();
+	
+	    return !!(IntlMessageFormat.__localeData__[normalizedLocale] && IntlRelativeFormat.__localeData__[normalizedLocale]);
+	}
+	
+	var bool = React.PropTypes.bool;
+	var number = React.PropTypes.number;
+	var string = React.PropTypes.string;
+	var func = React.PropTypes.func;
+	var object = React.PropTypes.object;
+	var oneOf = React.PropTypes.oneOf;
+	var shape = React.PropTypes.shape;
+	
+	
+	var intlConfigPropTypes = {
 	    locale: string,
 	    formats: object,
 	    messages: object,
@@ -20557,7 +20508,7 @@ webpackJsonp([7,12],[
 	    defaultFormats: object
 	};
 	
-	var intlFormatPropTypes = exports.intlFormatPropTypes = {
+	var intlFormatPropTypes = {
 	    formatDate: func.isRequired,
 	    formatTime: func.isRequired,
 	    formatRelative: func.isRequired,
@@ -20567,17 +20518,17 @@ webpackJsonp([7,12],[
 	    formatHTMLMessage: func.isRequired
 	};
 	
-	var intlShape = exports.intlShape = shape(_extends({}, intlConfigPropTypes, intlFormatPropTypes, {
+	var intlShape = shape(babelHelpers['extends']({}, intlConfigPropTypes, intlFormatPropTypes, {
 	    now: func.isRequired
 	}));
 	
-	var messageDescriptorPropTypes = exports.messageDescriptorPropTypes = {
+	var messageDescriptorPropTypes = {
 	    id: string.isRequired,
 	    description: string,
 	    defaultMessage: string
 	};
 	
-	var dateTimeFormatPropTypes = exports.dateTimeFormatPropTypes = {
+	var dateTimeFormatPropTypes = {
 	    localeMatcher: oneOf(['best fit', 'lookup']),
 	    formatMatcher: oneOf(['basic', 'best fit']),
 	
@@ -20595,7 +20546,7 @@ webpackJsonp([7,12],[
 	    timeZoneName: oneOf(['short', 'long'])
 	};
 	
-	var numberFormatPropTypes = exports.numberFormatPropTypes = {
+	var numberFormatPropTypes = {
 	    localeMatcher: oneOf(['best fit', 'lookup']),
 	
 	    style: oneOf(['decimal', 'currency', 'percent']),
@@ -20610,201 +20561,16 @@ webpackJsonp([7,12],[
 	    maximumSignificantDigits: number
 	};
 	
-	var relativeFormatPropTypes = exports.relativeFormatPropTypes = {
+	var relativeFormatPropTypes = {
 	    style: oneOf(['best fit', 'numeric']),
 	    units: oneOf(['second', 'minute', 'hour', 'day', 'month', 'year'])
 	};
 	
-	var pluralFormatPropTypes = exports.pluralFormatPropTypes = {
+	var pluralFormatPropTypes = {
 	    style: oneOf(['cardinal', 'ordinal'])
 	};
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = injectIntl;
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _invariant = __webpack_require__(268);
-	
-	var _invariant2 = _interopRequireDefault(_invariant);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	// Inspired by react-redux's `connect()` HOC factory function implementation:
-	// https://github.com/rackt/react-redux
-	
-	function getDisplayName(Component) {
-	    return Component.displayName || Component.name || 'Component';
-	}
-	
-	function injectIntl(WrappedComponent) {
-	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	    var _options$intlPropName = options.intlPropName;
-	    var intlPropName = _options$intlPropName === undefined ? 'intl' : _options$intlPropName;
-	    var _options$withRef = options.withRef;
-	    var withRef = _options$withRef === undefined ? false : _options$withRef;
-	
-	    var InjectIntl = (function (_Component) {
-	        _inherits(InjectIntl, _Component);
-	
-	        function InjectIntl(props, context) {
-	            _classCallCheck(this, InjectIntl);
-	
-	            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InjectIntl).call(this, props, context));
-	
-	            (0, _utils.invariantIntlContext)(context);
-	            return _this;
-	        }
-	
-	        _createClass(InjectIntl, [{
-	            key: 'getWrappedInstance',
-	            value: function getWrappedInstance() {
-	                (0, _invariant2.default)(withRef, '[React Intl] To access the wrapped instance, ' + 'the `{withRef: true}` option must be set when calling: ' + '`injectIntl()`');
-	
-	                return this.refs.wrappedInstance;
-	            }
-	        }, {
-	            key: 'render',
-	            value: function render() {
-	                return _react2.default.createElement(WrappedComponent, _extends({}, this.props, _defineProperty({}, intlPropName, this.context.intl), {
-	                    ref: withRef ? 'wrappedInstance' : null
-	                }));
-	            }
-	        }]);
-	
-	        return InjectIntl;
-	    })(_react.Component);
-	
-	    InjectIntl.displayName = 'InjectIntl(' + getDisplayName(WrappedComponent) + ')';
-	
-	    InjectIntl.contextTypes = {
-	        intl: _types.intlShape
-	    };
-	
-	    InjectIntl.WrappedComponent = WrappedComponent;
-	
-	    return InjectIntl;
-	}
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-	
-	var invariant = function(condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-	
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error(
-	        'Minified exception occurred; use the non-minified dev environment ' +
-	        'for the full error message and additional helpful warnings.'
-	      );
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(
-	        format.replace(/%s/g, function() { return args[argIndex++]; })
-	      );
-	      error.name = 'Invariant Violation';
-	    }
-	
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-	
-	module.exports = invariant;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.escape = escape;
-	exports.invariantIntlContext = invariantIntlContext;
-	exports.shallowEquals = shallowEquals;
-	exports.shouldIntlComponentUpdate = shouldIntlComponentUpdate;
-	
-	var _invariant = __webpack_require__(268);
-	
-	var _invariant2 = _interopRequireDefault(_invariant);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-	/*
-	HTML escaping and shallow-equals implementations are the same as React's
-	(on purpose.) Therefore, it has the following Copyright and Licensing:
-	
-	Copyright 2013-2014, Facebook, Inc.
-	All rights reserved.
-	
-	This source code is licensed under the BSD-style license found in the LICENSE
-	file in the root directory of React's source tree.
-	*/
+	var intlConfigPropNames = Object.keys(intlConfigPropTypes);
 	
 	var ESCAPED_CHARS = {
 	    '&': '&amp;',
@@ -20822,12 +20588,26 @@ webpackJsonp([7,12],[
 	    });
 	}
 	
+	function filterProps(obj, whitelist) {
+	    var defaults = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	
+	    return whitelist.reduce(function (filtered, name) {
+	        if (obj.hasOwnProperty(name)) {
+	            filtered[name] = obj[name];
+	        } else if (defaults.hasOwnProperty(name)) {
+	            filtered[name] = defaults[name];
+	        }
+	
+	        return filtered;
+	    }, {});
+	}
+	
 	function invariantIntlContext() {
 	    var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
 	    var intl = _ref.intl;
 	
-	    (0, _invariant2.default)(intl, '[React Intl] Could not find required `intl` object. ' + '<IntlProvider> needs to exist in the component ancestry.');
+	    invariant(intl, '[React Intl] Could not find required `intl` object. ' + '<IntlProvider> needs to exist in the component ancestry.');
 	}
 	
 	function shallowEquals(objA, objB) {
@@ -20835,7 +20615,7 @@ webpackJsonp([7,12],[
 	        return true;
 	    }
 	
-	    if ((typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object' || objB === null) {
+	    if ((typeof objA === 'undefined' ? 'undefined' : babelHelpers['typeof'](objA)) !== 'object' || objA === null || (typeof objB === 'undefined' ? 'undefined' : babelHelpers['typeof'](objB)) !== 'object' || objB === null) {
 	        return false;
 	    }
 	
@@ -20868,85 +20648,349 @@ webpackJsonp([7,12],[
 	    var _nextContext$intl = nextContext.intl;
 	    var nextIntl = _nextContext$intl === undefined ? {} : _nextContext$intl;
 	
-	    return !shallowEquals(nextProps, props) || !shallowEquals(nextState, state) || !shallowEquals(nextIntl, intl);
+	
+	    return !shallowEquals(nextProps, props) || !shallowEquals(nextState, state) || !shallowEquals(filterProps(nextIntl, intlConfigPropNames), filterProps(intl, intlConfigPropNames));
 	}
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	function getDisplayName(Component) {
+	    return Component.displayName || Component.name || 'Component';
+	}
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	function injectIntl(WrappedComponent) {
+	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var _options$intlPropName = options.intlPropName;
+	    var intlPropName = _options$intlPropName === undefined ? 'intl' : _options$intlPropName;
+	    var _options$withRef = options.withRef;
+	    var withRef = _options$withRef === undefined ? false : _options$withRef;
 	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	    var InjectIntl = function (_Component) {
+	        babelHelpers.inherits(InjectIntl, _Component);
+	
+	        function InjectIntl(props, context) {
+	            babelHelpers.classCallCheck(this, InjectIntl);
+	
+	            var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(InjectIntl).call(this, props, context));
+	
+	            invariantIntlContext(context);
+	            return _this;
+	        }
+	
+	        babelHelpers.createClass(InjectIntl, [{
+	            key: 'getWrappedInstance',
+	            value: function getWrappedInstance() {
+	                invariant(withRef, '[React Intl] To access the wrapped instance, ' + 'the `{withRef: true}` option must be set when calling: ' + '`injectIntl()`');
+	
+	                return this.refs.wrappedInstance;
+	            }
+	        }, {
+	            key: 'render',
+	            value: function render() {
+	                return React__default.createElement(WrappedComponent, babelHelpers['extends']({}, this.props, babelHelpers.defineProperty({}, intlPropName, this.context.intl), {
+	                    ref: withRef ? 'wrappedInstance' : null
+	                }));
+	            }
+	        }]);
+	        return InjectIntl;
+	    }(React.Component);
+	
+	    InjectIntl.displayName = 'InjectIntl(' + getDisplayName(WrappedComponent) + ')';
+	
+	    InjectIntl.contextTypes = {
+	        intl: intlShape
+	    };
+	
+	    InjectIntl.WrappedComponent = WrappedComponent;
+	
+	    return InjectIntl;
+	}
+	
+	/*
+	 * Copyright 2015, Yahoo Inc.
+	 * Copyrights licensed under the New BSD License.
+	 * See the accompanying LICENSE file for terms.
+	 */
+	
+	function defineMessages(messageDescriptors) {
+	  // This simply returns what's passed-in because it's meant to be a hook for
+	  // babel-plugin-react-intl.
+	  return messageDescriptors;
+	}
+	
+	function resolveLocale(locales) {
+	    // IntlMessageFormat#_resolveLocale() does not depend on `this`.
+	    return IntlMessageFormat.prototype._resolveLocale(locales);
+	}
+	
+	function findPluralFunction(locale) {
+	    // IntlMessageFormat#_findPluralFunction() does not depend on `this`.
+	    return IntlMessageFormat.prototype._findPluralRuleFunction(locale);
+	}
+	
+	var IntlPluralFormat = function IntlPluralFormat(locales) {
+	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    babelHelpers.classCallCheck(this, IntlPluralFormat);
+	
+	    var useOrdinal = options.style === 'ordinal';
+	    var pluralFn = findPluralFunction(resolveLocale(locales));
+	
+	    this.format = function (value) {
+	        return pluralFn(value, useOrdinal);
+	    };
+	};
+	
+	var DATE_TIME_FORMAT_OPTIONS = Object.keys(dateTimeFormatPropTypes);
+	var NUMBER_FORMAT_OPTIONS = Object.keys(numberFormatPropTypes);
+	var RELATIVE_FORMAT_OPTIONS = Object.keys(relativeFormatPropTypes);
+	var PLURAL_FORMAT_OPTIONS = Object.keys(pluralFormatPropTypes);
+	
+	function getNamedFormat(formats, type, name) {
+	    var format = formats && formats[type] && formats[type][name];
+	    if (format) {
+	        return format;
+	    }
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	        console.error('[React Intl] No ' + type + ' format named: ' + name);
+	    }
+	}
+	
+	function formatDate(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	
+	    var date = new Date(value);
+	    var defaults = format && getNamedFormat(formats, 'date', format);
+	    var filteredOptions = filterProps(options, DATE_TIME_FORMAT_OPTIONS, defaults);
+	
+	    try {
+	        return state.getDateTimeFormat(locale, filteredOptions).format(date);
+	    } catch (e) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Error formatting date.\n' + e);
+	        }
+	    }
+	
+	    return String(date);
+	}
+	
+	function formatTime(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	
+	    var date = new Date(value);
+	    var defaults = format && getNamedFormat(formats, 'time', format);
+	    var filteredOptions = filterProps(options, DATE_TIME_FORMAT_OPTIONS, defaults);
+	
+	    // When no formatting options have been specified, default to outputting a
+	    // time; e.g.: "9:42 AM".
+	    if (Object.keys(filteredOptions).length === 0) {
+	        filteredOptions = {
+	            hour: 'numeric',
+	            minute: 'numeric'
+	        };
+	    }
+	
+	    try {
+	        return state.getDateTimeFormat(locale, filteredOptions).format(date);
+	    } catch (e) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Error formatting time.\n' + e);
+	        }
+	    }
+	
+	    return String(date);
+	}
+	
+	function formatRelative(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	
+	    var date = new Date(value);
+	    var now = new Date(options.now);
+	    var defaults = format && getNamedFormat(formats, 'relative', format);
+	    var filteredOptions = filterProps(options, RELATIVE_FORMAT_OPTIONS, defaults);
+	
+	    try {
+	        return state.getRelativeFormat(locale, filteredOptions).format(date, {
+	            now: isFinite(now) ? now : state.now()
+	        });
+	    } catch (e) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Error formatting relative time.\n' + e);
+	        }
+	    }
+	
+	    return String(date);
+	}
+	
+	function formatNumber(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var format = options.format;
+	
+	
+	    var defaults = format && getNamedFormat(formats, 'number', format);
+	    var filteredOptions = filterProps(options, NUMBER_FORMAT_OPTIONS, defaults);
+	
+	    try {
+	        return state.getNumberFormat(locale, filteredOptions).format(value);
+	    } catch (e) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Error formatting number.\n' + e);
+	        }
+	    }
+	
+	    return String(value);
+	}
+	
+	function formatPlural(config, state, value) {
+	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	
+	
+	    var filteredOptions = filterProps(options, PLURAL_FORMAT_OPTIONS);
+	
+	    try {
+	        return state.getPluralFormat(locale, filteredOptions).format(value);
+	    } catch (e) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Error formatting plural.\n' + e);
+	        }
+	    }
+	
+	    return 'other';
+	}
+	
+	function formatMessage(config, state) {
+	    var messageDescriptor = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+	    var values = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	    var locale = config.locale;
+	    var formats = config.formats;
+	    var messages = config.messages;
+	    var defaultLocale = config.defaultLocale;
+	    var defaultFormats = config.defaultFormats;
+	    var id = messageDescriptor.id;
+	    var defaultMessage = messageDescriptor.defaultMessage;
+	
+	    // `id` is a required field of a Message Descriptor.
+	
+	    invariant(id, '[React Intl] An `id` must be provided to format a message.');
+	
+	    var message = messages && messages[id];
+	    var hasValues = Object.keys(values).length > 0;
+	
+	    // Avoid expensive message formatting for simple messages without values. In
+	    // development messages will always be formatted in case of missing values.
+	    if (!hasValues && process.env.NODE_ENV === 'production') {
+	        return message || defaultMessage || id;
+	    }
+	
+	    var formattedMessage = void 0;
+	
+	    if (message) {
+	        try {
+	            var formatter = state.getMessageFormat(message, locale, formats);
+	
+	            formattedMessage = formatter.format(values);
+	        } catch (e) {
+	            if (process.env.NODE_ENV !== 'production') {
+	                console.error('[React Intl] Error formatting message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : '') + ('\n' + e));
+	            }
+	        }
+	    } else {
+	        if (process.env.NODE_ENV !== 'production') {
+	            // This prevents warnings from littering the console in development
+	            // when no `messages` are passed into the <IntlProvider> for the
+	            // default locale, and a default message is in the source.
+	            if (!defaultMessage || locale && locale.toLowerCase() !== defaultLocale.toLowerCase()) {
+	
+	                console.error('[React Intl] Missing message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : ''));
+	            }
+	        }
+	    }
+	
+	    if (!formattedMessage && defaultMessage) {
+	        try {
+	            var _formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
+	
+	            formattedMessage = _formatter.format(values);
+	        } catch (e) {
+	            if (process.env.NODE_ENV !== 'production') {
+	                console.error('[React Intl] Error formatting the default message for: "' + id + '"' + ('\n' + e));
+	            }
+	        }
+	    }
+	
+	    if (!formattedMessage) {
+	        if (process.env.NODE_ENV !== 'production') {
+	            console.error('[React Intl] Cannot format message: "' + id + '", ' + ('using message ' + (message || defaultMessage ? 'source' : 'id') + ' as fallback.'));
+	        }
+	    }
+	
+	    return formattedMessage || message || defaultMessage || id;
+	}
+	
+	function formatHTMLMessage(config, state, messageDescriptor) {
+	    var rawValues = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+	
+	    // Process all the values before they are used when formatting the ICU
+	    // Message string. Since the formatted message might be injected via
+	    // `innerHTML`, all String-based values need to be HTML-escaped.
+	    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
+	        var value = rawValues[name];
+	        escaped[name] = typeof value === 'string' ? escape(value) : value;
+	        return escaped;
+	    }, {});
+	
+	    return formatMessage(config, state, messageDescriptor, escapedValues);
+	}
+	
+	var format = Object.freeze({
+	    formatDate: formatDate,
+	    formatTime: formatTime,
+	    formatRelative: formatRelative,
+	    formatNumber: formatNumber,
+	    formatPlural: formatPlural,
+	    formatMessage: formatMessage,
+	    formatHTMLMessage: formatHTMLMessage
 	});
 	
-	var _react = __webpack_require__(4);
+	var intlConfigPropNames$1 = Object.keys(intlConfigPropTypes);
+	var intlFormatPropNames = Object.keys(intlFormatPropTypes);
 	
-	var _intlMessageformat = __webpack_require__(271);
+	// These are not a static property on the `IntlProvider` class so the intl
+	// config values can be inherited from an <IntlProvider> ancestor.
+	var defaultProps = {
+	    formats: {},
+	    messages: {},
 	
-	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
+	    defaultLocale: 'en',
+	    defaultFormats: {}
+	};
 	
-	var _intlRelativeformat = __webpack_require__(281);
-	
-	var _intlRelativeformat2 = _interopRequireDefault(_intlRelativeformat);
-	
-	var _plural = __webpack_require__(288);
-	
-	var _plural2 = _interopRequireDefault(_plural);
-	
-	var _intlFormatCache = __webpack_require__(289);
-	
-	var _intlFormatCache2 = _interopRequireDefault(_intlFormatCache);
-	
-	var _invariant = __webpack_require__(268);
-	
-	var _invariant2 = _interopRequireDefault(_invariant);
-	
-	var _utils = __webpack_require__(269);
-	
-	var _types = __webpack_require__(266);
-	
-	var _format = __webpack_require__(292);
-	
-	var format = _interopRequireWildcard(_format);
-	
-	var _localeDataRegistry = __webpack_require__(293);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var intlConfigPropNames = Object.keys(_types.intlConfigPropTypes);
-	var intlFormatPropNames = Object.keys(_types.intlFormatPropTypes);
-	
-	var IntlProvider = (function (_Component) {
-	    _inherits(IntlProvider, _Component);
+	var IntlProvider = function (_Component) {
+	    babelHelpers.inherits(IntlProvider, _Component);
 	
 	    function IntlProvider(props, context) {
-	        _classCallCheck(this, IntlProvider);
+	        babelHelpers.classCallCheck(this, IntlProvider);
 	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IntlProvider).call(this, props, context));
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(IntlProvider).call(this, props, context));
 	
-	        (0, _invariant2.default)(Intl, '[React Intl] The `Intl` APIs must be available in the runtime, ' + 'and do not appear to be built-in. An `Intl` polyfill should be loaded.\n' + 'See: http://formatjs.io/guides/runtime-environments/');
+	        invariant(typeof Intl !== 'undefined', '[React Intl] The `Intl` APIs must be available in the runtime, ' + 'and do not appear to be built-in. An `Intl` polyfill should be loaded.\n' + 'See: http://formatjs.io/guides/runtime-environments/');
 	
 	        // Used to stabilize time when performing an initial rendering so that
 	        // all relative times use the same reference "now" time.
-	        var initialNow = undefined;
+	        var initialNow = void 0;
 	        if (isFinite(props.initialNow)) {
 	            initialNow = Number(props.initialNow);
 	        } else {
@@ -20960,11 +21004,11 @@ webpackJsonp([7,12],[
 	            // Creating `Intl*` formatters is expensive so these format caches
 	            // memoize the `Intl*` constructors and have the same lifecycle as
 	            // this IntlProvider instance.
-	            getDateTimeFormat: (0, _intlFormatCache2.default)(Intl.DateTimeFormat),
-	            getNumberFormat: (0, _intlFormatCache2.default)(Intl.NumberFormat),
-	            getMessageFormat: (0, _intlFormatCache2.default)(_intlMessageformat2.default),
-	            getRelativeFormat: (0, _intlFormatCache2.default)(_intlRelativeformat2.default),
-	            getPluralFormat: (0, _intlFormatCache2.default)(_plural2.default),
+	            getDateTimeFormat: memoizeIntlConstructor(Intl.DateTimeFormat),
+	            getNumberFormat: memoizeIntlConstructor(Intl.NumberFormat),
+	            getMessageFormat: memoizeIntlConstructor(IntlMessageFormat),
+	            getRelativeFormat: memoizeIntlConstructor(IntlRelativeFormat),
+	            getPluralFormat: memoizeIntlConstructor(IntlPluralFormat),
 	
 	            // Wrapper to provide stable "now" time for initial render.
 	            now: function now() {
@@ -20974,27 +21018,22 @@ webpackJsonp([7,12],[
 	        return _this;
 	    }
 	
-	    _createClass(IntlProvider, [{
+	    babelHelpers.createClass(IntlProvider, [{
 	        key: 'getConfig',
 	        value: function getConfig() {
-	            var _this2 = this;
-	
 	            var _context$intl = this.context.intl;
 	            var intlContext = _context$intl === undefined ? {} : _context$intl;
 	
-	            // Build a whitelisted config object from `props` and `context.intl`, if
-	            // an <IntlProvider> exists in the ancestry.
+	            // Build a whitelisted config object from `props`, defaults, and
+	            // `context.intl`, if an <IntlProvider> exists in the ancestry.
 	
-	            var config = intlConfigPropNames.reduce(function (config, name) {
-	                config[name] = _this2.props[name] || intlContext[name];
-	                return config;
-	            }, {});
+	            var config = babelHelpers['extends']({}, defaultProps, filterProps(this.props, intlConfigPropNames$1, intlContext));
 	
-	            if (!(0, _localeDataRegistry.hasLocaleData)(config.locale)) {
-	                var _config = config;
-	                var locale = _config.locale;
-	                var defaultLocale = _config.defaultLocale;
-	                var defaultFormats = _config.defaultFormats;
+	            if (!hasLocaleData(config.locale)) {
+	                var locale = config.locale;
+	                var defaultLocale = config.defaultLocale;
+	                var defaultFormats = config.defaultFormats;
+	
 	
 	                if (process.env.NODE_ENV !== 'production') {
 	                    console.error('[React Intl] Missing locale data for locale: "' + locale + '". ' + ('Using default locale: "' + defaultLocale + '" as fallback.'));
@@ -21005,10 +21044,10 @@ webpackJsonp([7,12],[
 	                // The `messages` are overridden to the `defaultProps` empty object
 	                // to maintain referential equality across re-renders. It's assumed
 	                // each <FormattedMessage> contains a `defaultMessage` prop.
-	                config = _extends({}, config, {
+	                config = babelHelpers['extends']({}, config, {
 	                    locale: defaultLocale,
 	                    formats: defaultFormats,
-	                    messages: IntlProvider.defaultProps.messages
+	                    messages: defaultProps.messages
 	                });
 	            }
 	
@@ -21031,7 +21070,7 @@ webpackJsonp([7,12],[
 	            var boundFormatFns = this.getBoundFormatFns(config, this.state);
 	
 	            return {
-	                intl: _extends({}, config, boundFormatFns, {
+	                intl: babelHelpers['extends']({}, config, boundFormatFns, {
 	                    now: this.state.now
 	                })
 	            };
@@ -21043,7 +21082,7 @@ webpackJsonp([7,12],[
 	                next[_key] = arguments[_key];
 	            }
 	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -21053,52 +21092,699 @@ webpackJsonp([7,12],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react.Children.only(this.props.children);
+	            return React.Children.only(this.props.children);
 	        }
 	    }]);
-	
 	    return IntlProvider;
-	})(_react.Component);
-	
-	exports.default = IntlProvider;
+	}(React.Component);
 	
 	IntlProvider.displayName = 'IntlProvider';
 	
 	IntlProvider.contextTypes = {
-	    intl: _types.intlShape
+	    intl: intlShape
 	};
 	
 	IntlProvider.childContextTypes = {
-	    intl: _types.intlShape.isRequired
+	    intl: intlShape.isRequired
 	};
 	
-	IntlProvider.propTypes = _extends({}, _types.intlConfigPropTypes, {
-	    children: _react.PropTypes.element.isRequired,
-	    initialNow: _react.PropTypes.any
+	IntlProvider.propTypes = babelHelpers['extends']({}, intlConfigPropTypes, {
+	    children: React.PropTypes.element.isRequired,
+	    initialNow: React.PropTypes.any
 	});
 	
-	IntlProvider.defaultProps = {
-	    formats: {},
-	    messages: {},
+	var FormattedDate = function (_Component) {
+	    babelHelpers.inherits(FormattedDate, _Component);
 	
-	    defaultLocale: 'en',
-	    defaultFormats: {}
+	    function FormattedDate(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedDate);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedDate).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedDate, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatDate = this.context.intl.formatDate;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	
+	            var formattedDate = formatDate(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedDate);
+	            }
+	
+	            return React__default.createElement(
+	                'span',
+	                null,
+	                formattedDate
+	            );
+	        }
+	    }]);
+	    return FormattedDate;
+	}(React.Component);
+	
+	FormattedDate.displayName = 'FormattedDate';
+	
+	FormattedDate.contextTypes = {
+	    intl: intlShape
 	};
+	
+	FormattedDate.propTypes = babelHelpers['extends']({}, dateTimeFormatPropTypes, {
+	    value: React.PropTypes.any.isRequired,
+	    format: React.PropTypes.string,
+	    children: React.PropTypes.func
+	});
+	
+	var FormattedTime = function (_Component) {
+	    babelHelpers.inherits(FormattedTime, _Component);
+	
+	    function FormattedTime(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedTime);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedTime).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedTime, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatTime = this.context.intl.formatTime;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	
+	            var formattedTime = formatTime(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedTime);
+	            }
+	
+	            return React__default.createElement(
+	                'span',
+	                null,
+	                formattedTime
+	            );
+	        }
+	    }]);
+	    return FormattedTime;
+	}(React.Component);
+	
+	FormattedTime.displayName = 'FormattedTime';
+	
+	FormattedTime.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedTime.propTypes = babelHelpers['extends']({}, dateTimeFormatPropTypes, {
+	    value: React.PropTypes.any.isRequired,
+	    format: React.PropTypes.string,
+	    children: React.PropTypes.func
+	});
+	
+	var SECOND = 1000;
+	var MINUTE = 1000 * 60;
+	var HOUR = 1000 * 60 * 60;
+	var DAY = 1000 * 60 * 60 * 24;
+	
+	// The maximum timer delay value is a 32-bit signed integer.
+	// See: https://mdn.io/setTimeout
+	var MAX_TIMER_DELAY = 2147483647;
+	
+	function selectUnits(delta) {
+	    var absDelta = Math.abs(delta);
+	
+	    if (absDelta < MINUTE) {
+	        return 'second';
+	    }
+	
+	    if (absDelta < HOUR) {
+	        return 'minute';
+	    }
+	
+	    if (absDelta < DAY) {
+	        return 'hour';
+	    }
+	
+	    // The maximum scheduled delay will be measured in days since the maximum
+	    // timer delay is less than the number of milliseconds in 25 days.
+	    return 'day';
+	}
+	
+	function getUnitDelay(units) {
+	    switch (units) {
+	        case 'second':
+	            return SECOND;
+	        case 'minute':
+	            return MINUTE;
+	        case 'hour':
+	            return HOUR;
+	        case 'day':
+	            return DAY;
+	        default:
+	            return MAX_TIMER_DELAY;
+	    }
+	}
+	
+	var FormattedRelative = function (_Component) {
+	    babelHelpers.inherits(FormattedRelative, _Component);
+	
+	    function FormattedRelative(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedRelative);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedRelative).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	
+	        var now = isFinite(props.initialNow) ? Number(props.initialNow) : context.intl.now();
+	
+	        // `now` is stored as state so that `render()` remains a function of
+	        // props + state, instead of accessing `Date.now()` inside `render()`.
+	        _this.state = { now: now };
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedRelative, [{
+	        key: 'scheduleNextUpdate',
+	        value: function scheduleNextUpdate(props, state) {
+	            var _this2 = this;
+	
+	            var updateInterval = props.updateInterval;
+	
+	            // If the `updateInterval` is falsy, including `0`, then auto updates
+	            // have been turned off, so we bail and skip scheduling an update.
+	
+	            if (!updateInterval) {
+	                return;
+	            }
+	
+	            var time = new Date(props.value).getTime();
+	            var delta = time - state.now;
+	            var units = props.units || selectUnits(delta);
+	
+	            var unitDelay = getUnitDelay(units);
+	            var unitRemainder = Math.abs(delta % unitDelay);
+	
+	            // We want the largest possible timer delay which will still display
+	            // accurate information while reducing unnecessary re-renders. The delay
+	            // should be until the next "interesting" moment, like a tick from
+	            // "1 minute ago" to "2 minutes ago" when the delta is 120,000ms.
+	            var delay = delta < 0 ? Math.max(updateInterval, unitDelay - unitRemainder) : Math.max(updateInterval, unitRemainder);
+	
+	            clearTimeout(this._timer);
+	
+	            this._timer = setTimeout(function () {
+	                _this2.setState({ now: _this2.context.intl.now() });
+	            }, delay);
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'componentWillUpdate',
+	        value: function componentWillUpdate(nextProps, nextState) {
+	            this.scheduleNextUpdate(nextProps, nextState);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.scheduleNextUpdate(this.props, this.state);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            clearTimeout(this._timer);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatRelative = this.context.intl.formatRelative;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	
+	            var formattedRelative = formatRelative(value, babelHelpers['extends']({}, this.props, this.state));
+	
+	            if (typeof children === 'function') {
+	                return children(formattedRelative);
+	            }
+	
+	            return React__default.createElement(
+	                'span',
+	                null,
+	                formattedRelative
+	            );
+	        }
+	    }]);
+	    return FormattedRelative;
+	}(React.Component);
+	
+	FormattedRelative.displayName = 'FormattedRelative';
+	
+	FormattedRelative.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedRelative.propTypes = babelHelpers['extends']({}, relativeFormatPropTypes, {
+	    value: React.PropTypes.any.isRequired,
+	    format: React.PropTypes.string,
+	    updateInterval: React.PropTypes.number,
+	    initialNow: React.PropTypes.any,
+	    children: React.PropTypes.func
+	});
+	
+	FormattedRelative.defaultProps = {
+	    updateInterval: 1000 * 10
+	};
+	
+	var FormattedNumber = function (_Component) {
+	    babelHelpers.inherits(FormattedNumber, _Component);
+	
+	    function FormattedNumber(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedNumber);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedNumber).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedNumber, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatNumber = this.context.intl.formatNumber;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var children = _props.children;
+	
+	
+	            var formattedNumber = formatNumber(value, this.props);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedNumber);
+	            }
+	
+	            return React__default.createElement(
+	                'span',
+	                null,
+	                formattedNumber
+	            );
+	        }
+	    }]);
+	    return FormattedNumber;
+	}(React.Component);
+	
+	FormattedNumber.displayName = 'FormattedNumber';
+	
+	FormattedNumber.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedNumber.propTypes = babelHelpers['extends']({}, numberFormatPropTypes, {
+	    value: React.PropTypes.any.isRequired,
+	    format: React.PropTypes.string,
+	    children: React.PropTypes.func
+	});
+	
+	var FormattedPlural = function (_Component) {
+	    babelHelpers.inherits(FormattedPlural, _Component);
+	
+	    function FormattedPlural(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedPlural);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedPlural).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedPlural, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
+	                next[_key] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatPlural = this.context.intl.formatPlural;
+	            var _props = this.props;
+	            var value = _props.value;
+	            var other = _props.other;
+	            var children = _props.children;
+	
+	
+	            var pluralCategory = formatPlural(value, this.props);
+	            var formattedPlural = this.props[pluralCategory] || other;
+	
+	            if (typeof children === 'function') {
+	                return children(formattedPlural);
+	            }
+	
+	            return React__default.createElement(
+	                'span',
+	                null,
+	                formattedPlural
+	            );
+	        }
+	    }]);
+	    return FormattedPlural;
+	}(React.Component);
+	
+	FormattedPlural.displayName = 'FormattedPlural';
+	
+	FormattedPlural.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedPlural.propTypes = babelHelpers['extends']({}, pluralFormatPropTypes, {
+	    value: React.PropTypes.any.isRequired,
+	
+	    other: React.PropTypes.node.isRequired,
+	    zero: React.PropTypes.node,
+	    one: React.PropTypes.node,
+	    two: React.PropTypes.node,
+	    few: React.PropTypes.node,
+	    many: React.PropTypes.node,
+	
+	    children: React.PropTypes.func
+	});
+	
+	FormattedPlural.defaultProps = {
+	    style: 'cardinal'
+	};
+	
+	var FormattedMessage = function (_Component) {
+	    babelHelpers.inherits(FormattedMessage, _Component);
+	
+	    function FormattedMessage(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedMessage);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedMessage).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedMessage, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps) {
+	            var values = this.props.values;
+	            var nextValues = nextProps.values;
+	
+	
+	            if (!shallowEquals(nextValues, values)) {
+	                return true;
+	            }
+	
+	            // Since `values` has already been checked, we know they're not
+	            // different, so the current `values` are carried over so the shallow
+	            // equals comparison on the other props isn't affected by the `values`.
+	            var nextPropsToCheck = babelHelpers['extends']({}, nextProps, {
+	                values: values
+	            });
+	
+	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                next[_key - 1] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatMessage = this.context.intl.formatMessage;
+	            var _props = this.props;
+	            var id = _props.id;
+	            var description = _props.description;
+	            var defaultMessage = _props.defaultMessage;
+	            var values = _props.values;
+	            var tagName = _props.tagName;
+	            var children = _props.children;
+	
+	
+	            var tokenRegexp = void 0;
+	            var tokenizedValues = void 0;
+	            var elements = void 0;
+	
+	            var hasValues = values && Object.keys(values).length > 0;
+	            if (hasValues) {
+	                (function () {
+	                    // Creates a token with a random UID that should not be guessable or
+	                    // conflict with other parts of the `message` string.
+	                    var uid = Math.floor(Math.random() * 0x10000000000).toString(16);
+	
+	                    var generateToken = function () {
+	                        var counter = 0;
+	                        return function () {
+	                            return '@__ELEMENT-' + uid + '-' + (counter += 1) + '__@';
+	                        };
+	                    }();
+	
+	                    tokenRegexp = new RegExp('(@__ELEMENT-' + uid + '-\\d+__@)', 'g');
+	                    tokenizedValues = {};
+	                    elements = {};
+	
+	                    // Iterates over the `props` to keep track of any React Element
+	                    // values so they can be represented by the `token` as a placeholder
+	                    // when the `message` is formatted. This allows the formatted
+	                    // message to then be broken-up into parts with references to the
+	                    // React Elements inserted back in.
+	                    Object.keys(values).forEach(function (name) {
+	                        var value = values[name];
+	
+	                        if (React.isValidElement(value)) {
+	                            var token = generateToken();
+	                            tokenizedValues[name] = token;
+	                            elements[token] = value;
+	                        } else {
+	                            tokenizedValues[name] = value;
+	                        }
+	                    });
+	                })();
+	            }
+	
+	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
+	            var formattedMessage = formatMessage(descriptor, tokenizedValues || values);
+	
+	            var nodes = void 0;
+	
+	            var hasElements = elements && Object.keys(elements).length > 0;
+	            if (hasElements) {
+	                // Split the message into parts so the React Element values captured
+	                // above can be inserted back into the rendered message. This
+	                // approach allows messages to render with React Elements while
+	                // keeping React's virtual diffing working properly.
+	                nodes = formattedMessage.split(tokenRegexp).filter(function (part) {
+	                    return !!part;
+	                }).map(function (part) {
+	                    return elements[part] || part;
+	                });
+	            } else {
+	                nodes = [formattedMessage];
+	            }
+	
+	            if (typeof children === 'function') {
+	                return children.apply(undefined, babelHelpers.toConsumableArray(nodes));
+	            }
+	
+	            return React.createElement.apply(undefined, [tagName, null].concat(babelHelpers.toConsumableArray(nodes)));
+	        }
+	    }]);
+	    return FormattedMessage;
+	}(React.Component);
+	
+	FormattedMessage.displayName = 'FormattedMessage';
+	
+	FormattedMessage.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedMessage.propTypes = babelHelpers['extends']({}, messageDescriptorPropTypes, {
+	    values: React.PropTypes.object,
+	    tagName: React.PropTypes.string,
+	    children: React.PropTypes.func
+	});
+	
+	FormattedMessage.defaultProps = {
+	    values: {},
+	    tagName: 'span'
+	};
+	
+	var FormattedHTMLMessage = function (_Component) {
+	    babelHelpers.inherits(FormattedHTMLMessage, _Component);
+	
+	    function FormattedHTMLMessage(props, context) {
+	        babelHelpers.classCallCheck(this, FormattedHTMLMessage);
+	
+	        var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FormattedHTMLMessage).call(this, props, context));
+	
+	        invariantIntlContext(context);
+	        return _this;
+	    }
+	
+	    babelHelpers.createClass(FormattedHTMLMessage, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps) {
+	            var values = this.props.values;
+	            var nextValues = nextProps.values;
+	
+	
+	            if (!shallowEquals(nextValues, values)) {
+	                return true;
+	            }
+	
+	            // Since `values` has already been checked, we know they're not
+	            // different, so the current `values` are carried over so the shallow
+	            // equals comparison on the other props isn't affected by the `values`.
+	            var nextPropsToCheck = babelHelpers['extends']({}, nextProps, {
+	                values: values
+	            });
+	
+	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                next[_key - 1] = arguments[_key];
+	            }
+	
+	            return shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var formatHTMLMessage = this.context.intl.formatHTMLMessage;
+	            var _props = this.props;
+	            var id = _props.id;
+	            var description = _props.description;
+	            var defaultMessage = _props.defaultMessage;
+	            var rawValues = _props.values;
+	            var tagName = _props.tagName;
+	            var children = _props.children;
+	
+	
+	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
+	            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
+	
+	            if (typeof children === 'function') {
+	                return children(formattedHTMLMessage);
+	            }
+	
+	            // Since the message presumably has HTML in it, we need to set
+	            // `innerHTML` in order for it to be rendered and not escaped by React.
+	            // To be safe, all string prop values were escaped when formatting the
+	            // message. It is assumed that the message is not UGC, and came from the
+	            // developer making it more like a template.
+	            //
+	            // Note: There's a perf impact of using this component since there's no
+	            // way for React to do its virtual DOM diffing.
+	            return React.createElement(tagName, {
+	                dangerouslySetInnerHTML: {
+	                    __html: formattedHTMLMessage
+	                }
+	            });
+	        }
+	    }]);
+	    return FormattedHTMLMessage;
+	}(React.Component);
+	
+	FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
+	
+	FormattedHTMLMessage.contextTypes = {
+	    intl: intlShape
+	};
+	
+	FormattedHTMLMessage.propTypes = babelHelpers['extends']({}, messageDescriptorPropTypes, {
+	    values: React.PropTypes.object,
+	    tagName: React.PropTypes.string,
+	    children: React.PropTypes.func
+	});
+	
+	FormattedHTMLMessage.defaultProps = {
+	    values: {},
+	    tagName: 'span'
+	};
+	
+	addLocaleData(defaultLocaleData);
+	
+	addLocaleData(allLocaleData);
+	
+	exports.addLocaleData = addLocaleData;
+	exports.intlShape = intlShape;
+	exports.injectIntl = injectIntl;
+	exports.defineMessages = defineMessages;
+	exports.IntlProvider = IntlProvider;
+	exports.FormattedDate = FormattedDate;
+	exports.FormattedTime = FormattedTime;
+	exports.FormattedRelative = FormattedRelative;
+	exports.FormattedNumber = FormattedNumber;
+	exports.FormattedPlural = FormattedPlural;
+	exports.FormattedMessage = FormattedMessage;
+	exports.FormattedHTMLMessage = FormattedHTMLMessage;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
 /* 271 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 	
 	'use strict';
 	
-	var IntlMessageFormat = __webpack_require__(272)['default'];
+	var IntlMessageFormat = __webpack_require__(273)['default'];
 	
 	// Add all locale data to `IntlMessageFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(280);
+	__webpack_require__(281);
 	
 	// Re-export `IntlMessageFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -21108,13 +21794,13 @@ webpackJsonp([7,12],[
 
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$core$$ = __webpack_require__(273), src$en$$ = __webpack_require__(279);
+	var src$core$$ = __webpack_require__(274), src$en$$ = __webpack_require__(280);
 	
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -21124,7 +21810,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -21136,7 +21822,7 @@ webpackJsonp([7,12],[
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$utils$$ = __webpack_require__(274), src$es5$$ = __webpack_require__(275), src$compiler$$ = __webpack_require__(276), intl$messageformat$parser$$ = __webpack_require__(277);
+	var src$utils$$ = __webpack_require__(275), src$es5$$ = __webpack_require__(276), src$compiler$$ = __webpack_require__(277), intl$messageformat$parser$$ = __webpack_require__(278);
 	exports["default"] = MessageFormat;
 	
 	// -- MessageFormat --------------------------------------------------------
@@ -21393,7 +22079,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports) {
 
 	/*
@@ -21430,7 +22116,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=utils.js.map
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -21442,7 +22128,7 @@ webpackJsonp([7,12],[
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$utils$$ = __webpack_require__(274);
+	var src$utils$$ = __webpack_require__(275);
 	
 	// Purposely using the same implementation as the Intl.js `Intl` polyfill.
 	// Copyright 2013 Andy Earnshaw, MIT License
@@ -21484,7 +22170,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports) {
 
 	/*
@@ -21698,17 +22384,17 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=compiler.js.map
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	exports = module.exports = __webpack_require__(278)['default'];
+	exports = module.exports = __webpack_require__(279)['default'];
 	exports['default'] = exports;
 
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23072,7 +23758,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=parser.js.map
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
@@ -23082,24 +23768,24 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jshint node:true */
 	
 	'use strict';
 	
-	var IntlRelativeFormat = __webpack_require__(282)['default'];
+	var IntlRelativeFormat = __webpack_require__(283)['default'];
 	
 	// Add all locale data to `IntlRelativeFormat`. This module will be ignored when
 	// bundling for the browser with Browserify/Webpack.
-	__webpack_require__(287);
+	__webpack_require__(288);
 	
 	// Re-export `IntlRelativeFormat` as the CommonJS default exports with all the
 	// locale data registered, and with English set as the default locale. Define
@@ -23109,13 +23795,13 @@ webpackJsonp([7,12],[
 
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* jslint esnext: true */
 	
 	"use strict";
-	var src$core$$ = __webpack_require__(283), src$en$$ = __webpack_require__(286);
+	var src$core$$ = __webpack_require__(284), src$en$$ = __webpack_require__(287);
 	
 	src$core$$["default"].__addLocaleData(src$en$$["default"]);
 	src$core$$["default"].defaultLocale = 'en';
@@ -23125,7 +23811,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=main.js.map
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -23137,7 +23823,7 @@ webpackJsonp([7,12],[
 	/* jslint esnext: true */
 	
 	"use strict";
-	var intl$messageformat$$ = __webpack_require__(271), src$diff$$ = __webpack_require__(284), src$es5$$ = __webpack_require__(285);
+	var intl$messageformat$$ = __webpack_require__(272), src$diff$$ = __webpack_require__(285), src$es5$$ = __webpack_require__(286);
 	exports["default"] = RelativeFormat;
 	
 	// -----------------------------------------------------------------------------
@@ -23427,7 +24113,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=core.js.map
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports) {
 
 	/*
@@ -23478,7 +24164,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=diff.js.map
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports) {
 
 	/*
@@ -23558,86 +24244,95 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	// GENERATED FILE
 	"use strict";
-	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"},"fields":{"year":{"displayName":"Year","relative":{"0":"this year","1":"next year","-1":"last year"},"relativeTime":{"future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"}}},"month":{"displayName":"Month","relative":{"0":"this month","1":"next month","-1":"last month"},"relativeTime":{"future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"}}},"day":{"displayName":"Day","relative":{"0":"today","1":"tomorrow","-1":"yesterday"},"relativeTime":{"future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"}}},"hour":{"displayName":"Hour","relativeTime":{"future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}}},"minute":{"displayName":"Minute","relativeTime":{"future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}}},"second":{"displayName":"Second","relative":{"0":"now"},"relativeTime":{"future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}}}}};
+	exports["default"] = {"locale":"en","pluralRuleFunction":function (n,ord){var s=String(n).split("."),v0=!s[1],t0=Number(s[0])==n,n10=t0&&s[0].slice(-1),n100=t0&&s[0].slice(-2);if(ord)return n10==1&&n100!=11?"one":n10==2&&n100!=12?"two":n10==3&&n100!=13?"few":"other";return n==1&&v0?"one":"other"},"fields":{"year":{"displayName":"year","relative":{"0":"this year","1":"next year","-1":"last year"},"relativeTime":{"future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"}}},"month":{"displayName":"month","relative":{"0":"this month","1":"next month","-1":"last month"},"relativeTime":{"future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"}}},"day":{"displayName":"day","relative":{"0":"today","1":"tomorrow","-1":"yesterday"},"relativeTime":{"future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"}}},"hour":{"displayName":"hour","relativeTime":{"future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}}},"minute":{"displayName":"minute","relativeTime":{"future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}}},"second":{"displayName":"second","relative":{"0":"now"},"relativeTime":{"future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}}}}};
 	
 	//# sourceMappingURL=en.js.map
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _intlMessageformat = __webpack_require__(271);
-	
-	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /*
-	                                                                                                                                                           * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                           * Copyrights licensed under the New BSD License.
-	                                                                                                                                                           * See the accompanying LICENSE file for terms.
-	                                                                                                                                                           */
-	
-	// This is a "hack" until a proper `intl-pluralformat` package is created.
-	
-	function resolveLocale(locales) {
-	    // IntlMessageFormat#_resolveLocale() does not depend on `this`.
-	    return _intlMessageformat2.default.prototype._resolveLocale(locales);
-	}
-	
-	function findPluralFunction(locale) {
-	    // IntlMessageFormat#_findPluralFunction() does not depend on `this`.
-	    return _intlMessageformat2.default.prototype._findPluralRuleFunction(locale);
-	}
-	
-	var IntlPluralFormat = function IntlPluralFormat(locales) {
-	    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	
-	    _classCallCheck(this, IntlPluralFormat);
-	
-	    var useOrdinal = options.style === 'ordinal';
-	    var pluralFn = findPluralFunction(resolveLocale(locales));
-	
-	    this.format = function (value) {
-	        return pluralFn(value, useOrdinal);
-	    };
-	};
-	
-	exports.default = IntlPluralFormat;
-
-/***/ },
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+	
 	'use strict';
 	
-	exports = module.exports = __webpack_require__(290)['default'];
-	exports['default'] = exports;
-
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+	
+	var invariant = function(condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+	
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error(
+	        'Minified exception occurred; use the non-minified dev environment ' +
+	        'for the full error message and additional helpful warnings.'
+	      );
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(
+	        format.replace(/%s/g, function() { return args[argIndex++]; })
+	      );
+	      error.name = 'Invariant Violation';
+	    }
+	
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+	
+	module.exports = invariant;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
 /* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	exports = module.exports = __webpack_require__(291)['default'];
+	exports['default'] = exports;
+
+
+/***/ },
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
-	var src$es5$$ = __webpack_require__(291);
+	var src$es5$$ = __webpack_require__(292);
 	exports["default"] = createFormatCache;
 	
 	// -----------------------------------------------------------------------------
@@ -23713,7 +24408,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=memoizer.js.map
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23797,1141 +24492,7 @@ webpackJsonp([7,12],[
 	//# sourceMappingURL=es5.js.map
 
 /***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.formatDate = formatDate;
-	exports.formatTime = formatTime;
-	exports.formatRelative = formatRelative;
-	exports.formatNumber = formatNumber;
-	exports.formatPlural = formatPlural;
-	exports.formatMessage = formatMessage;
-	exports.formatHTMLMessage = formatHTMLMessage;
-	
-	var _invariant = __webpack_require__(268);
-	
-	var _invariant2 = _interopRequireDefault(_invariant);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var DATE_TIME_FORMAT_OPTIONS = Object.keys(_types.dateTimeFormatPropTypes); /*
-	                                                                             * Copyright 2015, Yahoo Inc.
-	                                                                             * Copyrights licensed under the New BSD License.
-	                                                                             * See the accompanying LICENSE file for terms.
-	                                                                             */
-	
-	var NUMBER_FORMAT_OPTIONS = Object.keys(_types.numberFormatPropTypes);
-	var RELATIVE_FORMAT_OPTIONS = Object.keys(_types.relativeFormatPropTypes);
-	var PLURAL_FORMAT_OPTIONS = Object.keys(_types.pluralFormatPropTypes);
-	
-	function filterFormatOptions(whitelist, obj) {
-	    var defaults = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-	
-	    return whitelist.reduce(function (opts, name) {
-	        if (obj.hasOwnProperty(name)) {
-	            opts[name] = obj[name];
-	        } else if (defaults.hasOwnProperty(name)) {
-	            opts[name] = defaults[name];
-	        }
-	
-	        return opts;
-	    }, {});
-	}
-	
-	function getNamedFormat(formats, type, name) {
-	    var format = formats && formats[type] && formats[type][name];
-	    if (format) {
-	        return format;
-	    }
-	
-	    if (process.env.NODE_ENV !== 'production') {
-	        console.error('[React Intl] No ' + type + ' format named: ' + name);
-	    }
-	}
-	
-	function formatDate(config, state, value) {
-	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	    var formats = config.formats;
-	    var format = options.format;
-	
-	    var date = new Date(value);
-	    var defaults = format && getNamedFormat(formats, 'date', format);
-	
-	    var filteredOptions = filterFormatOptions(DATE_TIME_FORMAT_OPTIONS, options, defaults);
-	
-	    return state.getDateTimeFormat(locale, filteredOptions).format(date);
-	}
-	
-	function formatTime(config, state, value) {
-	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	    var formats = config.formats;
-	    var format = options.format;
-	
-	    var date = new Date(value);
-	    var defaults = format && getNamedFormat(formats, 'time', format);
-	
-	    var filteredOptions = filterFormatOptions(DATE_TIME_FORMAT_OPTIONS, options, defaults);
-	
-	    return state.getDateTimeFormat(locale, filteredOptions).format(date);
-	}
-	
-	function formatRelative(config, state, value) {
-	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	    var formats = config.formats;
-	    var format = options.format;
-	
-	    var date = new Date(value);
-	    var now = new Date(options.now);
-	    var defaults = format && getNamedFormat(formats, 'relative', format);
-	
-	    var filteredOptions = filterFormatOptions(RELATIVE_FORMAT_OPTIONS, options, defaults);
-	
-	    return state.getRelativeFormat(locale, filteredOptions).format(date, {
-	        now: isFinite(now) ? now : state.now()
-	    });
-	}
-	
-	function formatNumber(config, state, value) {
-	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	    var formats = config.formats;
-	    var format = options.format;
-	
-	    var defaults = format && getNamedFormat(formats, 'number', format);
-	
-	    var filteredOptions = filterFormatOptions(NUMBER_FORMAT_OPTIONS, options, defaults);
-	
-	    return state.getNumberFormat(locale, filteredOptions).format(value);
-	}
-	
-	function formatPlural(config, state, value) {
-	    var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	
-	    var filteredOptions = filterFormatOptions(PLURAL_FORMAT_OPTIONS, options);
-	
-	    return state.getPluralFormat(locale, filteredOptions).format(value);
-	}
-	
-	function formatMessage(config, state) {
-	    var messageDescriptor = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-	    var values = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	    var locale = config.locale;
-	    var formats = config.formats;
-	    var messages = config.messages;
-	    var defaultLocale = config.defaultLocale;
-	    var defaultFormats = config.defaultFormats;
-	    var id = messageDescriptor.id;
-	    var defaultMessage = messageDescriptor.defaultMessage;
-	
-	    // `id` is a required field of a Message Descriptor.
-	
-	    (0, _invariant2.default)(id, '[React Intl] An `id` must be provided to format a message.');
-	
-	    var message = messages && messages[id];
-	    var hasValues = Object.keys(values).length > 0;
-	
-	    // Avoid expensive message formatting for simple messages without values. In
-	    // development messages will always be formatted in case of missing values.
-	    if (!hasValues && process.env.NODE_ENV === 'production') {
-	        return message || defaultMessage || id;
-	    }
-	
-	    var formattedMessage = undefined;
-	
-	    if (message) {
-	        try {
-	            var formatter = state.getMessageFormat(message, locale, formats);
-	
-	            formattedMessage = formatter.format(values);
-	        } catch (e) {
-	            if (process.env.NODE_ENV !== 'production') {
-	                console.error('[React Intl] Error formatting message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : '') + ('\n' + e));
-	            }
-	        }
-	    } else {
-	        if (process.env.NODE_ENV !== 'production') {
-	            console.error('[React Intl] Missing message: "' + id + '" for locale: "' + locale + '"' + (defaultMessage ? ', using default message as fallback.' : ''));
-	        }
-	    }
-	
-	    if (!formattedMessage && defaultMessage) {
-	        try {
-	            var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-	
-	            formattedMessage = formatter.format(values);
-	        } catch (e) {
-	            if (process.env.NODE_ENV !== 'production') {
-	                console.error('[React Intl] Error formatting the default message for: "' + id + '"' + ('\n' + e));
-	            }
-	        }
-	    }
-	
-	    if (!formattedMessage) {
-	        if (process.env.NODE_ENV !== 'production') {
-	            console.error('[React Intl] Cannot format message: "' + id + '", ' + ('using message ' + (message || defaultMessage ? 'source' : 'id') + ' as fallback.'));
-	        }
-	    }
-	
-	    return formattedMessage || message || defaultMessage || id;
-	}
-	
-	function formatHTMLMessage(config, state, messageDescriptor) {
-	    var rawValues = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-	
-	    // Process all the values before they are used when formatting the ICU
-	    // Message string. Since the formatted message might be injected via
-	    // `innerHTML`, all String-based values need to be HTML-escaped.
-	    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
-	        var value = rawValues[name];
-	        escaped[name] = typeof value === 'string' ? (0, _utils.escape)(value) : value;
-	        return escaped;
-	    }, {});
-	
-	    return formatMessage(config, state, messageDescriptor, escapedValues);
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ },
 /* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.addLocaleData = addLocaleData;
-	exports.hasLocaleData = hasLocaleData;
-	
-	var _intlMessageformat = __webpack_require__(271);
-	
-	var _intlMessageformat2 = _interopRequireDefault(_intlMessageformat);
-	
-	var _intlRelativeformat = __webpack_require__(281);
-	
-	var _intlRelativeformat2 = _interopRequireDefault(_intlRelativeformat);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/*
-	 * Copyright 2015, Yahoo Inc.
-	 * Copyrights licensed under the New BSD License.
-	 * See the accompanying LICENSE file for terms.
-	 */
-	
-	function addLocaleData() {
-	    var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	
-	    var locales = Array.isArray(data) ? data : [data];
-	
-	    locales.forEach(function (localeData) {
-	        _intlMessageformat2.default.__addLocaleData(localeData);
-	        _intlRelativeformat2.default.__addLocaleData(localeData);
-	    });
-	}
-	
-	function hasLocaleData(locale) {
-	    var normalizedLocale = locale && locale.toLowerCase();
-	
-	    return !!(_intlMessageformat2.default.__localeData__[normalizedLocale] && _intlRelativeformat2.default.__localeData__[normalizedLocale]);
-	}
-
-/***/ },
-/* 294 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedDate = (function (_Component) {
-	    _inherits(FormattedDate, _Component);
-	
-	    function FormattedDate(props, context) {
-	        _classCallCheck(this, FormattedDate);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedDate).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedDate, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
-	                next[_key] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatDate = this.context.intl.formatDate;
-	            var _props = this.props;
-	            var value = _props.value;
-	            var children = _props.children;
-	
-	            var formattedDate = formatDate(value, this.props);
-	
-	            if (typeof children === 'function') {
-	                return children(formattedDate);
-	            }
-	
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                formattedDate
-	            );
-	        }
-	    }]);
-	
-	    return FormattedDate;
-	})(_react.Component);
-	
-	exports.default = FormattedDate;
-	
-	FormattedDate.displayName = 'FormattedDate';
-	
-	FormattedDate.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedDate.propTypes = _extends({}, _types.dateTimeFormatPropTypes, {
-	    value: _react.PropTypes.any.isRequired,
-	    format: _react.PropTypes.string,
-	    children: _react.PropTypes.func
-	});
-
-/***/ },
-/* 295 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedTime = (function (_Component) {
-	    _inherits(FormattedTime, _Component);
-	
-	    function FormattedTime(props, context) {
-	        _classCallCheck(this, FormattedTime);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedTime).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedTime, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
-	                next[_key] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatTime = this.context.intl.formatTime;
-	            var _props = this.props;
-	            var value = _props.value;
-	            var children = _props.children;
-	
-	            var formattedTime = formatTime(value, this.props);
-	
-	            if (typeof children === 'function') {
-	                return children(formattedTime);
-	            }
-	
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                formattedTime
-	            );
-	        }
-	    }]);
-	
-	    return FormattedTime;
-	})(_react.Component);
-	
-	exports.default = FormattedTime;
-	
-	FormattedTime.displayName = 'FormattedTime';
-	
-	FormattedTime.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedTime.propTypes = _extends({}, _types.dateTimeFormatPropTypes, {
-	    value: _react.PropTypes.any.isRequired,
-	    format: _react.PropTypes.string,
-	    children: _react.PropTypes.func
-	});
-
-/***/ },
-/* 296 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var SECOND = 1000;
-	var MINUTE = 1000 * 60;
-	var HOUR = 1000 * 60 * 60;
-	var DAY = 1000 * 60 * 60 * 24;
-	
-	// The maximum timer delay value is a 32-bit signed integer.
-	// See: https://mdn.io/setTimeout
-	var MAX_TIMER_DELAY = 2147483647;
-	
-	function selectUnits(delta) {
-	    var absDelta = Math.abs(delta);
-	
-	    if (absDelta < MINUTE) {
-	        return 'second';
-	    }
-	
-	    if (absDelta < HOUR) {
-	        return 'minute';
-	    }
-	
-	    if (absDelta < DAY) {
-	        return 'hour';
-	    }
-	
-	    // The maximum scheduled delay will be measured in days since the maximum
-	    // timer delay is less than the number of milliseconds in 25 days.
-	    return 'day';
-	}
-	
-	function getUnitDelay(units) {
-	    switch (units) {
-	        case 'second':
-	            return SECOND;
-	        case 'minute':
-	            return MINUTE;
-	        case 'hour':
-	            return HOUR;
-	        case 'day':
-	            return DAY;
-	        default:
-	            return MAX_TIMER_DELAY;
-	    }
-	}
-	
-	var FormattedRelative = (function (_Component) {
-	    _inherits(FormattedRelative, _Component);
-	
-	    function FormattedRelative(props, context) {
-	        _classCallCheck(this, FormattedRelative);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedRelative).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	
-	        var now = isFinite(props.initialNow) ? Number(props.initialNow) : context.intl.now();
-	
-	        // `now` is stored as state so that `render()` remains a function of
-	        // props + state, instead of accessing `Date.now()` inside `render()`.
-	        _this.state = { now: now };
-	        return _this;
-	    }
-	
-	    _createClass(FormattedRelative, [{
-	        key: 'scheduleNextUpdate',
-	        value: function scheduleNextUpdate(props, state) {
-	            var _this2 = this;
-	
-	            var updateInterval = props.updateInterval;
-	
-	            // If the `updateInterval` is falsy, including `0`, then auto updates
-	            // have been turned off, so we bail and skip scheduling an update.
-	
-	            if (!updateInterval) {
-	                return;
-	            }
-	
-	            var delta = Number(props.value) - state.now;
-	            var units = props.units || selectUnits(delta);
-	
-	            var unitDelay = getUnitDelay(units);
-	            var unitRemainder = Math.abs(delta % unitDelay);
-	
-	            // We want the largest possible timer delay which will still display
-	            // accurate information while reducing unnecessary re-renders. The delay
-	            // should be until the next "interesting" moment, like a tick from
-	            // "1 minute ago" to "2 minutes ago" when the delta is 120,000ms.
-	            var delay = delta < 0 ? Math.max(updateInterval, unitDelay - unitRemainder) : Math.max(updateInterval, unitRemainder);
-	
-	            clearTimeout(this._timer);
-	
-	            this._timer = setTimeout(function () {
-	                _this2.setState({ now: _this2.context.intl.now() });
-	            }, delay);
-	        }
-	    }, {
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
-	                next[_key] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
-	        }
-	    }, {
-	        key: 'componentWillUpdate',
-	        value: function componentWillUpdate(nextProps, nextState) {
-	            this.scheduleNextUpdate(nextProps, nextState);
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.scheduleNextUpdate(this.props, this.state);
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            clearTimeout(this._timer);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatRelative = this.context.intl.formatRelative;
-	            var _props = this.props;
-	            var value = _props.value;
-	            var children = _props.children;
-	
-	            var formattedRelative = formatRelative(value, _extends({}, this.props, this.state));
-	
-	            if (typeof children === 'function') {
-	                return children(formattedRelative);
-	            }
-	
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                formattedRelative
-	            );
-	        }
-	    }]);
-	
-	    return FormattedRelative;
-	})(_react.Component);
-	
-	exports.default = FormattedRelative;
-	
-	FormattedRelative.displayName = 'FormattedRelative';
-	
-	FormattedRelative.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedRelative.propTypes = _extends({}, _types.relativeFormatPropTypes, {
-	    value: _react.PropTypes.any.isRequired,
-	    format: _react.PropTypes.string,
-	    updateInterval: _react.PropTypes.number,
-	    initialNow: _react.PropTypes.any,
-	    children: _react.PropTypes.func
-	});
-	
-	FormattedRelative.defaultProps = {
-	    updateInterval: 1000 * 10
-	};
-
-/***/ },
-/* 297 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedNumber = (function (_Component) {
-	    _inherits(FormattedNumber, _Component);
-	
-	    function FormattedNumber(props, context) {
-	        _classCallCheck(this, FormattedNumber);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedNumber).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedNumber, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
-	                next[_key] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatNumber = this.context.intl.formatNumber;
-	            var _props = this.props;
-	            var value = _props.value;
-	            var children = _props.children;
-	
-	            var formattedNumber = formatNumber(value, this.props);
-	
-	            if (typeof children === 'function') {
-	                return children(formattedNumber);
-	            }
-	
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                formattedNumber
-	            );
-	        }
-	    }]);
-	
-	    return FormattedNumber;
-	})(_react.Component);
-	
-	exports.default = FormattedNumber;
-	
-	FormattedNumber.displayName = 'FormattedNumber';
-	
-	FormattedNumber.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedNumber.propTypes = _extends({}, _types.numberFormatPropTypes, {
-	    value: _react.PropTypes.any.isRequired,
-	    format: _react.PropTypes.string,
-	    children: _react.PropTypes.func
-	});
-
-/***/ },
-/* 298 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedPlural = (function (_Component) {
-	    _inherits(FormattedPlural, _Component);
-	
-	    function FormattedPlural(props, context) {
-	        _classCallCheck(this, FormattedPlural);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedPlural).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedPlural, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            for (var _len = arguments.length, next = Array(_len), _key = 0; _key < _len; _key++) {
-	                next[_key] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatPlural = this.context.intl.formatPlural;
-	            var _props = this.props;
-	            var value = _props.value;
-	            var other = _props.other;
-	            var children = _props.children;
-	
-	            var pluralCategory = formatPlural(value, this.props);
-	            var formattedPlural = this.props[pluralCategory] || other;
-	
-	            if (typeof children === 'function') {
-	                return children(formattedPlural);
-	            }
-	
-	            return _react2.default.createElement(
-	                'span',
-	                null,
-	                formattedPlural
-	            );
-	        }
-	    }]);
-	
-	    return FormattedPlural;
-	})(_react.Component);
-	
-	exports.default = FormattedPlural;
-	
-	FormattedPlural.displayName = 'FormattedPlural';
-	
-	FormattedPlural.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedPlural.propTypes = _extends({}, _types.pluralFormatPropTypes, {
-	    value: _react.PropTypes.any.isRequired,
-	
-	    other: _react.PropTypes.node.isRequired,
-	    zero: _react.PropTypes.node,
-	    one: _react.PropTypes.node,
-	    two: _react.PropTypes.node,
-	    few: _react.PropTypes.node,
-	    many: _react.PropTypes.node,
-	
-	    children: _react.PropTypes.func
-	});
-	
-	FormattedPlural.defaultProps = {
-	    style: 'cardinal'
-	};
-
-/***/ },
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedMessage = (function (_Component) {
-	    _inherits(FormattedMessage, _Component);
-	
-	    function FormattedMessage(props, context) {
-	        _classCallCheck(this, FormattedMessage);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedMessage).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedMessage, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate(nextProps) {
-	            var values = this.props.values;
-	            var nextValues = nextProps.values;
-	
-	            if (!(0, _utils.shallowEquals)(nextValues, values)) {
-	                return true;
-	            }
-	
-	            // Since `values` has already been checked, we know they're not
-	            // different, so the current `values` are carried over so the shallow
-	            // equals comparison on the other props isn't affected by the `values`.
-	            var nextPropsToCheck = _extends({}, nextProps, {
-	                values: values
-	            });
-	
-	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	                next[_key - 1] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatMessage = this.context.intl.formatMessage;
-	            var _props = this.props;
-	            var id = _props.id;
-	            var description = _props.description;
-	            var defaultMessage = _props.defaultMessage;
-	            var values = _props.values;
-	            var tagName = _props.tagName;
-	            var children = _props.children;
-	
-	            // Creates a token with a random UID that should not be guessable or
-	            // conflict with other parts of the `message` string.
-	
-	            var uid = Math.floor(Math.random() * 0x10000000000).toString(16);
-	            var tokenRegexp = new RegExp('(@__ELEMENT-' + uid + '-\\d+__@)', 'g');
-	
-	            var generateToken = (function () {
-	                var counter = 0;
-	                return function () {
-	                    return '@__ELEMENT-' + uid + '-' + (counter += 1) + '__@';
-	                };
-	            })();
-	
-	            var tokenizedValues = {};
-	            var elements = {};
-	
-	            // Iterates over the `props` to keep track of any React Element values
-	            // so they can be represented by the `token` as a placeholder when the
-	            // `message` is formatted. This allows the formatted message to then be
-	            // broken-up into parts with references to the React Elements inserted
-	            // back in.
-	            Object.keys(values).forEach(function (name) {
-	                var value = values[name];
-	
-	                if ((0, _react.isValidElement)(value)) {
-	                    var token = generateToken();
-	                    tokenizedValues[name] = token;
-	                    elements[token] = value;
-	                } else {
-	                    tokenizedValues[name] = value;
-	                }
-	            });
-	
-	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
-	            var formattedMessage = formatMessage(descriptor, tokenizedValues);
-	
-	            // Split the message into parts so the React Element values captured
-	            // above can be inserted back into the rendered message. This approach
-	            // allows messages to render with React Elements while keeping React's
-	            // virtual diffing working properly.
-	            var nodes = formattedMessage.split(tokenRegexp).filter(function (part) {
-	                return !!part;
-	            }).map(function (part) {
-	                return elements[part] || part;
-	            });
-	
-	            if (typeof children === 'function') {
-	                return children.apply(undefined, _toConsumableArray(nodes));
-	            }
-	
-	            return _react.createElement.apply(undefined, [tagName, null].concat(_toConsumableArray(nodes)));
-	        }
-	    }]);
-	
-	    return FormattedMessage;
-	})(_react.Component);
-	
-	exports.default = FormattedMessage;
-	
-	FormattedMessage.displayName = 'FormattedMessage';
-	
-	FormattedMessage.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedMessage.propTypes = _extends({}, _types.messageDescriptorPropTypes, {
-	    values: _react.PropTypes.object,
-	    tagName: _react.PropTypes.string,
-	    children: _react.PropTypes.func
-	});
-	
-	FormattedMessage.defaultProps = {
-	    values: {},
-	    tagName: 'span'
-	};
-
-/***/ },
-/* 300 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(4);
-	
-	var _types = __webpack_require__(266);
-	
-	var _utils = __webpack_require__(269);
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright 2015, Yahoo Inc.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyrights licensed under the New BSD License.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * See the accompanying LICENSE file for terms.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	
-	var FormattedHTMLMessage = (function (_Component) {
-	    _inherits(FormattedHTMLMessage, _Component);
-	
-	    function FormattedHTMLMessage(props, context) {
-	        _classCallCheck(this, FormattedHTMLMessage);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FormattedHTMLMessage).call(this, props, context));
-	
-	        (0, _utils.invariantIntlContext)(context);
-	        return _this;
-	    }
-	
-	    _createClass(FormattedHTMLMessage, [{
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate(nextProps) {
-	            var values = this.props.values;
-	            var nextValues = nextProps.values;
-	
-	            if (!(0, _utils.shallowEquals)(nextValues, values)) {
-	                return true;
-	            }
-	
-	            // Since `values` has already been checked, we know they're not
-	            // different, so the current `values` are carried over so the shallow
-	            // equals comparison on the other props isn't affected by the `values`.
-	            var nextPropsToCheck = _extends({}, nextProps, {
-	                values: values
-	            });
-	
-	            for (var _len = arguments.length, next = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	                next[_key - 1] = arguments[_key];
-	            }
-	
-	            return _utils.shouldIntlComponentUpdate.apply(undefined, [this, nextPropsToCheck].concat(next));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var formatHTMLMessage = this.context.intl.formatHTMLMessage;
-	            var _props = this.props;
-	            var id = _props.id;
-	            var description = _props.description;
-	            var defaultMessage = _props.defaultMessage;
-	            var rawValues = _props.values;
-	            var tagName = _props.tagName;
-	            var children = _props.children;
-	
-	            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
-	            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
-	
-	            if (typeof children === 'function') {
-	                return children(formattedHTMLMessage);
-	            }
-	
-	            // Since the message presumably has HTML in it, we need to set
-	            // `innerHTML` in order for it to be rendered and not escaped by React.
-	            // To be safe, all string prop values were escaped when formatting the
-	            // message. It is assumed that the message is not UGC, and came from the
-	            // developer making it more like a template.
-	            //
-	            // Note: There's a perf impact of using this component since there's no
-	            // way for React to do its virtual DOM diffing.
-	            return (0, _react.createElement)(tagName, {
-	                dangerouslySetInnerHTML: {
-	                    __html: formattedHTMLMessage
-	                }
-	            });
-	        }
-	    }]);
-	
-	    return FormattedHTMLMessage;
-	})(_react.Component);
-	
-	exports.default = FormattedHTMLMessage;
-	
-	FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
-	
-	FormattedHTMLMessage.contextTypes = {
-	    intl: _types.intlShape
-	};
-	
-	FormattedHTMLMessage.propTypes = _extends({}, _types.messageDescriptorPropTypes, {
-	    values: _react.PropTypes.object,
-	    tagName: _react.PropTypes.string,
-	    children: _react.PropTypes.func
-	});
-	
-	FormattedHTMLMessage.defaultProps = {
-	    values: {},
-	    tagName: 'span'
-	};
-
-/***/ },
-/* 301 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// GENERATED FILE
-	exports.default = { "locale": "en", "pluralRuleFunction": function pluralRuleFunction(n, ord) {
-	    var s = String(n).split("."),
-	        v0 = !s[1],
-	        t0 = Number(s[0]) == n,
-	        n10 = t0 && s[0].slice(-1),
-	        n100 = t0 && s[0].slice(-2);if (ord) return n10 == 1 && n100 != 11 ? "one" : n10 == 2 && n100 != 12 ? "two" : n10 == 3 && n100 != 13 ? "few" : "other";return n == 1 && v0 ? "one" : "other";
-	  }, "fields": { "year": { "displayName": "Year", "relative": { "0": "this year", "1": "next year", "-1": "last year" }, "relativeTime": { "future": { "one": "in {0} year", "other": "in {0} years" }, "past": { "one": "{0} year ago", "other": "{0} years ago" } } }, "month": { "displayName": "Month", "relative": { "0": "this month", "1": "next month", "-1": "last month" }, "relativeTime": { "future": { "one": "in {0} month", "other": "in {0} months" }, "past": { "one": "{0} month ago", "other": "{0} months ago" } } }, "day": { "displayName": "Day", "relative": { "0": "today", "1": "tomorrow", "-1": "yesterday" }, "relativeTime": { "future": { "one": "in {0} day", "other": "in {0} days" }, "past": { "one": "{0} day ago", "other": "{0} days ago" } } }, "hour": { "displayName": "Hour", "relativeTime": { "future": { "one": "in {0} hour", "other": "in {0} hours" }, "past": { "one": "{0} hour ago", "other": "{0} hours ago" } } }, "minute": { "displayName": "Minute", "relativeTime": { "future": { "one": "in {0} minute", "other": "in {0} minutes" }, "past": { "one": "{0} minute ago", "other": "{0} minutes ago" } } }, "second": { "displayName": "Second", "relative": { "0": "now" }, "relativeTime": { "future": { "one": "in {0} second", "other": "in {0} seconds" }, "past": { "one": "{0} second ago", "other": "{0} seconds ago" } } } } };
-
-/***/ },
-/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

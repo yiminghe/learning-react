@@ -9,11 +9,13 @@ webpackJsonp([1,12],{
 /***/ },
 
 /***/ 170:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var _prevChildren, _nextChildren;
+	
+	__webpack_require__(171);
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -135,11 +137,11 @@ webpackJsonp([1,12],{
 	    nextIndex++;
 	  }
 	  // Remove children that are no longer present.
-	  for (name in prevChildren) {
-	    if (prevChildren.hasOwnProperty(name) && !(nextChildren && nextChildren.hasOwnProperty(name))) {
+	  for (var childName in prevChildren) {
+	    if (prevChildren.hasOwnProperty(childName) && !(nextChildren && nextChildren.hasOwnProperty(childName))) {
 	      queue.push({
 	        type: 'remove',
-	        child: prevChildren[name]
+	        child: prevChildren[childName]
 	      });
 	    }
 	  }
@@ -161,6 +163,13 @@ webpackJsonp([1,12],{
 	    }
 	  });
 	};
+
+/***/ },
+
+/***/ 171:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 

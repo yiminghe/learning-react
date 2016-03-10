@@ -2,7 +2,7 @@ webpackJsonp([2,12],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(171);
+	module.exports = __webpack_require__(172);
 
 
 /***/ },
@@ -1023,7 +1023,7 @@ webpackJsonp([2,12],[
 	 * will remain to ensure logic does not differ in production.
 	 */
 	
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -1037,15 +1037,16 @@ webpackJsonp([2,12],[
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 	
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 	
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
@@ -9264,6 +9265,7 @@ webpackJsonp([2,12],[
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9297,8 +9299,6 @@ webpackJsonp([2,12],[
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9309,7 +9309,11 @@ webpackJsonp([2,12],[
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 	
@@ -10472,8 +10476,8 @@ webpackJsonp([2,12],[
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: null,
-	    autoCorrect: null,
+	    autoCapitalize: MUST_USE_ATTRIBUTE,
+	    autoCorrect: MUST_USE_ATTRIBUTE,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -10504,9 +10508,7 @@ webpackJsonp([2,12],[
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
-	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
-	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -13160,7 +13162,10 @@ webpackJsonp([2,12],[
 	      }
 	    });
 	
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+	
 	    return nativeProps;
 	  }
 	
@@ -13585,7 +13590,7 @@ webpackJsonp([2,12],[
 	    var value = LinkedValueUtils.getValue(props);
 	
 	    if (value != null) {
-	      updateOptions(this, props, value);
+	      updateOptions(this, Boolean(props.multiple), value);
 	    }
 	  }
 	}
@@ -16620,11 +16625,14 @@ webpackJsonp([2,12],[
 	 * @typechecks
 	 */
 	
+	/* eslint-disable fb-www/typeof-undefined */
+	
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not
+	 * yet defined.
 	 */
 	'use strict';
 	
@@ -16632,7 +16640,6 @@ webpackJsonp([2,12],[
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
-	
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -18372,7 +18379,9 @@ webpackJsonp([2,12],[
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+	  'setValueForStyles': 'update styles',
+	  'replaceNodeWithMarkup': 'replace',
+	  'updateTextContent': 'set textContent'
 	};
 	
 	function getTotalTime(measurements) {
@@ -18564,18 +18573,23 @@ webpackJsonp([2,12],[
 	'use strict';
 	
 	var performance = __webpack_require__(148);
-	var curPerformance = performance;
+	
+	var performanceNow;
 	
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (!curPerformance || !curPerformance.now) {
-	  curPerformance = Date;
+	if (performance.now) {
+	  performanceNow = function () {
+	    return performance.now();
+	  };
+	} else {
+	  performanceNow = function () {
+	    return Date.now();
+	  };
 	}
-	
-	var performanceNow = curPerformance.now.bind(curPerformance);
 	
 	module.exports = performanceNow;
 
@@ -18624,7 +18638,7 @@ webpackJsonp([2,12],[
 	
 	'use strict';
 	
-	module.exports = '0.14.3';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 150 */
@@ -19606,11 +19620,9 @@ webpackJsonp([2,12],[
 /* 169 */,
 /* 170 */,
 /* 171 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	"use strict";
-	
-	__webpack_require__(172);
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 /* 172 */
@@ -19618,21 +19630,7 @@ webpackJsonp([2,12],[
 
 	'use strict';
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _App = __webpack_require__(173);
-	
-	var _App2 = _interopRequireDefault(_App);
-	
-	var _reactDom = __webpack_require__(161);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	_reactDom2['default'].render(_react2['default'].createElement(_App2['default'], null), document.getElementById('__react-content'));
+	__webpack_require__(173);
 
 /***/ },
 /* 173 */
@@ -19640,47 +19638,23 @@ webpackJsonp([2,12],[
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	__webpack_require__(171);
 	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _User = __webpack_require__(174);
+	var _App = __webpack_require__(174);
 	
-	var _User2 = _interopRequireDefault(_User);
+	var _App2 = _interopRequireDefault(_App);
 	
-	var _UserStore = __webpack_require__(180);
+	var _reactDom = __webpack_require__(161);
 	
-	var _UserStore2 = _interopRequireDefault(_UserStore);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var App = _react2['default'].createClass({
-	  displayName: 'App',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	  getInitialState: function getInitialState() {
-	    return {
-	      user: _UserStore2['default'].getUser()
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    _UserStore2['default'].addChangeListener(this.onUserChange);
-	  },
-	  onUserChange: function onUserChange() {
-	    this.setState({
-	      user: _UserStore2['default'].getUser()
-	    });
-	  },
-	  render: function render() {
-	    return _react2['default'].createElement(_User2['default'], this.state.user);
-	  }
-	});
-	
-	exports['default'] = App;
-	module.exports = exports['default'];
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('__react-content'));
 
 /***/ },
 /* 174 */
@@ -19688,25 +19662,72 @@ webpackJsonp([2,12],[
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _UserAction = __webpack_require__(175);
+	var _User = __webpack_require__(175);
+	
+	var _User2 = _interopRequireDefault(_User);
+	
+	var _UserStore = __webpack_require__(181);
+	
+	var _UserStore2 = _interopRequireDefault(_UserStore);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var App = _react2.default.createClass({
+	  displayName: 'App',
+	  getInitialState: function getInitialState() {
+	    return {
+	      user: _UserStore2.default.getUser()
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    _UserStore2.default.addChangeListener(this.onUserChange);
+	  },
+	  onUserChange: function onUserChange() {
+	    this.setState({
+	      user: _UserStore2.default.getUser()
+	    });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(_User2.default, this.state.user);
+	  }
+	});
+	
+	exports.default = App;
+	module.exports = exports['default'];
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _UserAction = __webpack_require__(176);
 	
 	var _UserAction2 = _interopRequireDefault(_UserAction);
 	
-	var User = _react2['default'].createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var User = _react2.default.createClass({
 	  displayName: 'User',
 	
 	  propTypes: {
-	    name: _react2['default'].PropTypes.string
+	    name: _react2.default.PropTypes.string
 	  },
 	  getInitialState: function getInitialState() {
 	    return {};
@@ -19720,23 +19741,23 @@ webpackJsonp([2,12],[
 	    this.setState({
 	      loading: 1
 	    });
-	    _UserAction2['default'].change();
+	    _UserAction2.default.change();
 	  },
 	  render: function render() {
-	    return this.state.loading ? _react2['default'].createElement(
+	    return this.state.loading ? _react2.default.createElement(
 	      'div',
 	      null,
 	      'loading'
-	    ) : _react2['default'].createElement(
+	    ) : _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        null,
 	        'name: ',
 	        this.props.name
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.onClick },
 	        'change'
@@ -19745,29 +19766,29 @@ webpackJsonp([2,12],[
 	  }
 	});
 	
-	exports['default'] = User;
+	exports.default = User;
 	module.exports = exports['default'];
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _AppDispatcher = __webpack_require__(176);
+	var _AppDispatcher = __webpack_require__(177);
 	
 	var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
 	
-	exports['default'] = {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
 	  change: function change() {
 	    setTimeout(function () {
-	      _AppDispatcher2['default'].handleViewAction({
+	      _AppDispatcher2.default.handleViewAction({
 	        user: {
 	          name: 'changed ' + Date.now()
 	        },
@@ -19779,38 +19800,38 @@ webpackJsonp([2,12],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var _flux = __webpack_require__(177);
+	var _flux = __webpack_require__(178);
 	
 	var _flux2 = _interopRequireDefault(_flux);
 	
-	var Dispatcher = _flux2['default'].Dispatcher;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var AppDispatcher = (function (_Dispatcher) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Dispatcher = _flux2.default.Dispatcher;
+	
+	var AppDispatcher = function (_Dispatcher) {
 	  _inherits(AppDispatcher, _Dispatcher);
 	
 	  function AppDispatcher() {
 	    _classCallCheck(this, AppDispatcher);
 	
-	    _get(Object.getPrototypeOf(AppDispatcher.prototype), 'constructor', this).apply(this, arguments);
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AppDispatcher).apply(this, arguments));
 	  }
 	
 	  _createClass(AppDispatcher, [{
@@ -19824,15 +19845,15 @@ webpackJsonp([2,12],[
 	  }]);
 	
 	  return AppDispatcher;
-	})(Dispatcher);
+	}(Dispatcher);
 	
 	var dispatcher = new AppDispatcher();
 	
-	exports['default'] = dispatcher;
+	exports.default = dispatcher;
 	module.exports = exports['default'];
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19844,11 +19865,11 @@ webpackJsonp([2,12],[
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(178);
+	module.exports.Dispatcher = __webpack_require__(179);
 
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19870,7 +19891,7 @@ webpackJsonp([2,12],[
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(179);
+	var invariant = __webpack_require__(180);
 	
 	var _prefix = 'ID_';
 	
@@ -20085,7 +20106,7 @@ webpackJsonp([2,12],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -20140,33 +20161,33 @@ webpackJsonp([2,12],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	var _objectAssign = __webpack_require__(181);
+	var _objectAssign = __webpack_require__(182);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _AppDispatcher = __webpack_require__(176);
+	var _AppDispatcher = __webpack_require__(177);
 	
 	var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
 	
-	var _events = __webpack_require__(182);
+	var _events = __webpack_require__(183);
 	
 	var _events2 = _interopRequireDefault(_events);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var user = {
 	  name: 'init'
 	};
-	var UserStore = (0, _objectAssign2['default'])({}, _events2['default'].EventEmitter.prototype, {
+	var UserStore = (0, _objectAssign2.default)({}, _events2.default.EventEmitter.prototype, {
 	  getUser: function getUser() {
 	    return user;
 	  },
@@ -20174,18 +20195,18 @@ webpackJsonp([2,12],[
 	    this.on('change', callback);
 	  }
 	});
-	_AppDispatcher2['default'].register(function (payload) {
+	_AppDispatcher2.default.register(function (payload) {
 	  var action = payload.action;
 	  if (action.actionType === 'update_user') {
 	    user = action.user;
 	    UserStore.emit('change');
 	  }
 	});
-	exports['default'] = UserStore;
+	exports.default = UserStore;
 	module.exports = exports['default'];
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20217,7 +20238,7 @@ webpackJsonp([2,12],[
 
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
