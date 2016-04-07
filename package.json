@@ -39,7 +39,7 @@
     "history": "1.x",
     "qs": "^6.0.1",
     "scriptjs": "^2.5.8",
-    "react-intl": "^v2.0.0-rc-1",
+    "react-intl": "2.0.x",
     "react-addons-test-utils": "~0.14.3",
     "expect.js": "~0.3.1",
     "pre-commit": "1.x",

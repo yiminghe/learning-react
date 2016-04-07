@@ -22,10 +22,10 @@ if (!window.Intl) {
   // end
 }
 // should output by server by <script>
-scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/en.js`);
+scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0/locale-data/en.js`);
 // the following should be output by server template conditionally by <script>
 if (localePrefix !== 'en') {
-  scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/${localePrefix}.js`);
+  scripts.push(`https://as.alipayobjects.com/g/component/react-intl/2.0.0/locale-data/${localePrefix}.js`);
 }
 // end
 
@@ -50,7 +50,7 @@ const ready = () => {
     render() {
       return (<div>
         <p>
-          npm install react-intl@2.0.0-rc-1
+          npm install react-intl@2.0.0
         </p>
         <p>
           <a href="?locale=en-US"><FormattedMessage
