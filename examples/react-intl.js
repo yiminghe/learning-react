@@ -19761,10 +19761,10 @@ webpackJsonp([7,12],[
 	  // end
 	}
 	// should output by server by <script>
-	scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/en.js');
+	scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0/locale-data/en.js');
 	// the following should be output by server template conditionally by <script>
 	if (localePrefix !== 'en') {
-	  scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0-rc-1/locale-data/' + localePrefix + '.js');
+	  scripts.push('https://as.alipayobjects.com/g/component/react-intl/2.0.0/locale-data/' + localePrefix + '.js');
 	}
 	// end
 	
@@ -19794,7 +19794,7 @@ webpackJsonp([7,12],[
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'npm install react-intl@2.0.0-rc-1'
+	          'npm install react-intl@2.0.0'
 	        ),
 	        _react2.default.createElement(
 	          'p',
@@ -20819,6 +20819,17 @@ webpackJsonp([7,12],[
 	    var defaults = format && getNamedFormat(formats, 'relative', format);
 	    var filteredOptions = filterProps(options, RELATIVE_FORMAT_OPTIONS, defaults);
 	
+	    // Capture the current threshold values, then temporarily override them with
+	    // specific values just for this render.
+	    var thresholds = babelHelpers['extends']({}, IntlRelativeFormat.thresholds);
+	    Object.assign(IntlRelativeFormat.thresholds, {
+	        second: 60, // seconds to minute
+	        minute: 60, // minutes to hour
+	        hour: 24, // hours to day
+	        day: 30, // days to month
+	        month: 12 });
+	
+	    // months to year
 	    try {
 	        return state.getRelativeFormat(locale, filteredOptions).format(date, {
 	            now: isFinite(now) ? now : state.now()
@@ -20827,6 +20838,8 @@ webpackJsonp([7,12],[
 	        if (process.env.NODE_ENV !== 'production') {
 	            console.error('[React Intl] Error formatting relative time.\n' + e);
 	        }
+	    } finally {
+	        Object.assign(IntlRelativeFormat.thresholds, thresholds);
 	    }
 	
 	    return String(date);
@@ -21030,9 +21043,10 @@ webpackJsonp([7,12],[
 	            var config = babelHelpers['extends']({}, defaultProps, filterProps(this.props, intlConfigPropNames$1, intlContext));
 	
 	            if (!hasLocaleData(config.locale)) {
-	                var locale = config.locale;
-	                var defaultLocale = config.defaultLocale;
-	                var defaultFormats = config.defaultFormats;
+	                var _config = config;
+	                var locale = _config.locale;
+	                var defaultLocale = _config.defaultLocale;
+	                var defaultFormats = _config.defaultFormats;
 	
 	
 	                if (process.env.NODE_ENV !== 'production') {
